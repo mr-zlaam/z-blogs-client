@@ -1,8 +1,5 @@
-import express from "express";
-const app = express();
-app.get("/", (req, res) => {
-  res.send("hello world");
-});
-app.listen(8000, () => {
-  console.log(`server is running on ${8000}`);
-});
+import connectDB from "./src/db";
+
+connectDB().catch((err) =>
+  console.log(`Error while connecting to the data basae`)
+);

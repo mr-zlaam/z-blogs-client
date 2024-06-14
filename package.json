@@ -7,9 +7,10 @@
   "scripts": {
     "build": "rimraf dist && tsc",
     "predev": "npm run build",
-    "dev": "concurrently \"tsc -w & node\"  \" --env-file .env nodemon ./dist/server.js\""
+    "dev": "concurrently \"tsc -w & node\"  \"nodemon --env-file .env ./dist/server.js\""
   },
   "dependencies": {
+    "@prisma/client": "^5.15.0",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
