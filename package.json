@@ -1,0 +1,38 @@
+{
+  "name": "backend-v2",
+  "version": "1.0.2",
+  "description": "Next version of z-blogify",
+  "main": "server.ts",
+  "type": "commonjs",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "predev": "npm run build",
+    "dev": "concurrently \"tsc -w & node\"  \" --env-file .env nodemon ./dist/server.js\""
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.3.4"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/body-parser": "^1.19.5",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20.14.2",
+    "concurrently": "^8.2.2",
+    "prettier": "^3.2.5",
+    "prisma": "^5.15.0",
+    "rimraf": "^5.0.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "author": "zlaam",
+  "license": "MIT"
+}
