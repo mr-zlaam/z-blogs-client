@@ -81,6 +81,9 @@ const userLoginController = asyncHandler(
      * save it into user's cookies
      */
     const { email, password, username } = req.body;
+    if (!username && !email)
+      throw { status: 400, message: "username or email is required" };
+    if (!password) throw { status: 400, message: "password is required" };
     const isUserRegistered = await prisma.user.findFirst({
       where: {
         OR: [{ username }, { email }],
@@ -112,7 +115,8 @@ const userLoginController = asyncHandler(
       .json(
         apiResponse(
           200,
-          `${isUserRegistered.fullName || "Unknown User"} logged in successfully`
+          `${isUserRegistered.fullName || "Unknown User"} logged in successfully`,
+          { accessToken }
         )
       );
   }
