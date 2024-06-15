@@ -2,6 +2,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Express } from "express";
+import { errorHandler, notFoundHandler } from "../middlewares/errorMiddleware";
 const app: Express = express();
 const corsOptions = {
   //TODO: check this if error related to cors
@@ -22,5 +23,7 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+// * Error handlers
+app.use(notFoundHandler);
+app.use(errorHandler);
 export { app };
