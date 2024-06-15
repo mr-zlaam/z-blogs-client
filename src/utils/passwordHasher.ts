@@ -4,8 +4,8 @@ import { apiResponse } from "./apiResponseUtil";
 
 export const passwordHasher = async (password: string, res: Response) => {
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    return hashedPassword;
+    const hashedPassword: string = await bcrypt.hash(password, 10);
+    return hashedPassword as string;
   } catch (error: any) {
     console.log(error.message);
     return res

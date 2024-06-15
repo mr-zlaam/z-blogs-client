@@ -27,7 +27,7 @@ export const userRegistrationSchema = z.object({
     .string({ message: "password is required!!" })
     .min(6, { message: "password must be at least 6 characters long." })
     .regex(
-      /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~`-])[A-Za-z0-9!@#$%^&*()_+{}\[\]:;<>,.?/~`-]{6,}$/,
+      /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~`-])[A-Za-z0-9!@#$%^&*()_+{}\[\]:;<>,.?/~`-]/,
       {
         message:
           "Password must contain at least one special character. e.g: P@ssw0rd!",
