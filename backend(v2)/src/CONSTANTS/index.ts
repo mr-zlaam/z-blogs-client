@@ -1,4 +1,5 @@
 import { StatusCodes } from "http-status-codes";
+import { ISDEVELOPMENT_ENVIRONMENT } from "../config";
 const statusCode = {
   OK: StatusCodes.OK,
   CREATED: StatusCodes.CREATED,
@@ -10,7 +11,12 @@ const statusCode = {
   NOT_IMPLEMENTED: StatusCodes.NOT_IMPLEMENTED,
   SERVICE_UNAVAILABLE: StatusCodes.SERVICE_UNAVAILABLE,
   GATEWAY_TIMEOUT: StatusCodes.GATEWAY_TIMEOUT,
+  COOKIES_OPTION: {
+    httpOnly: true,
+    secure: !ISDEVELOPMENT_ENVIRONMENT && true,
+  },
 };
+//codes
 export const {
   BAD_REQUEST,
   CREATED,
@@ -22,4 +28,6 @@ export const {
   OK,
   SERVICE_UNAVAILABLE,
   UNAUTHORIZED,
+  //options
+  COOKIES_OPTION,
 } = statusCode;

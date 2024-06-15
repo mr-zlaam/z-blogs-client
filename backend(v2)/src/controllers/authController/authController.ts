@@ -1,10 +1,16 @@
-import { Request, Response } from "express";
-import { asyncHandler } from "../../utils/asynhandlerUtil";
-import { passwordHasher } from "../../utils/passwordHasher";
-import { prisma } from "../../db";
-import { BAD_REQUEST, OK } from "../../CONSTANTS";
-import { apiResponse } from "../../utils/apiResponseUtil";
+import type { Request, Response } from "express";
+import {
+  BAD_REQUEST,
+  COOKIES_OPTION,
+  NOT_FOUND,
+  OK,
+  UNAUTHORIZED,
+} from "../../CONSTANTS";
 import { ADMIN_EMAIL, ADMIN_PASSWORD } from "../../config";
+import { prisma } from "../../db";
+import { apiResponse } from "../../utils/apiResponseUtil";
+import { asyncHandler } from "../../utils/asynhandlerUtil";
+import { passwordHasher, verifyPassword } from "../../utils/passwordHasher";
 import {
   GenerateJWTAccessToken,
   PayLoadType,
@@ -63,4 +69,52 @@ const userRegisterController = asyncHandler(
       );
   }
 );
-export { userRegisterController };
+const userLoginController = asyncHandler(
+  async (req: Request, res: Response) => {
+    /*
+     * ####Algo for login#######3
+     * check if user is registered
+     * hash the password
+     * check if credentials are valid
+     * make user login
+     * generate token
+     * save it into user's cookies
+     */
+    const { email, password, username } = req.body;
+    const isUserRegistered = await prisma.user.findFirst({
+      where: {
+        OR: [{ username }, { email }],
+      },
+    });
+    if (!isUserRegistered)
+      throw {
+        status: NOT_FOUND,
+        message: "user doesn't exist!!",
+      };
+    const isPasswordValid = await verifyPassword(
+      password,
+      isUserRegistered.password,
+      res
+    );
+    if (!isPasswordValid)
+      throw { status: UNAUTHORIZED, message: "Invalid credentials" };
+    const payload: PayLoadType = {
+      uid: isUserRegistered && isUserRegistered.uid,
+      email: isUserRegistered && isUserRegistered.email,
+      username: isUserRegistered && isUserRegistered.username,
+      fullName: isUserRegistered && isUserRegistered.fullName,
+      role: isUserRegistered && isUserRegistered.role,
+    };
+    const accessToken = GenerateJWTAccessToken(payload, res);
+    return res
+      .status(OK)
+      .cookie("accessToken", accessToken, COOKIES_OPTION)
+      .json(
+        apiResponse(
+          200,
+          `${isUserRegistered.fullName || "Unknown User"} logged in successfully`
+        )
+      );
+  }
+);
+export { userRegisterController, userLoginController };

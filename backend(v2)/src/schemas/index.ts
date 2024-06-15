@@ -34,3 +34,18 @@ export const userRegistrationSchema = z.object({
       }
     ),
 });
+
+//Login schema
+const baseSchema = z.object({
+  email: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string(),
+});
+
+export const userLoginSchema = baseSchema.refine(
+  (data) => data.email || data.username,
+  {
+    message: "Either username or email must be provided",
+    path: ["email", "username"],
+  }
+);
