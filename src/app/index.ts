@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Express } from "express";
 import { errorHandler, notFoundHandler } from "../middlewares/errorMiddleware";
+import { authRouter } from "../routers/authRouter";
 const app: Express = express();
 const corsOptions = {
   //TODO: check this if error related to cors
@@ -23,6 +24,8 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+//* Routes
+app.use("/api/v2/auth", authRouter);
 // * Error handlers
 app.use(notFoundHandler);
 app.use(errorHandler);
