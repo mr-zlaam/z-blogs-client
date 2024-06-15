@@ -12,7 +12,7 @@ export const notFoundHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  const error: CustomError = new Error("Api Not Found");
+  const error: CustomError = new Error("This Api doesn't exist right now!!");
   error.status = 404;
   next(error);
 };
