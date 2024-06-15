@@ -8,8 +8,8 @@ const apiResponse = (
   return {
     success: status < 400,
     statusCode: status,
-    data: data,
     message: message,
+    data: data,
     optMessage: optMessage,
     metaData: metaData,
   };

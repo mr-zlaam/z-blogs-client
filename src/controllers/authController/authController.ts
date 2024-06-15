@@ -9,7 +9,7 @@ const userRegisterController = asyncHandler(
     // * Hash the password
     // * Create a new user
     // * Return the user data
-    console.log(username, fullName, email, password);
+
     return res.send("hello world");
   }
 );
