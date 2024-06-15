@@ -4,6 +4,7 @@ import { passwordHasher } from "../../utils/passwordHasher";
 import { prisma } from "../../db";
 import { BAD_REQUEST, OK } from "../../CONSTANTS";
 import { apiResponse } from "../../utils/apiResponseUtil";
+import { ADMIN_EMAIL, ADMIN_PASSWORD } from "../../config";
 
 // * Register the User
 const userRegisterController = asyncHandler(
@@ -18,6 +19,7 @@ const userRegisterController = asyncHandler(
     });
     if (isUserExist)
       throw { status: BAD_REQUEST, message: "user already exists!!" };
+    const isAdmin = ADMIN_EMAIL === email && ADMIN_PASSWORD === password;
     const hashedPassword = (await passwordHasher(password, res)) as string;
     const newUser = await prisma.user.create({
       data: {
@@ -25,6 +27,7 @@ const userRegisterController = asyncHandler(
         fullName,
         email,
         password: hashedPassword,
+        role: isAdmin ? "ADMIN" : "USER",
       },
       select: { username: true, fullName: true, email: true },
     });

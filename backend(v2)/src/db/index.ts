@@ -23,7 +23,8 @@ export default async function connectDB() {
                                   X  ERRR while connecting to database X \n ${err.message}
                         **************************************************************
       `);
-      return process.exit(1);
+      process.exit(1);
+      process.exit(1);
     });
 }
 export { prisma };
