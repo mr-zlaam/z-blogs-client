@@ -4,6 +4,7 @@ const _config = {
   ISDEVELOPMENT_ENVIRONMENT: true as boolean,
   ADMIN_EMAIL: process.env.ADMIN_EMAIL as string,
   ADMIN_PASSWORD: process.env.ADMIN_PASSWORD as string,
+  JWT_SECRET_KEY: process.env.JWT_SECRET as string,
 };
 export const {
   DB_URI,
@@ -11,4 +12,5 @@ export const {
   ISDEVELOPMENT_ENVIRONMENT,
   ADMIN_EMAIL,
   ADMIN_PASSWORD,
+  JWT_SECRET_KEY,
 } = _config;

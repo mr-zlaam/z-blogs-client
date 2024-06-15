@@ -5,15 +5,19 @@ import { prisma } from "../../db";
 import { BAD_REQUEST, OK } from "../../CONSTANTS";
 import { apiResponse } from "../../utils/apiResponseUtil";
 import { ADMIN_EMAIL, ADMIN_PASSWORD } from "../../config";
+import { GenerateJWTAccessToken } from "../../utils/tokenGenerator";
 
 // * Register the User
 const userRegisterController = asyncHandler(
   async (req: Request, res: Response) => {
+    /*
+     ********Algo for Registration********
+     * Check if the user already exists
+     * Hash the password
+     * Create a new user
+     * Return the user data
+     */
     const { username, fullName, email, password } = req.body;
-    // * Check if the user already exists
-    // * Hash the password
-    // * Create a new user
-    // * Return the user data
     const isUserExist = await prisma.user.findFirst({
       where: { username, email },
     });
@@ -29,15 +33,16 @@ const userRegisterController = asyncHandler(
         password: hashedPassword,
         role: isAdmin ? "ADMIN" : "USER",
       },
-      select: { username: true, fullName: true, email: true },
+      select: { uid: true, username: true, fullName: true, email: true },
     });
+    const accessToken = GenerateJWTAccessToken(newUser && newUser.uid, res);
     return res
       .status(OK)
       .json(
         apiResponse(
           OK,
           `${newUser.username || "User"} registered successfully!!`,
-          newUser
+          { newUser, accessToken }
         )
       );
   }
