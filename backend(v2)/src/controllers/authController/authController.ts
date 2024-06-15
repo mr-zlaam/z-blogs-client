@@ -5,7 +5,10 @@ import { prisma } from "../../db";
 import { BAD_REQUEST, OK } from "../../CONSTANTS";
 import { apiResponse } from "../../utils/apiResponseUtil";
 import { ADMIN_EMAIL, ADMIN_PASSWORD } from "../../config";
-import { GenerateJWTAccessToken } from "../../utils/tokenGenerator";
+import {
+  GenerateJWTAccessToken,
+  PayLoadType,
+} from "../../utils/tokenGenerator";
 
 // * Register the User
 const userRegisterController = asyncHandler(
@@ -33,9 +36,22 @@ const userRegisterController = asyncHandler(
         password: hashedPassword,
         role: isAdmin ? "ADMIN" : "USER",
       },
-      select: { uid: true, username: true, fullName: true, email: true },
+      select: {
+        uid: true,
+        username: true,
+        fullName: true,
+        email: true,
+        role: true,
+      },
     });
-    const accessToken = GenerateJWTAccessToken(newUser && newUser.uid, res);
+    const payload: PayLoadType = {
+      uid: newUser && newUser.uid,
+      email: newUser && newUser.email,
+      username: newUser && newUser.username,
+      fullName: newUser && newUser.fullName,
+      role: newUser && newUser.role,
+    };
+    const accessToken = GenerateJWTAccessToken(payload, res);
     return res
       .status(OK)
       .json(
