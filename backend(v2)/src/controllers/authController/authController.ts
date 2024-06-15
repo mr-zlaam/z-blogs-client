@@ -28,11 +28,15 @@ const userRegisterController = asyncHandler(
       },
       select: { username: true, fullName: true, email: true },
     });
-    return apiResponse(
-      OK,
-      `${newUser.username || "User"} registered successfully!!`,
-      newUser
-    );
+    return res
+      .status(OK)
+      .json(
+        apiResponse(
+          OK,
+          `${newUser.username || "User"} registered successfully!!`,
+          newUser
+        )
+      );
   }
 );
 export { userRegisterController };
