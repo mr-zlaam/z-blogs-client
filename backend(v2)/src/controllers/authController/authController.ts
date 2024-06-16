@@ -341,6 +341,7 @@ const logoutUserController = asyncHandler(
       );
   }
 );
+// * Search user profile controller
 const searchUserController = asyncHandler(
   async (req: Request, res: Response) => {
     const { q, page = 1, limit = 10 } = req.query;
