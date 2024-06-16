@@ -14,7 +14,7 @@ export interface SearchQueryType {
   statusCode: number;
   message: string;
   data: {
-    searchUsers: UserData[]; // Changed from searchUserData to searchUsers
+    users: UserData[]; // Changed from searchUserData to searchUsers
   };
   metaData: {
     totalUsers: number; // Moved totalUsers inside metaData

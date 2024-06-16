@@ -363,7 +363,7 @@ const searchUserController = asyncHandler(
     const skip = (pageNumber - 1) * limitNumber;
     const take = limitNumber;
 
-    const searchUsers = (await prisma.$queryRaw`
+    const users = (await prisma.$queryRaw`
       SELECT * FROM "User"
       WHERE to_tsvector('english', "username" || ' ' || "email" || ' ' || "fullName") @@ plainto_tsquery('english', ${searchQuery})
       ORDER BY "createdAt" DESC
@@ -389,7 +389,7 @@ const searchUserController = asyncHandler(
       statusCode: 200,
       message: "Data searched successfully!!",
       data: {
-        searchUsers,
+        users,
       },
       metaData: {
         totalUsers: UsersCount,
