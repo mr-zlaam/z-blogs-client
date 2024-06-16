@@ -177,7 +177,7 @@ const getAllUsersController = asyncHandler(
 const getSingleUserController = asyncHandler(
   async (req: Request, res: Response) => {
     const { uid } = req.params;
-    if (!uid) throw { status: 400, message: "Post id is required!!" };
+    if (!uid) throw { status: 400, message: "user id is required!!" };
     const singleUser = await prisma.user.findUnique({
       where: { uid },
       select: {
@@ -340,14 +340,63 @@ const logoutUserController = asyncHandler(
       );
   }
 );
+const searchUserController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { q, page = 1, limit = 10 } = req.query;
+
+    if (!q) throw { status: 400, message: "Search query is required!!" };
+
+    const searchQuery = q as string;
+    const pageNumber = Number(page);
+    const limitNumber = Number(limit);
+
+    if (
+      isNaN(pageNumber) ||
+      isNaN(limitNumber) ||
+      pageNumber <= 0 ||
+      limitNumber <= 0
+    ) {
+      throw { status: 400, message: "Invalid pagination parameters!!" };
+    }
+
+    const skip = (pageNumber - 1) * limitNumber;
+    const take = limitNumber;
+
+    const searchUsers = await prisma.$queryRaw`
+      SELECT * FROM "User"
+      WHERE to_tsvector('english', "username" || ' ' || "email" || ' ' || "fullName") @@ plainto_tsquery('english', ${searchQuery})
+      ORDER BY "createdAt" DESC
+      OFFSET ${skip} LIMIT ${take}
+    `;
+
+    const totalUsersCount: any = await prisma.$queryRaw`
+      SELECT COUNT(*) FROM "User"
+      WHERE to_tsvector('english', "username" || ' ' || "email" || ' ' || "fullName") @@ plainto_tsquery('english', ${searchQuery})
+    `;
+
+    const UsersCount = Number(totalUsersCount[0].count);
+    const totalPages = Math.ceil(UsersCount / take);
+
+    return res.status(200).json(
+      apiResponse(200, "Data searched successfully!!", {
+        data: searchUsers,
+        totalUsers: UsersCount,
+        totalPages,
+        currentPage: pageNumber,
+      })
+    );
+  }
+);
+
 export {
-  registerUserController,
-  loginUserController,
+  deleteUserController,
   getAllUsersController,
   getSingleUserController,
-  updateUserController,
-  updateUserRoleController,
-  updateUserPasswordController,
-  deleteUserController,
+  loginUserController,
   logoutUserController,
+  registerUserController,
+  updateUserController,
+  updateUserPasswordController,
+  updateUserRoleController,
+  searchUserController,
 };

@@ -15,6 +15,7 @@ import {
   registerUserController,
   loginUserController,
   logoutUserController,
+  searchUserController,
 } from "../../controllers/authController/authController";
 const authRouter = Router();
 authRouter
@@ -32,4 +33,6 @@ authRouter
   .put(validateData(passwrodValidator), updateUserPasswordController);
 authRouter.route("/deleteUser/:uid").delete(deleteUserController);
 authRouter.route("/logoutUser/:uid").post(logoutUserController);
+authRouter.route("/getAllUsers/search").get(searchUserController);
+
 export { authRouter };
