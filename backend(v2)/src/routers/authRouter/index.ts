@@ -5,6 +5,7 @@ import {
   getAllUsersController,
   getSingleUserController,
   updateUserController,
+  updateUserRoleController,
   userLoginController,
   userRegisterController,
 } from "../../controllers/authController/authController";
@@ -18,4 +19,5 @@ authRouter.route("/getSingleUser/:uid").get(getSingleUserController);
 authRouter
   .route("/updateUser/:uid")
   .put(validateData(userUpdateSchema), updateUserController);
+authRouter.route("/updateRole/:uid").put(updateUserRoleController);
 export { authRouter };
