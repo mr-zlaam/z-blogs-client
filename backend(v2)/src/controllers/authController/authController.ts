@@ -16,7 +16,7 @@ import {
   PayLoadType,
 } from "../../utils/tokenGenerator";
 
-// * Register the User
+// * Register  User Controller
 const userRegisterController = asyncHandler(
   async (req: Request, res: Response) => {
     /*
@@ -69,6 +69,8 @@ const userRegisterController = asyncHandler(
       );
   }
 );
+
+// * Login User Controller
 const userLoginController = asyncHandler(
   async (req: Request, res: Response) => {
     /*
@@ -121,6 +123,7 @@ const userLoginController = asyncHandler(
       );
   }
 );
+// * Fetch all user controller
 const getAllUsersController = asyncHandler(
   async (req: Request, res: Response) => {
     const { page = 1, limit = 10 } = req.query;
@@ -169,4 +172,77 @@ const getAllUsersController = asyncHandler(
     );
   }
 );
-export { userRegisterController, userLoginController, getAllUsersController };
+// * Fetch single user controller
+const getSingleUserController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { uid } = req.params;
+    if (!uid) throw { status: 400, message: "Post id is required!!" };
+    const singleUser = await prisma.user.findUnique({
+      where: { uid },
+      select: {
+        uid: true,
+        username: true,
+        fullName: true,
+        email: true,
+        role: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+    return res
+      .status(200)
+      .json(
+        apiResponse(
+          200,
+          `${singleUser?.username}'s data fetched successfully!!`,
+          singleUser
+        )
+      );
+  }
+);
+// * Update user controller
+const updateUserController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { uid } = req.params;
+    const { username, fullName, email } = req.body;
+    if (!username || !fullName || !email)
+      throw { status: 400, message: "All fields are required!!" };
+
+    const isUserAlreadyExist = await prisma.user.findFirst({
+      where: {
+        AND: [
+          {
+            OR: [{ email: email }, { username: username }],
+          },
+          {
+            NOT: { uid },
+          },
+        ],
+      },
+    });
+    if (isUserAlreadyExist)
+      throw {
+        status: 400,
+        message: "username or email already exists",
+      };
+
+    const updatedUser = await prisma.user.update({
+      where: { uid },
+      data: {
+        username,
+        fullName,
+        email,
+      },
+    });
+    return res
+      .status(201)
+      .json(apiResponse(201, "Profile updated successfully!!", updatedUser));
+  }
+);
+export {
+  userRegisterController,
+  userLoginController,
+  getAllUsersController,
+  getSingleUserController,
+  updateUserController,
+};

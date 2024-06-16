@@ -1,8 +1,10 @@
 import { Router } from "express";
 import { validateData } from "../../middlewares/validationMiddleware";
-import { userRegistrationSchema } from "../../schemas";
+import { userRegistrationSchema, userUpdateSchema } from "../../schemas";
 import {
   getAllUsersController,
+  getSingleUserController,
+  updateUserController,
   userLoginController,
   userRegisterController,
 } from "../../controllers/authController/authController";
@@ -12,4 +14,8 @@ authRouter
   .post(validateData(userRegistrationSchema), userRegisterController);
 authRouter.route("/login").post(userLoginController);
 authRouter.route("/getAllUsers").get(getAllUsersController);
+authRouter.route("/getSingleUser/:uid").get(getSingleUserController);
+authRouter
+  .route("/updateUser/:uid")
+  .put(validateData(userUpdateSchema), updateUserController);
 export { authRouter };
