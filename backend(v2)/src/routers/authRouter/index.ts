@@ -12,14 +12,14 @@ import {
   updateUserController,
   updateUserPasswordController,
   updateUserRoleController,
-  userLoginController,
-  userRegisterController,
+  registerUserController,
+  loginUserController,
 } from "../../controllers/authController/authController";
 const authRouter = Router();
 authRouter
   .route("/register")
-  .post(validateData(userRegistrationSchema), userRegisterController);
-authRouter.route("/login").post(userLoginController);
+  .post(validateData(userRegistrationSchema), registerUserController);
+authRouter.route("/login").post(loginUserController);
 authRouter.route("/getAllUsers").get(getAllUsersController);
 authRouter.route("/getSingleUser/:uid").get(getSingleUserController);
 authRouter

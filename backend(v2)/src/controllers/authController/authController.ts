@@ -18,7 +18,7 @@ import {
 } from "../../utils/tokenGenerator";
 
 // * Register  User Controller
-const userRegisterController = asyncHandler(
+const registerUserController = asyncHandler(
   async (req: Request, res: Response) => {
     /*
      ********Algo for Registration********
@@ -72,7 +72,7 @@ const userRegisterController = asyncHandler(
 );
 
 // * Login User Controller
-const userLoginController = asyncHandler(
+const loginUserController = asyncHandler(
   async (req: Request, res: Response) => {
     /*
      * ####Algo for login#######3
@@ -327,13 +327,18 @@ const deleteUserController = asyncHandler(
       );
   }
 );
+// * Logout user Controller
+const logoutUserController = asyncHandler(
+  async (req: Request, res: Response) => {}
+);
 export {
-  userRegisterController,
-  userLoginController,
+  registerUserController,
+  loginUserController,
   getAllUsersController,
   getSingleUserController,
   updateUserController,
   updateUserRoleController,
   updateUserPasswordController,
   deleteUserController,
+  logoutUserController,
 };
