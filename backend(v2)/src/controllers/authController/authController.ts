@@ -309,6 +309,24 @@ const updateUserPasswordController = asyncHandler(
       );
   }
 );
+// * Delete user controller
+const deleteUserController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { uid } = req.params;
+    const user = await prisma.user.findUnique({ where: { uid } });
+    if (!user) throw { status: NOT_FOUND, message: "User not found!!" };
+    await prisma.user.delete({ where: { uid } });
+    return res
+      .status(OK)
+      .json(
+        apiResponse(
+          OK,
+          `${user.username || "unknown user"} deleted successfully`,
+          { user: user.email }
+        )
+      );
+  }
+);
 export {
   userRegisterController,
   userLoginController,
@@ -317,4 +335,5 @@ export {
   updateUserController,
   updateUserRoleController,
   updateUserPasswordController,
+  deleteUserController,
 };

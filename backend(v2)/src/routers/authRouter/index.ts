@@ -6,6 +6,7 @@ import {
   userUpdateSchema,
 } from "../../schemas";
 import {
+  deleteUserController,
   getAllUsersController,
   getSingleUserController,
   updateUserController,
@@ -28,4 +29,5 @@ authRouter.route("/updateRole/:uid").put(updateUserRoleController);
 authRouter
   .route("/updatePassword/:uid")
   .put(validateData(passwrodValidator), updateUserPasswordController);
+authRouter.route("/deleteUser/:uid").delete(deleteUserController);
 export { authRouter };
