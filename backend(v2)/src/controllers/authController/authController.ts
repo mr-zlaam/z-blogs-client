@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import {
   BAD_REQUEST,
   COOKIES_OPTION,
+  FORBIDDEN,
   NOT_FOUND,
   OK,
   UNAUTHORIZED,
@@ -118,7 +119,7 @@ const userLoginController = asyncHandler(
         apiResponse(
           200,
           `${isUserRegistered.fullName || "Unknown User"} logged in successfully`,
-          { accessToken }
+          { user: payload, accessToken }
         )
       );
   }
@@ -233,6 +234,7 @@ const updateUserController = asyncHandler(
         fullName,
         email,
       },
+      select: { username: true, fullName: true, email: true, updatedAt: true },
     });
     return res
       .status(201)
@@ -265,6 +267,48 @@ const updateUserRoleController = asyncHandler(
       );
   }
 );
+// * Update user password controller
+const updateUserPasswordController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { uid } = req.params;
+    const { oldPassword, newPassword } = req.body;
+    if (!oldPassword || !newPassword)
+      throw { status: NOT_FOUND, message: "All fields are required!!" };
+    const user = await prisma.user.findUnique({ where: { uid } });
+    const isOldPasswordValid = await verifyPassword(
+      oldPassword,
+      user?.password as string,
+      res
+    );
+    if (!isOldPasswordValid)
+      throw { status: BAD_REQUEST, message: "Invalid Old password!!" };
+    if (oldPassword === newPassword)
+      throw {
+        status: FORBIDDEN,
+        message: "New Password can't be same as Old Password!!",
+      };
+    const hashedPassword = await passwordHasher(newPassword, res);
+    const updateUserPassword = await prisma.user.update({
+      where: { uid },
+      data: { password: hashedPassword as string },
+      select: {
+        username: true,
+        fullName: true,
+        updatedAt: true,
+        createdAt: true,
+      },
+    });
+    return res
+      .status(OK)
+      .json(
+        apiResponse(
+          OK,
+          `${updateUserPassword.username || "user"}'s password updated successfully`,
+          { user: updateUserPassword }
+        )
+      );
+  }
+);
 export {
   userRegisterController,
   userLoginController,
@@ -272,4 +316,5 @@ export {
   getSingleUserController,
   updateUserController,
   updateUserRoleController,
+  updateUserPasswordController,
 };

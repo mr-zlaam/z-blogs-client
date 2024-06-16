@@ -1,10 +1,15 @@
 import { Router } from "express";
 import { validateData } from "../../middlewares/validationMiddleware";
-import { userRegistrationSchema, userUpdateSchema } from "../../schemas";
+import {
+  passwrodValidator,
+  userRegistrationSchema,
+  userUpdateSchema,
+} from "../../schemas";
 import {
   getAllUsersController,
   getSingleUserController,
   updateUserController,
+  updateUserPasswordController,
   updateUserRoleController,
   userLoginController,
   userRegisterController,
@@ -20,4 +25,7 @@ authRouter
   .route("/updateUser/:uid")
   .put(validateData(userUpdateSchema), updateUserController);
 authRouter.route("/updateRole/:uid").put(updateUserRoleController);
+authRouter
+  .route("/updatePassword/:uid")
+  .put(validateData(passwrodValidator), updateUserPasswordController);
 export { authRouter };

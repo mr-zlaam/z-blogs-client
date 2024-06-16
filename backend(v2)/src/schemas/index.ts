@@ -60,3 +60,16 @@ export const userUpdateSchema = z.object({
       message: "Invalid email format. e.g: john.doe@example.com",
     }),
 });
+export const passwrodValidator = z.object({
+  oldPassword: z.string({ message: "old password is required!!" }),
+  newPassword: z
+    .string({ message: "new password is required!!" })
+    .min(6, { message: "password must be at least 6 characters long." })
+    .regex(
+      /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~`-])[A-Za-z0-9!@#$%^&*()_+{}\[\]:;<>,.?/~`-]/,
+      {
+        message:
+          "Password must contain at least one special character. e.g: P@ssw0rd!",
+      }
+    ),
+});

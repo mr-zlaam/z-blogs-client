@@ -29,12 +29,11 @@ export const verifyPassword = async (
     return isPasswordValid;
   } catch (error: any) {
     return res
-      .status(500)
+      .status(error.status || 500)
       .json(
         apiResponse(
-          500,
-          error.message || "Internal server Error while checking credentials",
-          null
+          error.status || 500,
+          error.message || "Internal server Error while checking credentials"
         )
       );
   }
