@@ -10,8 +10,8 @@ const apiResponse = (
     statusCode: status,
     message: message,
     data: data,
-    optMessage: optMessage,
     metaData: metaData,
+    optMessage: optMessage,
   };
 };
 export { apiResponse };

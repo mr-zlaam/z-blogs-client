@@ -123,21 +123,21 @@ const userLoginController = asyncHandler(
 );
 const getAllUsersController = asyncHandler(
   async (req: Request, res: Response) => {
-    const { page = 1, pageSize = 10 } = req.query;
+    const { page = 1, limit = 10 } = req.query;
     const pageNumber = Number(page);
-    const pageSizeNumber = Number(pageSize);
+    const pageLimit = Number(limit);
 
     if (
       isNaN(pageNumber) ||
-      isNaN(pageSizeNumber) ||
+      isNaN(pageLimit) ||
       pageNumber <= 0 ||
-      pageSizeNumber <= 0
+      pageLimit <= 0
     ) {
       throw { status: 400, message: "Invalid pagination parameters!!" };
     }
 
-    const skip = (pageNumber - 1) * pageSizeNumber;
-    const take = pageSizeNumber;
+    const skip = (pageNumber - 1) * pageLimit;
+    const take = pageLimit;
     const users = await prisma.user.findMany({
       select: {
         uid: true,
@@ -155,12 +155,17 @@ const getAllUsersController = asyncHandler(
       },
     });
     const totalUsers = await prisma.user.count();
-    const totalPages = Math.ceil(totalUsers / pageSizeNumber);
+    const totalPages = Math.ceil(totalUsers / pageLimit);
     return res.status(OK).json(
-      apiResponse(OK, "All users fetched successfully", {
-        data: { users },
-        meta: { totalUsers, totalPages },
-      })
+      apiResponse(
+        OK,
+        "All users fetched successfully",
+        { users },
+        {
+          totalUsers,
+          totalPages,
+        }
+      )
     );
   }
 );
