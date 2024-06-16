@@ -121,4 +121,47 @@ const userLoginController = asyncHandler(
       );
   }
 );
-export { userRegisterController, userLoginController };
+const getAllUsersController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { page = 1, pageSize = 10 } = req.query;
+    const pageNumber = Number(page);
+    const pageSizeNumber = Number(pageSize);
+
+    if (
+      isNaN(pageNumber) ||
+      isNaN(pageSizeNumber) ||
+      pageNumber <= 0 ||
+      pageSizeNumber <= 0
+    ) {
+      throw { status: 400, message: "Invalid pagination parameters!!" };
+    }
+
+    const skip = (pageNumber - 1) * pageSizeNumber;
+    const take = pageSizeNumber;
+    const users = await prisma.user.findMany({
+      select: {
+        uid: true,
+        username: true,
+        fullName: true,
+        email: true,
+        role: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+      skip,
+      take,
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    const totalUsers = await prisma.user.count();
+    const totalPages = Math.ceil(totalUsers / pageSizeNumber);
+    return res.status(OK).json(
+      apiResponse(OK, "All users fetched successfully", {
+        data: { users },
+        meta: { totalUsers, totalPages },
+      })
+    );
+  }
+);
+export { userRegisterController, userLoginController, getAllUsersController };
