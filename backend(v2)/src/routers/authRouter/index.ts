@@ -14,6 +14,7 @@ import {
   updateUserRoleController,
   registerUserController,
   loginUserController,
+  logoutUserController,
 } from "../../controllers/authController/authController";
 const authRouter = Router();
 authRouter
@@ -30,4 +31,5 @@ authRouter
   .route("/updatePassword/:uid")
   .put(validateData(passwrodValidator), updateUserPasswordController);
 authRouter.route("/deleteUser/:uid").delete(deleteUserController);
+authRouter.route("/logoutUser/:uid").post(logoutUserController);
 export { authRouter };

@@ -329,7 +329,16 @@ const deleteUserController = asyncHandler(
 );
 // * Logout user Controller
 const logoutUserController = asyncHandler(
-  async (req: Request, res: Response) => {}
+  async (req: Request, res: Response) => {
+    const { uid } = req.params;
+    const user = await prisma.user.findUnique({ where: { uid } });
+    return res
+      .status(OK)
+      .clearCookie("accessToken", COOKIES_OPTION)
+      .json(
+        apiResponse(OK, `${user?.username || "user"} logout successfully!!`)
+      );
+  }
 );
 export {
   registerUserController,
