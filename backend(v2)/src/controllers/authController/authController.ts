@@ -16,6 +16,7 @@ import {
   GenerateJWTAccessToken,
   PayLoadType,
 } from "../../utils/tokenGenerator";
+import { SearchQueryType, UserData } from "../../types";
 
 // * Register  User Controller
 const registerUserController = asyncHandler(
@@ -117,7 +118,7 @@ const loginUserController = asyncHandler(
       .cookie("accessToken", accessToken, COOKIES_OPTION)
       .json(
         apiResponse(
-          200,
+          OK,
           `${isUserRegistered.fullName || "Unknown User"} logged in successfully`,
           { user: payload, accessToken }
         )
@@ -191,10 +192,10 @@ const getSingleUserController = asyncHandler(
       },
     });
     return res
-      .status(200)
+      .status(OK)
       .json(
         apiResponse(
-          200,
+          OK,
           `${singleUser?.username}'s data fetched successfully!!`,
           singleUser
         )
@@ -362,29 +363,44 @@ const searchUserController = asyncHandler(
     const skip = (pageNumber - 1) * limitNumber;
     const take = limitNumber;
 
-    const searchUsers = await prisma.$queryRaw`
+    const searchUsers = (await prisma.$queryRaw`
       SELECT * FROM "User"
       WHERE to_tsvector('english', "username" || ' ' || "email" || ' ' || "fullName") @@ plainto_tsquery('english', ${searchQuery})
       ORDER BY "createdAt" DESC
       OFFSET ${skip} LIMIT ${take}
-    `;
+    `) as UserData[];
 
-    const totalUsersCount: any = await prisma.$queryRaw`
+    const totalUsersCount: { count: string }[] = await prisma.$queryRaw`
       SELECT COUNT(*) FROM "User"
       WHERE to_tsvector('english', "username" || ' ' || "email" || ' ' || "fullName") @@ plainto_tsquery('english', ${searchQuery})
     `;
 
     const UsersCount = Number(totalUsersCount[0].count);
     const totalPages = Math.ceil(UsersCount / take);
+    const hasNextPage = totalPages > pageNumber;
+    const hasPreviousPage = pageNumber > 1;
+    const pagination = {
+      hasNextPage,
+      hasPreviousPage,
+    };
 
-    return res.status(200).json(
-      apiResponse(200, "Data searched successfully!!", {
-        data: searchUsers,
+    const response: SearchQueryType = {
+      success: true,
+      statusCode: 200,
+      message: "Data searched successfully!!",
+      data: {
+        searchUsers,
+      },
+      metaData: {
         totalUsers: UsersCount,
         totalPages,
         currentPage: pageNumber,
-      })
-    );
+        pagination,
+      },
+      optMessage: "",
+    };
+
+    return res.status(OK).json(response);
   }
 );
 

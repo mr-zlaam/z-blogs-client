@@ -1,0 +1,29 @@
+export interface UserData {
+  uid: string; // Added uid property
+  username: string;
+  fullName: string;
+  email: string;
+  password: string;
+  role: "ADMIN" | "MODERATOR" | "USER";
+  createdAt: string; // Changed from Date to string
+  updatedAt: string; // Changed from Date to string
+}
+
+export interface SearchQueryType {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: {
+    searchUsers: UserData[]; // Changed from searchUserData to searchUsers
+  };
+  metaData: {
+    totalUsers: number; // Moved totalUsers inside metaData
+    totalPages: number; // Moved totalPages inside metaData
+    currentPage: number; // Moved currentPage inside metaData
+    pagination: {
+      hasNextPage: boolean;
+      hasPreviousPage: boolean;
+    };
+  };
+  optMessage: string;
+}
