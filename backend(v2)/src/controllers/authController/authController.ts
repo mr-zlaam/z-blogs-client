@@ -239,10 +239,37 @@ const updateUserController = asyncHandler(
       .json(apiResponse(201, "Profile updated successfully!!", updatedUser));
   }
 );
+// * Update user Role Controller
+const updateUserRoleController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { uid } = req.params;
+    const { role } = req.body;
+    if (!role) throw { status: NOT_FOUND as number, message: "Role not found" };
+    if (role !== "ADMIN" && role !== "MODERATOR" && role !== "USER")
+      throw {
+        status: BAD_REQUEST,
+        message: `You can  only set 'ADMIN', 'MODERATOR' and 'USER' as a role.`,
+      };
+    const updateUserRole = await prisma.user.update({
+      where: { uid },
+      data: { role },
+    });
+    return res
+      .status(OK)
+      .json(
+        apiResponse(
+          OK,
+          `${updateUserRole.username || "user"}'s role updated successfully`,
+          { user: updateUserRole }
+        )
+      );
+  }
+);
 export {
   userRegisterController,
   userLoginController,
   getAllUsersController,
   getSingleUserController,
   updateUserController,
+  updateUserRoleController,
 };
