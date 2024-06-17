@@ -169,6 +169,13 @@ const getAllUsersController = asyncHandler(
     });
     const totalUsers = await prisma.user.count();
     const totalPages = Math.ceil(totalUsers / pageLimit);
+
+    const hasNextPage = totalPages > pageNumber;
+    const hasPreviousPage = pageNumber > 1;
+    const pagination = {
+      hasNextPage,
+      hasPreviousPage,
+    };
     return res.status(OK).json(
       apiResponse(
         OK,
@@ -177,6 +184,7 @@ const getAllUsersController = asyncHandler(
         {
           totalUsers,
           totalPages,
+          pagination,
         }
       )
     );
