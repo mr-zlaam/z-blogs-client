@@ -27,3 +27,11 @@ export interface SearchQueryType {
   };
   optMessage: string;
 }
+//BlogTypes
+export interface BlogDataTypes {
+  blogTitle?: string;
+  blogSlug?: string;
+  blogDescription?: string;
+  blogThumbnail?: string;
+  blogThumbnailAuthor?: string;
+}

@@ -7,6 +7,7 @@ import {
   generateRandomStrings,
   generateSlug,
 } from "../../utils/slug_and_str_generator";
+import { BlogDataTypes } from "../../types";
 // * create blog post controller
 const createBlogController = asyncHandler(
   async (req: Request, res: Response) => {
@@ -14,16 +15,11 @@ const createBlogController = asyncHandler(
       authorId,
       blogTitle,
       blogDescription,
-      blogSlug,
       blogThumbnail,
       blogThumbnailAuthor,
     } = req.body;
-    const isBlogSlugExistAlready = await prisma.blogPost.findUnique({
-      where: { blogSlug },
-    });
-    if (isBlogSlugExistAlready)
-      throw { status: BAD_REQUEST, message: "Slug must be unique!!" };
     const randomId = generateRandomStrings(10);
+    const blogSlug = generateSlug(blogTitle);
     const blogPost = await prisma.blogPost.create({
       data: {
         authorId,
@@ -172,63 +168,89 @@ const getSingleBlogController = asyncHandler(
 const updateBlogController = asyncHandler(
   async (req: Request, res: Response) => {
     const { blogSlug: slug } = req.params;
-    const {
-      blogTitle,
-      blogDescription,
-      blogSlug,
-      blogThumbnail,
-      blogThumbnailAuthor,
-    } = req.body;
-    const randomId = generateRandomStrings(10);
-    const generatedSlug = generateSlug(blogSlug as string) as string;
-    const newSlug = generatedSlug.includes("_")
-      ? generatedSlug.split("_")[0] + `_${randomId}`
-      : generatedSlug + `_${randomId}`;
-    const updateBlog = await prisma.blogPost.update({
+    const { blogTitle, blogDescription, blogThumbnail, blogThumbnailAuthor } =
+      req.body;
+
+    // Fetch the current blog data from the database
+    const currentBlog = await prisma.blogPost.findUnique({
       where: { blogSlug: slug },
-      data: {
-        blogTitle,
-        blogDescription,
-        blogSlug: newSlug,
-        blogThumbnail,
-        blogThumbnailAuthor,
-      },
       select: {
         blogTitle: true,
         blogDescription: true,
-        blogSlug: true,
         blogThumbnail: true,
         blogThumbnailAuthor: true,
-        updatedAt: true,
-        createdAt: true,
-        author: {
-          select: {
-            uid: true,
-            username: true,
-            fullName: true,
-            email: true,
-            role: true,
-            createdAt: true,
-            blogPosts: {
-              select: {
-                blogTitle: true,
-                blogSlug: true,
-                blogThumbnail: true,
+      },
+    });
+
+    if (!currentBlog) {
+      return res.status(404).json(apiResponse(404, "Blog not found", {}));
+    }
+
+    // Determine if any fields have changed
+    const updateData: BlogDataTypes = {};
+    if (currentBlog.blogTitle !== blogTitle) {
+      updateData.blogTitle = blogTitle;
+      const randomId = generateRandomStrings(10);
+      const newBlogSlug = generateSlug(blogTitle);
+      updateData.blogSlug = `${newBlogSlug}_${randomId}`;
+    }
+    if (currentBlog.blogDescription !== blogDescription) {
+      updateData.blogDescription = blogDescription;
+    }
+    if (currentBlog.blogThumbnail !== blogThumbnail) {
+      updateData.blogThumbnail = blogThumbnail;
+    }
+    if (currentBlog.blogThumbnailAuthor !== blogThumbnailAuthor) {
+      updateData.blogThumbnailAuthor = blogThumbnailAuthor;
+    }
+
+    // Only update if there are changes
+    if (Object.keys(updateData).length > 0) {
+      const updatedBlog = await prisma.blogPost.update({
+        where: { blogSlug: slug },
+        data: updateData,
+        select: {
+          blogTitle: true,
+          blogDescription: true,
+          blogSlug: true,
+          blogThumbnail: true,
+          blogThumbnailAuthor: true,
+          updatedAt: true,
+          createdAt: true,
+          author: {
+            select: {
+              uid: true,
+              username: true,
+              fullName: true,
+              email: true,
+              role: true,
+              createdAt: true,
+              blogPosts: {
+                select: {
+                  blogTitle: true,
+                  blogSlug: true,
+                  blogThumbnail: true,
+                },
               },
             },
           },
         },
-      },
-    });
-    return res
-      .status(OK)
-      .json(
-        apiResponse(
-          OK,
-          `${updateBlog.author.fullName || "You've"} updated this blog`,
-          updateBlog
-        )
-      );
+      });
+
+      return res
+        .status(OK)
+        .json(
+          apiResponse(
+            OK,
+            `${updatedBlog.author.fullName || "You've"} updated this blog`,
+            updatedBlog
+          )
+        );
+    } else {
+      return res
+        .status(200)
+        .json(apiResponse(200, "No changes detected", currentBlog));
+    }
   }
 );
 export {

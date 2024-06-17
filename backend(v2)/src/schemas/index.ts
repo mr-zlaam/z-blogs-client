@@ -79,9 +79,6 @@ export const BlogValidation = z.object({
   authorId: z.string({ message: "author id is required!!" }),
   blogTitle: z.string({ message: "blog title is required!!" }),
   blogDescription: z.string({ message: "blog content is required!!" }),
-  blogSlug: z
-    .string({ message: "blog slug is required!!" })
-    .regex(new RegExp(/^[a-z0-9-]+$/), { message: "blog slug is not valid!!" }),
   blogThumbnail: z
     .string({ message: "blog thumbnail is required!!" })
     .regex(
@@ -98,11 +95,6 @@ export const BlogValidation = z.object({
 export const BlogUpdateValidation = z.object({
   blogTitle: z.string({ message: "blog title is required!!" }),
   blogDescription: z.string({ message: "blog content is required!!" }),
-  blogSlug: z
-    .string({ message: "blog slug is required!!" })
-    .regex(new RegExp(/^[a-z0-9]+(-[a-z0-9]+)*$/), {
-      message: "blog slug is not valid!!",
-    }),
   blogThumbnail: z
     .string({ message: "blog thumbnail is required!!" })
     .regex(
