@@ -38,6 +38,7 @@ const createBlogController = asyncHandler(
             email: true,
             _count: true,
             role: true,
+            isPublic: true,
             createdAt: true,
           },
         },
@@ -79,6 +80,7 @@ const getAllBlogsController = asyncHandler(
         blogSlug: true,
         blogThumbnail: true,
         blogThumbnailAuthor: true,
+
         createdAt: true,
         updatedAt: true,
         author: {
@@ -88,6 +90,7 @@ const getAllBlogsController = asyncHandler(
             username: true,
             email: true,
             role: true,
+            isPublic: true,
             blogPosts: {
               select: { blogTitle: true, blogSlug: true, blogThumbnail: true },
             },
@@ -169,8 +172,13 @@ const getSingleBlogController = asyncHandler(
 const updateBlogController = asyncHandler(
   async (req: Request, res: Response) => {
     const { blogSlug: slug } = req.params;
-    const { blogTitle, blogDescription, blogThumbnail, blogThumbnailAuthor } =
-      req.body;
+    const {
+      blogTitle,
+      blogDescription,
+      blogThumbnail,
+      blogThumbnailAuthor,
+      isPublic,
+    } = req.body;
 
     const currentBlog = await prisma.blogPost.findUnique({
       where: { blogSlug: slug },
@@ -214,8 +222,10 @@ const updateBlogController = asyncHandler(
           blogSlug: true,
           blogThumbnail: true,
           blogThumbnailAuthor: true,
+
           updatedAt: true,
           createdAt: true,
+
           author: {
             select: {
               uid: true,
@@ -283,7 +293,8 @@ const searchBlogController = asyncHandler(
   async (req: Request, res: Response) => {
     const { q, page = 1, limit = 10 } = req.query;
 
-    if (!q) throw { status: 400, message: "Search query is required!!" };
+    if (!q)
+      throw { status: BAD_REQUEST, message: "Search query is required!!" };
 
     const searchQuery = q as string;
     const pageNumber = Number(page);
@@ -295,7 +306,7 @@ const searchBlogController = asyncHandler(
       pageNumber <= 0 ||
       limitNumber <= 0
     ) {
-      throw { status: 400, message: "Invalid pagination parameters!!" };
+      throw { status: BAD_REQUEST, message: "Invalid pagination parameters!!" };
     }
 
     const skip = (pageNumber - 1) * limitNumber;

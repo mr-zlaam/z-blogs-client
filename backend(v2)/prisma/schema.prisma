@@ -28,6 +28,7 @@ model User {
   email     String     @unique
   password  String
   role      Role
+  isPublic  Boolean    @default(false)
   blogPosts BlogPost[] @relation("blogAuthor")
   createdAt DateTime   @default(now()) @db.Timestamptz(3)
   updatedAt DateTime   @updatedAt @db.Timestamptz(3)
