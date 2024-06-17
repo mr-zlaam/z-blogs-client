@@ -1,9 +1,12 @@
 import type { Request, Response } from "express";
-import { BAD_REQUEST, CREATED, OK } from "../../CONSTANTS";
+import { BAD_REQUEST, CREATED, FORBIDDEN, OK } from "../../CONSTANTS";
 import { prisma } from "../../db";
 import { apiResponse } from "../../utils/apiResponseUtil";
 import { asyncHandler } from "../../utils/asynhandlerUtil";
-import { generateRandomStrings } from "../../utils/randomStringGenerator";
+import {
+  generateRandomStrings,
+  generateSlug,
+} from "../../utils/slug_and_str_generator";
 // * create blog post controller
 const createBlogController = asyncHandler(
   async (req: Request, res: Response) => {
@@ -177,16 +180,16 @@ const updateBlogController = asyncHandler(
       blogThumbnailAuthor,
     } = req.body;
     const randomId = generateRandomStrings(10);
-    const newSlug = blogSlug.includes("_")
-      ? blogSlug.split("_")[0] + `_${randomId}`
-      : blogSlug + `_${randomId}`;
-    console.log(newSlug);
+    const generatedSlug = generateSlug(blogSlug as string) as string;
+    const newSlug = generatedSlug.includes("_")
+      ? generatedSlug.split("_")[0] + `_${randomId}`
+      : generatedSlug + `_${randomId}`;
     const updateBlog = await prisma.blogPost.update({
       where: { blogSlug: slug },
       data: {
         blogTitle,
         blogDescription,
-        blogSlug: `${newSlug}`.toLowerCase(),
+        blogSlug: newSlug,
         blogThumbnail,
         blogThumbnailAuthor,
       },

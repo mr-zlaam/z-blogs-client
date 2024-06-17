@@ -9,4 +9,9 @@ export function generateRandomStrings(length: number) {
   return randomString;
 }
 
-// Example usage:
+export function generateSlug(slugString: string) {
+  let slug = slugString.toLowerCase();
+  slug = slug.replace(/[^a-z0-9\s-]/g, "");
+  slug = slug.trim().replace(/\s+/g, "-");
+  return slug;
+}
