@@ -107,11 +107,16 @@ const getAllBlogsController = asyncHandler(
       hasPreviousPage,
     };
     return res.status(OK).json(
-      apiResponse(OK, "All Blogs data fetched successfully", blogs, {
-        totalPages,
-        totalBlogs,
-        pagination,
-      })
+      apiResponse(
+        OK,
+        "All Blogs data fetched successfully",
+        { blogs },
+        {
+          totalPages,
+          totalBlogs,
+          pagination,
+        }
+      )
     );
   }
 );
