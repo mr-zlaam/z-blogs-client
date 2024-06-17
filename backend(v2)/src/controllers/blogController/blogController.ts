@@ -86,8 +86,9 @@ const getAllBlogsController = asyncHandler(
             fullName: true,
             username: true,
             email: true,
+            role: true,
             blogPosts: {
-              select: { blogTitle: true, blogSlug: true },
+              select: { blogTitle: true, blogSlug: true, blogThumbnail: true },
             },
           },
         },
@@ -120,4 +121,46 @@ const getAllBlogsController = asyncHandler(
     );
   }
 );
-export { createBlogController, getAllBlogsController };
+
+// * get single blogpost controller
+const getSingleBlogController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { blogSlug } = req.params;
+    const blog = await prisma.blogPost.findUnique({
+      where: { blogSlug },
+      select: {
+        blogId: true,
+        blogTitle: true,
+        blogDescription: true,
+        blogSlug: true,
+        blogThumbnail: true,
+        blogThumbnailAuthor: true,
+        createdAt: true,
+        updatedAt: true,
+        author: {
+          select: {
+            uid: true,
+            username: true,
+            fullName: true,
+            email: true,
+            role: true,
+            createdAt: true,
+            blogPosts: {
+              select: {
+                blogTitle: true,
+                blogSlug: true,
+                blogThumbnail: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    return res
+      .status(OK)
+      .json(
+        apiResponse(OK, `single blog post's data fetched successfully`, blog)
+      );
+  }
+);
+export { createBlogController, getAllBlogsController, getSingleBlogController };
