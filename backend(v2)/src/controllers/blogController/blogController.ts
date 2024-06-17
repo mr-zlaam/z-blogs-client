@@ -163,4 +163,67 @@ const getSingleBlogController = asyncHandler(
       );
   }
 );
-export { createBlogController, getAllBlogsController, getSingleBlogController };
+// * update blog controller
+const updateBlogController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { blogSlug: slug } = req.params;
+    const {
+      blogTitle,
+      blogDescription,
+      blogSlug,
+      blogThumbnail,
+      blogThumbnailAuthor,
+    } = req.body;
+    const updateBlog = await prisma.blogPost.update({
+      where: { blogSlug: slug },
+      data: {
+        blogTitle,
+        blogDescription,
+        blogSlug,
+        blogThumbnail,
+        blogThumbnailAuthor,
+      },
+      select: {
+        blogTitle: true,
+        blogDescription: true,
+        blogSlug: true,
+        blogThumbnail: true,
+        blogThumbnailAuthor: true,
+        updatedAt: true,
+        createdAt: true,
+        author: {
+          select: {
+            uid: true,
+            username: true,
+            fullName: true,
+            email: true,
+            role: true,
+            createdAt: true,
+            blogPosts: {
+              select: {
+                blogTitle: true,
+                blogSlug: true,
+                blogThumbnail: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    return res
+      .status(OK)
+      .json(
+        apiResponse(
+          OK,
+          `${updateBlog.author.fullName || "You've"} updated this blog`,
+          updateBlog
+        )
+      );
+  }
+);
+export {
+  createBlogController,
+  getAllBlogsController,
+  getSingleBlogController,
+  updateBlogController,
+};
