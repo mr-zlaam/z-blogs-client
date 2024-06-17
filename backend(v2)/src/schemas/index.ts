@@ -94,3 +94,22 @@ export const BlogValidation = z.object({
     message: "blog thumbnail author is required!!",
   }),
 });
+
+export const BlogUpdateValidation = z.object({
+  blogTitle: z.string({ message: "blog title is required!!" }),
+  blogDescription: z.string({ message: "blog content is required!!" }),
+  blogSlug: z
+    .string({ message: "blog slug is required!!" })
+    .regex(new RegExp(/^[a-z0-9-]+$/), { message: "blog slug is not valid!!" }),
+  blogThumbnail: z
+    .string({ message: "blog thumbnail is required!!" })
+    .regex(
+      new RegExp(
+        /^(https?|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]*[-A-Za-z0-9+&@#/%=~_|]$/
+      ),
+      { message: "blog thumbnail's url is invalid!!" }
+    ),
+  blogThumbnailAuthor: z.string({
+    message: "blog thumbnail author is required!!",
+  }),
+});
