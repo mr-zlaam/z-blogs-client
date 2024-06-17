@@ -3,6 +3,7 @@ import { BAD_REQUEST, CREATED, OK } from "../../CONSTANTS";
 import { prisma } from "../../db";
 import { apiResponse } from "../../utils/apiResponseUtil";
 import { asyncHandler } from "../../utils/asynhandlerUtil";
+import { generateRandomStrings } from "../../utils/randomStringGenerator";
 // * create blog post controller
 const createBlogController = asyncHandler(
   async (req: Request, res: Response) => {
@@ -19,12 +20,13 @@ const createBlogController = asyncHandler(
     });
     if (isBlogSlugExistAlready)
       throw { status: BAD_REQUEST, message: "Slug must be unique!!" };
+    const randomId = generateRandomStrings(10);
     const blogPost = await prisma.blogPost.create({
       data: {
         authorId,
         blogTitle,
         blogDescription,
-        blogSlug,
+        blogSlug: `${blogSlug}_${randomId}`,
         blogThumbnail,
         blogThumbnailAuthor,
       },
@@ -174,12 +176,15 @@ const updateBlogController = asyncHandler(
       blogThumbnail,
       blogThumbnailAuthor,
     } = req.body;
+    const newSlug = slug.split("_")[0];
+    console.log(newSlug);
+    const randomId = generateRandomStrings(10);
     const updateBlog = await prisma.blogPost.update({
       where: { blogSlug: slug },
       data: {
         blogTitle,
         blogDescription,
-        blogSlug,
+        blogSlug: `${newSlug}_${randomId}`,
         blogThumbnail,
         blogThumbnailAuthor,
       },
