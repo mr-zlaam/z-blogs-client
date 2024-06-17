@@ -76,7 +76,7 @@ export const passwrodValidator = z.object({
 // * Blog Validation
 
 export const BlogValidation = z.object({
-  blogAuthor: z.string({ message: "blog author's name is required!!" }),
+  authorId: z.string({ message: "author id is required!!" }),
   blogTitle: z.string({ message: "blog title is required!!" }),
   blogDescription: z.string({ message: "blog content is required!!" }),
   blogSlug: z

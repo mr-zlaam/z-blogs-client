@@ -39,7 +39,7 @@ model BlogPost {
   authorId            String
   blogTitle           String
   blogDescription     String
-  blogSlug            String
+  blogSlug            String @unique
   blogThumbnail       String
   blogThumbnailAuthor String
 
