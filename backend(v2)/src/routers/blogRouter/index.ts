@@ -4,6 +4,7 @@ import {
   deleteBlogController,
   getAllBlogsController,
   getSingleBlogController,
+  searchBlogController,
   updateBlogController,
 } from "../../controllers/blogController/blogController";
 import { validateData } from "../../middlewares/validationMiddleware";
@@ -17,4 +18,5 @@ blogRouter.route("/getAllBlogs").get(getAllBlogsController);
 blogRouter.route("/getSingleBlog/:blogSlug").get(getSingleBlogController);
 blogRouter.route("/updateBlog/:blogSlug").put(updateBlogController);
 blogRouter.route("/deleteBlog/:blogSlug").delete(deleteBlogController);
+blogRouter.route("/getAllBlogs/search").get(searchBlogController);
 export { blogRouter };

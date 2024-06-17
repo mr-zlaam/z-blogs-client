@@ -276,10 +276,72 @@ const deleteBlogController = asyncHandler(
       );
   }
 );
+
+// * Search in Blog Controller
+
+const searchBlogController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { q, page = 1, limit = 10 } = req.query;
+
+    if (!q) throw { status: 400, message: "Search query is required!!" };
+
+    const searchQuery = q as string;
+    const pageNumber = Number(page);
+    const limitNumber = Number(limit);
+
+    if (
+      isNaN(pageNumber) ||
+      isNaN(limitNumber) ||
+      pageNumber <= 0 ||
+      limitNumber <= 0
+    ) {
+      throw { status: 400, message: "Invalid pagination parameters!!" };
+    }
+
+    const skip = (pageNumber - 1) * limitNumber;
+    const take = limitNumber;
+
+    // Query for fetching blogs
+    const blogs = await prisma.$queryRaw`
+      SELECT * FROM "BlogPost"
+      WHERE to_tsvector('english', "blogTitle" || ' ' || "blogDescription" || ' ' || "blogSlug") @@ plainto_tsquery('english', ${searchQuery})
+      ORDER BY "createdAt" DESC
+      OFFSET ${skip} LIMIT ${take}
+    `;
+
+    // Query for total count
+    const totalBlogCount: { count: string }[] = await prisma.$queryRaw`
+      SELECT COUNT(*) FROM "BlogPost"
+      WHERE to_tsvector('english', "blogTitle" || ' ' || "blogDescription" || ' ' || "blogSlug") @@ plainto_tsquery('english', ${searchQuery})
+    `;
+
+    const blogCount = Number(totalBlogCount[0].count);
+    const totalPages = Math.ceil(blogCount / take);
+    const hasNextPage = totalPages > pageNumber;
+    const hasPreviousPage = pageNumber > 1;
+    const pagination = {
+      hasNextPage,
+      hasPreviousPage,
+    };
+
+    return res
+      .status(OK)
+      .json(
+        apiResponse(
+          OK,
+          "Data searched successfully",
+          { blogs },
+          { pagination, totalBlogs: blogCount, totalPages }
+        )
+      );
+  }
+);
+
 export {
   createBlogController,
   getAllBlogsController,
   getSingleBlogController,
   updateBlogController,
   deleteBlogController,
+  searchBlogController,
 };
