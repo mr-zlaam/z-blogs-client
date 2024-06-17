@@ -73,3 +73,15 @@ export const passwrodValidator = z.object({
       }
     ),
 });
+// * Blog Validation
+
+export const BlogValidation = z.object({
+  blogAuthor: z.string({ message: "blog author's name is required!!" }),
+  blogTitle: z.string({ message: "blog title is required!!" }),
+  blogDescription: z.string({ message: "blog content is required!!" }),
+  blogSlug: z.string({ message: "blog slug is required!!" }),
+  blogThumbnail: z.string({ message: "blog thumbnail is required!!" }),
+  blogThumbnailAuthor: z.string({
+    message: "blog thumbnail author is required!!",
+  }),
+});
