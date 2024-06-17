@@ -106,4 +106,5 @@ export const BlogUpdateValidation = z.object({
   blogThumbnailAuthor: z.string({
     message: "blog thumbnail author is required!!",
   }),
+  isPublic: z.boolean({ message: "Is Pubic field is required!!" }),
 });

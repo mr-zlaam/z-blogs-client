@@ -34,4 +34,5 @@ export interface BlogDataTypes {
   blogDescription?: string;
   blogThumbnail?: string;
   blogThumbnailAuthor?: string;
+  isPublic?: boolean;
 }

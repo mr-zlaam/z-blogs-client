@@ -28,21 +28,21 @@ model User {
   email     String     @unique
   password  String
   role      Role
-  isPublic  Boolean    @default(false)
   blogPosts BlogPost[] @relation("blogAuthor")
   createdAt DateTime   @default(now()) @db.Timestamptz(3)
   updatedAt DateTime   @updatedAt @db.Timestamptz(3)
 }
 
 model BlogPost {
-  blogId              String @id @default(cuid())
-  author              User   @relation("blogAuthor", fields: [authorId], references: [uid], onDelete: Cascade)
+  blogId              String  @id @default(cuid())
+  author              User    @relation("blogAuthor", fields: [authorId], references: [uid], onDelete: Cascade)
   authorId            String
   blogTitle           String
   blogDescription     String
-  blogSlug            String @unique
+  blogSlug            String  @unique
   blogThumbnail       String
   blogThumbnailAuthor String
+  isPublic            Boolean @default(false)
 
   createdAt DateTime @default(now()) @db.Timestamptz(3)
   updatedAt DateTime @updatedAt @db.Timestamptz(3)

@@ -38,7 +38,6 @@ const createBlogController = asyncHandler(
             email: true,
             _count: true,
             role: true,
-            isPublic: true,
             createdAt: true,
           },
         },
@@ -80,7 +79,7 @@ const getAllBlogsController = asyncHandler(
         blogSlug: true,
         blogThumbnail: true,
         blogThumbnailAuthor: true,
-
+        isPublic: true,
         createdAt: true,
         updatedAt: true,
         author: {
@@ -90,7 +89,6 @@ const getAllBlogsController = asyncHandler(
             username: true,
             email: true,
             role: true,
-            isPublic: true,
             blogPosts: {
               select: { blogTitle: true, blogSlug: true, blogThumbnail: true },
             },
@@ -139,6 +137,7 @@ const getSingleBlogController = asyncHandler(
         blogSlug: true,
         blogThumbnail: true,
         blogThumbnailAuthor: true,
+        isPublic: true,
         createdAt: true,
         updatedAt: true,
         author: {
@@ -188,6 +187,7 @@ const updateBlogController = asyncHandler(
         blogDescription: true,
         blogThumbnail: true,
         blogThumbnailAuthor: true,
+        isPublic: true,
       },
     });
 
@@ -211,6 +211,9 @@ const updateBlogController = asyncHandler(
     if (currentBlog.blogThumbnailAuthor !== blogThumbnailAuthor) {
       updateData.blogThumbnailAuthor = blogThumbnailAuthor;
     }
+    if (currentBlog.isPublic !== isPublic) {
+      updateData.isPublic = isPublic;
+    }
 
     if (Object.keys(updateData).length > 0) {
       const updatedBlog = await prisma.blogPost.update({
@@ -222,10 +225,9 @@ const updateBlogController = asyncHandler(
           blogSlug: true,
           blogThumbnail: true,
           blogThumbnailAuthor: true,
-
+          isPublic: true,
           updatedAt: true,
           createdAt: true,
-
           author: {
             select: {
               uid: true,
@@ -233,6 +235,7 @@ const updateBlogController = asyncHandler(
               fullName: true,
               email: true,
               role: true,
+
               createdAt: true,
               blogPosts: {
                 select: {
