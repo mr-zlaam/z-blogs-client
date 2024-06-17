@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createBlogController,
+  deleteBlogController,
   getAllBlogsController,
   getSingleBlogController,
   updateBlogController,
@@ -15,4 +16,5 @@ blogRouter
 blogRouter.route("/getAllBlogs").get(getAllBlogsController);
 blogRouter.route("/getSingleBlog/:blogSlug").get(getSingleBlogController);
 blogRouter.route("/updateBlog/:blogSlug").put(updateBlogController);
+blogRouter.route("/deleteBlog/:blogSlug").delete(deleteBlogController);
 export { blogRouter };

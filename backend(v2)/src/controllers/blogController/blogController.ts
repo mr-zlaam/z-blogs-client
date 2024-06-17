@@ -164,6 +164,7 @@ const getSingleBlogController = asyncHandler(
       );
   }
 );
+
 // * update blog controller
 const updateBlogController = asyncHandler(
   async (req: Request, res: Response) => {
@@ -171,7 +172,6 @@ const updateBlogController = asyncHandler(
     const { blogTitle, blogDescription, blogThumbnail, blogThumbnailAuthor } =
       req.body;
 
-    // Fetch the current blog data from the database
     const currentBlog = await prisma.blogPost.findUnique({
       where: { blogSlug: slug },
       select: {
@@ -187,7 +187,6 @@ const updateBlogController = asyncHandler(
       return res.status(404).json(apiResponse(404, "Blog not found", {}));
     }
 
-    // Determine if any fields have changed
     const updateData: BlogDataTypes = {};
     if (currentBlog.blogTitle !== blogTitle) {
       updateData.blogTitle = blogTitle;
@@ -205,7 +204,6 @@ const updateBlogController = asyncHandler(
       updateData.blogThumbnailAuthor = blogThumbnailAuthor;
     }
 
-    // Only update if there are changes
     if (Object.keys(updateData).length > 0) {
       const updatedBlog = await prisma.blogPost.update({
         where: { blogSlug: slug },
@@ -254,9 +252,34 @@ const updateBlogController = asyncHandler(
     }
   }
 );
+
+// * delete blog controller
+const deleteBlogController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { blogSlug } = req.params;
+    const deletedUser = await prisma.blogPost.delete({
+      where: { blogSlug },
+      select: {
+        blogTitle: true,
+        blogSlug: true,
+        author: { select: { fullName: true } },
+      },
+    });
+    return res
+      .status(OK)
+      .json(
+        apiResponse(
+          OK,
+          `${deletedUser.author.fullName || "You've"} deleted this blogPost`,
+          deletedUser
+        )
+      );
+  }
+);
 export {
   createBlogController,
   getAllBlogsController,
   getSingleBlogController,
   updateBlogController,
+  deleteBlogController,
 };
