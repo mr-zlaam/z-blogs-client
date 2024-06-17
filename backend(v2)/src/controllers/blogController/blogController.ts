@@ -176,15 +176,17 @@ const updateBlogController = asyncHandler(
       blogThumbnail,
       blogThumbnailAuthor,
     } = req.body;
-    const newSlug = slug.split("_")[0];
-    console.log(newSlug);
     const randomId = generateRandomStrings(10);
+    const newSlug = blogSlug.includes("_")
+      ? blogSlug.split("_")[0] + `_${randomId}`
+      : blogSlug + `_${randomId}`;
+    console.log(newSlug);
     const updateBlog = await prisma.blogPost.update({
       where: { blogSlug: slug },
       data: {
         blogTitle,
         blogDescription,
-        blogSlug: `${newSlug}_${randomId}`,
+        blogSlug: `${newSlug}`.toLowerCase(),
         blogThumbnail,
         blogThumbnailAuthor,
       },
