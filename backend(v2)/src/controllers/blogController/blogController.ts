@@ -176,6 +176,7 @@ const updateBlogController = asyncHandler(
       where: { blogSlug: slug },
       select: {
         blogTitle: true,
+        blogSlug: true,
         blogDescription: true,
         blogThumbnail: true,
         blogThumbnailAuthor: true,
