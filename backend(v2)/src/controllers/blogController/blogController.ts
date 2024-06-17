@@ -1,5 +1,11 @@
 import type { Request, Response } from "express";
-import { BAD_REQUEST, CREATED, FORBIDDEN, OK } from "../../CONSTANTS";
+import {
+  BAD_REQUEST,
+  CREATED,
+  FORBIDDEN,
+  NOT_FOUND,
+  OK,
+} from "../../CONSTANTS";
 import { prisma } from "../../db";
 import { apiResponse } from "../../utils/apiResponseUtil";
 import { asyncHandler } from "../../utils/asynhandlerUtil";
@@ -72,6 +78,7 @@ const getAllBlogsController = asyncHandler(
     const skip = (pageNumber - 1) * pageLimit;
     const take = pageLimit;
     const blogs = await prisma.blogPost.findMany({
+      where: { isPublic: true },
       select: {
         blogId: true,
         blogTitle: true,
@@ -129,7 +136,7 @@ const getSingleBlogController = asyncHandler(
   async (req: Request, res: Response) => {
     const { blogSlug } = req.params;
     const blog = await prisma.blogPost.findUnique({
-      where: { blogSlug },
+      where: { blogSlug, isPublic: true },
       select: {
         blogId: true,
         blogTitle: true,
@@ -350,12 +357,60 @@ const searchBlogController = asyncHandler(
       );
   }
 );
+//////////////////////////// * Private Blogs *//////////////////
+const getAllPrivateBlogsController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const privateBlogs = await prisma.blogPost.findMany({
+      where: { isPublic: false },
+      select: {
+        author: {
+          select: {
+            uid: true,
+            fullName: true,
+            username: true,
+            email: true,
+            blogPosts: {
+              select: { blogId: true, blogTitle: true, blogSlug: true },
+            },
+          },
+        },
+        blogId: true,
+        blogSlug: true,
+        blogDescription: true,
+        blogThumbnail: true,
+        blogThumbnailAuthor: true,
+        blogTitle: true,
+        isPublic: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+    if (privateBlogs.length === 0) {
+      return res
+        .status(NOT_FOUND)
+        .json(apiResponse(NOT_FOUND, "No private Blog found", privateBlogs));
+    }
+    return res
+      .status(OK)
+      .json(
+        apiResponse(
+          OK,
+          "All private blogs data fetched successfully",
+          privateBlogs
+        )
+      );
+  }
+);
+//////////////////////////// * single private Blogs ////////////////////
 
 export {
+  //public blogs
   createBlogController,
   getAllBlogsController,
   getSingleBlogController,
   updateBlogController,
   deleteBlogController,
   searchBlogController,
+  //private Blogs
+  getAllPrivateBlogsController,
 };

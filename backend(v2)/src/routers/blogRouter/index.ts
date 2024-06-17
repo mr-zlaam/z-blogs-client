@@ -3,6 +3,7 @@ import {
   createBlogController,
   deleteBlogController,
   getAllBlogsController,
+  getAllPrivateBlogsController,
   getSingleBlogController,
   searchBlogController,
   updateBlogController,
@@ -15,6 +16,7 @@ blogRouter
   .route("/createBlog")
   .post(validateData(BlogValidation), createBlogController);
 blogRouter.route("/getAllBlogs").get(getAllBlogsController);
+blogRouter.route("/getAllPrivateBlogs").get(getAllPrivateBlogsController);
 blogRouter.route("/getSingleBlog/:blogSlug").get(getSingleBlogController);
 blogRouter.route("/updateBlog/:blogSlug").put(updateBlogController);
 blogRouter.route("/deleteBlog/:blogSlug").delete(deleteBlogController);
