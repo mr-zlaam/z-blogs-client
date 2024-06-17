@@ -152,6 +152,14 @@ const getAllUsersController = asyncHandler(
         role: true,
         createdAt: true,
         updatedAt: true,
+        blogPosts: {
+          select: {
+            blogId: true,
+            blogTitle: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+        },
       },
       skip,
       take,

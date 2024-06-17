@@ -22,12 +22,27 @@ enum Role {
 }
 
 model User {
-  uid       String   @id @default(cuid())
-  username  String   @unique
+  uid       String     @id @default(cuid())
+  username  String     @unique
   fullName  String
-  email     String   @unique
+  email     String     @unique
   password  String
   role      Role
+  blogPosts BlogPost[] @relation("blogAuthor")
+  createdAt DateTime   @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime   @updatedAt @db.Timestamptz(3)
+}
+
+model BlogPost {
+  blogId              String @id @default(cuid())
+  author              User   @relation("blogAuthor", fields: [authorId], references: [uid], onDelete: Cascade)
+  authorId            String
+  blogTitle           String
+  blogDescription     String
+  blogSlug            String
+  blogThumbnail       String
+  blogThumbnailAuthor String
+
   createdAt DateTime @default(now()) @db.Timestamptz(3)
   updatedAt DateTime @updatedAt @db.Timestamptz(3)
 }
