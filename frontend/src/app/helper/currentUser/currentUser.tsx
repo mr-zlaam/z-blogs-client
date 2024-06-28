@@ -10,7 +10,7 @@ export const fetchCurrentUser = async () => {
         Authorization: `Bearer ${token?.value || ""}`,
       },
     });
-    return currentUser.data;
+    return currentUser.data.data;
   } catch (error: any) {
     console.log(error.message);
     return error;

@@ -83,7 +83,7 @@ export const BlogValidation = z.object({
     .string({ message: "blog thumbnail is required!!" })
     .regex(
       new RegExp(
-        /^(https?|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]*[-A-Za-z0-9+&@#/%=~_|]$/
+        /^(?:(?:https?|ftp):\/\/)?(?:\([^)]+\)|[^:\s]+)(?:\:\S+)?(?:\/[\w-._~:\/?#[\]@!$&'()*+,;=%]*)$/
       ),
       { message: "blog thumbnail's url is invalid!!" }
     ),
