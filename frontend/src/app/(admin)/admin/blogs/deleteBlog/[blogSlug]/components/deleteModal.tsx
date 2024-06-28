@@ -14,16 +14,17 @@ function Delete({ id, token }: { id: string; token: string }) {
   };
   const deleteThisUser = async () => {
     try {
-      const response = await axios.delete(`blogs/deleteBlog/${id}`, {
+      const response = await axios.delete(`blog/deleteBlog/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response.status === 204) {
+      if (response.status === 200) {
         RedirectToPreviousPage();
         return successMessage("BlogPost has been deleted successfully");
       } else return null;
     } catch (error: any) {
+      console.log(error);
       return errorMessage(
         error.response.data.message ||
           "something went wrong while deleting BlogPost."

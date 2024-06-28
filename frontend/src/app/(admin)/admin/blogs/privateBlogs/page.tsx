@@ -34,7 +34,7 @@ import { redirect } from "next/navigation";
 import { Fragment } from "react";
 const fetchPrivateBlogs = async (token: string) => {
   try {
-    const response = await axios.get("/blogs/draftBlogs", {
+    const response = await axios.get("/blog/getAllPrivateBlogs", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -94,7 +94,7 @@ export default async function PrivateBlogs() {
                       ) : (
                         data?.map((privateBlog, index: number) => {
                           return (
-                            <Fragment key={privateBlog._id}>
+                            <Fragment key={privateBlog.blogId}>
                               <TableRow className="">
                                 <TableCell className="hidden sm:table-cell">
                                   <span className="font-medium">
@@ -105,7 +105,9 @@ export default async function PrivateBlogs() {
                                   {privateBlog.blogTitle}
                                 </TableCell>
 
-                                <TableCell>{privateBlog.blogAuthor}</TableCell>
+                                <TableCell>
+                                  {privateBlog.author.fullName}
+                                </TableCell>
                                 <TableCell className="hidden md:table-cell">
                                   {moment(privateBlog.createdAt).format(
                                     "MMMM Do YYYY, h:mm:ss a"
@@ -142,7 +144,7 @@ export default async function PrivateBlogs() {
                                         </DropdownMenuItem>
                                       </Link>
                                       <Link
-                                        href={`deleteBlog/${privateBlog._id}`}
+                                        href={`deleteBlog/${privateBlog.blogSlug}`}
                                       >
                                         <DropdownMenuItem>
                                           Delete
