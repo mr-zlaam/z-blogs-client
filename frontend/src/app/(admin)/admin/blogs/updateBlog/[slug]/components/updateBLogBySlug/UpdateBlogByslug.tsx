@@ -33,7 +33,7 @@ import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Fragment, useRef, useState } from "react";
+import { ChangeEvent, Fragment, useRef, useState } from "react";
 import FroalaEditor from "react-froala-wysiwyg";
 
 function UpdateBlogBySlug({
@@ -55,7 +55,7 @@ function UpdateBlogBySlug({
   const [updateSlug, setUpdateSlug] = useState(oldData.blogSlug || "");
   const [isPublic, setIsPublic] = useState(oldData.isPublic || false);
   const [updateBlogAuthor, setupdateBlogAuthor] = useState(
-    oldData.blogAuthor || ""
+    oldData.author.fullName || ""
   );
   const [updateBlogThumbnail, setUpdateBlogThumbnail] = useState(
     oldData.blogThumbnail ||
@@ -82,10 +82,10 @@ function UpdateBlogBySlug({
     }
     e.preventDefault();
     try {
-      const responseFromUpdateBlog = await axios.patch(
-        `/blogs/updateBlog/${slugForUpdate}`,
+      const responseFromUpdateBlog = await axios.put(
+        `/blog/updateBlog/${slugForUpdate}`,
         {
-          blogAuthor: updateBlogAuthor,
+          author: updateBlogAuthor,
           blogTitle: updateTitle,
           blogSlug: `${updateSlug}`,
           blogDescription: updateBlogDesc,
@@ -99,7 +99,7 @@ function UpdateBlogBySlug({
           },
         }
       );
-      if (responseFromUpdateBlog.status === 201) {
+      if (responseFromUpdateBlog.status === 200) {
         successMessage("Blog Updated Successfully");
         return router.push("/admin/blogs/privateBlogs");
       }
@@ -147,7 +147,7 @@ function UpdateBlogBySlug({
     {
       label: "Update BlogImage",
       type: "url",
-      value: oldData.blogThumbnail || updateBlogThumbnail || "",
+      defaultValue: oldData.blogThumbnail || updateBlogThumbnail || "",
       className:
         "border  border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent",
       readOnly: false,
@@ -171,7 +171,7 @@ function UpdateBlogBySlug({
       className:
         "border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent",
       onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setupdateBlogAuthor(e.target.value),
+        setupdateBlogAuthor((oldData.author.fullName = e.target.value)),
       readOnly: false,
     },
     {
@@ -188,7 +188,6 @@ function UpdateBlogBySlug({
   const setUrlToImageBlog = (e: React.FormEvent) => {
     e.preventDefault();
     const url: string = imageUrlRef.current.value;
-    console.log(url);
     if (UseValidateImageUrl(url)) {
       if (url.includes("_next/image"))
         return errorMessage("This url can't be set!");
@@ -218,15 +217,34 @@ function UpdateBlogBySlug({
             <Fragment key={field.label}>
               <div className="my-2 relative">
                 <label htmlFor={field.label}>{field.label}</label>
-                <input
-                  type={field.type}
-                  value={field.value}
-                  className={field.className}
-                  onChange={field.onChange}
-                  readOnly={field.readOnly}
-                  defaultChecked={isPublic}
-                  ref={field.ref ? imageUrlRef : null}
-                />
+                {field.defaultValue && (
+                  <input
+                    type={field.type}
+                    value={field.value}
+                    defaultValue={
+                      field.defaultValue
+                        ? field.defaultValue
+                        : oldData.blogThumbnail
+                    }
+                    className={field.className}
+                    onChange={field.onChange}
+                    readOnly={field.readOnly}
+                    defaultChecked={isPublic}
+                    ref={field.ref ? imageUrlRef : null}
+                  />
+                )}
+                {field.value && (
+                  <input
+                    type={field.type}
+                    value={field.value}
+                    className={field.className}
+                    onChange={field.onChange}
+                    readOnly={field.readOnly}
+                    defaultChecked={isPublic}
+                    ref={field.ref ? imageUrlRef : null}
+                  />
+                )}
+
                 {field.button && (
                   <Button
                     variant={"link"}

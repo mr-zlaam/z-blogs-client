@@ -11,7 +11,7 @@ export interface SlugTypes {
 }
 const fetchSingleBlog = async (slug: string) => {
   try {
-    const response = await axios.get(`/blogs/getSingleBlog/${slug}`);
+    const response = await axios.get(`/blog/getSingleBlog/${slug}`);
     if (response.status !== 200) {
       return redirect("/admin/blogs/privateBlogs");
     }
