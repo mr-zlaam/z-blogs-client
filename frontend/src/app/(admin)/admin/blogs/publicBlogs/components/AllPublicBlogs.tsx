@@ -28,10 +28,11 @@ import htmlParser from "html-react-parser";
 import { MoreHorizontal } from "lucide-react";
 import moment from "moment";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Fragment } from "react";
 const fetchPublicBlogs = async () => {
   try {
-    const response = await axios.get("/blogs/publicBlogs");
+    const response = await axios.get("/blog/getAllPublicBlogs");
     return response.data;
   } catch (error: any) {
     console.log(error.message);
@@ -40,9 +41,16 @@ const fetchPublicBlogs = async () => {
 };
 export default async function AllPublicBlogs() {
   const publicBlogs: PublicBLogTypes = await fetchPublicBlogs();
-  const publicBlogsList = publicBlogs.data.publicBlogsList.reverse();
+  const publicBlogsList = publicBlogs.data.blogs;
   return (
     <>
+      {publicBlogsList.length === 0 && (
+        <div className="min-h-[70vh] flex justify-center items-center">
+          <h1 className="text-3xl font-bold text-center">
+            No Public Post Found !
+          </h1>
+        </div>
+      )}
       {publicBlogs.success ? (
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
           <Tabs defaultValue="all">
@@ -62,7 +70,6 @@ export default async function AllPublicBlogs() {
                           <span className="font-medium">Post No.</span>
                         </TableHead>
                         <TableHead>Title</TableHead>
-                        <TableHead>Blogs Description</TableHead>
                         <TableHead>Author</TableHead>
                         <TableHead className="hidden md:table-cell">
                           Created At
@@ -78,7 +85,7 @@ export default async function AllPublicBlogs() {
                     <TableBody className="b">
                       {publicBlogsList.map((publicBlog, index: number) => {
                         return (
-                          <Fragment key={publicBlog._id}>
+                          <Fragment key={publicBlog.blogId}>
                             <TableRow className="">
                               <TableCell className="hidden sm:table-cell">
                                 <span className="font-medium">{index + 1}</span>
@@ -87,7 +94,12 @@ export default async function AllPublicBlogs() {
                                 {publicBlog.blogTitle}
                               </TableCell>
 
-                              <TableCell>{publicBlog.blogAuthor}</TableCell>
+                              <TableCell>
+                                {publicBlog.author.fullName} <br />
+                                <span className="text-sm text-gray-500">
+                                  @{publicBlog.author.username}
+                                </span>
+                              </TableCell>
                               <TableCell className="hidden md:table-cell">
                                 {moment(publicBlog.createdAt).format(
                                   "MMMM Do YYYY, h:mm:ss a"

@@ -27,13 +27,21 @@ export interface UserDataTypes {
   createdAt: string;
   updatedAt: string;
 }
+export interface AuthorType {
+  uid: string;
+  fullName: string;
+  username: string;
+  email: string;
+  role: UserUpdateRoleType;
+  blogPosts: [];
+}
 export interface BlogDataTypes {
   blogId: string;
   blogTitle: string;
   blogSlug: string;
   blogDescription: string;
   blogThumbnail: string;
-  blogAuthor: string;
+  author: AuthorType;
   blogThumbnailAuthor: string;
   isPublic: true | false;
   createdAt: string;
