@@ -45,3 +45,19 @@ export const ifUserIsModerator_OR_Admin = asyncHandler(
     next();
   }
 );
+// If user is not login
+export const ifUser = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const token = req.header("Authorization");
+    if (!token)
+      throw { status: BAD_REQUEST, message: "unable to find any token" };
+    const parsedToken = token?.split(" ")[1] || "";
+    try {
+      verify(parsedToken, JWT_SECRET_KEY) as PayLoadType;
+    } catch (error: any) {
+      console.log(error.message);
+      throw { status: 400, message: error.message || "invalid token!!" };
+    }
+    next();
+  }
+);
