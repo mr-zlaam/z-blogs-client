@@ -51,21 +51,21 @@ function UpdateBlogBySlug({
   const [showPreview, setShowPreview] = useState<boolean>(false);
   const router = useRouter();
   //states
-  const [updateTitle, setupdateTitle] = useState(oldData.blogTitle || "");
-  const [updateSlug, setUpdateSlug] = useState(oldData.blogSlug || "");
-  const [isPublic, setIsPublic] = useState(oldData.isPublic || false);
+  const [updateTitle, setupdateTitle] = useState(oldData?.blogTitle || "");
+  const [updateSlug, setUpdateSlug] = useState(oldData?.blogSlug || "");
+  const [isPublic, setIsPublic] = useState(oldData?.isPublic || false);
   const [updateBlogAuthor, setupdateBlogAuthor] = useState(
-    oldData.author.fullName || ""
+    oldData?.author?.fullName || ""
   );
   const [updateBlogThumbnail, setUpdateBlogThumbnail] = useState(
-    oldData.blogThumbnail ||
+    oldData?.blogThumbnail ||
       "https://code.visualstudio.com/assets/docs/languages/javascript/jsx.png"
   );
   const [updateBlogThumbnailAuthor, setUpdateBlogThumbnailAuthor] = useState(
-    oldData.blogThumbnailAuthor
+    oldData?.blogThumbnailAuthor
   );
   const [updateBlogDesc, setUpdateBlogDesc] = useState(() => {
-    return oldData.blogDescription || localStorage.getItem("savedHtml") || "";
+    return oldData?.blogDescription || localStorage.getItem("savedHtml") || "";
   });
   //handleOnchageFunction
 
@@ -147,7 +147,7 @@ function UpdateBlogBySlug({
     {
       label: "Update BlogImage",
       type: "url",
-      defaultValue: oldData.blogThumbnail || updateBlogThumbnail || "",
+      defaultValue: oldData?.blogThumbnail || updateBlogThumbnail || "",
       className:
         "border  border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent",
       readOnly: false,
@@ -184,7 +184,7 @@ function UpdateBlogBySlug({
       readOnly: false,
     },
   ];
-  const imageUrlRef = useRef<any>(oldData.blogThumbnail || null);
+  const imageUrlRef = useRef<any>(oldData?.blogThumbnail || null);
   const setUrlToImageBlog = (e: React.FormEvent) => {
     e.preventDefault();
     const url: string = imageUrlRef.current.value;

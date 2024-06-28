@@ -32,6 +32,7 @@ import { BlogTypes } from "@/types";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Fragment } from "react";
+import { ChekcIfUserIsAdmin } from "../publicBlogs/page";
 const fetchPrivateBlogs = async (token: string) => {
   try {
     const response = await axios.get("/blog/getAllPrivateBlogs", {
@@ -48,6 +49,9 @@ const fetchPrivateBlogs = async (token: string) => {
 
 export default async function PrivateBlogs() {
   const token = useCookieGrabber();
+  const isUserAdmin = await ChekcIfUserIsAdmin(token?.value as string);
+  if (isUserAdmin.statusCode !== 200) return redirect("/home");
+
   const draftPrivateBlogs: BlogTypes = await fetchPrivateBlogs(
     token?.value || ""
   );

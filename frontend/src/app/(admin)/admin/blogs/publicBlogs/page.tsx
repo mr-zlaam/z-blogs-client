@@ -3,7 +3,7 @@ import AllPublicBlogs from "./components/AllPublicBlogs";
 import { API as axios } from "@/axios";
 import useCookieGrabber from "@/hooks/useCookieGrabber";
 import { redirect } from "next/navigation";
-const ChekcIfUserIsAdmin = async (token: string) => {
+export const ChekcIfUserIsAdmin = async (token: string) => {
   try {
     const response = await axios.get("/blog/checkIfuserIsAdmin", {
       headers: {
