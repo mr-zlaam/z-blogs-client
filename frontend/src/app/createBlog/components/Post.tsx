@@ -42,6 +42,8 @@ import { FormEvent, useRef, useState } from "react";
 import FroalaEditor from "react-froala-wysiwyg";
 import { AlloweTags } from "../helper/toolbar";
 import moment from "moment";
+import { fetchCurrentUser } from "@/app/helper/currentUser/currentUser";
+import { CurrentUserTypes } from "@/types";
 function CreatePosts({ token }: { token: string }) {
   const [desc, setDesc] = useState(() => {
     return localStorage.getItem("savedHtml") || "";
@@ -86,10 +88,11 @@ function CreatePosts({ token }: { token: string }) {
       return errorMessage("Please Provide all fields");
     }
     try {
+      const currentUser = (await fetchCurrentUser()) as CurrentUserTypes;
       const response = await axios.post(
         "/blog/createBlog",
         {
-          authorId: "",
+          authorId: currentUser.uid,
           blogTitle: title,
           blogSlug: `${slug}`,
           blogDescription: desc,

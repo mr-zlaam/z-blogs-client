@@ -61,3 +61,10 @@ export interface PublicBLogTypes {
   optMessage: string | null;
   data: PublicBlogDataTypes;
 }
+export interface CurrentUserTypes {
+  uid: string;
+  username: string;
+  email: string;
+  fullName: string;
+  role: "ADMIN" | "MODERATOR" | "USER";
+}

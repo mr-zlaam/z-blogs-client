@@ -16,6 +16,7 @@ import {
   loginUserController,
   logoutUserController,
   searchUserController,
+  getCurrentUserController,
 } from "../../controllers/authController/authController";
 import { ifUser, ifUserIsAdmin } from "../../middlewares/authMiddleware";
 const authRouter = Router();
@@ -25,6 +26,7 @@ authRouter
 authRouter.route("/login").post(loginUserController);
 authRouter.route("/getAllUsers").get(ifUserIsAdmin, getAllUsersController);
 authRouter.route("/getSingleUser/:uid").get(ifUser, getSingleUserController);
+authRouter.route("/currentUser").get(ifUser, getCurrentUserController);
 authRouter
   .route("/updateUser/:uid")
   .put(validateData(userUpdateSchema), ifUser, updateUserController);

@@ -419,7 +419,7 @@ const searchUserController = asyncHandler(
   }
 );
 // * Get Current User Controller
-export const getCurrentUserController = asyncHandler(
+const getCurrentUserController = asyncHandler(
   async (req: RequestUser, res: Response) => {
     const currentUser = req.user;
     return res
@@ -438,4 +438,5 @@ export {
   updateUserPasswordController,
   updateUserRoleController,
   searchUserController,
+  getCurrentUserController,
 };
