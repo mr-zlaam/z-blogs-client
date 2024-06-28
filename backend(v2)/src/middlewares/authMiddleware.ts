@@ -15,7 +15,6 @@ export const ifUserIsAdmin = asyncHandler(
     try {
       decodedToken = verify(parsedToken, JWT_SECRET_KEY) as PayLoadType;
     } catch (error: any) {
-      console.log(error.message);
       throw { status: 400, message: error.message || "invalid token!!" };
     }
     if (decodedToken.role !== "ADMIN")
