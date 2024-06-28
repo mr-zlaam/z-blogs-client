@@ -9,6 +9,13 @@ import { updateSchema } from "@/validation/Schemas/dataSchema";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 function UpdateForm({
   user,
@@ -34,7 +41,6 @@ function UpdateForm({
       username: updateUsername,
       fullName: updateFullName,
       email: updateEmail,
-      role: updateRole.toUpperCase(),
     };
 
     // Validate the form data
@@ -69,15 +75,37 @@ function UpdateForm({
       }
     } catch (error: any) {
       console.log(error);
-      console.log(error.response.data.message);
 
       return errorMessage("something went wrong");
+    }
+  };
+  const handleUpdateRole = async () => {
+    try {
+      const response = await axios.put(
+        `${BACKEND_URI}/auth/updateRole/${userId}`,
+        {
+          role: updateRole || "USER",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        successMessage(
+          response.data.message || "user's Role updated successfully"
+        );
+      }
+    } catch (error: any) {
+      console.log(error.message);
     }
   };
   return (
     <>
       <section className="">
-        <form className=" max-w-sm border rounded-md mx-auto relative top-20 py-10 px-5">
+        <div className=" max-w-sm border rounded-md mx-auto relative top-20 py-10 px-5">
           <h1 className="font-sans text-2xl font-bold text-center mb-8">
             Update User Details
           </h1>
@@ -127,22 +155,36 @@ function UpdateForm({
             <Label htmlFor="update-role" className="mb-1">
               Role
             </Label>
-            <Input
-              value={updateRole.toLowerCase()}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+
+            <select
+              name="role"
+              id="role"
+              value={updateRole.toUpperCase()}
+              onChange={(e: ChangeEvent<HTMLSelectElement>) => {
                 setUpdateRole(e.target.value);
               }}
-              id="update-role"
-              type="text"
-              placeholder="john_doe"
-            />
+              className="px-4 py-2 outline-none rounded border-[1px] border-foreground/20 bg-background"
+            >
+              <option value="USER" className="px-4 py-2 my-2">
+                USER
+              </option>
+              <option className="px-4 py-2 my-2" value="MODERATOR">
+                MODERATOR
+              </option>
+              <option className="px-4 py-2 my-2" value="ADMIN">
+                ADMIN
+              </option>
+            </select>
+            <Button onClick={handleUpdateRole} className="w-fit mx-auto my-2">
+              Update Role
+            </Button>
           </div>
           <div className="p-3">
             <Button onClick={handleDataUpdateConfirm} className="w-full">
-              Update
+              Save and Exit
             </Button>
           </div>
-        </form>
+        </div>
       </section>
     </>
   );
