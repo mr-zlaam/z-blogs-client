@@ -1,15 +1,14 @@
-import { Suspense } from "react";
-import PageWrapper from "../components/PageWrapper/PageWrapper";
-import NavBar from "../components/NavBar/NavBar";
-import GoBack from "./components/GoBack/GoBack";
-import RenderAllPosts from "./components/RenderAllPosts/RenderAllPosts";
-import { fetchBlogs as FetchAllPost } from "@/app/helper/fetchAllBlogs/FetchAllBlogs";
 import ImgLoader from "@/_subComponents/imgLoader";
+import { fetchBlogs as FetchAllPost } from "@/app/helper/fetchAllBlogs/FetchAllBlogs";
 import { PublicBLogTypes } from "@/types";
-import { useMessage } from "@/hooks/useMessage";
-import ScrollToTop from "../(getSinglePost)/1/[slug]/components/ScrollToTop";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import ScrollToTop from "../(getSinglePost)/1/[slug]/components/ScrollToTop";
+import NavBar from "../components/NavBar/NavBar";
+import PageWrapper from "../components/PageWrapper/PageWrapper";
+import GoBack from "./components/GoBack/GoBack";
+import RenderAllPosts from "./components/RenderAllPosts/RenderAllPosts";
 async function AllPosts() {
   const getAllPosts: PublicBLogTypes = await FetchAllPost();
 
