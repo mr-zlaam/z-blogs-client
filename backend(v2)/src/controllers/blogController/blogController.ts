@@ -401,7 +401,6 @@ const getAllPrivateBlogsController = asyncHandler(
       );
   }
 );
-//////////////////////////// * single private Blogs ////////////////////
 
 export {
   //public blogs
