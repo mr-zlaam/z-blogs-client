@@ -363,6 +363,15 @@ const getAllPrivateBlogsController = asyncHandler(
     const privateBlogs = await prisma.blogPost.findMany({
       where: { isPublic: false },
       select: {
+        blogId: true,
+        blogSlug: true,
+        blogDescription: true,
+        blogThumbnail: true,
+        blogThumbnailAuthor: true,
+        blogTitle: true,
+        isPublic: true,
+        createdAt: true,
+        updatedAt: true,
         author: {
           select: {
             uid: true,
@@ -374,15 +383,6 @@ const getAllPrivateBlogsController = asyncHandler(
             },
           },
         },
-        blogId: true,
-        blogSlug: true,
-        blogDescription: true,
-        blogThumbnail: true,
-        blogThumbnailAuthor: true,
-        blogTitle: true,
-        isPublic: true,
-        createdAt: true,
-        updatedAt: true,
       },
     });
     if (privateBlogs.length === 0) {
