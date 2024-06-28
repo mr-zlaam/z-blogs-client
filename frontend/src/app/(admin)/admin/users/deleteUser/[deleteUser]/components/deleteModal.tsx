@@ -18,18 +18,19 @@ function Delete({ id, token }: { id: string; token: string }) {
   const deleteThisUser = async () => {
     try {
       const response = await axios.delete(
-        `${BACKEND_URI}/auth/user/deleteUser/${id}`,
+        `${BACKEND_URI}/auth/deleteUser/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      if (response.status === 204) {
+      if (response.status === 200) {
         RedirectToPreviousPage();
         return successMessage("user has been deleted successfully");
       } else return null;
     } catch (error: any) {
+      console.log(error);
       return errorMessage(
         error.response.data.message ||
           "something went wrong while deleting user."
