@@ -48,7 +48,7 @@ function UpdateForm({
     }
 
     try {
-      const response = await axios.patch(
+      const response = await axios.put(
         `${BACKEND_URI}/auth/updateUser/${userId}`,
         {
           username: updateUsername,
@@ -70,13 +70,8 @@ function UpdateForm({
     } catch (error: any) {
       console.log(error);
       console.log(error.response.data.message);
-      return errorMessage(
-        (error.response.data.message.includes("username:") &&
-          "This username is already in use.") ||
-          (error.response.data.message.includes("email:") &&
-            "This email is already in use.") ||
-          "some thing went wrong while updating user Details"
-      );
+
+      return errorMessage("something went wrong");
     }
   };
   return (

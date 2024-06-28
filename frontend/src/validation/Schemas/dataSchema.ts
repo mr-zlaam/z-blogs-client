@@ -2,6 +2,7 @@ import type {
   BlogTypes,
   UserLoginTypes,
   UserRegisterTypes,
+  UserUpdateRoleType,
   UserUpdateTypes,
 } from "@/types";
 import { type ZodType, object, string, enum as enum_ } from "zod";
@@ -64,22 +65,24 @@ export const loginSchema: ZodType<UserLoginTypes> = object({
 export const updateSchema: ZodType<UserUpdateTypes> = object({
   username: string()
     .min(3, { message: "This field requires at least  3 characters" })
-    .max(10, { message: "Username must not contain more than 10 characters" })
+    .max(50, { message: "Username must not contain more than 10 characters" })
     .regex(new RegExp(/^[a-z0-9]+(_[a-z0-9]+)?(-[a-z0-9]+)?$/), {
       message: "Username is invalid.",
     })
     .toLowerCase(),
   fullName: string()
     .min(3, { message: "This field requires at least  3 characters" })
-    .max(20, { message: "Full Name is too long" })
+    .max(50, { message: "Full Name is too long" })
     .regex(new RegExp(/^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/), {
       message: "Full name is invalid",
     }),
   email: string()
     .email()
     .min(5, { message: "This field requires at least 5 characters" })
-    .max(30, { message: "Email is too long" })
+    .max(100, { message: "Email is too long" })
     .toLowerCase(),
+});
+export const updateRoleSchema: ZodType<UserUpdateRoleType> = object({
   role: enum_(["ADMIN", "MODERATOR", "USER"], {
     errorMap: () => ({ message: "Role must be ADMIN | MODERATOR | USER" }),
   }),

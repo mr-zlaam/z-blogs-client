@@ -13,8 +13,11 @@ export interface UserUpdateTypes {
   username: string;
   fullName: string;
   email: string;
+}
+export interface UserUpdateRoleType {
   role: "ADMIN" | "MODERATOR" | "USER";
 }
+
 export interface UserDataTypes {
   uid: string;
   username: string;
