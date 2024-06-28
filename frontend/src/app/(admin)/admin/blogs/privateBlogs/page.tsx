@@ -56,7 +56,7 @@ export default async function PrivateBlogs() {
     token?.value || ""
   );
   if (!draftPrivateBlogs.success) return redirect("/home");
-  const data = draftPrivateBlogs.data?.reverse();
+  const data = draftPrivateBlogs.data;
   if (!data) return redirect("/home");
   return (
     <>
