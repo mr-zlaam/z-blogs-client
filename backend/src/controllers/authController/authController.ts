@@ -30,7 +30,7 @@ const registerUserController = asyncHandler(
       where: { username, email },
     });
     if (isUserExist)
-      throw { status: BAD_REQUEST, message: "user already exists!!" };
+      throw { status: BAD_REQUEST, message: "user already exists" };
     const isAdmin = ADMIN_EMAIL === email && ADMIN_PASSWORD === password;
     const hashedPassword = (await passwordHasher(password, res)) as string;
     const newUser = await prisma.user.create({

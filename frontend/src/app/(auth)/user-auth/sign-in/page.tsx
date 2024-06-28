@@ -33,7 +33,7 @@ function LoginForm() {
       startLoading();
       console.log(BACKEND_URI);
       const response = await axios.post(
-        `${BACKEND_URI}/auth/user/login`,
+        `${BACKEND_URI}/auth/login`,
         {
           email,
           password,

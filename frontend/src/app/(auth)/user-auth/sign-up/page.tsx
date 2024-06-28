@@ -35,7 +35,7 @@ function RegisterForm() {
     try {
       startLoading();
       const response = await axios.post(
-        `${BACKEND_URI}/auth/user/register`,
+        `${BACKEND_URI}/auth/register`,
         {
           username,
           fullName,
@@ -65,7 +65,8 @@ function RegisterForm() {
       console.log(error);
 
       return errorMessage(
-        error?.response.data.message || "some thing went wrong"
+        error?.response.data.error.message ||
+          "some thing went wrong while register the user"
       );
     }
   };
