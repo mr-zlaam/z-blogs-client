@@ -17,12 +17,13 @@ import {
   logoutUserController,
   searchUserController,
 } from "../../controllers/authController/authController";
+import { ifUserIsAdmin } from "../../middlewares/authMiddleware";
 const authRouter = Router();
 authRouter
   .route("/register")
   .post(validateData(userRegistrationSchema), registerUserController);
 authRouter.route("/login").post(loginUserController);
-authRouter.route("/getAllUsers").get(getAllUsersController);
+authRouter.route("/getAllUsers").get(ifUserIsAdmin, getAllUsersController);
 authRouter.route("/getSingleUser/:uid").get(getSingleUserController);
 authRouter
   .route("/updateUser/:uid")

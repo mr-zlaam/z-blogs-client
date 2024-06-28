@@ -12,11 +12,8 @@ import { prisma } from "../../db";
 import { apiResponse } from "../../utils/apiResponseUtil";
 import { asyncHandler } from "../../utils/asynhandlerUtil";
 import { passwordHasher, verifyPassword } from "../../utils/passwordHasher";
-import {
-  GenerateJWTAccessToken,
-  PayLoadType,
-} from "../../utils/tokenGenerator";
-import { SearchQueryType, UserData } from "../../types";
+import { GenerateJWTAccessToken } from "../../utils/tokenGenerator";
+import { PayLoadType, SearchQueryType, UserData } from "../../types";
 
 // * Register  User Controller
 const registerUserController = asyncHandler(

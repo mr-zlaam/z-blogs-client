@@ -36,3 +36,12 @@ export interface BlogDataTypes {
   blogThumbnailAuthor?: string;
   isPublic?: boolean;
 }
+//Payload type to save data along with token
+
+export interface PayLoadType {
+  uid: string;
+  username: string;
+  email: string;
+  fullName: string;
+  role: "ADMIN" | "MODERATOR" | "USER";
+}

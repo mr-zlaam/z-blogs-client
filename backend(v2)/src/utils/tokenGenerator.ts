@@ -1,13 +1,8 @@
 import { sign } from "jsonwebtoken";
 import { JWT_SECRET_KEY } from "../config";
 import { Response } from "express";
-export interface PayLoadType {
-  uid: string;
-  username: string;
-  email: string;
-  fullName: string;
-  role: "ADMIN" | "MODERATOR" | "USER";
-}
+import { PayLoadType } from "../types";
+
 export const GenerateJWTAccessToken = (payload: PayLoadType, res: Response) => {
   try {
     let accessToken = sign(payload, JWT_SECRET_KEY, {
