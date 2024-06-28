@@ -360,7 +360,7 @@ const searchUserController = asyncHandler(
   async (req: Request, res: Response) => {
     const { q, page = 1, limit = 10 } = req.query;
 
-    if (!q) throw { status: 400, message: "Search query is required!!" };
+    // if (!q) throw { status: 400, message: "Search query is required!!" };
 
     const searchQuery = q as string;
     const pageNumber = Number(page);

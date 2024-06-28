@@ -36,7 +36,7 @@ import { Fragment } from "react";
 
 const fetchUsers = async (token: string) => {
   try {
-    const res = await axios.get(`${BACKEND_URI}/auth/user/all`, {
+    const res = await axios.get(`${BACKEND_URI}/auth/getAllUsers`, {
       withCredentials: true,
       headers: {
         Authorization: `Bearer ${token}`,
@@ -46,7 +46,6 @@ const fetchUsers = async (token: string) => {
       return res.data;
     }
   } catch (err: any) {
-    // const error = err as AxiosError;
     return err.response.data.statusCode || 403;
   }
 };
@@ -54,9 +53,15 @@ const fetchUsers = async (token: string) => {
 export default async function UserDashBoard() {
   const token = useCookieGrabber();
   if (!token) {
-    return;
+    return redirect("/home");
   }
-  const users = await fetchUsers(token?.value || "");
+  let users;
+  try {
+    users = await fetchUsers(token?.value || "");
+  } catch (error: any) {
+    console.log(error.message);
+    return redirect("/home");
+  }
   if (users === 403) {
     return redirect("/home");
   }
@@ -97,9 +102,9 @@ export default async function UserDashBoard() {
                 </TableHeader>
 
                 <TableBody className="">
-                  {!users?.data || users.data === undefined
+                  {!users?.data.users || users.data.users === undefined
                     ? "No Data found"
-                    : users?.data?.getUsers.map(
+                    : users?.data?.users.map(
                         (userData: UserDataTypes, index: number) => {
                           return (
                             <Fragment key={userData._id}>
