@@ -4,6 +4,7 @@ import UpdateForm from "./_components/updateForm";
 import { useMessage } from "@/hooks/useMessage";
 import useCookieGrabber from "@/hooks/useCookieGrabber";
 import { BACKEND_URI } from "@/config";
+import { redirect } from "next/navigation";
 //@types
 interface ParamType {
   updateUser: string;
@@ -11,7 +12,7 @@ interface ParamType {
 const fetchSingleUser = async (updateUser: string, token: string) => {
   try {
     const response = await axios.get(
-      `${BACKEND_URI}/auth/user/getSingleUser/${updateUser}`,
+      `${BACKEND_URI}/auth/getSingleUser/${updateUser}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -25,7 +26,6 @@ const fetchSingleUser = async (updateUser: string, token: string) => {
 };
 async function UpdateUser({ params }: { params: ParamType }) {
   const { updateUser } = params;
-  const { errorMessage } = useMessage();
   let user;
   let error = null;
   const token = useCookieGrabber();
@@ -34,7 +34,8 @@ async function UpdateUser({ params }: { params: ParamType }) {
     user = await fetchSingleUser(updateUser, token?.value || "");
   } catch (err) {
     error = err as AxiosError;
-    return errorMessage(error.message);
+    console.log(err);
+    return redirect("/home");
   }
   return (
     <>

@@ -80,8 +80,8 @@ export const updateSchema: ZodType<UserUpdateTypes> = object({
     .min(5, { message: "This field requires at least 5 characters" })
     .max(30, { message: "Email is too long" })
     .toLowerCase(),
-  role: enum_(["admin", "user", "sub-admin"], {
-    errorMap: () => ({ message: "Role must be user|sub-admin|admin" }),
+  role: enum_(["ADMIN", "MODERATOR", "USER"], {
+    errorMap: () => ({ message: "Role must be ADMIN | MODERATOR | USER" }),
   }),
 });
 

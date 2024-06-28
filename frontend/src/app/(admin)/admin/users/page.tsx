@@ -107,7 +107,7 @@ export default async function UserDashBoard() {
                     : users?.data?.users.map(
                         (userData: UserDataTypes, index: number) => {
                           return (
-                            <Fragment key={userData._id}>
+                            <Fragment key={userData.uid}>
                               <TableRow className="cursor-default ">
                                 <TableCell className="hidden sm:table-cell">
                                   {index + 1}
@@ -159,14 +159,14 @@ export default async function UserDashBoard() {
                                           Actions
                                         </DropdownMenuLabel>
                                         <Link
-                                          href={`users/updateUser/${userData._id}`}
+                                          href={`users/updateUser/${userData.uid}`}
                                         >
                                           <DropdownMenuItem>
                                             edit
                                           </DropdownMenuItem>
                                         </Link>
                                         <Link
-                                          href={`users/deleteUser/${userData._id}`}
+                                          href={`users/deleteUser/${userData.uid}`}
                                         >
                                           <DropdownMenuItem>
                                             Delete

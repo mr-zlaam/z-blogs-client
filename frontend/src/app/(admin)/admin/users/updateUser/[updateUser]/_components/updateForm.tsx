@@ -34,7 +34,7 @@ function UpdateForm({
       username: updateUsername,
       fullName: updateFullName,
       email: updateEmail,
-      role: updateRole.toLowerCase(),
+      role: updateRole.toUpperCase(),
     };
 
     // Validate the form data
@@ -49,12 +49,11 @@ function UpdateForm({
 
     try {
       const response = await axios.patch(
-        `${BACKEND_URI}/auth/user/updateUser/${userId}`,
+        `${BACKEND_URI}/auth/updateUser/${userId}`,
         {
           username: updateUsername,
           fullName: updateFullName,
           email: updateEmail,
-          role: updateRole,
         },
         {
           headers: {
