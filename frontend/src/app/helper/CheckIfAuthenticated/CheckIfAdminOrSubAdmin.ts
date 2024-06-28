@@ -4,7 +4,7 @@ async function CheckIfAdmin() {
   const token = useCookieGrabber();
 
   try {
-    const response = await axios.get("/blogs/checkIfuserIsAdmin", {
+    const response = await axios.get("/blog/checkIfuserIsAdmin", {
       headers: {
         Authorization: `Bearer ${token?.value || ""}`,
       },
@@ -17,7 +17,7 @@ async function CheckIfAdmin() {
 async function CheckIfSubAdmin() {
   const token = useCookieGrabber();
   try {
-    const response = await axios.get("/blogs/checkUserIsSubAdminOrAdmin", {
+    const response = await axios.get("/blog/checkUserIsSubAdminOrAdmin", {
       headers: {
         Authorization: `Bearer ${token?.value || ""}`,
       },
@@ -30,7 +30,7 @@ async function CheckIfSubAdmin() {
 async function CheckIfUserLoggedIn() {
   const token = useCookieGrabber();
   try {
-    const response = await axios.get("/blogs/checkIfUserLogin", {
+    const response = await axios.get("/blog/checkIfUserLogin", {
       headers: {
         Authorization: `Bearer ${token?.value || ""}`,
       },

@@ -20,20 +20,20 @@ const BlogRendererComponent = lazy(() => import("./components/BlogRenderer"));
 async function Home() {
   const data: PublicBLogTypes = await fetchBlogs();
   const isAdmin = await CheckIfAdmin();
-  const isSubAdmin = await CheckIfSubAdmin();
+  const isModerator = await CheckIfSubAdmin();
   const isUserLogined = await CheckIfUserLoggedIn();
+  console.log(data);
   if (!data.success) return;
-  const posts = data.data.publicBlogsList.reverse().slice(0, 6);
+  const posts = data.data.blogs.reverse().slice(0, 6);
   const renderLoader = () => (
     <div className="h-[50dvh] justify-center flex items-center">
       <ButtonLoader />
     </div>
   );
-  // const hanldeLogout = () => {};
   return (
     <main className="py-5">
-      {isSubAdmin
-        ? isSubAdmin.statusCode === 200 && (
+      {isModerator
+        ? isModerator.statusCode === 200 && (
             <Link
               href={"/createBlog"}
               className=" absolute top-10 right-10 flex items-center "

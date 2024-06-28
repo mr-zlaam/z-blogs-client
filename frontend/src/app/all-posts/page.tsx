@@ -14,8 +14,8 @@ async function AllPosts() {
   const getAllPosts: PublicBLogTypes = await FetchAllPost();
 
   if (!getAllPosts.success) return redirect("/home");
-  const { publicBlogsList } = getAllPosts.data;
-  const allPosts = publicBlogsList.reverse();
+  const { blogs } = getAllPosts.data;
+  const allPosts = blogs.reverse();
   const renderLoader = () => (
     <div className="h-[50dvh] justify-center flex items-center">
       <ImgLoader />

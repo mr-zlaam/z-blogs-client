@@ -51,7 +51,7 @@ export interface PaginationTypes {
   hasPreviousPage: boolean;
 }
 export interface PublicBlogDataTypes {
-  publicBlogsList: BlogDataTypes[];
+  blogs: BlogDataTypes[];
   pagination: PaginationTypes;
 }
 export interface PublicBLogTypes {
