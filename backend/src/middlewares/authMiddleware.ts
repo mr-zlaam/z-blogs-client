@@ -4,7 +4,9 @@ import { BAD_REQUEST, FORBIDDEN } from "../CONSTANTS";
 import { verify } from "jsonwebtoken";
 import { JWT_SECRET_KEY } from "../config";
 import { PayLoadType } from "../types";
-
+export interface RequestUser extends Request {
+  user?: PayLoadType;
+}
 export const ifUserIsAdmin = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const token = req.header("Authorization");
@@ -19,6 +21,8 @@ export const ifUserIsAdmin = asyncHandler(
     }
     if (decodedToken.role !== "ADMIN")
       throw { status: FORBIDDEN, message: "Only Admin can modify this data" };
+    const _req = req as RequestUser;
+    _req.user = decodedToken;
     next();
   }
 );

@@ -87,8 +87,9 @@ function CreatePosts({ token }: { token: string }) {
     }
     try {
       const response = await axios.post(
-        "/blogs/createBlog",
+        "/blog/createBlog",
         {
+          authorId: "",
           blogTitle: title,
           blogSlug: `${slug}`,
           blogDescription: desc,

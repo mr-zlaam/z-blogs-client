@@ -6,7 +6,7 @@ import useCookieGrabber from "@/hooks/useCookieGrabber";
 import { redirect } from "next/navigation";
 const checkUserIsSubAdminOrAdmin = async (token: string) => {
   try {
-    const response = await axios.get("/blogs/checkUserIsSubAdminOrAdmin", {
+    const response = await axios.get("/blog/checkUserIsSubAdminOrAdmin", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -28,7 +28,7 @@ async function CreateBLog() {
       <h1 className="py-5 bg-background z-[99]  text-center font-bold text-xl sticky top-0 w-full ">
         <Link
           href="/home"
-          className="duration-300 transition-all hover:text-blue-300"
+          className="duration-300 transition-all text-blue-500  hover:underline"
         >
           Go To Home Page
         </Link>

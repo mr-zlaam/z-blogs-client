@@ -14,6 +14,7 @@ import { asyncHandler } from "../../utils/asynhandlerUtil";
 import { passwordHasher, verifyPassword } from "../../utils/passwordHasher";
 import { GenerateJWTAccessToken } from "../../utils/tokenGenerator";
 import { PayLoadType, SearchQueryType, UserData } from "../../types";
+import { RequestUser } from "../../middlewares/authMiddleware";
 
 // * Register  User Controller
 const registerUserController = asyncHandler(
@@ -417,7 +418,15 @@ const searchUserController = asyncHandler(
     return res.status(OK).json(response);
   }
 );
-
+// * Get Current User Controller
+export const getCurrentUserController = asyncHandler(
+  async (req: RequestUser, res: Response) => {
+    const currentUser = req.user;
+    return res
+      .status(OK)
+      .json(apiResponse(OK, `You are ${currentUser?.fullName}`, currentUser));
+  }
+);
 export {
   deleteUserController,
   getAllUsersController,
