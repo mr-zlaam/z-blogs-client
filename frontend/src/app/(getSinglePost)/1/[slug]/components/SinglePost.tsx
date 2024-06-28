@@ -9,7 +9,7 @@ import {} from "react";
 import ScrollToTop from "./ScrollToTop";
 function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
   const router = useRouter();
-
+  console.log(SinglePostData);
   return (
     <>
       <ScrollToTop />
@@ -44,7 +44,7 @@ function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
               </p>
             </div>
           </div>
-          <aside>
+          <div>
             <Image
               src={SinglePostData.blogThumbnail || "/logo/Zlaam.jpg"}
               alt={SinglePostData?.blogThumbnailAuthor || "Zlaam"}
@@ -58,12 +58,13 @@ function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
                 {parser(SinglePostData?.blogThumbnailAuthor || "")}
               </span>
             </p>
-            <article className=" text-[18px] leading-[2] overflow-x-hidden">
+            <article className=" text-[18px] leading-[2] overflow-x-hidden ">
               {parser(
                 SinglePostData?.blogDescription || "<h1>Hello World Error</h1>"
               )}
+              {SinglePostData?.blogDescription}
             </article>
-          </aside>
+          </div>
         </div>
       </article>
     </>

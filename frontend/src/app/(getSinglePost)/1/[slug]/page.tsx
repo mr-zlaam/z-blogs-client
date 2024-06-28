@@ -9,7 +9,7 @@ import SinglePost from "./components/SinglePost";
 
 const fetchSinglePost = async (slug: string) => {
   try {
-    const response = await fetch(`${BACKEND_URI}/blogs/getSingleBlog/${slug}`, {
+    const response = await fetch(`${BACKEND_URI}/blog/getSingleBlog/${slug}`, {
       cache: "no-store",
     });
     if (response.ok) {
@@ -30,7 +30,7 @@ export async function generateMetadata({
   params: SlugTypes;
 }): Promise<Metadata> {
   const response = await fetch(
-    `${BACKEND_URI}/blogs/getSingleBlog/${params?.slug as string}`
+    `${BACKEND_URI}/blog/getSingleBlog/${params?.slug as string}`
   );
   const post = await response.json();
   const { data: getDataFromSinglePost } = post;
