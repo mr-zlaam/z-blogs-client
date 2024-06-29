@@ -9,7 +9,6 @@ import {} from "react";
 import ScrollToTop from "./ScrollToTop";
 function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
   const router = useRouter();
-  console.log(SinglePostData);
   return (
     <>
       <ScrollToTop />
@@ -36,7 +35,7 @@ function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
             />
             <div className="flex flex-col justify-start">
               <h1 className="text-lg font-semibold ">
-                {SinglePostData?.blogAuthor || "Zlaam"}
+                {SinglePostData?.author.fullName || "Zlaam"}
               </h1>
               <p className="text-sm text-left">
                 published on:{" "}
@@ -62,7 +61,6 @@ function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
               {parser(
                 SinglePostData?.blogDescription || "<h1>Hello World Error</h1>"
               )}
-              {SinglePostData?.blogDescription}
             </article>
           </div>
         </div>
