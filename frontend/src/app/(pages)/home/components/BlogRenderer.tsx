@@ -10,7 +10,6 @@ import { Fragment, useState } from "react";
 
 export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
   const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
-  console.log(posts);
   const handleImageLoad = () => {
     setIsImageLoaded(true);
   };
@@ -54,7 +53,7 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
                     onLoad={handleImageLoad}
                   />
                   <div>
-                    {post.blogAuthor} &nbsp;&nbsp;- &nbsp;&nbsp;
+                    {post.author.fullName || "Zlaam"} &nbsp;&nbsp;- &nbsp;&nbsp;
                     {moment(post.createdAt).format("MMMM Do, YYYY")}
                   </div>
                 </div>

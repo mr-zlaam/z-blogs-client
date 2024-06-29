@@ -22,7 +22,6 @@ async function Home() {
   const isAdmin = await CheckIfAdmin();
   const isModerator = await CheckIfSubAdmin();
   const isUserLogined = await CheckIfUserLoggedIn();
-  console.log(data);
   if (!data.success) return;
   const posts = data.data.blogs.reverse().slice(0, 6);
   const renderLoader = () => (
