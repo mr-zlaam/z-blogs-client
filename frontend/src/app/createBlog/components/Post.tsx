@@ -89,7 +89,6 @@ function CreatePosts({ token }: { token: string }) {
     }
     try {
       const currentUser = (await fetchCurrentUser()) as CurrentUserTypes;
-      // console.log(currentUser);
 
       const response = await axios.post(
         "/blog/createBlog",

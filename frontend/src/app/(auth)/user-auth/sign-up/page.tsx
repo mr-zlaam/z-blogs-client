@@ -49,7 +49,6 @@ function RegisterForm() {
         }
       );
       stopLoading();
-      console.log(response.data);
       if (response.data.success) {
         reset();
         successMessage(
