@@ -4,6 +4,7 @@ import { AlloweTags } from "@/app/createBlog/helper/toolbar";
 import { randomStringGen } from "@/app/helper/randomStringGen/randomStringGen";
 import { API as axios } from "@/axios";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useMessage } from "@/hooks/useMessage";
 import { useSlugGenerator as UseSlugGenerator } from "@/hooks/useSlugGenerator";
 import { useValidateImageUrl as UseValidateImageUrl } from "@/hooks/useValidateUrl";
@@ -52,7 +53,6 @@ function UpdateBlogBySlug({
   const router = useRouter();
   //states
   const [updateTitle, setupdateTitle] = useState(oldData?.blogTitle || "");
-  const [updateSlug, setUpdateSlug] = useState(oldData?.blogSlug || "");
   const [isPublic, setIsPublic] = useState(oldData?.isPublic || false);
   const [updateBlogAuthor, setupdateBlogAuthor] = useState(
     oldData?.author?.fullName || ""
@@ -72,7 +72,6 @@ function UpdateBlogBySlug({
   const handleUpdateBlog = async (e: React.FormEvent) => {
     if (
       !updateBlogAuthor ||
-      !updateSlug ||
       !updateTitle ||
       !updateBlogDesc ||
       !updateBlogThumbnail ||
@@ -87,7 +86,6 @@ function UpdateBlogBySlug({
         {
           author: updateBlogAuthor,
           blogTitle: updateTitle,
-          blogSlug: `${updateSlug}`,
           blogDescription: updateBlogDesc,
           blogThumbnail: updateBlogThumbnail,
           blogThumbnailAuthor: updateBlogThumbnailAuthor,
@@ -113,77 +111,12 @@ function UpdateBlogBySlug({
       }, 3000);
     }
   };
-  const handleChangeTitleAndSlug = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const mynewtitle = event.target.value;
-    setupdateTitle(mynewtitle);
-    setUpdateSlug(UseSlugGenerator(mynewtitle));
-  };
+
   //Handle show preview
   const handleShowPreview = () => {
     setShowPreview((prev) => !prev);
   };
-  const updateInputFields = [
-    {
-      label: "Update Title",
-      type: "text",
-      value: updateTitle || "",
-      className:
-        "border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent",
-      onChange: handleChangeTitleAndSlug,
-      readOnly: false,
-    },
 
-    {
-      label: "Update Slug",
-      type: "text",
-      value: updateSlug || "",
-      className:
-        "border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent",
-      onChange: handleChangeTitleAndSlug,
-      readOnly: true,
-    },
-    {
-      label: "Update BlogImage",
-      type: "url",
-      defaultValue: oldData?.blogThumbnail || updateBlogThumbnail || "",
-      className:
-        "border  border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent",
-      readOnly: false,
-      button: true,
-      ref: true,
-    },
-    {
-      label: "Update BlogThumbnailAuthor",
-      type: "text",
-      value: updateBlogThumbnailAuthor || "",
-      className:
-        "border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent",
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setUpdateBlogThumbnailAuthor(e.target.value),
-      readOnly: false,
-    },
-    {
-      label: "Update BlogAuthor",
-      type: "text",
-      value: updateBlogAuthor || "",
-      className:
-        "border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent",
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setupdateBlogAuthor((oldData.author.fullName = e.target.value)),
-      readOnly: false,
-    },
-    {
-      label: "IsPublic",
-      type: "checkbox",
-      checked: isPublic,
-      className: "font-bold text-2xl mx-4",
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setIsPublic(e.target.checked),
-      readOnly: false,
-    },
-  ];
   const imageUrlRef = useRef<any>(oldData?.blogThumbnail || null);
   const setUrlToImageBlog = (e: React.FormEvent) => {
     e.preventDefault();
@@ -213,50 +146,68 @@ function UpdateBlogBySlug({
       </Button>
       <section className="px-5 py-2">
         <form onSubmit={handleUpdateBlog} className="w-full">
-          {updateInputFields.map((field) => (
-            <Fragment key={field.label}>
-              <div className="my-2 relative">
-                <label htmlFor={field.label}>{field.label}</label>
-                {field.defaultValue && (
-                  <input
-                    type={field.type}
-                    value={field.value}
-                    defaultValue={
-                      field.defaultValue
-                        ? field.defaultValue
-                        : oldData.blogThumbnail
-                    }
-                    className={field.className}
-                    onChange={field.onChange}
-                    readOnly={field.readOnly}
-                    defaultChecked={isPublic}
-                    ref={field.ref ? imageUrlRef : null}
-                  />
-                )}
-                {field.value && (
-                  <input
-                    type={field.type}
-                    value={field.value}
-                    className={field.className}
-                    onChange={field.onChange}
-                    readOnly={field.readOnly}
-                    defaultChecked={isPublic}
-                    ref={field.ref ? imageUrlRef : null}
-                  />
-                )}
-
-                {field.button && (
-                  <Button
-                    variant={"link"}
-                    className="absolute top-3 right-3"
-                    onClick={setUrlToImageBlog}
-                  >
-                    SetUrl
-                  </Button>
-                )}
-              </div>
-            </Fragment>
-          ))}
+          <div className="my-2">
+            <label htmlFor="updateTitle">UpdateTilte</label>
+            <Input
+              type="text"
+              id="updateTitle"
+              value={updateTitle}
+              onChange={(e) => setupdateTitle(e.target.value)}
+              placeholder="Update Title of this Blog..."
+            />
+          </div>
+          <div className="my-2">
+            <label htmlFor="updateBlogAuthor">UpdateBlogAuthor</label>
+            <Input
+              type="text"
+              id="updateBlogAuthor"
+              value={updateBlogAuthor}
+              onChange={(e) => setupdateBlogAuthor(e.target.value)}
+              placeholder="Update Title of this Blog..."
+            />
+          </div>
+          <div className="my-2">
+            <label htmlFor="updateBlogAuthor">UpdateBlogThumbnail</label>
+            <div className="relative">
+              <Input
+                type="url"
+                id="UpdateBlogThumbnail"
+                ref={imageUrlRef}
+                placeholder="Update Title of this Blog..."
+                defaultValue={updateBlogThumbnail}
+              />
+              <Button
+                variant={"link"}
+                onClick={setUrlToImageBlog}
+                className="absolute top-[2px] right-3 text-xs"
+              >
+                Set Url
+              </Button>
+            </div>
+          </div>
+          <div className="my-2">
+            <label htmlFor="UpdateBlogThumbnailAuthor">
+              UpdateBlogThumbnailAuthor
+            </label>
+            <Input
+              type="text"
+              id="UpdateBlogThumbnailAuthor"
+              value={updateBlogThumbnailAuthor}
+              onChange={(e) => setUpdateBlogThumbnailAuthor(e.target.value)}
+              placeholder="Update Title of this Blog..."
+            />
+          </div>
+          <div className="my-2">
+            <label htmlFor="isPublic">isPublic</label>
+            <input
+              id="isPublic"
+              type="checkbox"
+              checked={isPublic}
+              onChange={(e) => setIsPublic(e.target.checked)}
+              placeholder="Update Title of this Blog..."
+              className="mx-4"
+            />
+          </div>
           {`<pre style="display: block;border: 2px solid #fff;color: #ffffff;background:#000000;padding: 20px 15px;border-radius: 10px;overflow-x: auto;height: fit-content;" id="code" class="code"></pre>
       `}
           <div className="relative h-fit overflow-hidden my-4">
