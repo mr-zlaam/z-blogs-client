@@ -1,6 +1,6 @@
 import {} from "react";
 import AllPublicBlogs from "./components/AllPublicBlogs";
-import { API as axios } from "@/axios";
+import { axios } from "@/axios";
 import useCookieGrabber from "@/hooks/useCookieGrabber";
 import { redirect } from "next/navigation";
 export const ChekcIfUserIsAdmin = async (token: string) => {

@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/table";
 import moment from "moment";
 
-import { API as axios } from "@/axios";
+import { axios } from "@/axios";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import useCookieGrabber from "@/hooks/useCookieGrabber";
 import { BlogTypes } from "@/types";

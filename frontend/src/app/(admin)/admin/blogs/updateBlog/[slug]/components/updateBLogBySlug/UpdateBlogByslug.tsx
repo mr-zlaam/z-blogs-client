@@ -1,7 +1,7 @@
 "use client";
 import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
 import { AlloweTags } from "@/app/createBlog/helper/toolbar";
-import { API as axios } from "@/axios";
+import { axios } from "@/axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useMessage } from "@/hooks/useMessage";

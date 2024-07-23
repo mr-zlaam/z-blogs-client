@@ -1,4 +1,4 @@
-import { API as axios } from "@/axios";
+import { axios } from "@/axios";
 import { BlogDataTypes } from "@/types";
 import { AxiosError } from "axios";
 import {} from "react";

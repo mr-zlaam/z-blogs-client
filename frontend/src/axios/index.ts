@@ -1,7 +1,7 @@
 import { BACKEND_URI } from "@/config";
-import axios from "axios";
+import API from "axios";
 const baseurl = BACKEND_URI;
 
-export const API = axios.create({
+export const axios = API.create({
   baseURL: baseurl,
 });

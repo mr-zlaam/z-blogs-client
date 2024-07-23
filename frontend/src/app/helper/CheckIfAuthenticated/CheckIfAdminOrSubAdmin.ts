@@ -1,4 +1,4 @@
-import { API as axios } from "@/axios";
+import { axios } from "@/axios";
 import useCookieGrabber from "@/hooks/useCookieGrabber";
 async function CheckIfAdmin() {
   const token = useCookieGrabber();

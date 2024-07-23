@@ -1,7 +1,7 @@
 import {} from "react";
 import CreatePosts from "./components/Post";
 import Link from "next/link";
-import { API as axios } from "@/axios";
+import { axios } from "@/axios";
 import useCookieGrabber from "@/hooks/useCookieGrabber";
 import { redirect } from "next/navigation";
 const checkUserIsSubAdminOrAdmin = async (token: string) => {

@@ -1,5 +1,5 @@
 "use server";
-import { API as axios } from "@/axios";
+import { axios } from "@/axios";
 import UseCookieGrabber from "@/hooks/useCookieGrabber";
 export const fetchCurrentUser = async () => {
   const token = UseCookieGrabber();
