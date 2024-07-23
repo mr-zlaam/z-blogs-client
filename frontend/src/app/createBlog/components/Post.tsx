@@ -79,7 +79,6 @@ function CreatePosts({ token }: { token: string }) {
     e.preventDefault();
     if (
       !title ||
-      !slug ||
       !desc ||
       !data.blogAuthor ||
       !data.blogImageAuthor ||
@@ -95,7 +94,6 @@ function CreatePosts({ token }: { token: string }) {
         {
           authorId: currentUser.uid,
           blogTitle: title,
-          blogSlug: `${slug}`,
           blogDescription: desc,
           blogThumbnail: blogImage,
           blogThumbnailAuthor: data.blogImageAuthor,
@@ -154,18 +152,6 @@ function CreatePosts({ token }: { token: string }) {
               className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
               onChange={handleChangeTitleAndSlug}
               placeholder="Enter Title Here."
-            />
-          </div>
-          <div className="my-2">
-            <label htmlFor="slug">Slug</label>
-            <input
-              type="text"
-              name="slug"
-              value={slug}
-              className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
-              onChange={handleChangeTitleAndSlug}
-              readOnly
-              placeholder="Slug will be written automaticaly You don't have to write it."
             />
           </div>
           <div className="my-2 relative">
