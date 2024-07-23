@@ -8,7 +8,6 @@ import { navLinks } from "./components/NavLinks";
 
 function NavBar() {
   const isActivePath = useActivePath();
-
   return (
     <>
       <div className="w-full flex items-center  my-4  overflow-x-auto overflow-y-hidden">

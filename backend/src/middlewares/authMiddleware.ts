@@ -36,7 +36,7 @@ export const ifUserIsModerator_OR_Admin = asyncHandler(
     try {
       decodedToken = verify(parsedToken, JWT_SECRET_KEY) as PayLoadType;
     } catch (error: any) {
-      console.log(error.message);
+      // console.log(error.message);
       throw { status: 400, message: error.message || "invalid token!!" };
     }
     if (decodedToken.role !== "ADMIN" && decodedToken.role !== "MODERATOR")

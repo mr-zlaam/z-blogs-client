@@ -30,6 +30,7 @@ const registerUserController = asyncHandler(
     const isUserExist = await prisma.user.findFirst({
       where: { username, email },
     });
+
     if (isUserExist)
       throw { status: BAD_REQUEST, message: "user already exists" };
     const isAdmin = ADMIN_EMAIL === email && ADMIN_PASSWORD === password;
@@ -37,7 +38,7 @@ const registerUserController = asyncHandler(
     const newUser = await prisma.user.create({
       data: {
         username,
-        fullName,
+            fullName,
         email,
         password: hashedPassword,
         role: isAdmin ? "ADMIN" : "USER",
@@ -113,6 +114,7 @@ const loginUserController = asyncHandler(
     const accessToken = GenerateJWTAccessToken(payload, res);
     return res
       .status(OK)
+
       .cookie("accessToken", accessToken, COOKIES_OPTION)
       .json(
         apiResponse(
@@ -241,11 +243,11 @@ const updateUserController = asyncHandler(
         status: 400,
         message: "username or email already exists",
       };
-
+    const hero = "HERO";
     const updatedUser = await prisma.user.update({
       where: { uid },
       data: {
-        username,
+        username: hero,
         fullName,
         email,
       },
