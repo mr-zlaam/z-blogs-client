@@ -38,7 +38,7 @@ const registerUserController = asyncHandler(
     const newUser = await prisma.user.create({
       data: {
         username,
-            fullName,
+        fullName,
         email,
         password: hashedPassword,
         role: isAdmin ? "ADMIN" : "USER",
@@ -243,11 +243,11 @@ const updateUserController = asyncHandler(
         status: 400,
         message: "username or email already exists",
       };
-    const hero = "HERO";
+
     const updatedUser = await prisma.user.update({
       where: { uid },
       data: {
-        username: hero,
+        username,
         fullName,
         email,
       },
