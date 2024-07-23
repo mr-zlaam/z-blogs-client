@@ -50,14 +50,23 @@ const fetchPrivateBlogs = async (token: string) => {
 export default async function PrivateBlogs() {
   const token = useCookieGrabber();
   const isUserAdmin = await ChekcIfUserIsAdmin(token?.value as string);
-  if (isUserAdmin.statusCode !== 200) return redirect("/home");
+  // if (isUserAdmin.statusCode !== 200) return redirect("/home");
 
   const draftPrivateBlogs: BlogTypes = await fetchPrivateBlogs(
     token?.value || ""
   );
+  if (draftPrivateBlogs.data?.length === 0)
+    return (
+      <div className="min-h-[70vh] flex justify-center items-center">
+        <h1 className="text-3xl font-bold text-center">
+          No Private Post Found !
+        </h1>
+      </div>
+    );
   if (!draftPrivateBlogs.success) return redirect("/home");
   const data = draftPrivateBlogs.data;
   if (!data) return redirect("/home");
+
   return (
     <>
       {draftPrivateBlogs.success ? (
@@ -93,7 +102,7 @@ export default async function PrivateBlogs() {
                       </TableRow>
                     </TableHeader>
                     <TableBody className="b">
-                      {data.length === 0 ? (
+                      {data?.length === 0 ? (
                         <div>No Data Found</div>
                       ) : (
                         data?.map((privateBlog, index: number) => {
