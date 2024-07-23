@@ -1,12 +1,10 @@
 "use client";
 import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
 import { AlloweTags } from "@/app/createBlog/helper/toolbar";
-import { randomStringGen } from "@/app/helper/randomStringGen/randomStringGen";
 import { API as axios } from "@/axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useMessage } from "@/hooks/useMessage";
-import { useSlugGenerator as UseSlugGenerator } from "@/hooks/useSlugGenerator";
 import { useValidateImageUrl as UseValidateImageUrl } from "@/hooks/useValidateUrl";
 import { cn } from "@/lib/utils";
 import { BlogDataTypes } from "@/types";
@@ -32,9 +30,8 @@ import "froala-editor/js/plugins/save.min.js";
 import parser from "html-react-parser";
 import moment from "moment";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, Fragment, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import FroalaEditor from "react-froala-wysiwyg";
 
 function UpdateBlogBySlug({
@@ -47,6 +44,7 @@ function UpdateBlogBySlug({
   token: string;
 }) {
   const getObjectOfFetchedData: BlogDataTypes = previousData.data;
+
   const oldData = getObjectOfFetchedData;
   const { errorMessage, successMessage } = useMessage();
   const [showPreview, setShowPreview] = useState<boolean>(false);

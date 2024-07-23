@@ -50,11 +50,12 @@ const fetchPrivateBlogs = async (token: string) => {
 export default async function PrivateBlogs() {
   const token = useCookieGrabber();
   const isUserAdmin = await ChekcIfUserIsAdmin(token?.value as string);
-  // if (isUserAdmin.statusCode !== 200) return redirect("/home");
+  if (isUserAdmin.statusCode !== 200) return redirect("/home");
 
   const draftPrivateBlogs: BlogTypes = await fetchPrivateBlogs(
     token?.value || ""
   );
+  console.log(draftPrivateBlogs.data);
   if (draftPrivateBlogs.data?.length === 0)
     return (
       <div className="min-h-[70vh] flex justify-center items-center">

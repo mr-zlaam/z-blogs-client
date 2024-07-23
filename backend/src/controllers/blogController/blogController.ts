@@ -135,8 +135,9 @@ const getAllBlogsController = asyncHandler(
 const getSingleBlogController = asyncHandler(
   async (req: Request, res: Response) => {
     const { blogSlug } = req.params;
+    console.log(blogSlug);
     const blog = await prisma.blogPost.findUnique({
-      where: { blogSlug, isPublic: true },
+      where: { blogSlug },
       select: {
         blogId: true,
         blogTitle: true,
@@ -166,6 +167,7 @@ const getSingleBlogController = asyncHandler(
         },
       },
     });
+    console.log(blog);
     return res
       .status(OK)
       .json(
