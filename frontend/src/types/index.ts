@@ -6,7 +6,7 @@ export interface UserRegisterTypes {
   confirmPassword: string;
 }
 export interface UserLoginTypes {
-  email: string;
+  usernameORmail: string;
   password: string;
 }
 export interface UserUpdateTypes {

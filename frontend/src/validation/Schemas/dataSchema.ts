@@ -51,14 +51,8 @@ export const registerSchema: ZodType<UserRegisterTypes> = object({
 });
 
 export const loginSchema: ZodType<UserLoginTypes> = object({
-  email: string()
-    .email()
-    .min(5, { message: "This field requires at least 5 characters" })
-    .max(100, { message: "Email is too long" })
-    .regex(new RegExp(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/), {
-      message: "Please provide valid email",
-    })
-    .toLowerCase(),
+  usernameORmail: string({ message: "username or email is required!!" }),
+
   password: string().min(1, { message: "This field is required" }),
 });
 

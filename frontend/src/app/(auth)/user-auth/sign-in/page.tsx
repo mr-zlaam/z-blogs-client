@@ -28,13 +28,14 @@ function LoginForm() {
   } = useForm<UserLoginTypes>({ resolver: zodResolver(loginSchema) });
   const router = useRouter();
   const handleLoginSubmit = async (data: UserLoginTypes) => {
-    const { email, password } = data;
+    const { usernameORmail, password } = data;
     try {
       startLoading();
       const response = await axios.post(
         `${BACKEND_URI}/auth/login`,
         {
-          email,
+          email: usernameORmail,
+          username: usernameORmail,
           password,
         },
         {
@@ -75,14 +76,14 @@ function LoginForm() {
                 <div className="grid w-full max-w-sm items-center gap-1.5">
                   <Label htmlFor="email">Email</Label>
                   <Input
-                    {...register("email")}
-                    type="email"
+                    {...register("usernameORmail")}
+                    type="text"
                     id="email"
                     placeholder="john@mail.com"
                   />
-                  {errors.email && (
+                  {errors.usernameORmail && (
                     <p className="text-xs select-none text-red-500  text-balance ml-2">
-                      {errors.email.message}
+                      {errors.usernameORmail.message}
                     </p>
                   )}
                 </div>
