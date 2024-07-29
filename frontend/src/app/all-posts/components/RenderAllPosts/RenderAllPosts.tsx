@@ -43,12 +43,12 @@ function RenderAllPosts({ allPosts }: { allPosts: BlogDataTypes[] }) {
       <section className="flex flex-col gap-4  w-full py-5">
         {filteredPosts?.map((post) => {
           return (
-            <Fragment key={post._id}>
+            <Fragment key={post.blogId}>
               <Card className="my-2 md:h-[400px] h-[500px] flex gap-4 rounded-md shadow-lg overflow-hidden flex-col md:flex-row ">
                 <div className="flex-1 flex w-full lg:max-w-[500px] overflow-hidden">
                   <Image
                     src={post.blogThumbnail || "/logo/Zlaam.jpg"}
-                    alt={post.blogAuthor}
+                    alt={post.author.fullName || "Zlaam"}
                     width={800}
                     height={800}
                     className="object-cover"
@@ -71,10 +71,11 @@ function RenderAllPosts({ allPosts }: { allPosts: BlogDataTypes[] }) {
                       width={50}
                       height={50}
                       className="rounded-full"
+                      priority
                     />
                     <div className="flex flex-col justify-start">
                       <h1 className="text-lg font-semibold ">
-                        {post.blogAuthor}
+                        {post.author.fullName || "Zlaam"}
                       </h1>
                       <p className="text-sm text-left">
                         Published on:{" "}

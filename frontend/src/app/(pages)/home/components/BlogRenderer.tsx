@@ -30,6 +30,7 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
                         width={1000}
                         height={1000}
                         style={{ objectFit: "cover" }}
+                        priority
                       />
                     </Link>
                   ) : (
@@ -51,6 +52,7 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
                     className="rounded-full"
                     alt="zlaam"
                     onLoad={handleImageLoad}
+                    priority
                   />
                   <div>
                     {post.author.fullName || "Zlaam"} &nbsp;&nbsp;- &nbsp;&nbsp;

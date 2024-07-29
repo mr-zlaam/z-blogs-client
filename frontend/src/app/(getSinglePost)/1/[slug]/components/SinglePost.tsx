@@ -32,6 +32,7 @@ function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
               width={50}
               height={50}
               className="rounded-full"
+              priority
             />
             <div className="flex flex-col justify-start">
               <h1 className="text-lg font-semibold ">
@@ -49,6 +50,7 @@ function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
               alt={SinglePostData?.blogThumbnailAuthor || "Zlaam"}
               width={820}
               height={820}
+              priority
               className="rounded-md "
             />
             <p className="text-center my-2">

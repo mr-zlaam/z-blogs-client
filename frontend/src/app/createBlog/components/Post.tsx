@@ -112,7 +112,8 @@ function CreatePosts({ token }: { token: string }) {
       }
     } catch (error: any) {
       console.log(error);
-      return errorMessage(error.response.data.message || error.message);
+      if (error instanceof Error) return errorMessage(error.message);
+      return null;
     }
   };
   const imageUrlRef = useRef<any>(null);
