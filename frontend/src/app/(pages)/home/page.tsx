@@ -22,14 +22,13 @@ async function Home() {
   const isAdmin = await CheckIfAdmin();
   const isModerator = await CheckIfSubAdmin();
   const isUserLogined = await CheckIfUserLoggedIn();
-  if (!data.success) return;
   const posts = data.data.blogs.reverse().slice(0, 6);
   const renderLoader = () => (
     <div className="h-[50dvh] justify-center flex items-center">
       <ButtonLoader />
     </div>
   );
-  // *TODO*: remove cache issue. user still have same role even after changed by admin 
+  // *TODO*: remove cache issue. user still have same role even after changed by admin
   return (
     <main className="py-5">
       {isModerator
