@@ -95,7 +95,7 @@ const loginUserController = asyncHandler(
     if (!isUserRegistered)
       throw {
         status: NOT_FOUND,
-        message: "user doesn't exist!!",
+        message: "user doesn't exist",
       };
     const isPasswordValid = await verifyPassword(
       password,

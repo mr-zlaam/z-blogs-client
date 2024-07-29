@@ -58,7 +58,7 @@ function LoginForm() {
     } catch (err) {
       const error = err as any;
       stopLoading();
-      const message = error.response?.data.message;
+      const message = error.response?.data.error.message;
       return errorMessage(message || "something went wrong while login");
     }
   };
@@ -79,7 +79,7 @@ function LoginForm() {
                     {...register("usernameORmail")}
                     type="text"
                     id="email"
-                    placeholder="john@mail.com"
+                    placeholder="username or email"
                   />
                   {errors.usernameORmail && (
                     <p className="text-xs select-none text-red-500  text-balance ml-2">
