@@ -1,30 +1,34 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { BACKEND_URI } from "@/config";
+import UseCookieGrabber from "@/hooks/useCookieGrabber";
 import { useMessage } from "@/hooks/useMessage";
-import axios from "axios";
+import { axios } from "@/axios";
 import { useRouter } from "next/navigation";
-import {} from "react";
+import { useEffect } from "react";
 interface ParamType {
   deleteUser: string;
 }
 function Delete({ id, token }: { id: string; token: string }) {
   const router = useRouter();
-
+  const uid = id?.split("-")[0];
+  const username = id?.split("-")[1];
   const { errorMessage, successMessage } = useMessage();
   const RedirectToPreviousPage = () => {
-    router.push("/admin/users");
+    return router.push("/admin/users");
   };
   const deleteThisUser = async () => {
     try {
-      const response = await axios.delete(
-        `${BACKEND_URI}/auth/deleteUser/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const isUserLogout = await axios.post(`/auth/logoutUser/${uid}`, {
+        withCredentials: true,
+      });
+      console.log(isUserLogout.data);
+
+      const response = await axios.delete(`/auth/deleteUser/${uid}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.status === 200) {
         RedirectToPreviousPage();
         return successMessage("user has been deleted successfully");
@@ -42,7 +46,7 @@ function Delete({ id, token }: { id: string; token: string }) {
       <section className="backdrop-blur-lg h-screen  absolute left-0 top-0 w-full z-50 px-5">
         <div className="h-40 flex flex-col justify-around border bg-background border-foreground max-w-lg mx-auto relative top-80  rounded-md p-4 ">
           <h1>Are You sure that you want to delete this user?</h1>
-          <p>{id}</p>
+          <p>{username}</p>
           <div className="w-full flex justify-end items-center gap-5">
             <Button onClick={RedirectToPreviousPage}>Close</Button>
             <Button onClick={deleteThisUser}>Yes I am sure</Button>

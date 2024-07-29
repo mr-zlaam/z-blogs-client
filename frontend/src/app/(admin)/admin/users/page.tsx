@@ -166,7 +166,7 @@ export default async function UserDashBoard() {
                                           </DropdownMenuItem>
                                         </Link>
                                         <Link
-                                          href={`users/deleteUser/${userData.uid}`}
+                                          href={`users/deleteUser/${userData.uid}-${userData.username}`}
                                         >
                                           <DropdownMenuItem>
                                             Delete
