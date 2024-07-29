@@ -19,11 +19,7 @@ function Delete({ id, token }: { id: string; token: string }) {
   };
   const deleteThisUser = async () => {
     try {
-      const isUserLogout = await axios.post(`/auth/logoutUser/${uid}`, {
-        withCredentials: true,
-      });
-      console.log(isUserLogout.data);
-
+      await LogoutThisUser();
       const response = await axios.delete(`/auth/deleteUser/${uid}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -41,6 +37,20 @@ function Delete({ id, token }: { id: string; token: string }) {
       );
     }
   };
+  const LogoutThisUser = async () => {
+    try {
+      const isUserLogout = await axios.get(`/auth/logoutUser/${uid}`, {
+        withCredentials: true,
+      });
+      console.log(isUserLogout.data);
+      if (isUserLogout.status === 200) {
+        return successMessage("user  Logged out successfully");
+      } else return null;
+    } catch (error: any) {
+      if (error instanceof Error) console.log(error.message);
+      console.log(error);
+    }
+  };
   return (
     <>
       <section className="backdrop-blur-lg h-screen  absolute left-0 top-0 w-full z-50 px-5">
@@ -49,6 +59,7 @@ function Delete({ id, token }: { id: string; token: string }) {
           <p>{username}</p>
           <div className="w-full flex justify-end items-center gap-5">
             <Button onClick={RedirectToPreviousPage}>Close</Button>
+            <Button onClick={LogoutThisUser}>Logout</Button>
             <Button onClick={deleteThisUser}>Yes I am sure</Button>
           </div>
         </div>

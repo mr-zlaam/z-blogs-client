@@ -39,7 +39,7 @@ authRouter
 authRouter
   .route("/deleteUser/:uid")
   .delete(ifUserIsAdmin, deleteUserController);
-authRouter.route("/logoutUser/:uid").post(logoutUserController);
+authRouter.route("/logoutUser/:uid").get(logoutUserController);
 // full text search router
 authRouter
   .route("/getAllUsers/search")
