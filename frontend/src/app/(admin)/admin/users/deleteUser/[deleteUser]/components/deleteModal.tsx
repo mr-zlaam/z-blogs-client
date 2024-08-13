@@ -19,7 +19,6 @@ function Delete({ id, token }: { id: string; token: string }) {
   };
   const deleteThisUser = async () => {
     try {
-      await LogoutThisUser();
       const response = await axios.delete(`/auth/deleteUser/${uid}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -33,7 +32,7 @@ function Delete({ id, token }: { id: string; token: string }) {
       console.log(error);
       return errorMessage(
         error.response.data.message ||
-          "something went wrong while deleting user."
+          "something went wrong while deleting user.",
       );
     }
   };

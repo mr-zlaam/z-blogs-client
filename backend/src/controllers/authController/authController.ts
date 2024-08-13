@@ -114,7 +114,6 @@ const loginUserController = asyncHandler(
     const accessToken = GenerateJWTAccessToken(payload, res);
     return res
       .status(OK)
-
       .cookie("accessToken", accessToken, COOKIES_OPTION)
       .json(
         apiResponse(
@@ -260,7 +259,7 @@ const updateUserController = asyncHandler(
 );
 // * Update user Role Controller
 const updateUserRoleController = asyncHandler(
-  async (req: Request, res: Response) => {
+  async (req: RequestUser, res: Response) => {
     const { uid } = req.params;
     const { role } = req.body;
     if (!role) throw { status: NOT_FOUND as number, message: "Role not found" };
@@ -269,10 +268,12 @@ const updateUserRoleController = asyncHandler(
         status: BAD_REQUEST,
         message: `You can  only set 'ADMIN', 'MODERATOR' and 'USER' as a role.`,
       };
+
     const updateUserRole = await prisma.user.update({
       where: { uid },
       data: { role },
     });
+
     return res
       .status(OK)
       .json(
