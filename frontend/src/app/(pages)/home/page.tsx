@@ -23,12 +23,12 @@ async function Home() {
   const isModerator = await CheckIfSubAdmin();
   const isUserLogined = await CheckIfUserLoggedIn();
   const posts = data.data.blogs.reverse().slice(0, 6);
-  console.log(`
-    isAdmin:${isAdmin}
-    isModerator:${isModerator}
-    isUserLogined:${isUserLogined}
-    
-    `);
+  // console.log(`
+  //   isAdmin:${isAdmin}
+  //   isModerator:${isModerator}
+  //   isUserLogined:${isUserLogined}
+
+  //   `);
   const renderLoader = () => (
     <div className="h-[50dvh] justify-center flex items-center">
       <ButtonLoader />
