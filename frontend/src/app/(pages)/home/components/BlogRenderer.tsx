@@ -19,17 +19,17 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
         {posts.map((post) => {
           return (
             <Fragment key={post.blogId}>
-              <Card className="md:min-h-[420px] shadow-lg sm:min-h-[600px] mdx:min-h-[520px] smx:min-h-[400px] min-h-[300px] ronuded overflow-hidden relative my-2 ">
-                <div className="  overflow-hidden  ">
+              <Card className="md:min-h-[420px] md:max-h-[00px] shadow-lg  shadow-foreground/20 sm:min-h-[600px] mdx:min-h-[520px] smx:min-h-[400px] min-h-[300px] ronuded overflow-hidden relative my-2  ">
+                <div className="  overflow-hidden ">
                   {isImageLoaded ? (
                     <Link href={`/${VERSION}/${post.blogSlug || "/home"}`}>
                       <Image
                         src={post.blogThumbnail || "/logo/logo.jpeg"}
                         alt={post.blogThumbnailAuthor || "zlaam"}
                         className="rounded object-cover"
-                        width={1000}
-                        height={1000}
-                        style={{ objectFit: "cover" }}
+                        width={500}
+                        height={270}
+                        // style={{ objectFit: "cogv" }}
                         priority
                       />
                     </Link>
@@ -40,7 +40,10 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
                   )}
                 </div>
                 <h1 className="text-xl font-bold text-balance px-4  text-clip line-clamp-2 my-3 absolute w-full bottom-20">
-                  <Link href={`/${VERSION}/${post.blogSlug || "/home"}`}>
+                  <Link
+                    href={`/${VERSION}/${post.blogSlug || "/home"}`}
+                    className="text-foreground no-underline"
+                  >
                     {post.blogTitle}
                   </Link>
                 </h1>
