@@ -28,7 +28,7 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
                         alt={post.blogThumbnailAuthor || "zlaam"}
                         className="rounded object-cover"
                         width={500}
-                        height={270}
+                        height={250}
                         // style={{ objectFit: "cogv" }}
                         priority
                       />
