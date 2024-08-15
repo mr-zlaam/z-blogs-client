@@ -3,11 +3,7 @@ import { PORT } from "../config";
 import { app } from "../app";
 /*
  console.log(`
-                  **************************************************************
-                            connected to the database successfully!!
 
-                       Server is running on port:- http://localhost:${PORT}
-                  **************************************************************
          
 */
 
@@ -18,7 +14,13 @@ export default async function connectDB() {
     .then(() => {
       app.listen(PORT, () => {
         console.log(
-          `Connected to the database successfully \n Server is running on port ${PORT}`,
+          `
+                  **************************************************************
+                            connected to the database successfully!!
+
+                       Server is running on port:- http://localhost:${PORT}
+                  **************************************************************
+         `
         );
       });
     })

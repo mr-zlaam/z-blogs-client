@@ -33,6 +33,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import FroalaEditor from "react-froala-wysiwyg";
+import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
 
 function UpdateBlogBySlug({
   slugForUpdate,
@@ -282,7 +283,8 @@ function UpdateBlogBySlug({
               </div>
 
               <div className="text-left w-full text-lg">
-                {parser(updateBlogDesc)}
+                {/* {parser(updateBlogDesc)} */}
+                {<FroalaEditorView model={updateBlogDesc} />}
               </div>
             </PageWrapper>
           </div>
