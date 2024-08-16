@@ -11,6 +11,7 @@ import {
 import { validateData } from "../../middlewares/validationMiddleware";
 import { BlogValidation } from "../../schemas";
 import {
+  CheckToken,
   ifUser,
   ifUserIsAdmin,
   ifUserIsModerator_OR_Admin,
@@ -23,6 +24,7 @@ blogRouter
   .route("/createBlog")
   .post(
     validateData(BlogValidation),
+    CheckToken,
     ifUserIsModerator_OR_Admin,
     createBlogController
   );
@@ -33,7 +35,7 @@ blogRouter
 blogRouter.route("/getSingleBlog/:blogSlug").get(getSingleBlogController);
 blogRouter
   .route("/updateBlog/:blogSlug")
-  .put(ifUserIsAdmin, updateBlogController);
+  .put(CheckToken, ifUserIsAdmin, updateBlogController);
 blogRouter
   .route("/deleteBlog/:blogSlug")
   .delete(ifUserIsAdmin, deleteBlogController);
@@ -41,7 +43,7 @@ blogRouter.route("/getAllBlogs/search").get(searchBlogController);
 //check points
 // ** check if user login
 blogRouter.route("/checkIfUserLogin").get(ifUser, (req, res) => {
-  return res.status(OK).json(apiResponse(OK, "user is logined"));
+  return res.status(OK).json(apiResponse(OK, "user is loggedin"));
 });
 // ** check if user is admin
 blogRouter.route("/checkIfuserIsAdmin").get(ifUserIsAdmin, (req, res) => {

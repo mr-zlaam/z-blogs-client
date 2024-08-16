@@ -44,5 +44,5 @@ export interface PayLoadType {
   email: string;
   fullName: string;
   role: "ADMIN" | "MODERATOR" | "USER";
-  tokenVersion: number;
+  tokenVersion?: number;
 }

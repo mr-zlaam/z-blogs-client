@@ -110,7 +110,7 @@ const loginUserController = asyncHandler(
       username: isUserRegistered && isUserRegistered.username,
       fullName: isUserRegistered && isUserRegistered.fullName,
       role: isUserRegistered && isUserRegistered.role,
-      tokenVersion: isUserRegistered && isUserRegistered.tokenVersion,
+      tokenVersion: isUserRegistered && isUserRegistered?.tokenVersion,
     };
     const accessToken = GenerateJWTAccessToken(payload, res);
     return res
@@ -425,7 +425,7 @@ const searchUserController = asyncHandler(
 // * Get Current User Controller
 const getCurrentUserController = asyncHandler(
   async (req: RequestUser, res: Response) => {
-    const currentUser = req.user;
+    const currentUser = req.userFromToken;
     return res
       .status(OK)
       .json(apiResponse(OK, `You are ${currentUser?.fullName}`, currentUser));
