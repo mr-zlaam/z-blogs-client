@@ -38,7 +38,7 @@ export const CheckToken = asyncHandler(
         message:
           "Your login session expired. Please login again (middleware check check)",
       };
-    req.userFromToken = user && user;
+    req.userFromToken = decodedToken;
     next();
   }
 );

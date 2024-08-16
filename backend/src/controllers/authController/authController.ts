@@ -272,11 +272,22 @@ const updateUserRoleController = asyncHandler(
 
     const updateUserRole = await prisma.user.update({
       where: { uid },
-      data: { role },
+      data: { role, tokenVersion: { increment: 1 } },
     });
+    console.log(updateUserRole);
+    const payload: PayLoadType = {
+      uid: updateUserRole && updateUserRole.uid,
+      email: updateUserRole && updateUserRole.email,
+      username: updateUserRole && updateUserRole.username,
+      fullName: updateUserRole && updateUserRole.fullName,
+      role: updateUserRole && updateUserRole.role,
+      tokenVersion: updateUserRole && updateUserRole?.tokenVersion,
+    };
+    const newAccessToken = GenerateJWTAccessToken(payload, res);
 
     return res
       .status(OK)
+      .cookie("accessToken", newAccessToken, COOKIES_OPTION)
       .json(
         apiResponse(
           OK,
