@@ -1,9 +1,11 @@
+import { Button } from "@/components/ui/button";
 import {} from "react";
-
 function App() {
   return (
     <>
-      <section>App</section>
+      <section>
+        <Button variant={"destructive"}>Hello</Button>
+      </section>
     </>
   );
 }
