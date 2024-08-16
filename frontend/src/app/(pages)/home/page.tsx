@@ -22,7 +22,7 @@ async function Home() {
   const isAdmin = await CheckIfAdmin();
   const isModerator = await CheckIfSubAdmin();
   const isUserLogined = await CheckIfUserLoggedIn();
-  const posts = data.data.blogs.reverse().slice(0, 6);
+  const posts = data.data?.blogs.reverse().slice(0, 6);
   // console.log(`
   //   isAdmin:${isAdmin}
   //   isModerator:${isModerator}
