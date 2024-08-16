@@ -1,12 +1,39 @@
 import { NextFunction, Request, Response } from "express";
-import { asyncHandler } from "../utils/asynhandlerUtil";
-import { BAD_REQUEST, FORBIDDEN } from "../CONSTANTS";
 import { verify } from "jsonwebtoken";
 import { JWT_SECRET_KEY } from "../config";
-import { PayLoadType } from "../types";
+import { BAD_REQUEST, FORBIDDEN } from "../CONSTANTS";
+import { PayLoadType, UserData } from "../types";
+import { asyncHandler } from "../utils/asynhandlerUtil";
+import { prisma } from "../db";
 export interface RequestUser extends Request {
-  user?: PayLoadType;
+  userFromToken?: PayLoadType;
+  userFromDB?: UserData;
 }
+// Check if user have token
+export const checkIfUserHaveToken = asyncHandler(
+  async (req: RequestUser, res: Response, next: NextFunction) => {
+    const token = req.header("Authorization");
+    if (!token)
+      throw { status: BAD_REQUEST, message: "unable to find any token" };
+
+    // check if user is there
+    const parsedToken = token?.split(" ")[1] || "";
+
+    let decodedToken;
+    try {
+      decodedToken = verify(parsedToken, JWT_SECRET_KEY) as PayLoadType;
+    } catch (error: any) {
+      throw { status: 400, message: error.message || "invalid token!!" };
+    }
+    console.log("Value extracted from decoded Token", decodedToken);
+    const user = await prisma.user.findUnique({
+      where: { uid: decodedToken?.uid },
+    });
+    if (!user)
+      throw { status: 400, message: "user not found (middleware check check)" };
+    req.userFromToken;
+  }
+);
 export const ifUserIsAdmin = asyncHandler(
   async (req: RequestUser, res: Response, next: NextFunction) => {
     const token = req.header("Authorization");
@@ -21,7 +48,7 @@ export const ifUserIsAdmin = asyncHandler(
     }
     if (decodedToken.role !== "ADMIN")
       throw { status: FORBIDDEN, message: "Only Admin can modify this data" };
-    req.user = decodedToken;
+    req.userFromToken = decodedToken;
     next();
   }
 );
@@ -44,7 +71,7 @@ export const ifUserIsModerator_OR_Admin = asyncHandler(
         status: FORBIDDEN,
         message: "Only Admin or moderator can modify this data",
       };
-    req.user = decodedToken;
+    req.userFromToken = decodedToken;
 
     next();
   }
@@ -63,7 +90,7 @@ export const ifUser = asyncHandler(
       console.log(error.message);
       throw { status: 400, message: error.message || "invalid token!!" };
     }
-    req.user = decodedToken;
+    req.userFromToken = decodedToken;
     next();
   }
 );

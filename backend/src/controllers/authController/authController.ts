@@ -57,6 +57,7 @@ const registerUserController = asyncHandler(
       username: newUser && newUser.username,
       fullName: newUser && newUser.fullName,
       role: newUser && newUser.role,
+      tokenVersion: newUser && newUser.tokeVersion,
     };
     const accessToken = GenerateJWTAccessToken(payload, res);
     return res
@@ -110,6 +111,7 @@ const loginUserController = asyncHandler(
       username: isUserRegistered && isUserRegistered.username,
       fullName: isUserRegistered && isUserRegistered.fullName,
       role: isUserRegistered && isUserRegistered.role,
+      tokenVersion: isUserRegistered && isUserRegistered.tokenVersion,
     };
     const accessToken = GenerateJWTAccessToken(payload, res);
     return res
