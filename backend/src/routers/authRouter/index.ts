@@ -18,13 +18,19 @@ import {
   searchUserController,
   getCurrentUserController,
 } from "../../controllers/authController/authController";
-import { ifUser, ifUserIsAdmin } from "../../middlewares/authMiddleware";
+import {
+  CheckToken,
+  ifUser,
+  ifUserIsAdmin,
+} from "../../middlewares/authMiddleware";
 const authRouter = Router();
 authRouter
   .route("/register")
   .post(validateData(userRegistrationSchema), registerUserController);
 authRouter.route("/login").post(loginUserController);
-authRouter.route("/getAllUsers").get(ifUserIsAdmin, getAllUsersController);
+authRouter
+  .route("/getAllUsers")
+  .get(CheckToken, ifUserIsAdmin, getAllUsersController);
 authRouter.route("/getSingleUser/:uid").get(ifUser, getSingleUserController);
 authRouter.route("/currentUser").get(ifUser, getCurrentUserController);
 authRouter
@@ -32,17 +38,17 @@ authRouter
   .put(validateData(userUpdateSchema), ifUser, updateUserController);
 authRouter
   .route("/updateRole/:uid")
-  .put(ifUserIsAdmin, updateUserRoleController);
+  .put(CheckToken, ifUserIsAdmin, updateUserRoleController);
 authRouter
   .route("/updatePassword/:uid")
   .put(validateData(passwrodValidator), ifUser, updateUserPasswordController);
 authRouter
   .route("/deleteUser/:uid")
-  .delete(ifUserIsAdmin, deleteUserController);
+  .delete(CheckToken, ifUserIsAdmin, deleteUserController);
 authRouter.route("/logoutUser/:uid").get(logoutUserController);
 // full text search router
 authRouter
   .route("/getAllUsers/search")
-  .get(ifUserIsAdmin, searchUserController);
+  .get(CheckToken, ifUserIsAdmin, searchUserController);
 
 export { authRouter };

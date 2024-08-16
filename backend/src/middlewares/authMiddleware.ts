@@ -22,11 +22,11 @@ export const CheckToken = asyncHandler(
     let decodedToken;
     try {
       decodedToken = verify(parsedToken, JWT_SECRET_KEY) as PayLoadType;
-      console.log("token is valid md check", decodedToken);
+      // console.log("token is valid md check", decodedToken);
     } catch (error: any) {
       throw { status: 400, message: "invalid token" };
     }
-    console.log("Value extracted from decoded Token", decodedToken);
+    // console.log("Value extracted from decoded Token", decodedToken);
     const user = await prisma.user.findUnique({
       where: { uid: decodedToken?.uid },
     });
@@ -59,12 +59,13 @@ export const ifUserIsAdmin = asyncHandler(
     // req.userFromToken = decodedToken;
     // next();
     console.log(req?.userFromToken);
-    if (req.userFromToken?.role !== "ADMIN")
+    if (req.userFromToken?.role !== "ADMIN") {
       throw {
         status: UNAUTHORIZED,
         message:
           "Only admin can modify this data (check from admin middleware)",
       };
+    }
     next();
   }
 );
@@ -89,7 +90,7 @@ export const ifUserIsModerator_OR_Admin = asyncHandler(
     //   };
     // req.userFromToken = decodedToken;
     if (
-      req.userFromToken?.role !== "USER" &&
+      req.userFromToken?.role !== "ADMIN" &&
       req.userFromToken?.role !== "MODERATOR"
     )
       throw {

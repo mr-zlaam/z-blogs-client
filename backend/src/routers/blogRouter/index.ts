@@ -31,14 +31,14 @@ blogRouter
 blogRouter.route("/getAllPublicBlogs").get(getAllBlogsController);
 blogRouter
   .route("/getAllPrivateBlogs")
-  .get(ifUserIsAdmin, getAllPrivateBlogsController);
+  .get(CheckToken, ifUserIsAdmin, getAllPrivateBlogsController);
 blogRouter.route("/getSingleBlog/:blogSlug").get(getSingleBlogController);
 blogRouter
   .route("/updateBlog/:blogSlug")
   .put(CheckToken, ifUserIsAdmin, updateBlogController);
 blogRouter
   .route("/deleteBlog/:blogSlug")
-  .delete(ifUserIsAdmin, deleteBlogController);
+  .delete(CheckToken, ifUserIsAdmin, deleteBlogController);
 blogRouter.route("/getAllBlogs/search").get(searchBlogController);
 //check points
 // ** check if user login
