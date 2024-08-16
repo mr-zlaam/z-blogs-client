@@ -16,7 +16,7 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
   return (
     <Fragment>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 justify-center px-3">
-        {posts.map((post) => {
+        {posts?.map((post) => {
           return (
             <Fragment key={post?.blogId}>
               <Card className="md:min-h-[420px] md:max-h-[00px] shadow-lg  shadow-foreground/20 sm:min-h-[600px] mdx:min-h-[520px] smx:min-h-[400px] min-h-[300px] ronuded overflow-hidden relative my-2  ">
