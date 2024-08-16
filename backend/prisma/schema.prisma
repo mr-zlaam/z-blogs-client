@@ -16,15 +16,20 @@ enum Role {
 }
 
 model User {
-  uid       String     @id @default(cuid())
-  username  String     @unique
-  fullName  String
-  email     String     @unique
-  password  String
-  role      Role
-  blogPosts BlogPost[] @relation("blogAuthor")
-  createdAt DateTime   @default(now()) @db.Timestamptz(3)
-  updatedAt DateTime   @updatedAt @db.Timestamptz(3)
+  uid          String     @id @default(cuid())
+  username     String     @unique
+  fullName     String
+  email        String     @unique
+  password     String
+  role         Role
+  tokenVersion Int        @default(0)
+  blogPosts    BlogPost[] @relation("blogAuthor")
+  createdAt    DateTime   @default(now()) @db.Timestamptz(3)
+  updatedAt    DateTime   @updatedAt @db.Timestamptz(3)
+
+  @@index([username]) // Index on username
+  @@index([email]) // Index on email
+  @@index([role, createdAt]) // Composite index on role and createdAt
 }
 
 model BlogPost {
@@ -40,4 +45,8 @@ model BlogPost {
 
   createdAt DateTime @default(now()) @db.Timestamptz(3)
   updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  @@index([authorId]) // Index on authorId
+  @@index([blogSlug]) // Index on blogSlug
+  @@index([isPublic, createdAt]) // Composite index on isPublic and createdAt
 }
