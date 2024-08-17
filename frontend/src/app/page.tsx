@@ -1,8 +1,9 @@
 import {} from "react";
+import Home from "./(pages)/_home/page";
 function App() {
   return (
     <>
-      <section>Hello world</section>
+      <Home />
     </>
   );
 }
