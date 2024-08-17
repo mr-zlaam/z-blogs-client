@@ -79,6 +79,9 @@ const sendOTPcontroller = asyncHandler(async (req: Request, res: Response) => {
   // ********
   const { otp: OTP, otpExpiry } = generateOtp();
   const { email }: EmailType = req.body;
+  if (!email.trim()) {
+    throw { status: BAD_REQUEST, message: "Email is required" };
+  }
   const user = await prisma.user.update({
     where: { email },
     data: { otp: OTP, otpExpiry },
@@ -530,4 +533,5 @@ export {
   searchUserController,
   getCurrentUserController,
   verifyUserController,
+  sendOTPcontroller,
 };
