@@ -1,9 +1,10 @@
+import PageWrapper from "@/app/_components/pageWrapper/PageWrapper";
 import {} from "react";
 
 function SettingPage() {
   return (
     <>
-      <section>SettingPage</section>
+      <PageWrapper className=" border">hel</PageWrapper>
     </>
   );
 }
