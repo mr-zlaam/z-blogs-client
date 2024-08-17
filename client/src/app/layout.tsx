@@ -41,12 +41,7 @@ export default function RootLayout({
             enableSystem
             storageKey="سمة"
           >
-            <PageWrapper className="sticky top-0 left-0 w-full bg-background mb-4">
-              <Header />
-              <Separator />
-            </PageWrapper>
-            <PageWrapper className="py-3">{children}</PageWrapper>
-            {/* <Footer /> */}
+            {children}
           </ThemeProvider>
         </main>
       </body>

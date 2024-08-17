@@ -1,5 +1,5 @@
 import {} from "react";
-import HomePage from "./(pages)/_home/page";
+import HomePage from "./(pages)/home/page";
 function App() {
   return (
     <>
