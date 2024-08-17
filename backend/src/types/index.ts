@@ -1,12 +1,21 @@
 export interface UserData {
-  uid: string; // Added uid property
+  uid: string;
   username: string;
   fullName: string;
   email: string;
   password: string;
   role: "ADMIN" | "MODERATOR" | "USER";
-  createdAt: string; // Changed from Date to string
-  updatedAt: string; // Changed from Date to string
+  tokenVersion: number;
+
+  otp?: string | null;
+  otpExpiry?: Date | null;
+  isVerfied: boolean;
+  otpRequestCount?: number | null;
+  lastOtpRequest?: Date | null;
+  cooldownExpiry?: Date | null;
+
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface SearchQueryType {

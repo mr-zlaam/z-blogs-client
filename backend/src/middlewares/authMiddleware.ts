@@ -27,9 +27,9 @@ export const CheckToken = asyncHandler(
       throw { status: 400, message: "invalid token" };
     }
     // console.log("Value extracted from decoded Token", decodedToken);
-    const user = await prisma.user.findUnique({
+    const user = (await prisma.user.findUnique({
       where: { uid: decodedToken?.uid },
-    });
+    })) as UserData;
     if (!user)
       throw { status: 400, message: "user not found (middleware check check)" };
     if (decodedToken.tokenVersion !== user?.tokenVersion)
@@ -39,31 +39,25 @@ export const CheckToken = asyncHandler(
           "Your login session expired. Please login again (middleware check check)",
       };
     req.userFromToken = decodedToken;
+    req.userFromDB = user && user;
     next();
   }
 );
 export const ifUserIsAdmin = asyncHandler(
   async (req: RequestUser, res: Response, next: NextFunction) => {
-    // const token = req.header("Authorization");
-    // if (!token)
-    //   throw { status: BAD_REQUEST, message: "unable to find any token" };
-    // const parsedToken = token?.split(" ")[1] || "";
-    // let decodedToken;
-    // try {
-    //   decodedToken = verify(parsedToken, JWT_SECRET_KEY) as PayLoadType;
-    // } catch (error: any) {
-    //   throw { status: 400, message: error.message || "invalid token!!" };
-    // }
-    // if (decodedToken.role !== "ADMIN")
-    //   throw { status: UNAUTHORIZED, message: "Only Admin can modify this data" };
-    // req.userFromToken = decodedToken;
-    // next();
     console.log(req?.userFromToken);
+
     if (req.userFromToken?.role !== "ADMIN") {
       throw {
         status: UNAUTHORIZED,
         message:
           "Only admin can modify this data (check from admin middleware)",
+      };
+    }
+    if (!req.userFromDB?.isVerfied) {
+      throw {
+        status: UNAUTHORIZED,
+        message: "Admin is not verified",
       };
     }
     next();
@@ -72,23 +66,6 @@ export const ifUserIsAdmin = asyncHandler(
 // For moderator who can only write the data
 export const ifUserIsModerator_OR_Admin = asyncHandler(
   async (req: RequestUser, res: Response, next: NextFunction) => {
-    // const token = req.header("Authorization");
-    // if (!token)
-    //   throw { status: BAD_REQUEST, message: "unable to find any token" };
-    // const parsedToken = token?.split(" ")[1] || "";
-    // let decodedToken;
-    // try {
-    //   decodedToken = verify(parsedToken, JWT_SECRET_KEY) as PayLoadType;
-    // } catch (error: any) {
-    //   // console.log(error.message);
-    //   throw { status: 400, message: error.message || "invalid token!!" };
-    // }
-    // if (decodedToken.role !== "ADMIN" && decodedToken.role !== "MODERATOR")
-    //   throw {
-    //     status: UNAUTHORIZED,
-    //     message: "Only Admin or moderator can modify this data",
-    //   };
-    // req.userFromToken = decodedToken;
     if (
       req.userFromToken?.role !== "ADMIN" &&
       req.userFromToken?.role !== "MODERATOR"
@@ -97,26 +74,21 @@ export const ifUserIsModerator_OR_Admin = asyncHandler(
         status: UNAUTHORIZED,
         message: "Only Admin or moderator can modify this data",
       };
+    if (!req.userFromDB?.isVerfied) {
+      throw {
+        status: UNAUTHORIZED,
+        message: " Moderator  is not verified",
+      };
+    }
     next();
   }
 );
 // If user is not login
 export const ifUser = asyncHandler(
   async (req: RequestUser, res: Response, next: NextFunction) => {
-    // const token = req.header("Authorization");
-    // if (!token)
-    //   throw { status: BAD_REQUEST, message: "unable to find any token" };
-    // const parsedToken = token?.split(" ")[1] || "";
-    // let decodedToken;
-    // try {
-    //   decodedToken = verify(parsedToken, JWT_SECRET_KEY) as PayLoadType;
-    // } catch (error: any) {
-    //   console.log(error.message);
-    //   throw { status: 400, message: error.message || "invalid token!!" };
-    // }
-    // req.userFromToken = decodedToken;
     if (req.userFromToken?.role !== "USER")
       throw { status: UNAUTHORIZED, message: "you are not logged in" };
+
     next();
   }
 );

@@ -15,6 +15,8 @@ import { passwordHasher, verifyPassword } from "../../utils/passwordHasher";
 import { GenerateJWTAccessToken } from "../../utils/tokenGenerator";
 import { PayLoadType, SearchQueryType, UserData } from "../../types";
 import { RequestUser } from "../../middlewares/authMiddleware";
+import { generateOtp } from "../../utils/slug_and_str_generator";
+import { sendOTP } from "../../utils/sendOTP";
 
 // * Register  User Controller
 const registerUserController = asyncHandler(
@@ -27,7 +29,7 @@ const registerUserController = asyncHandler(
      * Return the user data
      */
     const { username, fullName, email, password } = req.body;
-    const isUserExist = await prisma.user.findFirst({
+    const isUserExist = await prisma.user.findUnique({
       where: { username, email },
     });
 
@@ -70,8 +72,23 @@ const registerUserController = asyncHandler(
       );
   }
 );
+// * send otp to user
+const sendOTPcontroller = asyncHandler(async (req: Request, res: Response) => {
+  //* type
+  type EmailType = { email: string };
+  // ********
+  const { otp: OTP, otpExpiry } = generateOtp();
+  const { email }: EmailType = req.body;
+  const user = await prisma.user.update({
+    where: { email },
+    data: { otp: OTP, otpExpiry },
+  });
+  await sendOTP(email, OTP, user.fullName)
+    .then(() => console.log("OTP sent successfully"))
+    .catch((err) => console.log(err));
+  return res.status(OK).json(apiResponse(OK, "OTP sent successfully", null));
+});
 // * verify user through otp
-// Verify User if he is real or just bot
 const verifyUserController = asyncHandler(
   async (req: Request, res: Response) => {
     const { otp: userOTP } = req.body;
