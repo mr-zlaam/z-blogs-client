@@ -1,7 +1,7 @@
 # Dependencies
 /node_modules/
-/backend/node_modules
-/backend/dist/
+/server/node_modules
+/server/dist/
 # Build output
 /dist
 docker-compose.yml
