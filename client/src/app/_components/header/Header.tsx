@@ -30,7 +30,7 @@ function Header() {
   return (
     <>
       <header className=" h-[70px] ">
-        <nav className=" flex justify-around items-center">
+        <nav className=" flex justify-between items-center ">
           <Link href={"/"}>
             <Image src={logo} alt="zlaam" height={70} width={70} />
           </Link>
@@ -76,22 +76,34 @@ function Header() {
                 <PopoverTrigger className="bg-transparent cursor-pointer  border-none">
                   <RandomAvatar size={42} name="hero" square />
                 </PopoverTrigger>
-                <PopoverContent className="h-fit w-[200px]">
-                  <div className="flex-[1] p-3 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded">
+                <PopoverContent className="h-fit w-[200px] shadow-md shadow-foreground/20">
+                  <Link
+                    href={"#"}
+                    className="flex-[1] p-3 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
+                  >
                     username
-                  </div>
+                  </Link>
                   <Separator />
 
                   <div className="flex-[2] flex flex-col cursor-pointer ">
-                    <div className="p-3 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded">
+                    <Link
+                      href={"#"}
+                      className="p-3 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
+                    >
                       Create Post
-                    </div>
-                    <div className="p-3 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded">
+                    </Link>
+                    <Link
+                      href={"#"}
+                      className="p-3 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
+                    >
                       Dashboard
-                    </div>
-                    <div className="p-3 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded">
+                    </Link>
+                    <Link
+                      href={"/settings"}
+                      className="p-3 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
+                    >
                       Settings
-                    </div>
+                    </Link>
                   </div>
                   <Separator />
 

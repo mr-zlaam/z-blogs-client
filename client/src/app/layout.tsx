@@ -40,8 +40,10 @@ export default function RootLayout({
             enableSystem
             storageKey="سمة"
           >
-            <Header />
-            <PageWrapper>{children}</PageWrapper>
+            <PageWrapper>
+              <Header />
+              {children}
+            </PageWrapper>
             {/* <Footer /> */}
           </ThemeProvider>
         </main>
