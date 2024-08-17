@@ -61,8 +61,8 @@ function Header() {
                       </div>
                     </DialogDescription>
                     <DialogFooter>
-                      <p className="w-full text-center font-normal text-xs py-3">
-                        Search across the site
+                      <p className="w-full text-center font-normal text-xs py-3 select-none">
+                        Search Posts across the site
                       </p>
                     </DialogFooter>
                   </DialogHeader>
