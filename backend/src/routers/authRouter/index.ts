@@ -42,13 +42,15 @@ authRouter
   .route("/getAllUsers")
   .get(CheckToken, ifUserIsAdmin, getAllUsersController);
 // * get single user
-authRouter.route("/getSingleUser/:uid").get(ifUser, getSingleUserController);
+authRouter
+  .route("/getSingleUser/:uid")
+  .get(CheckToken, getSingleUserController);
 // * get current login user
-authRouter.route("/currentUser").get(ifUser, getCurrentUserController);
+authRouter.route("/currentUser").get(CheckToken, getCurrentUserController);
 // *  update current user
 authRouter
   .route("/updateUser/:uid")
-  .put(validateData(userUpdateSchema), ifUser, updateUserController);
+  .put(validateData(userUpdateSchema), CheckToken, updateUserController);
 // * update role of current user
 authRouter
   .route("/updateRole/:uid")
@@ -56,12 +58,16 @@ authRouter
 // * update password of current user
 authRouter
   .route("/updatePassword/:uid")
-  .put(validateData(passwrodValidator), ifUser, updateUserPasswordController);
+  .put(
+    validateData(passwrodValidator),
+    CheckToken,
+    updateUserPasswordController
+  );
 // * delete user
 authRouter
   .route("/deleteUser/:uid")
   .delete(CheckToken, ifUserIsAdmin, deleteUserController);
-authRouter.route("/logoutUser/:uid").get(logoutUserController);
+authRouter.route("/logoutUser/:uid").get(CheckToken, logoutUserController);
 // *  full text search router
 authRouter
   .route("/getAllUsers/search")

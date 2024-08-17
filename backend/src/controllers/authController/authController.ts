@@ -228,6 +228,7 @@ const getAllUsersController = asyncHandler(
         fullName: true,
         email: true,
         role: true,
+        isVerfied: true,
         createdAt: true,
         updatedAt: true,
         blogPosts: {
@@ -281,6 +282,7 @@ const getSingleUserController = asyncHandler(
         fullName: true,
         email: true,
         role: true,
+        isVerfied: true,
         createdAt: true,
         updatedAt: true,
       },
