@@ -3,7 +3,7 @@ import {} from "react";
 function Header() {
   return (
     <>
-      <section>Header</section>
+      <header className="bg-background h-[70px]">Header</header>
     </>
   );
 }
