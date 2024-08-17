@@ -11,7 +11,7 @@ export function ThemeToggler() {
     <>
       <Switch
         checked={theme === "dark" ? true : false}
-        className="cursor-pointer"
+        className="cursor-pointer shadow-sm shadow-foreground"
         onClick={() => {
           setTheme(theme === "dark" ? "light" : "dark");
         }}

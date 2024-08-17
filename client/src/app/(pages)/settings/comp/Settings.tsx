@@ -14,7 +14,7 @@ function Settings() {
         }}
       >
         <div className="mode w-full  p-3 flex items-center justify-around ">
-          <span>DarkMode</span>
+          <span className="cursor-default">DarkMode</span>
           <ThemeToggler />
         </div>
       </section>
