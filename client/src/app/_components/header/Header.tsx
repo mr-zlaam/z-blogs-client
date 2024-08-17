@@ -1,6 +1,16 @@
 "use client";
 import { Separator } from "@/components/ui/separator";
 
+import DivWrapper from "@/_subComponents/divWrapper/DivWrapper";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import { Link } from "@/components/ui/link";
 import {
   Popover,
@@ -9,27 +19,13 @@ import {
 } from "@/components/ui/popover";
 import logo from "@/images/logo/z-logo.png";
 import Image from "next/image";
-import { useState } from "react";
 import { GoSearch } from "react-icons/go";
 import { RandomAvatar } from "react-random-avatars";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import DivWrapper from "@/_subComponents/divWrapper/DivWrapper";
-import { Input } from "@/components/ui/input";
 
 function Header() {
   return (
     <>
-      <header className=" h-[70px] ">
+      <header className=" h-[70px]  ">
         <nav className=" flex justify-between items-center ">
           <Link href={"/"}>
             <Image src={logo} alt="zlaam" height={70} width={70} />
@@ -51,6 +47,8 @@ function Header() {
                           type="text"
                           className="w-[90%] h-full font-semibold sm:text-lg p-4 outline-none border-none shadow-md shadow-foreground/20 pr-14 bg-transparent"
                           placeholder="Search"
+                          autoFocus
+                          autoComplete="off"
                         />
                         <button className="bg-transparent border-none cursor-pointer absolute top-2 right-7 lg:right-10 ">
                           <DivWrapper className="h-[35px] w-[35px]">

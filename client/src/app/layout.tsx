@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/theme/Theme";
 import PageWrapper from "./_components/pageWrapper/PageWrapper";
 import Header from "./_components/header/Header";
 import Footer from "./_components/footer/Fotter";
+import { Separator } from "@/components/ui/separator";
 const arimo = Arimo({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
@@ -40,10 +41,11 @@ export default function RootLayout({
             enableSystem
             storageKey="سمة"
           >
-            <PageWrapper>
+            <PageWrapper className="sticky top-0 left-0 w-full bg-background mb-4">
               <Header />
-              {children}
+              <Separator />
             </PageWrapper>
+            <PageWrapper className="py-3">{children}</PageWrapper>
             {/* <Footer /> */}
           </ThemeProvider>
         </main>
