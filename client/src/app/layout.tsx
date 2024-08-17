@@ -5,6 +5,9 @@ import { Arimo } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 import { ThemeProvider } from "@/theme/Theme";
+import PageWrapper from "./_components/pageWrapper/PageWrapper";
+import Header from "./_components/header/Header";
+import Footer from "./_components/footer/Fotter";
 const arimo = Arimo({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
@@ -37,7 +40,9 @@ export default function RootLayout({
             enableSystem
             storageKey="سمة"
           >
-            {children}
+            <Header />
+            <PageWrapper>{children}</PageWrapper>
+            {/* <Footer /> */}
           </ThemeProvider>
         </main>
       </body>

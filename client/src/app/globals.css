@@ -71,3 +71,50 @@
     @apply bg-background text-foreground;
   }
 }
+@media screen and (max-width: 250px) {
+  * {
+    visibility: hidden;
+    background: #28282b;
+  }
+}
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #28282b transparent;
+  scroll-behavior: smooth;
+  scroll-timeline-name: zlaam;
+}
+
+/* Webkit-based browsers (Chrome, Safari, newer versions of Edge) */
+*::-webkit-scrollbar {
+  width: 0px; /* Adjust the width as needed */
+}
+
+*::-webkit-scrollbar-track {
+  background: none;
+  width: 1px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #28282b;
+  border-radius: 30px;
+}
+
+/* Microsoft Edge and Internet Explorer */
+*::-ms-scrollbar-thumb {
+  width: 0px; /* Adjust the width as needed */
+}
+
+*::-ms-scrollbar-track {
+  background: #28282b;
+  width: 0;
+}
+@media screen and (max-width: 768px) {
+  *::-webkit-scrollbar {
+    width: 0.5px; /* Adjust the width as needed */
+  }
+}
+* > img,
+a {
+  user-select: none;
+}
