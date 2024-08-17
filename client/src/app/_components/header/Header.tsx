@@ -8,6 +8,7 @@ import { RandomAvatar } from "react-random-avatars";
 import { GoSearch } from "react-icons/go";
 
 import { Input } from "@/components/ui/input";
+import DivWrapper from "@/_subComponents/divWrapper/DivWrapper";
 
 function Header() {
   return (
@@ -20,15 +21,17 @@ function Header() {
           <div className="relative">
             <Input
               type="text"
-              className="border-foreground/50 border min-w-[300px] shadow-md shadow-foreground/20 py-5 bg-red-500 mr-20"
+              className="border-foreground/50 border min-w-[300px] shadow-md shadow-foreground/20 py-5  pr-14"
               placeholder="Search"
             />
-            <div className="absolute top-2 right-4 ">
-              <GoSearch size={25} />
-            </div>
+            <button className="bg-transparent border-none cursor-pointer">
+              <DivWrapper className="absolute top-1 right-2 h-[35px] w-[35px]">
+                <GoSearch size={25} />
+              </DivWrapper>
+            </button>
           </div>
           <div>
-            <div className="h-[40px] w-[40px] bg-background rounded-full  overflow-hidden">
+            <div className="h-[40px] w-[40px] bg-background rounded-full  overflow-hidden ">
               <Link href={"#"}>
                 <RandomAvatar size={42} name="hero" square />
               </Link>
