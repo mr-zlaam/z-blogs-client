@@ -21,6 +21,7 @@ import logo from "@/images/logo/z-logo.png";
 import Image from "next/image";
 import { GoSearch } from "react-icons/go";
 import { RandomAvatar } from "react-random-avatars";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 function Header() {
   return (
@@ -51,9 +52,11 @@ function Header() {
                           autoComplete="off"
                         />
                         <button className="bg-transparent border-none cursor-pointer absolute top-2 right-7 lg:right-10 ">
-                          <DivWrapper className="h-[35px] w-[35px]">
-                            <GoSearch size={25} />
-                          </DivWrapper>
+                          <DialogClose asChild>
+                            <DivWrapper className="h-[35px] w-[35px]">
+                              <GoSearch size={25} />
+                            </DivWrapper>
+                          </DialogClose>
                         </button>
                       </div>
                     </DialogDescription>
