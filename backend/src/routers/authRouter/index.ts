@@ -18,6 +18,7 @@ import {
   searchUserController,
   getCurrentUserController,
   verifyUserController,
+  sendOTPcontroller,
 } from "../../controllers/authController/authController";
 import {
   CheckToken,
@@ -31,6 +32,9 @@ authRouter
   .post(validateData(userRegistrationSchema), registerUserController);
 // * login userr
 authRouter.route("/login").post(loginUserController);
+// * send email
+authRouter.route("/sendOTP").post(CheckToken, sendOTPcontroller);
+
 // * verify user
 authRouter.route("/verifyUser").post(CheckToken, verifyUserController);
 // * get all users
