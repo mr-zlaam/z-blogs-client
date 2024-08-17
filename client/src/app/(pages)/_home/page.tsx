@@ -1,12 +1,12 @@
 import { Link } from "@/components/ui/link";
 import {} from "react";
 
-function Home() {
+function HomePage() {
   return (
     <>
-      <section>Home</section>
+      <section>HomePage</section>
     </>
   );
 }
 
-export default Home;
+export default HomePage;
