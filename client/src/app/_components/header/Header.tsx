@@ -77,12 +77,9 @@ function Header() {
                   <RandomAvatar size={42} name="hero" square />
                 </PopoverTrigger>
                 <PopoverContent className="h-fit w-[200px] shadow-md shadow-foreground/20">
-                  <Link
-                    href={"#"}
-                    className="flex-[1] p-3 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
-                  >
+                  <div className="flex-[1] p-3 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded">
                     username
-                  </Link>
+                  </div>
                   <Separator />
 
                   <div className="flex-[2] flex flex-col cursor-pointer ">
