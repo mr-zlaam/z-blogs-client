@@ -43,7 +43,7 @@ function Header() {
                     <GoSearch size={20} />
                   </DivWrapper>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-md rounded ">
+                <DialogContent className="sm:max-w-md rounded shadow-md shadow-foreground/30">
                   <DialogHeader>
                     <DialogDescription>
                       <div className="relative bg-background h-fit border-[2px] border-black w-full">
@@ -60,7 +60,7 @@ function Header() {
                       </div>
                     </DialogDescription>
                     <DialogFooter>
-                      <p className="w-full text-center font-normal text-xs">
+                      <p className="w-full text-center font-normal text-xs py-3">
                         Search across the site
                       </p>
                     </DialogFooter>
