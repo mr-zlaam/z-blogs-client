@@ -1,3 +1,4 @@
+import crypto from "node:crypto";
 export function generateRandomStrings(length: number) {
   const characters =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -14,4 +15,13 @@ export function generateSlug(slugString: string) {
   slug = slug.replace(/[^a-z0-9\s-]/g, "");
   slug = slug.trim().replace(/\s+/g, "-");
   return slug;
+}
+
+// OTP generator
+// 5 digit random otp generator
+export function generateOtp() {
+  let otp = crypto.randomInt(100000, 1000000).toString();
+  otp = otp.padStart(6, "0") as string;
+  const otpExpiry = new Date(Date.now() + 30 * 60 * 1000); // change expiry time using the first letter after Date.now()+1
+  return { otp, otpExpiry };
 }

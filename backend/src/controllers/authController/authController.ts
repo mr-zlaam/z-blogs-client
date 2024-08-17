@@ -70,7 +70,65 @@ const registerUserController = asyncHandler(
       );
   }
 );
+// * verify user through otp
+// Verify User if he is real or just bot
+const verifyUserController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { otp: userOTP } = req.body;
+    if (!userOTP.trim())
+      throw {
+        status: BAD_REQUEST,
+        message: "Please enter OTP",
+      };
+    const user = await prisma.user.findUnique({
+      where: {
+        otp: userOTP.toString(),
+      },
+    });
 
+    if (!user)
+      throw {
+        status: BAD_REQUEST,
+        message: "User Doesn't exist",
+      };
+    if (user.otp?.trim() !== userOTP.trim()) {
+      throw {
+        status: BAD_REQUEST,
+        message: "Invalid OTP",
+      };
+    }
+    // check if otp is expired
+    if (user.otpExpiry && user.otpExpiry < new Date()) {
+      throw {
+        status: BAD_REQUEST,
+        message: "OTP is expired",
+      };
+    }
+
+    const verifiedUser = await prisma.user.update({
+      where: {
+        otp: userOTP.toString(),
+      },
+      data: {
+        isVerfied: true,
+        otp: null,
+        otpExpiry: null,
+        otpRequestCount: 0,
+        cooldownExpiry: null,
+      },
+      select: {
+        uid: true,
+        email: true,
+        username: true,
+        role: true,
+        isVerfied: true,
+      },
+    });
+    return res
+      .status(OK)
+      .json(apiResponse(OK, "OTP verified successfully", verifiedUser));
+  }
+);
 // * Login User Controller
 const loginUserController = asyncHandler(
   async (req: Request, res: Response) => {
@@ -454,4 +512,5 @@ export {
   updateUserRoleController,
   searchUserController,
   getCurrentUserController,
+  verifyUserController,
 };
