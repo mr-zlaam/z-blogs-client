@@ -86,26 +86,26 @@ function Header() {
                   <div className="flex-[2] flex flex-col cursor-pointer ">
                     <Link
                       href={"#"}
-                      className="p-3 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
+                      className="p-2 my-1 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
                     >
                       Create Post
                     </Link>
                     <Link
                       href={"#"}
-                      className="p-3 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
+                      className="p-2 my-1 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
                     >
                       Dashboard
                     </Link>
                     <Link
                       href={"/settings"}
-                      className="p-3 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
+                      className="p-2 my-1 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
                     >
                       Settings
                     </Link>
                   </div>
                   <Separator />
 
-                  <div className="flex-1 p-3 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded">
+                  <div className="flex-1 p-2 my-1 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded">
                     Sign out
                   </div>
                 </PopoverContent>
