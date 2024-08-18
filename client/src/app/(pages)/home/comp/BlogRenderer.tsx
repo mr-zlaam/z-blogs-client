@@ -8,9 +8,9 @@ interface blogPostProps {
 function BlogRenderer({ blogPosts }: blogPostProps) {
   console.log(blogPosts, "from blog renderer");
   return (
-    <>
-      <section>BlogRenderer</section>
-    </>
+    <section className="px-2">
+      <div className="border-solid border border-foreground md:h-[350px] h-[300px] rounded-md"></div>
+    </section>
   );
 }
 
