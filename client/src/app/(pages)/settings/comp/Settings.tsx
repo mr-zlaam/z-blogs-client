@@ -15,7 +15,7 @@ function Settings() {
         className="rounded-md"
       >
         <div className="mode w-full  p-3 flex items-center justify-around ">
-          <span className="cursor-default">DarkMode</span>
+          <span className="cursor-default">Theme</span>
           <ThemeToggler />
         </div>
       </section>
