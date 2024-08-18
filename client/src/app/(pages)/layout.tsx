@@ -2,7 +2,7 @@ import {} from "react";
 import PageWrapper from "../_components/pageWrapper/PageWrapper";
 import Header from "../_components/header/Header";
 import { Separator } from "@radix-ui/react-separator";
-import PageHeader from "../_components/pageHeader/pageHeader";
+import PageHeader from "../_components/pageHeader/PageHeader";
 
 function PageLayout({ children }: { children: React.ReactNode }) {
   return (
