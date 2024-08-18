@@ -46,7 +46,7 @@ function Header() {
                       <div className="relative  h-fit border-[2px] border-black w-full">
                         <Input
                           type="text"
-                          className="w-[90%] h-full font-semibold sm:text-lg p-4 outline-none border-none shadow-md shadow-foreground/20 pr-14 bg-transparent"
+                          className="w-[90%] border-solid h-full font-semibold sm:text-lg p-4 outline-none  shadow-md shadow-foreground/20 pr-14 bg-transparent"
                           placeholder="Search"
                           autoFocus
                           autoComplete="off"
