@@ -51,7 +51,12 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
           <PageWrapper>
             <div
               className="mx-10"
-              dangerouslySetInnerHTML={{ __html: renderedHtml }}
+              dangerouslySetInnerHTML={{
+                __html:
+                  renderedHtml.length === 0
+                    ? "Write something...."
+                    : renderedHtml,
+              }}
             ></div>
           </PageWrapper>
         </div>
