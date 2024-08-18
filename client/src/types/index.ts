@@ -43,7 +43,7 @@ export interface BlogDataTypes {
   blogThumbnail: string;
   author: AuthorType;
   blogThumbnailAuthor: string;
-  isPublic: true | false;
+  isPublic: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -52,7 +52,9 @@ export interface BlogTypes {
   statusCode?: number;
   message?: string;
   optMessage?: string | null;
-  data?: BlogDataTypes[];
+  data?: {
+    blogs: BlogDataTypes[];
+  };
 }
 export interface PaginationTypes {
   currentPage: number;
