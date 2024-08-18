@@ -5,7 +5,7 @@ import { Link } from "@/components/ui/link";
 import { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import useCustomStorage from "@/hooks/useCustomStorageNext";
-import DOMPurify from "dompurify";
+import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 import highlightSyntax from "./editor/highlightSyntax";
 const Editor = dynamic(() => import("../comp/editor/Editor"), {
@@ -20,7 +20,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
   // applying higlighter
   const renderedHtml = useMemo(() => {
     const rawHtml = DOMPurify.sanitize(marked(value) as string);
-    const highlightedHtml = highlightSyntax(rawHtml, "js"); // Replace 'js' with the appropriate language
+    const highlightedHtml = highlightSyntax(rawHtml, "js");
 
     // Add copy buttons to each <pre> block
     const copyButtonHtml = (id: string) =>
