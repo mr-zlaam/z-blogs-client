@@ -3,6 +3,7 @@ import PageWrapper from "@/app/_components/pageWrapper/PageWrapper";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
 import {} from "react";
+import Editor from "./editor/Editor";
 
 function CreatePost({ token, uid }: { token: string; uid: string }) {
   console.log(uid);
@@ -17,7 +18,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
         Go Back
       </Link>
       <PageWrapper className="border border-solid border-foreground">
-        hello world
+        <Editor />
       </PageWrapper>
     </>
   );
