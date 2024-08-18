@@ -55,6 +55,7 @@ export interface PayLoadType {
   fullName: string;
   role: "ADMIN" | "MODERATOR" | "USER";
   tokenVersion?: number;
+  isVerfied?: boolean;
 }
 export interface BlogTypes {
   success?: boolean;
