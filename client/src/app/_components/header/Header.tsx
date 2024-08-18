@@ -85,7 +85,7 @@ function Header() {
 
                   <div className="flex-[2] flex flex-col cursor-pointer ">
                     <Link
-                      href={"#"}
+                      href={"/create-post"}
                       className="p-2 my-1 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
                     >
                       Create Post
