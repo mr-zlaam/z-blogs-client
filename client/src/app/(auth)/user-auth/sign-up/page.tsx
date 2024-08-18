@@ -89,6 +89,7 @@ function RegisterForm() {
                     type="text"
                     placeholder="john_doe"
                     id="username"
+                    className="border-solid"
                   />
                   <p className="h-[15px]">
                     {errors.username && (
@@ -107,6 +108,7 @@ function RegisterForm() {
                     type="text"
                     placeholder="John Doe"
                     id="fullName"
+                    className="border-solid"
                   />
                   <p className="h-[15px]">
                     {errors.fullName && (
@@ -125,6 +127,7 @@ function RegisterForm() {
                     type="email"
                     placeholder="john@mail.com"
                     id="email"
+                    className="border-solid"
                   />
                   <p className="h-[15px]">
                     {errors.email && (
@@ -139,7 +142,7 @@ function RegisterForm() {
                     Password
                   </Label>
                   <Input
-                    className="pr-14"
+                    className="pr-14 border-solid"
                     {...register("password")}
                     type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
@@ -164,7 +167,7 @@ function RegisterForm() {
                     Confirm Password
                   </Label>
                   <Input
-                    className="pr-14"
+                    className="pr-14 border-solid"
                     {...register("confirmPassword")}
                     type={showConfirmPassword ? "text" : "password"}
                     placeholder="••••••••"

@@ -48,9 +48,7 @@ function LoginForm() {
       );
       if (response.status === 200) {
         successMessage(response.data.message || "Login Successful");
-        // if (!isWindow) {
-        location.reload();
-        // }
+
         reset();
         return router.push("/home");
       }
@@ -80,6 +78,7 @@ function LoginForm() {
                     type="text"
                     id="email"
                     placeholder="username or email"
+                    className="border-solid"
                   />
                   {errors.usernameORmail && (
                     <p className="text-xs select-none text-red-500  text-balance ml-2">
@@ -90,7 +89,7 @@ function LoginForm() {
                 <div className="grid w-full max-w-sm items-center gap-1.5 relative">
                   <Label htmlFor="password">Password</Label>
                   <Input
-                    className="pr-14"
+                    className="pr-14 border-solid"
                     {...register("password")}
                     type={showPassword ? "text" : "password"}
                     id="password"
