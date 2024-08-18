@@ -1,6 +1,6 @@
 import {} from "react";
 
-function CreatePost() {
+function CreatePost({ token }: { token: string }) {
   return (
     <>
       <section>CreatePost</section>
