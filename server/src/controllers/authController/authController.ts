@@ -51,6 +51,7 @@ const registerUserController = asyncHandler(
         fullName: true,
         email: true,
         role: true,
+        isVerfied: true,
       },
     });
     const payload: PayLoadType = {
@@ -59,6 +60,7 @@ const registerUserController = asyncHandler(
       username: newUser && newUser.username,
       fullName: newUser && newUser.fullName,
       role: newUser && newUser.role,
+      isVerfied: newUser && newUser.isVerfied,
     };
     const accessToken = GenerateJWTAccessToken(payload, res);
     return res
@@ -142,10 +144,23 @@ const verifyUserController = asyncHandler(
         username: true,
         role: true,
         isVerfied: true,
+        tokenVersion: true,
+        fullName: true,
       },
     });
+    const payload: PayLoadType = {
+      uid: verifiedUser && verifiedUser.uid,
+      email: verifiedUser && verifiedUser.email,
+      username: verifiedUser && verifiedUser.username,
+      fullName: verifiedUser && verifiedUser.fullName,
+      role: verifiedUser && verifiedUser.role,
+      tokenVersion: verifiedUser && verifiedUser?.tokenVersion,
+      isVerfied: verifiedUser && verifiedUser.isVerfied,
+    };
+    const verifiedAccessToken = GenerateJWTAccessToken(payload, res);
     return res
       .status(OK)
+      .cookie("accessToken", verifiedAccessToken, COOKIES_OPTION)
       .json(apiResponse(OK, "OTP verified successfully", verifiedUser));
   }
 );
@@ -189,6 +204,7 @@ const loginUserController = asyncHandler(
       fullName: isUserRegistered && isUserRegistered.fullName,
       role: isUserRegistered && isUserRegistered.role,
       tokenVersion: isUserRegistered && isUserRegistered?.tokenVersion,
+      isVerfied: isUserRegistered && isUserRegistered.isVerfied,
     };
     const accessToken = GenerateJWTAccessToken(payload, res);
     return res
