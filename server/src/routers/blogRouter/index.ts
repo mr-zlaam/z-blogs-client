@@ -4,6 +4,7 @@ import {
   deleteBlogController,
   getAllBlogsController,
   getAllPrivateBlogsController,
+  getHomePageBlogs,
   getSingleBlogController,
   searchBlogController,
   updateBlogController,
@@ -29,6 +30,7 @@ blogRouter
     createBlogController
   );
 blogRouter.route("/getAllPublicBlogs").get(getAllBlogsController);
+blogRouter.route("/getHomePagePublicBlog").get(getHomePageBlogs);
 blogRouter
   .route("/getAllPrivateBlogs")
   .get(CheckToken, ifUserIsAdmin, getAllPrivateBlogsController);

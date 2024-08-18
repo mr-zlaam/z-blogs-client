@@ -133,6 +133,46 @@ const getAllBlogsController = asyncHandler(
     );
   }
 );
+// * Fetch Home page latest blogs
+const getHomePageBlogs = asyncHandler(async (req: Request, res: Response) => {
+  // Fetch the latest 6 public blogs
+  const blogs = await prisma.blogPost.findMany({
+    where: { isPublic: true },
+    select: {
+      blogId: true,
+      blogTitle: true,
+      blogDescription: true,
+      blogSlug: true,
+      blogThumbnail: true,
+      blogThumbnailAuthor: true,
+      isPublic: true,
+      createdAt: true,
+      updatedAt: true,
+      author: {
+        select: {
+          uid: true,
+          username: true,
+          fullName: true,
+          email: true,
+          role: true,
+          createdAt: true,
+          blogPosts: {
+            select: { blogTitle: true, blogSlug: true, blogThumbnail: true },
+          },
+        },
+      },
+    },
+    take: 6, // Limit to the latest 6 blogs
+    orderBy: {
+      createdAt: "desc", // Order by creation date in descending order (latest first)
+    },
+  });
+
+  // Return the blogs as a response
+  return res.json(
+    apiResponse(200, "Latest Blogs fetched successfully", { blogs })
+  );
+});
 
 // * get single blogpost controller
 const getSingleBlogController = asyncHandler(
@@ -469,6 +509,7 @@ export {
   //public blogs
   createBlogController,
   getAllBlogsController,
+  getHomePageBlogs,
   getSingleBlogController,
   updateBlogController,
   deleteBlogController,
