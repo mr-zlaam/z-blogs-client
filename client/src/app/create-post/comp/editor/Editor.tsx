@@ -5,6 +5,7 @@ declare global {
   }
 }
 
+import { useMessage } from "@/hooks/useMessage";
 import "easymde/dist/easymde.min.css";
 import { useEffect, useMemo } from "react";
 import SimpleMDEditor from "react-simplemde-editor";
@@ -16,6 +17,7 @@ const Editor = ({
   setValue: React.Dispatch<React.SetStateAction<string>>;
   value: string;
 }) => {
+  const { successMessage } = useMessage();
   const newOptions = useMemo(() => {
     return {
       spellChecker: true,
@@ -33,7 +35,9 @@ const Editor = ({
     window.copyToClipboard = (id: string) => {
       const codeElement = document.getElementById(id);
       if (codeElement) {
-        navigator.clipboard.writeText(codeElement.innerText).then(() => {});
+        navigator.clipboard.writeText(codeElement.innerText).then(() => {
+          successMessage("copied successfully", "top-center", 1000);
+        });
       }
     };
   }, []);
