@@ -22,12 +22,12 @@ export function Link({
       className={cn(
         className,
         varient === "expand-from-left"
-          ? "relative font-normal text-foreground no-underline  text-xl w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-foreground after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left"
-          : "text-foreground cursor-pointer no-underline ",
+          ? "relative font-normal no-underline  text-xl w-fit block after:block after:content-[''] after:absolute after:h-[2px]  after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left"
+          : "cursor-pointer no-underline ",
         varient === "expand-from-center" &&
-          "relative font-normal text-foreground text-xl w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-foreground after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center",
+          "relative font-normal text-xl w-fit block after:block after:content-[''] after:absolute after:h-[2px]  after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center",
         varient === "expand-from-right" &&
-          "relative font-normal text-foreground text-xl w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-foreground after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-right"
+          "relative font-normal text-xl w-fit block after:block after:content-[''] after:absolute after:h-[2px]  after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-right"
       )}
     >
       {children}

@@ -1,24 +1,24 @@
 "use client";
+import PageWrapper from "@/app/_components/pageWrapper/PageWrapper";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { Link } from "@/components/ui/link";
 import {} from "react";
 
 function CreatePost({ token, uid }: { token: string; uid: string }) {
-  const router = useRouter();
   console.log(uid);
   return (
     <>
-      <section>
-        <Button
-          variant={"link"}
-          className="bg-transparent font-bold text-xl text-blue-400 w-fit mx-auto block"
-          onClick={() => {
-            router.back();
-          }}
-        >
-          Go Back
-        </Button>
-      </section>
+      <Button className="fixed right-4 top-5">Preview</Button>
+      <Link
+        varient="expand-from-left"
+        href={"/home"}
+        className="text-blue-500 after:bg-blue-500 block w-fit mx-auto p-2"
+      >
+        Go Back
+      </Link>
+      <PageWrapper className="border border-solid border-foreground">
+        hello world
+      </PageWrapper>
     </>
   );
 }
