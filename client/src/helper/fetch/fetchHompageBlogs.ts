@@ -1,4 +1,5 @@
 import { BACKEND_URI } from "@/config";
+import { BlogTypes } from "@/types";
 
 const fetchHomePageBlogs = async () => {
   try {
@@ -8,7 +9,7 @@ const fetchHomePageBlogs = async () => {
     if (response.ok) {
       const data = await response.json();
       console.log(data);
-      return data;
+      return data as BlogTypes;
     } else {
       throw new Error("Something went wrong while fetching hompage data");
     }
