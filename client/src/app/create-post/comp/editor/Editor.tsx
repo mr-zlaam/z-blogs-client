@@ -49,7 +49,7 @@ const Editor = ({
         value={value}
         onChange={onChange}
         options={newOptions as any}
-        className=" "
+        className="bg-gray-400"
       />
     </main>
   );

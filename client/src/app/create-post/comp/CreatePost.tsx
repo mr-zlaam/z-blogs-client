@@ -26,7 +26,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
     const copyButtonHtml = (id: string) =>
       `
     <div class="relative ">
-    <button class="absolute right-5 top-4 px-3 py-1 rounded-md bg-white cursor-pointer hover:bg-gray-500 hover:text-white duration-200 transition-all " onclick="copyToClipboard('${id}')">
+    <button class="absolute right-5 top-4 px-3 py-1 rounded-md bg-background cursor-pointer hover:bg-background/20  duration-200 transition-all " onclick="copyToClipboard('${id}')">
     copy
     </button>
     </div>
