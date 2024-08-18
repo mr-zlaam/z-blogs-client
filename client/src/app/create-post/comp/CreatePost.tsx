@@ -8,6 +8,7 @@ import useCustomStorage from "@/hooks/useCustomStorageNext";
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 import highlightSyntax from "./editor/highlightSyntax";
+import { Input } from "@/components/ui/input";
 const Editor = dynamic(() => import("../comp/editor/Editor"), {
   ssr: false,
 });
@@ -76,7 +77,33 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       >
         Go Back
       </Link>
-      <PageWrapper className="border border-solid border-foreground">
+      <PageWrapper>
+        <input
+          className="outline-none m-3 w-full text-4xl bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3"
+          placeholder=" Write Title here..."
+        />
+        <div className="relative">
+          <input
+            className="outline-none m-3 w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3 font-bold pr-20"
+            placeholder="Thumbnail Url..."
+          />
+          <Button
+            variant={"link"}
+            className="bg-transparent absolute top-4 right-2"
+          >
+            set url
+          </Button>
+        </div>
+        <input
+          className="outline-none m-3 w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3 font-bold pr-20"
+          placeholder="Thumbnail owner's name.."
+        />
+        <input
+          className="outline-none m-2 w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-2 font-bold pr-20"
+          placeholder="Blog Write's  name.."
+        />
+      </PageWrapper>
+      <PageWrapper className="my-4">
         <Editor setValue={setValue} value={value} />
       </PageWrapper>
     </>
