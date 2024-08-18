@@ -1,4 +1,6 @@
+import { SECRET } from "@/config";
 import useCookieGrabber from "@/hooks/useCookieGrabber";
+import { verify } from "jsonwebtoken";
 import { redirect } from "next/navigation";
 import {} from "react";
 
@@ -8,6 +10,7 @@ function CreatePostPage() {
     console.log("no token found");
     return redirect("/home");
   }
+  const userInfoInsideToke = verify(token?.value, SECRET);
   return (
     <>
       <section>CreatePostPage</section>
