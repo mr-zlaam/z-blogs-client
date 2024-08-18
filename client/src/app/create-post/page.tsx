@@ -18,7 +18,7 @@ function CreatePostPage() {
       userInfoInsideToken.role !== "ADMIN" &&
       userInfoInsideToken.role !== "MODERATOR"
     ) {
-      console.log("unauthenticated user try to access this route");
+      console.log("unauthenticated user tried to access this route");
       return redirect("/home");
     }
     return (
