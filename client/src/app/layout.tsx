@@ -1,14 +1,11 @@
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/theme/Theme";
 import type { Metadata } from "next";
 import { Arimo } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
-import { ThemeProvider } from "@/theme/Theme";
-import PageWrapper from "./_components/pageWrapper/PageWrapper";
-import Header from "./_components/header/Header";
-import Footer from "./_components/footer/Fotter";
-import { Separator } from "@/components/ui/separator";
+import "./editor.global.css";
 const arimo = Arimo({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],

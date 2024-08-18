@@ -1,0 +1,28 @@
+.code {
+  background-color: #28282b;
+  color: white;
+}
+
+.string-js {
+  color: yellow;
+}
+
+pre {
+  background: #28282b;
+  color: #ffffff;
+  border: 3px solid #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+}
+.keyword {
+  color: #9d9de2;
+}
+.key-method {
+  color: #e15656;
+}
+.key-html {
+  color: #17c517;
+}
+.comment-js {
+  color: #605f5f; /* Adjust color as needed */
+}

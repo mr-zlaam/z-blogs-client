@@ -44,7 +44,7 @@ const Editor = () => {
     `;
 
     const withCopyButtons = highlightedHtml.replace(
-      /(<pre[^>]*>)(.*?)(<\/pre>)/,
+      /(<pre[^>]*>)(.*?)(<\/pre>)/gs,
       (_, openingTag, codeContent, closingTag) => {
         const uniqueId = `codeBlock-${Math.random().toString(36).substr(2, 9)}`;
         return `<div class="code-container">${copyButtonHtml(

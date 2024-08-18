@@ -74,7 +74,7 @@ const languagePatterns: Record<Language, LanguagePatterns> = {
 
 const highlightSyntax = (html: string, language: Language): string => {
   // Regex to match <pre> tags and their content
-  const preTagRegex = /(<pre[^>]*>)(.*?)(<\/pre>)/;
+  const preTagRegex = /(<pre[^>]*>)(.*?)(<\/pre>)/gs;
 
   return html.replace(preTagRegex, (_, openingTag, codeContent, closingTag) => {
     // Apply syntax highlighting only to code inside <pre> tags
