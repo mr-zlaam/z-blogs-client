@@ -47,6 +47,15 @@ export interface BlogDataTypes {
   createdAt: string;
   updatedAt: string;
 }
+// token payload
+export interface PayLoadType {
+  uid: string;
+  username: string;
+  email: string;
+  fullName: string;
+  role: "ADMIN" | "MODERATOR" | "USER";
+  tokenVersion?: number;
+}
 export interface BlogTypes {
   success?: boolean;
   statusCode?: number;
