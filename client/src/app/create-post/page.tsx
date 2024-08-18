@@ -10,7 +10,7 @@ function CreatePostPage() {
   const token = useCookieGrabber();
   if (!token?.value) {
     console.log("no token found");
-    return redirect("/home");
+    return redirect("/user-auth/sign-in");
   }
   try {
     const userInfoInsideToken = verify(token?.value, SECRET) as PayLoadType;
@@ -19,7 +19,7 @@ function CreatePostPage() {
       userInfoInsideToken.role !== "MODERATOR"
     ) {
       console.log("unauthenticated user tried to access this route");
-      return redirect("/home");
+      return redirect("/user-auth/sign-in");
     }
     return (
       <>
@@ -29,7 +29,7 @@ function CreatePostPage() {
       </>
     );
   } catch (error: any) {
-    return <div>You can't access this page..</div>;
+    return redirect("/user-auth/sign-in");
   }
 }
 
