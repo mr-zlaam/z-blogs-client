@@ -24,7 +24,7 @@ function CreatePostPage() {
     return (
       <>
         <section>
-          <CreatePost token={token?.value} />
+          <CreatePost token={token?.value} uid={userInfoInsideToken.uid} />
         </section>
       </>
     );
