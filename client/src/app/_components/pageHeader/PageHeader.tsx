@@ -5,9 +5,12 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Fragment } from "react";
 import { navLinks } from "./components/NavLinks";
+import { usePathname } from "next/navigation";
 
 function PageHeader() {
   const isActivePath = useActivePath();
+  const pathName = usePathname();
+  if (pathName === "/settings") return null;
   return (
     <>
       <div className="w-full flex items-center  my-4  overflow-x-auto overflow-y-hidden">
