@@ -5,6 +5,7 @@ import { marked } from "marked";
 import { getPlaiceholder } from "plaiceholder";
 import BlurImage from "./BlurImage";
 import moment from "moment";
+import BlogDescription from "./BlogDescription";
 interface blogPostProps {
   post: BlogDataTypes;
 }
@@ -14,7 +15,6 @@ async function BlogRenderer({ post }: blogPostProps) {
     Buffer.from(await res.arrayBuffer())
   );
   const { base64 } = await getPlaiceholder(buffer);
-  const renderedHtml = marked(post.blogDescription) as string;
   return (
     <section className="px-2 ">
       <div className="relative  md:h-fit py-3 h-[300px] rounded-md flex justify-start  items-start  overflow-hidden ">
@@ -37,16 +37,7 @@ async function BlogRenderer({ post }: blogPostProps) {
           <span className="text-sm  mx-4 mb-4 text-green-600">
             Published : {moment(post.createdAt).format("MMMM Do, YYYY")}
           </span>
-
-          <span
-            dangerouslySetInnerHTML={{
-              __html:
-                renderedHtml.length === 0
-                  ? "Write something...."
-                  : renderedHtml,
-            }}
-            className="text-foreground/70 my-2 text-sm mx-4 truncate	line-clamp-4 text-clip  overflow-hidden"
-          ></span>
+          <BlogDescription blogDescription={post.blogDescription as string} />
         </div>
       </div>
       <Separator />
