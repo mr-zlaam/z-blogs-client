@@ -1,12 +1,10 @@
-import { BlogDataTypes } from "@/types";
-import Image from "next/image";
-import { Fragment } from "react";
-import { getPlaiceholder } from "plaiceholder";
-import fs from "node:fs/promises";
-import BlurImage from "./BlurImage";
-import { Separator } from "@/components/ui/separator";
 import { Link } from "@/components/ui/link";
+import { Separator } from "@/components/ui/separator";
+import { BlogDataTypes } from "@/types";
 import { marked } from "marked";
+import { getPlaiceholder } from "plaiceholder";
+import BlurImage from "./BlurImage";
+import moment from "moment";
 interface blogPostProps {
   post: BlogDataTypes;
 }
@@ -36,7 +34,14 @@ async function BlogRenderer({ post }: blogPostProps) {
               {post.blogTitle}
             </Link>
           </h1>
-          <Link href={`#`} className="text-foreground/70  ">
+          <span className="text-sm  mx-4 mb-4 text-green-600">
+            Published : {moment(post.createdAt).format("MMMM Do, YYYY")}
+          </span>
+
+          <Link
+            href={`#`}
+            className="text-foreground/70 font-normal leading-[2]"
+          >
             <span
               dangerouslySetInnerHTML={{
                 __html:
