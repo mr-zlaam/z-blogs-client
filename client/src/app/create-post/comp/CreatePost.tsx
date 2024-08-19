@@ -141,8 +141,6 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
               <Image
                 src={"/logo/Zlaam.jpg"}
                 alt="Zlaam"
-                width={50}
-                height={50}
                 className="rounded-full w-[50px] h-[50px]"
               />
               <div className="flex flex-col justify-start px-4 mt-5">
