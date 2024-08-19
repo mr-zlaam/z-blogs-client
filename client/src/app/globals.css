@@ -71,6 +71,58 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .dark .CodeMirror {
+    @apply bg-gray-900 text-white !important;
+  }
+
+  .dark .CodeMirror-gutters {
+    @apply bg-gray-900 border-gray-800;
+  }
+
+  .dark .CodeMirror-cursor {
+    @apply border-white;
+  }
+
+  .dark .CodeMirror-lines {
+    @apply bg-gray-900;
+  }
+
+  /* Fullscreen specific styling */
+  .dark .editor-toolbar.fullscreen {
+    @apply bg-gray-800 text-white;
+  }
+
+  .dark .CodeMirror-fullscreen {
+    @apply bg-gray-900 text-white !important;
+  }
+
+  .dark .CodeMirror-fullscreen .CodeMirror-gutters {
+    @apply bg-gray-900 border-gray-800;
+  }
+
+  .dark .CodeMirror-fullscreen .CodeMirror-cursor {
+    @apply border-white;
+  }
+
+  .dark .CodeMirror-fullscreen .CodeMirror-lines {
+    @apply bg-gray-900;
+  }
+
+  /* Style for toolbar icons in dark mode */
+  .dark .editor-toolbar a {
+    @apply text-white bg-transparent;
+  }
+
+  /* Hover state for toolbar icons in dark mode */
+  .dark .editor-toolbar a:hover {
+    @apply bg-gray-700 text-white;
+  }
+
+  /* Hide the "Toggle Side by Side" icon */
+  .editor-toolbar a.fa-columns {
+    display: none !important;
+  }
 }
 
 @media screen and (max-width: 250px) {
