@@ -7,9 +7,10 @@ declare global {
 
 import { useMessage } from "@/hooks/useMessage";
 import "easymde/dist/easymde.min.css";
+import { useTheme } from "next-themes";
 import { useEffect, useMemo } from "react";
 import SimpleMDEditor from "react-simplemde-editor";
-
+import "../../../editor.global.css";
 const Editor = ({
   setValue,
   value,
@@ -18,11 +19,13 @@ const Editor = ({
   value: string;
 }) => {
   const { successMessage } = useMessage();
+  const { theme } = useTheme();
   const newOptions = useMemo(() => {
     return {
       spellChecker: true,
       showIcons: ["strikethrough", "table", "code"],
-      hideIcons: ["bold"],
+      hideIcons: ["bold", "side-by-side", "preview"],
+      theme: theme === "dark" ? "base16-dark" : "default", // Use a dark theme if available
     };
   }, []);
 
@@ -49,7 +52,7 @@ const Editor = ({
         value={value}
         onChange={onChange}
         options={newOptions as any}
-        className="bg-gray-400"
+        className="h-[400px]"
       />
     </main>
   );

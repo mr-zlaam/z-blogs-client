@@ -26,3 +26,16 @@ pre {
 .comment-js {
   color: #605f5f; /* Adjust color as needed */
 }
+.editor-toolbar {
+  background-color: #28282b !important ;
+}
+
+.editor-toolbar button {
+  color: white !important;
+}
+.editor-toolbar button.active,
+.editor-toolbar button:hover {
+  background: #fcfcfc !important;
+  border-color: #28282b !important;
+  color: #28282b !important;
+}

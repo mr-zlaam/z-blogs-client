@@ -19,6 +19,10 @@ const config = {
     },
     extend: {
       colors: {
+        "editor-bg": "#2b2b2b", // Background color for dark mode
+        "editor-fg": "#ffffff", // Foreground color for dark mode
+        "editor-cursor": "#ffffff", // Cursor color
+        "editor-toolbar-bg": "#333", // Toolbar background
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

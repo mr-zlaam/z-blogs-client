@@ -1,11 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -61,22 +63,23 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
+
 @media screen and (max-width: 250px) {
   * {
     visibility: hidden;
     background: #28282b;
   }
 }
+
 /* Firefox */
 * {
   scrollbar-width: thin;
@@ -109,11 +112,13 @@
   background: #28282b;
   width: 0;
 }
+
 @media screen and (max-width: 768px) {
   *::-webkit-scrollbar {
     width: 0.5px; /* Adjust the width as needed */
   }
 }
+
 * > img,
 a {
   user-select: none;

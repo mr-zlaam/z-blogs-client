@@ -63,7 +63,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
         </div>
       )}
       <Button
-        className="fixed right-4 top-5 z-[100]"
+        className="fixed right-4 top-10 z-[100]"
         onClick={() => {
           setIsPreviewOpen((prev) => !prev);
         }}
