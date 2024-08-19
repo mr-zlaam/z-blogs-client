@@ -13,6 +13,7 @@ pre {
   border: 3px solid #ffffff;
   border-radius: 10px;
   padding: 20px;
+  overflow-x: auto;
 }
 .keyword {
   color: #9d9de2;
@@ -28,6 +29,9 @@ pre {
 }
 .editor-toolbar {
   background-color: #28282b !important ;
+  position: sticky !important;
+  z-index: 50 !important;
+  top: 0 !important;
 }
 
 .editor-toolbar button {
@@ -38,4 +42,15 @@ pre {
   background: #fcfcfc !important;
   border-color: #28282b !important;
   color: #28282b !important;
+}
+.editor-toolbar.fullscreen {
+  position: fixed !important;
+  top: 0 !important;
+}
+li {
+  margin: 10px 40px;
+}
+
+ol&&ol {
+  margin: 10px 20px;
 }

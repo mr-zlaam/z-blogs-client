@@ -51,7 +51,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
         <div className="h-screen fixed top-0 left-0 w-full bg-background text-foreground z-[99]">
           <PageWrapper>
             <div
-              className="mx-10"
+              className=""
               dangerouslySetInnerHTML={{
                 __html:
                   renderedHtml.length === 0
@@ -77,7 +77,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       >
         Go Back
       </Link>
-      <PageWrapper>
+      <PageWrapper className="max-w-[1200px]">
         <input
           className="outline-none m-3 w-full text-4xl bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3"
           placeholder=" Write Title here..."
@@ -103,7 +103,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
           placeholder="Blog Write's  name.."
         />
       </PageWrapper>
-      <PageWrapper className="my-4">
+      <PageWrapper className="max-w-[1200px]">
         <Editor setValue={setValue} value={value} />
       </PageWrapper>
     </>

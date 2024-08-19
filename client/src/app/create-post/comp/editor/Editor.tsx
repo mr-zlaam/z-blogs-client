@@ -24,7 +24,7 @@ const Editor = ({
     return {
       spellChecker: true,
       showIcons: ["strikethrough", "table", "code"],
-      hideIcons: ["bold", "side-by-side", "preview"],
+      hideIcons: ["guide", "side-by-side", "preview"],
       theme: theme === "dark" ? "base16-dark" : "default", // Use a dark theme if available
     };
   }, []);
