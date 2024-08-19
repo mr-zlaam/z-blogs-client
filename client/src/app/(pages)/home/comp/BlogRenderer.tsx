@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Fragment } from "react";
 import { getPlaiceholder } from "plaiceholder";
 import fs from "node:fs/promises";
+import BlurImage from "./BlurImage";
 interface blogPostProps {
   post: BlogDataTypes;
 }
@@ -13,18 +14,13 @@ async function BlogRenderer({ post }: blogPostProps) {
   );
   const { base64 } = await getPlaiceholder(buffer);
 
-  console.log(buffer);
   return (
     <section className="px-2 ">
       <div className="relative border-solid border border-foreground/20 my-5 shadow-lg shadow-foreground/50 md:h-[350px] h-[300px] rounded-md">
-        <Image
+        <BlurImage
           src={post.blogThumbnail}
           alt={post.blogTitle}
-          fill
-          objectFit="contain"
-          placeholder="blur"
-          blurDataURL={base64}
-          className="w-auto"
+          base64={base64}
         />
       </div>
     </section>
