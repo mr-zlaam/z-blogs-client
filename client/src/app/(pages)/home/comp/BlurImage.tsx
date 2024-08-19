@@ -15,7 +15,7 @@ function BlurImage({ src, alt, base64 }: ImageProps) {
         fill
         placeholder="blur"
         blurDataURL={base64}
-        className={cn("w-auto")}
+        className={cn("w-auto object-contain")}
       />
     </>
   );
