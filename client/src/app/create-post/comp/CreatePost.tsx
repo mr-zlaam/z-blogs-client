@@ -179,6 +179,9 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       </PageWrapper>
       <PageWrapper className="max-w-[1200px]">
         <Editor setValue={setValue} value={value} />
+        <div className="my-2 flex justify-end px-5 select-none">
+          <Button className="">Upload Article</Button>
+        </div>
       </PageWrapper>
     </>
   );
