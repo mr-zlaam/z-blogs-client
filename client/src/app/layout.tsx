@@ -30,7 +30,13 @@ export default function RootLayout({
       >
         <main>
           <Toaster />
-          <NextTopLoader showSpinner={false} color="#8d8dff" height={4} crawl />
+          <NextTopLoader
+            showSpinner={false}
+            color="#8d8dff"
+            height={4}
+            crawl
+            zIndex={999}
+          />
           <ThemeProvider
             disableTransitionOnChange
             attribute="class"
