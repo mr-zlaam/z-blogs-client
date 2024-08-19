@@ -22,6 +22,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { AlertDialogFooter } from "@/components/ui/alert-dialog";
+import { axios } from "@/axios";
+import { useRouter } from "next/navigation";
 const Editor = dynamic(() => import("../comp/editor/Editor"), {
   ssr: false,
 });
@@ -36,6 +38,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
     "coverImageOwner",
     ""
   );
+  const router = useRouter();
   const [blogWriterName, setBlogWriterName] = useCustomStorage(
     "blogWriterName",
     ""
@@ -82,7 +85,49 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
   const date = new Date();
   const today = date.toLocaleDateString();
   // upload article to database
-  const handleCreateBlogs = async () => {};
+  const handleValidate = () => {
+    if (!title) return errorMessage("Write the title of the blog ");
+    if (!coverImageOwnerName)
+      return errorMessage("Write the name of the owner of the cover image");
+    if (!coverImageUrl) return errorMessage("Write cover image url");
+    if (!blogWriterName)
+      return errorMessage("Write the name of author who write blog");
+    if (!value) return errorMessage("Write atleast some of it");
+  };
+  const handleCreateBlogs = async () => {
+    handleValidate();
+    try {
+      const response = await axios.post(
+        "/blog/createBlog",
+        {
+          authorId: uid,
+          blogTitle: title,
+          blogDescription: value,
+          blogThumbnail: coverImageUrl,
+          blogThumbnailAuthor: coverImageOwnerName
+            ? coverImageOwnerName
+            : "Zlaam",
+          blogAuthor: blogWriterName ? blogWriterName : "zlaam",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 201) {
+        setValue("");
+        setTitle("");
+        setCoverImageUrl("");
+        setCoverImageOwnerName("");
+        setBlogWriterName("");
+        successMessage("Blog submitted to the admin for review successfully");
+        return router.push("/home");
+      }
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
   return (
     <>
       {isPreviewOpen && (
@@ -211,7 +256,9 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
                   <Button type="button">Close</Button>
                 </DialogClose>
                 <DialogClose asChild onClick={handleCreateBlogs}>
-                  <Button type="button">Yes, I am sure</Button>
+                  <Button type="button" onClick={handleCreateBlogs}>
+                    Yes, I am sure
+                  </Button>
                 </DialogClose>
               </AlertDialogFooter>
             </DialogContent>
