@@ -7,7 +7,7 @@ import PageHeader from "../_components/pageHeader/PageHeader";
 function PageLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <PageWrapper className="sticky top-0 left-0 w-full bg-background mb-4">
+      <PageWrapper className="sticky top-0 left-0 w-full  mb-4 backdrop-blur-md z-[50]">
         <Header />
         <Separator className="bg-foreground/10 h-[0.5px]" />
         <PageHeader />
