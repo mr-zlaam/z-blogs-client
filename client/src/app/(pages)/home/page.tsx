@@ -3,6 +3,7 @@ import { BACKEND_URI } from "@/config";
 import { fetchHomePageBlogs } from "@/helper/fetch/fetchHompageBlogs";
 import { BlogDataTypes, BlogTypes } from "@/types";
 import BlogRenderer from "./comp/BlogRenderer";
+import { Fragment } from "react";
 
 async function HomePage() {
   try {
@@ -19,7 +20,11 @@ async function HomePage() {
     return (
       <>
         <section>
-          <BlogRenderer blogPosts={blogPosts!} />
+          {blogPosts.map((post) => (
+            <Fragment key={post.blogId}>
+              <BlogRenderer post={post} />
+            </Fragment>
+          ))}
         </section>
       </>
     );
