@@ -2,20 +2,33 @@
 import PageWrapper from "@/app/_components/pageWrapper/PageWrapper";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import useCustomStorage from "@/hooks/useCustomStorageNext";
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 import highlightSyntax from "./editor/highlightSyntax";
 import { Input } from "@/components/ui/input";
+import { useValidateImageUrl } from "@/hooks/useValidateUrl";
+import { useMessage } from "@/hooks/useMessage";
 const Editor = dynamic(() => import("../comp/editor/Editor"), {
   ssr: false,
 });
 
 function CreatePost({ token, uid }: { token: string; uid: string }) {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const { errorMessage, successMessage } = useMessage();
   const [value, setValue] = useCustomStorage("editorContent", "");
+  const [title, setTitle] = useCustomStorage("title", "");
+  const [coverImageUrl, setCoverImageUrl] = useCustomStorage("coverImage", "");
+  const [coverImageOwnerName, setCoverImageOwnerName] = useCustomStorage(
+    "coverImageOwner",
+    ""
+  );
+  const [blogWriterName, setBlogWriterName] = useCustomStorage(
+    "blogWriterName",
+    ""
+  );
 
   console.log(uid);
   // applying higlighter
@@ -45,6 +58,15 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
 
     return withCopyButtons;
   }, [value]);
+  const imageUrlRef = useRef<any>(null);
+  const setUrlToImageBlog = (e: React.FormEvent) => {
+    const url = imageUrlRef.current.value;
+    if (useValidateImageUrl(url)) {
+      setCoverImageUrl(imageUrlRef.current.value);
+    } else {
+      return errorMessage("Please provide a valid image url");
+    }
+  };
   return (
     <>
       {isPreviewOpen && (
@@ -81,14 +103,22 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
         <input
           className="outline-none m-3 w-full text-4xl bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3"
           placeholder=" Write Title here..."
+          value={title}
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
         />
         <div className="relative">
           <input
             className="outline-none m-3 w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3 font-bold pr-20"
-            placeholder="Thumbnail Url..."
+            placeholder="Cover Image  Url..."
+            ref={imageUrlRef}
+            type="url"
+            defaultValue={coverImageUrl}
           />
           <Button
             variant={"link"}
+            onClick={setUrlToImageBlog}
             className="bg-transparent absolute top-4 right-2"
           >
             set url
@@ -96,11 +126,21 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
         </div>
         <input
           className="outline-none m-3 w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3 font-bold pr-20"
-          placeholder="Thumbnail owner's name.."
+          placeholder="Cover Image's owners name.."
+          type="text"
+          value={coverImageOwnerName}
+          onChange={(e) => {
+            setCoverImageOwnerName(e.target.value);
+          }}
         />
         <input
           className="outline-none m-2 w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-2 font-bold pr-20"
-          placeholder="Blog Write's  name.."
+          placeholder="Blog Writer's  name.."
+          type="text"
+          value={blogWriterName}
+          onChange={(e) => {
+            setBlogWriterName(e.target.value);
+          }}
         />
       </PageWrapper>
       <PageWrapper className="max-w-[1200px]">
