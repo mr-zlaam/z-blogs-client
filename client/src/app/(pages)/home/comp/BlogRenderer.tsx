@@ -6,7 +6,7 @@ interface blogPostProps {
 }
 
 function BlogRenderer({ blogPosts }: blogPostProps) {
-  console.log(blogPosts, "from blog renderer");
+  // console.log(blogPosts, "from blog renderer");
   return (
     <section className="px-2 ">
       {blogPosts.map((post) => {
