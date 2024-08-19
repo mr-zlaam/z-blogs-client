@@ -12,6 +12,16 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
 import highlightSyntax from "./editor/highlightSyntax";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { AlertDialogFooter } from "@/components/ui/alert-dialog";
 const Editor = dynamic(() => import("../comp/editor/Editor"), {
   ssr: false,
 });
@@ -71,6 +81,8 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
   // Date
   const date = new Date();
   const today = date.toLocaleDateString();
+  // upload article to database
+  const handleCreateBlogs = async () => {};
   return (
     <>
       {isPreviewOpen && (
@@ -180,7 +192,30 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       <PageWrapper className="max-w-[1200px]">
         <Editor setValue={setValue} value={value} />
         <div className="my-2 flex justify-end px-5 select-none">
-          <Button className="">Upload Article</Button>
+          <Dialog>
+            <div className=" w-full flex justify-end px-5 py-3">
+              <DialogTrigger asChild className="">
+                <Button className="">Upload Blog</Button>
+              </DialogTrigger>
+            </div>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>Are you sure?</DialogTitle>
+                <DialogDescription>
+                  You can&apos;t edit this blog once you&apos;ve uploaded!
+                </DialogDescription>
+              </DialogHeader>
+
+              <AlertDialogFooter className="justify-around flex items-center w-full relative flex-col md:flex-row ">
+                <DialogClose asChild className="mx-4 my-3">
+                  <Button type="button">Close</Button>
+                </DialogClose>
+                <DialogClose asChild onClick={handleCreateBlogs}>
+                  <Button type="button">Yes, I am sure</Button>
+                </DialogClose>
+              </AlertDialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </PageWrapper>
     </>

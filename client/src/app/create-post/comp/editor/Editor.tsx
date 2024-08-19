@@ -52,7 +52,7 @@ const Editor = ({
         value={value}
         onChange={onChange}
         options={newOptions as any}
-        className="h-[400px]"
+        className="h-[380px]"
       />
     </main>
   );
