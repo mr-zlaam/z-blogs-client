@@ -53,3 +53,12 @@ li {
 ol&&ol {
   margin: 10px 20px;
 }
+br {
+  user-select: none;
+}
+a {
+  text-decoration: none;
+}
+img {
+  width: 100%;
+}

@@ -2,15 +2,16 @@
 import PageWrapper from "@/app/_components/pageWrapper/PageWrapper";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
-import { useMemo, useRef, useState } from "react";
-import dynamic from "next/dynamic";
 import useCustomStorage from "@/hooks/useCustomStorageNext";
-import DOMPurify from "isomorphic-dompurify";
-import { marked } from "marked";
-import highlightSyntax from "./editor/highlightSyntax";
-import { Input } from "@/components/ui/input";
-import { useValidateImageUrl } from "@/hooks/useValidateUrl";
 import { useMessage } from "@/hooks/useMessage";
+import { useValidateImageUrl } from "@/hooks/useValidateUrl";
+import DOMPurify from "isomorphic-dompurify";
+import parser from "html-react-parser";
+import { marked } from "marked";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import { useMemo, useRef, useState } from "react";
+import highlightSyntax from "./editor/highlightSyntax";
 const Editor = dynamic(() => import("../comp/editor/Editor"), {
   ssr: false,
 });
@@ -67,13 +68,45 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       return errorMessage("Please provide a valid image url");
     }
   };
+  // Date
+  const date = new Date();
+  const today = date.toLocaleDateString();
   return (
     <>
       {isPreviewOpen && (
-        <div className="h-screen fixed top-0 left-0 w-full bg-background text-foreground z-[99]">
+        <div className="h-screen fixed top-0 left-0 w-full bg-background text-foreground z-[99] overflow-y-auto">
           <PageWrapper>
+            <h1 className="text-sm font-bold my-5 text-center">Preview Mode</h1>
+            <h1 className="text-center font-bold text-2xl md:text-3xl my-4 text-balance">
+              {title}
+            </h1>
+            <div className="flex  items-center my-4  px-4 ">
+              <Image
+                src={"/logo/Zlaam.jpg"}
+                alt="Zlaam"
+                width={50}
+                height={50}
+                className="rounded-full w-[50px] h-[50px]"
+              />
+              <div className="flex flex-col justify-start px-4 mt-5">
+                <h1 className="text-lg font-semibold ">{blogWriterName}</h1>
+                <p className="text-sm text-left">published on: {today}</p>
+              </div>
+            </div>
+            <div>
+              <Image
+                src={coverImageUrl ?? ""}
+                height={400}
+                width={800}
+                className="rounded-md shadow-md shadow-foreground/50"
+                alt={blogWriterName}
+              />
+            </div>
+            <p className="text-sm  text-center">
+              Image by : {parser(coverImageOwnerName)}
+            </p>
             <div
-              className=""
+              className="font-normal text-lg my-5 leading-[2]"
               dangerouslySetInnerHTML={{
                 __html:
                   renderedHtml.length === 0
@@ -114,7 +147,8 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
             placeholder="Cover Image  Url..."
             ref={imageUrlRef}
             type="url"
-            defaultValue={coverImageUrl}
+            value={coverImageUrl}
+            onChange={(e) => setCoverImageUrl(e.target.value)}
           />
           <Button
             variant={"link"}
