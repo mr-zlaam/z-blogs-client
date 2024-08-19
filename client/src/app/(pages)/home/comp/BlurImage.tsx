@@ -16,11 +16,10 @@ function BlurImage({ src, alt, base64 }: ImageProps) {
         src={src}
         alt={alt}
         fill
-        objectFit="contain"
         placeholder="blur"
         blurDataURL={base64}
         className={cn(
-          "w-auto transition-opacity duration-400 ease-in-out",
+          "w-auto transition-opacity duration-400 ease-in-out object-contain",
           inView ? "opacity-0" : "opacity-100"
         )}
       />
