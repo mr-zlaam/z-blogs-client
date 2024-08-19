@@ -38,20 +38,15 @@ async function BlogRenderer({ post }: blogPostProps) {
             Published : {moment(post.createdAt).format("MMMM Do, YYYY")}
           </span>
 
-          <Link
-            href={`#`}
-            className="text-foreground/70 font-normal leading-[2]"
-          >
-            <span
-              dangerouslySetInnerHTML={{
-                __html:
-                  renderedHtml.length === 0
-                    ? "Write something...."
-                    : renderedHtml,
-              }}
-              className="text-foreground/70 my-2 text-sm mx-4 truncate	line-clamp-4 text-clip"
-            ></span>
-          </Link>
+          <span
+            dangerouslySetInnerHTML={{
+              __html:
+                renderedHtml.length === 0
+                  ? "Write something...."
+                  : renderedHtml,
+            }}
+            className="text-foreground/70 my-2 text-sm mx-4 truncate	line-clamp-4 text-clip  overflow-hidden"
+          ></span>
         </div>
       </div>
       <Separator />
