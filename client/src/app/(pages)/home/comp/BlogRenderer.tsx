@@ -6,6 +6,7 @@ import fs from "node:fs/promises";
 import BlurImage from "./BlurImage";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/components/ui/link";
+import { marked } from "marked";
 interface blogPostProps {
   post: BlogDataTypes;
 }
@@ -15,10 +16,10 @@ async function BlogRenderer({ post }: blogPostProps) {
     Buffer.from(await res.arrayBuffer())
   );
   const { base64 } = await getPlaiceholder(buffer);
-
+  const renderedHtml = marked(post.blogDescription) as string;
   return (
     <section className="px-2 ">
-      <div className="relative  md:h-fit py-3 h-[300px] rounded-md flex justify-start  items-start  overflow-hidden">
+      <div className="relative  md:h-fit py-3 h-[300px] rounded-md flex justify-start  items-start  overflow-hidden ">
         <Link href={`#`}>
           <BlurImage
             src={post.blogThumbnail}
@@ -29,11 +30,24 @@ async function BlogRenderer({ post }: blogPostProps) {
             className="rounded"
           />
         </Link>
-        <h1 className="mx-4">
-          <Link href={`#`} className="text-foreground">
-            {post.blogTitle}
+        <div>
+          <h1 className="mx-4 my-2">
+            <Link href={`#`} className="text-foreground">
+              {post.blogTitle}
+            </Link>
+          </h1>
+          <Link href={`#`} className="text-foreground/70  ">
+            <span
+              dangerouslySetInnerHTML={{
+                __html:
+                  renderedHtml.length === 0
+                    ? "Write something...."
+                    : renderedHtml,
+              }}
+              className="text-foreground/70 my-2 text-sm mx-4 truncate	line-clamp-4 text-clip"
+            ></span>
           </Link>
-        </h1>
+        </div>
       </div>
       <Separator />
     </section>
