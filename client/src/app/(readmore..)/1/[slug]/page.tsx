@@ -51,13 +51,12 @@ async function ReadMorePage({ params }: { params: SlugTypes }) {
         <SinglePost
           article={article}
           author={author}
-          blogThumbnail={blogThumbnail}
-          blogThumbnailAuthor={blogThumbnailAuthor}
+          coverImage={blogThumbnail}
+          coverImageOwner={blogThumbnailAuthor}
           createdAt={createdAt}
           blogTitle={blogTitle}
         />
       </PageWrapper>
-      <p>{slug}</p>
     </>
   );
 }

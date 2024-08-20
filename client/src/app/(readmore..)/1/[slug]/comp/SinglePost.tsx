@@ -9,15 +9,22 @@ import {} from "react";
 interface SinglePostProps {
   article: string;
   author: AuthorType;
-  blogThumbnail: string;
-  blogThumbnailAuthor: string;
+  coverImage: string;
+  coverImageOwner: string;
   createdAt: Date;
   blogTitle: string;
 }
-function SinglePost({ article }: SinglePostProps) {
+function SinglePost({
+  article,
+  author,
+  blogTitle,
+  createdAt,
+  coverImage,
+  coverImageOwner,
+}: SinglePostProps) {
   return (
     <>
-      <article></article>
+      <div className="my-5">hello</div>
     </>
   );
 }
