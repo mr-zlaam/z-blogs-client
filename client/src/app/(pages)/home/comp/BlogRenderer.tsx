@@ -5,7 +5,7 @@ import { BlogDataTypes } from "@/types";
 import moment from "moment";
 import { getPlaiceholder } from "plaiceholder";
 import BlogDescription from "./BlogDescription";
-import BlurImage from "./BlurImage";
+import BlurImage from "../../../../_subComponents/blurImage/BlurImage";
 import { SITE_VERSION } from "@/constants";
 interface blogPostProps {
   post: BlogDataTypes;
