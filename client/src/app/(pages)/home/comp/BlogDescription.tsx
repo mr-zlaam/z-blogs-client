@@ -16,7 +16,7 @@ function BlogDescription({ blogDescription }: { blogDescription: string }) {
         dangerouslySetInnerHTML={{
           __html: rawHtml.length === 0 ? "Write something...." : rawHtml,
         }}
-        className="text-foreground/70 my-2  text-sm mx-4 truncate	line-clamp-4 text-clip cursor-pointer  overflow-hidden"
+        className="text-foreground/70 my-2  text-sm mx-4 truncate	line-clamp-4 text-clip cursor-pointer  overflow-hidden select-none"
       ></div>{" "}
     </>
   );

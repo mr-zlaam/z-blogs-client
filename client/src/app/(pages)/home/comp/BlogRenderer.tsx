@@ -16,7 +16,7 @@ async function BlogRenderer({ post }: blogPostProps) {
   const { base64 } = await getPlaiceholder(buffer);
   return (
     <section className="px-2 ">
-      <div className="relative  md:h-fit py-3 h-[300px] rounded-md flex justify-start  items-start  overflow-hidden ">
+      <div className="relative  md:h-fit py-3 h-[300px] rounded-md flex justify-start  items-start  overflow-hidden w-full">
         <Link href={`#`}>
           <BlurImage
             src={post.blogThumbnail}
@@ -37,7 +37,11 @@ async function BlogRenderer({ post }: blogPostProps) {
             Published : {moment(post.createdAt).format("MMMM Do, YYYY")}
           </span>
           <BlogDescription blogDescription={post.blogDescription as string} />
-          <Link href={``} className="my-2 mx-4">
+          <Link
+            href={``}
+            className="my-2 mx-4 after:bg-blue-400 text-sm"
+            varient="expand-from-left"
+          >
             Read More...
           </Link>
         </div>
