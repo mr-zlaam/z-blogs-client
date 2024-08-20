@@ -3,13 +3,14 @@
             __html: article.length === 0 ? "Write something...." : article,
           }}
         ></div> */
-
+"use client";
 import highlightSyntax from "@/app/create-post/comp/editor/highlightSyntax";
 import { AuthorType } from "@/types";
 import moment from "moment";
 import Image from "next/image";
 import { useMemo } from "react";
 import logoImage from "../../../../../../public/logo/Zlaam.jpg";
+import BlurImage from "@/_subComponents/blurImage/BlurImage";
 interface SinglePostProps {
   article: string;
   author: AuthorType;
@@ -18,7 +19,7 @@ interface SinglePostProps {
   createdAt: Date;
   blogTitle: string;
 }
-function SinglePost({
+async function SinglePost({
   article,
   author,
   blogTitle,
@@ -66,10 +67,19 @@ function SinglePost({
           />
           <div className="flex flex-col justify-start px-4 mt-5">
             <h1 className="text-lg font-semibold ">{author.fullName}</h1>
-            <p className="text-sm text-left">
+            <p className="text-sm text-left text-green-600 font-normal ">
               Published: {moment(createdAt).format("MMMM Do, YYYY")}
             </p>
           </div>
+        </div>
+        <div>
+          <Image
+            src={coverImage}
+            alt={blogTitle}
+            height={400}
+            width={800}
+            className="rounded-md shadow-md shadow-foreground/50"
+          />
         </div>
       </article>
     </>
