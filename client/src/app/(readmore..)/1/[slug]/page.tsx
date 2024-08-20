@@ -5,7 +5,6 @@ import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 import {} from "react";
 import SinglePost from "./comp/SinglePost";
-import { redirect } from "next/navigation";
 export interface SlugTypes {
   slug: string;
 }
