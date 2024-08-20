@@ -4,9 +4,17 @@
           }}
         ></div> */
 
+import { AuthorType } from "@/types";
 import {} from "react";
-
-function SinglePost({ article }: { article: string }) {
+interface SinglePostProps {
+  article: string;
+  author: AuthorType;
+  blogThumbnail: string;
+  blogThumbnailAuthor: string;
+  createdAt: Date;
+  blogTitle: string;
+}
+function SinglePost({ article }: SinglePostProps) {
   return (
     <>
       <article></article>

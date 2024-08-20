@@ -45,7 +45,7 @@ export interface BlogDataTypes {
   author: AuthorType;
   blogThumbnailAuthor: string;
   isPublic: boolean;
-  createdAt: string;
+  createdAt: Date;
   updatedAt: string;
 }
 export interface SinglePostBlogTypes {
@@ -53,9 +53,6 @@ export interface SinglePostBlogTypes {
   statusCode: number;
   message: string;
   data: BlogDataTypes;
-
-  createdAt: Date;
-  updatedAt: Date;
 }
 // token payload
 export interface PayLoadType {
