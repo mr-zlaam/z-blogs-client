@@ -5,6 +5,7 @@ import moment from "moment";
 import { getPlaiceholder } from "plaiceholder";
 import BlogDescription from "./BlogDescription";
 import BlurImage from "./BlurImage";
+import { SITE_VERSION } from "@/constants";
 interface blogPostProps {
   post: BlogDataTypes;
 }
@@ -17,7 +18,7 @@ async function BlogRenderer({ post }: blogPostProps) {
   return (
     <section className="px-2 ">
       <div className="relative  md:h-fit py-3 h-[300px] rounded-md flex justify-start  items-start w-full ">
-        <Link href={`#`}>
+        <Link href={`/${SITE_VERSION}/${post.blogSlug}`}>
           <BlurImage
             src={post.blogThumbnail}
             alt={post.blogTitle}
