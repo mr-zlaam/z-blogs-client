@@ -4,6 +4,8 @@ import { SinglePostBlogTypes } from "@/types";
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 import {} from "react";
+import SinglePost from "./comp/SinglePost";
+import { redirect } from "next/navigation";
 export interface SlugTypes {
   slug: string;
 }
@@ -33,12 +35,21 @@ async function ReadMorePage({ params }: { params: SlugTypes }) {
   if (!singlePost) {
     return <div>Blog not found</div>;
   }
-  const article = DOMPurify.sanitize(
-    marked(singlePost?.data?.blogDescription) as string
-  );
+  const {
+    author,
+    blogDescription,
+    blogThumbnail,
+    blogThumbnailAuthor,
+    createdAt,
+    blogTitle,
+  } = singlePost && singlePost.data;
+  const article = DOMPurify.sanitize(marked(blogDescription) as string);
+
   return (
     <>
-      <PageWrapper>ReadMorePage</PageWrapper>
+      <PageWrapper>
+        <SinglePost article={article} />
+      </PageWrapper>
       <p>{slug}</p>
     </>
   );

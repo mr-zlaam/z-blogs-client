@@ -1,17 +1,26 @@
 "use client";
 
+import { SITE_VERSION } from "@/constants";
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 import { useRouter } from "next/navigation";
 
-function BlogDescription({ blogDescription }: { blogDescription: string }) {
+function BlogDescription({
+  blogDescription,
+  blogSlug,
+}: {
+  blogDescription: string;
+  blogSlug: string;
+}) {
   const router = useRouter();
   const rawHtml = DOMPurify.sanitize(marked(blogDescription) as string);
   return (
     <>
       <div
         onClick={() => {
-          router.push(``);
+          blogSlug &&
+            router.push(`/${SITE_VERSION}/${blogSlug}
+`);
         }}
         dangerouslySetInnerHTML={{
           __html: rawHtml.length === 0 ? "Write something...." : rawHtml,

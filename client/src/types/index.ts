@@ -53,13 +53,9 @@ export interface SinglePostBlogTypes {
   statusCode: number;
   message: string;
   data: BlogDataTypes;
-  blogSlug: string;
-  blogThumbnail: string;
-  blogThumbnailAuthor: string;
-  isPublic: boolean;
+
   createdAt: Date;
   updatedAt: Date;
-  author: AuthorType;
 }
 // token payload
 export interface PayLoadType {

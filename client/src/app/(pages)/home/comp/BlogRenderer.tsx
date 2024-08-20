@@ -30,16 +30,22 @@ async function BlogRenderer({ post }: blogPostProps) {
         </Link>
         <div>
           <h1 className="mx-4 my-2">
-            <Link href={`#`} className="text-foreground">
+            <Link
+              href={`/${SITE_VERSION}/${post.blogSlug}`}
+              className="text-foreground"
+            >
               {post.blogTitle}
             </Link>
           </h1>
           <span className="text-sm  mx-4 mb-4 text-green-600">
             Published : {moment(post.createdAt).format("MMMM Do, YYYY")}
           </span>
-          <BlogDescription blogDescription={post.blogDescription as string} />
+          <BlogDescription
+            blogDescription={post.blogDescription as string}
+            blogSlug={post.blogSlug}
+          />
           <Link
-            href={``}
+            href={`/${SITE_VERSION}/${post.blogSlug}`}
             className="my-2 mx-4 after:bg-blue-400 text-sm"
             varient="expand-from-left"
           >
