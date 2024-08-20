@@ -16,7 +16,7 @@ async function BlogRenderer({ post }: blogPostProps) {
   const { base64 } = await getPlaiceholder(buffer);
   return (
     <section className="px-2 ">
-      <div className="relative  md:h-fit py-3 h-[300px] rounded-md flex justify-start  items-start  overflow-hidden w-full">
+      <div className="relative  md:h-fit py-3 h-[300px] rounded-md flex justify-start  items-start w-full ">
         <Link href={`#`}>
           <BlurImage
             src={post.blogThumbnail}

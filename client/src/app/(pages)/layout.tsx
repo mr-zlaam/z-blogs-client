@@ -13,7 +13,7 @@ function PageLayout({ children }: { children: React.ReactNode }) {
         <PageHeader />
         <Separator className="bg-foreground/10 h-[0.5px]" />
       </PageWrapper>
-      <PageWrapper className="py-3">{children}</PageWrapper>
+      <PageWrapper className="py-3  overflow-x-hidden">{children}</PageWrapper>
     </>
   );
 }
