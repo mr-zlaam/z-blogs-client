@@ -1,9 +1,7 @@
-import { Link } from "@/components/ui/link";
-import { BACKEND_URI } from "@/config";
 import { fetchHomePageBlogs } from "@/helper/fetch/fetchHompageBlogs";
-import { BlogDataTypes, BlogTypes } from "@/types";
-import BlogRenderer from "./comp/BlogRenderer";
+import { BlogTypes } from "@/types";
 import { Fragment } from "react";
+import BlogRenderer from "./comp/BlogRenderer";
 
 async function HomePage() {
   try {

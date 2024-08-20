@@ -1,4 +1,3 @@
-"use client";
 import { Link } from "@/components/ui/link";
 import { Separator } from "@/components/ui/separator";
 import { BlogDataTypes } from "@/types";
