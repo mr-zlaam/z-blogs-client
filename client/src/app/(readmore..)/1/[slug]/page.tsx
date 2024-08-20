@@ -1,6 +1,8 @@
 import PageWrapper from "@/app/_components/pageWrapper/PageWrapper";
 import { BACKEND_URI } from "@/config";
 import { SinglePostBlogTypes } from "@/types";
+import DOMPurify from "isomorphic-dompurify";
+import { marked } from "marked";
 import {} from "react";
 export interface SlugTypes {
   slug: string;
@@ -28,7 +30,12 @@ const fetchSinglePost = async (slug: string) => {
 async function ReadMorePage({ params }: { params: SlugTypes }) {
   const { slug } = params;
   const singlePost = (await fetchSinglePost(slug)) as SinglePostBlogTypes;
-
+  if (!singlePost) {
+    return <div>Blog not found</div>;
+  }
+  const article = DOMPurify.sanitize(
+    marked(singlePost?.data?.blogDescription) as string
+  );
   return (
     <>
       <PageWrapper>ReadMorePage</PageWrapper>
