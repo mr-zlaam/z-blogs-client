@@ -1,16 +1,17 @@
-/* <div
-          dangerouslySetInnerHTML={{
-            __html: article.length === 0 ? "Write something...." : article,
-          }}
-        ></div> */
 "use client";
+declare global {
+  interface Window {
+    copyToClipboard: (id: string) => void;
+  }
+}
 import highlightSyntax from "@/app/create-post/comp/editor/highlightSyntax";
 import { AuthorType } from "@/types";
 import moment from "moment";
 import Image from "next/image";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import logoImage from "../../../../../../public/logo/Zlaam.jpg";
-import BlurImage from "@/_subComponents/blurImage/BlurImage";
+import parser from "html-react-parser";
+import { useMessage } from "@/hooks/useMessage";
 interface SinglePostProps {
   article: string;
   author: AuthorType;
@@ -27,6 +28,7 @@ async function SinglePost({
   coverImage,
   coverImageOwner,
 }: SinglePostProps) {
+  const { successMessage } = useMessage();
   const renderedHtml = useMemo(() => {
     const highlightedHtml = highlightSyntax(article, "js");
 
@@ -52,6 +54,16 @@ async function SinglePost({
 
     return withCopyButtons;
   }, [article]);
+  useEffect(() => {
+    window.copyToClipboard = (id: string) => {
+      const codeElement = document.getElementById(id);
+      if (codeElement) {
+        navigator.clipboard.writeText(codeElement.innerText).then(() => {
+          successMessage("copied successfully", "top-center", 1000);
+        });
+      }
+    };
+  }, []);
   return (
     <>
       <article className="my-5 overflow-y-auto">
@@ -67,7 +79,7 @@ async function SinglePost({
           />
           <div className="flex flex-col justify-start px-4 mt-5">
             <h1 className="text-lg font-semibold ">{author.fullName}</h1>
-            <p className="text-sm text-left text-green-600 font-normal ">
+            <p className="text-sm text-left  font-normal ">
               Published: {moment(createdAt).format("MMMM Do, YYYY")}
             </p>
           </div>
@@ -78,9 +90,19 @@ async function SinglePost({
             alt={blogTitle}
             height={400}
             width={800}
-            className="rounded-md shadow-md shadow-foreground/50"
+            className="rounded-md shadow-md shadow-foreground/10 object-contain"
           />
         </div>
+        <p className="text-sm  text-center">
+          Image by : {parser(coverImageOwner)}
+        </p>
+        <div
+          className="font-normal text-lg my-5 leading-[2]"
+          dangerouslySetInnerHTML={{
+            __html:
+              renderedHtml.length === 0 ? "Write something...." : renderedHtml,
+          }}
+        ></div>
       </article>
     </>
   );

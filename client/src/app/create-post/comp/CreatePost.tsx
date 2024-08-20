@@ -21,6 +21,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import logoImage from "../../../../public/logo/Zlaam.jpg";
 import { AlertDialogFooter } from "@/components/ui/alert-dialog";
 import { axios } from "@/axios";
 import { useRouter } from "next/navigation";
@@ -139,7 +140,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
             </h1>
             <div className="flex  items-center my-4  px-4 ">
               <Image
-                src={"/logo/Zlaam.jpg"}
+                src={logoImage}
                 alt="Zlaam"
                 className="rounded-full w-[50px] h-[50px]"
               />
