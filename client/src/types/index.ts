@@ -33,7 +33,8 @@ export interface AuthorType {
   username: string;
   email: string;
   role: UserUpdateRoleType;
-  blogPosts: [];
+  blogPosts: BlogTypes[];
+  createdAt?: Date;
 }
 export interface BlogDataTypes {
   blogId: string;
@@ -46,6 +47,19 @@ export interface BlogDataTypes {
   isPublic: boolean;
   createdAt: string;
   updatedAt: string;
+}
+export interface SinglePostBlogTypes {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: BlogDataTypes;
+  blogSlug: string;
+  blogThumbnail: string;
+  blogThumbnailAuthor: string;
+  isPublic: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  author: AuthorType;
 }
 // token payload
 export interface PayLoadType {
