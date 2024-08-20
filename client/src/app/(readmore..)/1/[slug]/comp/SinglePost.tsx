@@ -90,7 +90,7 @@ async function SinglePost({
             alt={blogTitle}
             height={400}
             width={800}
-            className="rounded-md shadow-md shadow-foreground/10 object-contain"
+            className="rounded-md shadow object-contain md:object-cover "
           />
         </div>
         <p className="text-sm  text-center">
