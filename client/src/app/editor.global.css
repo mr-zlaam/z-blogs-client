@@ -15,6 +15,9 @@ pre {
   overflow-x: auto;
   font-size: 14px;
 }
+.key-python-yellow {
+  color: #17c517;
+}
 .keyword {
   color: #9d9de2;
 }
