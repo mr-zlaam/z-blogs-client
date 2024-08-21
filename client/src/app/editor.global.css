@@ -66,3 +66,55 @@ a {
 img {
   width: 100%;
 }
+/* Table of content */
+.toc-container {
+  border: 1px solid #e5e5e5; /* Light gray border */
+  padding: 16px; /* Spacing inside the container */
+  margin: 20px 0; /* Space above and below the TOC */
+  border-radius: 8px; /* Rounded corners */
+  background-color: #141414; /* Dark background */
+  color: #fff; /* White text color */
+  max-width: 100%; /* Limit the maximum width */
+  font-family: Arial, sans-serif; /* Font style */
+}
+
+.toc-container h2 {
+  font-size: 1.5em; /* Larger font size for the heading */
+  margin-bottom: 10px; /* Space below the heading */
+}
+
+.toc-container ul {
+  list-style-type: none; /* Remove default list styling */
+  padding-left: 0; /* Remove left padding */
+}
+
+.toc-container li {
+  margin: 10px 0; /* Space between list items */
+}
+
+.toc-container ul ul {
+  margin-left: 20px; /* Indentation for sub-items */
+}
+html.light .toc-container {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #444444;
+}
+
+/* Dark mode */
+html.dark .toc-container {
+  background-color: #020817;
+  color: #ffffff;
+  border: 1px solid #cccccc;
+}
+html.dark .toc-container a {
+  color: #ffffff; /* Link color */
+  text-decoration: none; /* Remove underline from links */
+}
+html.light .toc-container a {
+  color: #000000; /* Link color */
+  text-decoration: none; /* Remove underline from links */
+}
+.toc-container a:hover {
+  text-decoration: underline !important; /* Underline links on hover */
+}
