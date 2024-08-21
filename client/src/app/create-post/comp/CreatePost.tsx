@@ -45,7 +45,6 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
     ""
   );
 
-  console.log(uid);
   // applying higlighter
   const renderedHtml = useMemo(() => {
     const rawHtml = DOMPurify.sanitize(marked(value) as string);
