@@ -68,44 +68,42 @@ img {
 }
 /* Table of content */
 .toc-container {
-  border: 1px solid #e5e5e5; /* Light gray border */
-  padding: 0px 16px; /* Spacing inside the container */
-  margin: 10px 0; /* Space above and below the TOC */
-  border-radius: 8px; /* Rounded corners */
-  background-color: #141414; /* Dark background */
-  color: #fff; /* White text color */
-  max-width: 100%; /* Limit the maximum width */
-  font-family: Arial, sans-serif; /* Font style */
 }
 
 .toc-container h2 {
-  font-size: 2rem; /* Larger font size for the heading */
-  margin: 10px; /* Space below the heading */
+  font-size: 2rem;
+  margin: 10px;
 }
 
 .toc-container ul {
-  list-style-type: none; /* Remove default list styling */
-  padding-left: 0; /* Remove left padding */
+  list-style-type: none;
+  padding-left: 0;
 }
 
 .toc-container li {
-  margin: 10px 0; /* Space between list items */
+  margin: 10px 0;
 }
 
-.toc-container ul ul {
-  margin-left: 20px; /* Indentation for sub-items */
-}
 html.light .toc-container {
   background-color: #ffffff;
   color: #000000;
   border: 1px solid #444444;
+  padding: 0px 16px;
+  margin: 10px 0;
+  border-radius: 8px;
+  max-width: 100%;
 }
 
 /* Dark mode */
 html.dark .toc-container {
   background-color: #020817;
   color: #ffffff;
-  border: 1px solid #cccccc;
+  border: 1px solid #e5e5e5;
+  padding: 0px 16px;
+  margin: 10px 0;
+  border-radius: 8px;
+  max-width: 100%;
+  font-family: Arial, sans-serif;
 }
 html.dark .toc-container a {
   color: #ffffff; /* Link color */
