@@ -48,6 +48,7 @@ model BlogPost {
   authorId            String
   blogTitle           String
   blogDescription     String
+  blogOverView        String?
   blogSlug            String  @unique
   blogThumbnail       String
   blogThumbnailAuthor String
@@ -58,5 +59,6 @@ model BlogPost {
 
   @@index([authorId]) // Index on authorId
   @@index([blogSlug]) // Index on blogSlug
+  @@index([blogTitle]) // Index on blogSlug
   @@index([isPublic, createdAt]) // Composite index on isPublic and createdAt
 }
