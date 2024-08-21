@@ -130,6 +130,9 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       console.log(error.message);
     }
   };
+  const handeTogglePreview = () => {
+    setIsPreviewOpen(!isPreviewOpen);
+  };
   return (
     <>
       {isPreviewOpen && (
@@ -176,20 +179,33 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
         </div>
       )}
       <Button
+        title="Press(ctrl+shift+n)"
         className="fixed right-4 top-3 z-[100]"
+        onKeyDown={(e) => {
+          if (e.key === "L" && e.ctrlKey && e.shiftKey) {
+            handeTogglePreview();
+          }
+        }}
+        autoFocus
         onClick={() => {
           setIsPreviewOpen((prev) => !prev);
         }}
       >
         {isPreviewOpen ? "Hide Preview" : "ShowPreview"}
       </Button>
-      <Link
-        varient="expand-from-left"
-        href={"/home"}
-        className="text-blue-500 after:bg-blue-500 block w-fit mx-auto p-2"
-      >
-        Go Back
-      </Link>
+      <div className="flex justify-center items-center">
+        <Link
+          varient="expand-from-left"
+          href={"/home"}
+          className="text-blue-500 after:bg-blue-500  mx-4"
+        >
+          Go Back
+        </Link>
+        <p className="text-center font-bold text-lg mx-4">
+          Preview(ctrl+shift+n)
+        </p>
+      </div>
+
       <div className="max-w-[1550px] mx-auto">
         <input
           className="outline-none  w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-2 font-bold"
