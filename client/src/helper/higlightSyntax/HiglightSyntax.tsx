@@ -27,6 +27,8 @@ const languagePatterns: Record<Language, LanguagePatterns> = {
           "console",
           "apt",
           "snap",
+          "class ",
+          "pip",
         ],
         className: "key-method",
       },
