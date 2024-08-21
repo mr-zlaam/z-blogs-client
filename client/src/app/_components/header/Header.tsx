@@ -85,10 +85,12 @@ function Header({ user }: { user: PayLoadType }) {
                 </PopoverTrigger>
                 <PopoverContent className="h-fit w-[200px] shadow-md shadow-foreground/20">
                   {user && user.fullName && (
-                    <div className="flex-[1] p-3 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded">
+                    <div className="flex-[1] p-3">
                       <p className="flex flex-col p-2">
-                        <span className="font-normal">{user.fullName}</span>
-                        <span className="text-sm hover:underline text-foreground/70">
+                        <span className="font-normal cursor-pointer">
+                          {user.fullName}
+                        </span>
+                        <span className="text-sm hover:underline text-foreground/70 cursor-pointer">
                           @{user.username}
                         </span>
                       </p>
@@ -96,7 +98,7 @@ function Header({ user }: { user: PayLoadType }) {
                   )}
                   <Separator />
 
-                  <div className="flex-[2] flex flex-col cursor-pointer ">
+                  <div className="flex-[2] flex flex-col  ">
                     <Link
                       href={"/create-post"}
                       className="p-2 my-1 text-foreground hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
@@ -121,11 +123,21 @@ function Header({ user }: { user: PayLoadType }) {
                   </div>
                   <Separator />
 
-                  <div className="flex-1 p-2 my-1 text-foreground hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded">
+                  <div>
                     {user ? (
-                      <Link href={"/user-auth/sign-in"}>Sign Out</Link>
+                      <Link
+                        href={"/user-auth/sign-in"}
+                        className="flex-1 block p-2 my-1 text-foreground hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
+                      >
+                        Sign Out
+                      </Link>
                     ) : (
-                      <Link href={"/user-auth/sign-in"}>Sign in</Link>
+                      <Link
+                        href={"/user-auth/sign-in"}
+                        className="flex-1 block p-2 my-1 text-foreground hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
+                      >
+                        Sign in
+                      </Link>
                     )}
                   </div>
                 </PopoverContent>
