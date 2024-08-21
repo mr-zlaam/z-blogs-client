@@ -41,7 +41,7 @@ async function BlogRenderer({ post }: blogPostProps) {
             Published : {moment(post.createdAt).format("MMMM Do, YYYY")}
           </span>
           <BlogDescription
-            blogDescription={post.blogDescription as string}
+            blogDescription={post.blogOverView as string}
             blogSlug={post.blogSlug}
           />
           <Link

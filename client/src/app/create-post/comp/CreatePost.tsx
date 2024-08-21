@@ -44,6 +44,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
     "blogWriterName",
     ""
   );
+  const [blogOverView, setBlogOverView] = useCustomStorage("blogOverView", "");
 
   // applying higlighter
   const renderedHtml = useMemo(() => {
@@ -93,6 +94,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
     if (!blogWriterName)
       return errorMessage("Write the name of author who write blog");
     if (!value) return errorMessage("Write atleast some of it");
+    if (!blogOverView) return errorMessage("Write atleast some of it");
   };
   const handleCreateBlogs = async () => {
     handleValidate();
@@ -188,7 +190,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       >
         Go Back
       </Link>
-      <PageWrapper className="max-w-[1200px]">
+      <div className="max-w-[1600px] mx-auto">
         <input
           className="outline-none m-3 w-full text-4xl bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3"
           placeholder=" Write Title here..."
@@ -197,12 +199,25 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
             setTitle(e.target.value);
           }}
         />
+        <textarea
+          className="outline-none w-full  bg-transparent resize-none border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3"
+          placeholder=" Write some information about your blog..."
+          value={blogOverView}
+          onChange={(e) => {
+            setBlogOverView(e.target.value);
+          }}
+          rows={4}
+        />
         <div className="relative">
           <input
             className="outline-none m-3 w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3 font-bold pr-20"
             placeholder="Cover Image  Url..."
             ref={imageUrlRef}
             type="url"
+            onChange={(e) => {
+              setCoverImageUrl(e.target.value);
+            }}
+            value={coverImageUrl}
           />
           <Button
             variant={"link"}
@@ -230,8 +245,8 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
             setBlogWriterName(e.target.value);
           }}
         />
-      </PageWrapper>
-      <PageWrapper className="max-w-[1200px]">
+      </div>
+      <div className="max-w-[1600px] mx-auto">
         <Editor setValue={setValue} value={value} />
         <div className="my-2 flex justify-end px-5 select-none">
           <Dialog>
@@ -259,7 +274,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
             </DialogContent>
           </Dialog>
         </div>
-      </PageWrapper>
+      </div>
     </>
   );
 }

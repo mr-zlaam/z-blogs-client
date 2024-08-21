@@ -13,7 +13,7 @@ function BlogDescription({
   blogSlug: string;
 }) {
   const router = useRouter();
-  const rawHtml = DOMPurify.sanitize(marked(blogDescription) as string);
+  const rawHtml = blogDescription;
   return (
     <>
       <div

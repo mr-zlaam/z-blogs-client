@@ -1,19 +1,13 @@
 import type { Request, Response } from "express";
-import {
-  BAD_REQUEST,
-  CREATED,
-  FORBIDDEN,
-  NOT_FOUND,
-  OK,
-} from "../../CONSTANTS";
+import { BAD_REQUEST, CREATED, NOT_FOUND, OK } from "../../CONSTANTS";
 import { prisma } from "../../db";
+import { BlogDataTypes } from "../../types";
 import { apiResponse } from "../../utils/apiResponseUtil";
 import { asyncHandler } from "../../utils/asynhandlerUtil";
 import {
   generateRandomStrings,
   generateSlug,
 } from "../../utils/slug_and_str_generator";
-import { BlogDataTypes } from "../../types";
 // * create blog post controller
 const createBlogController = asyncHandler(
   async (req: Request, res: Response) => {
@@ -23,6 +17,7 @@ const createBlogController = asyncHandler(
       blogDescription,
       blogThumbnail,
       blogThumbnailAuthor,
+      blogOverView,
     } = req.body;
     const randomId = generateRandomStrings(10);
     const blogSlug = generateSlug(blogTitle);
@@ -31,6 +26,7 @@ const createBlogController = asyncHandler(
         authorId,
         blogTitle,
         blogDescription,
+        blogOverView,
         blogSlug: `${blogSlug}_${randomId}`,
         blogThumbnail,
         blogThumbnailAuthor,
@@ -86,6 +82,7 @@ const getAllBlogsController = asyncHandler(
         blogSlug: true,
         blogThumbnail: true,
         blogThumbnailAuthor: true,
+        blogOverView: true,
         isPublic: true,
         createdAt: true,
         updatedAt: true,
@@ -144,6 +141,7 @@ const getHomePageBlogs = asyncHandler(async (req: Request, res: Response) => {
       blogDescription: true,
       blogSlug: true,
       blogThumbnail: true,
+      blogOverView: true,
       blogThumbnailAuthor: true,
       isPublic: true,
       createdAt: true,
@@ -186,6 +184,7 @@ const getSingleBlogController = asyncHandler(
         blogTitle: true,
         blogDescription: true,
         blogSlug: true,
+        blogOverView: true,
         blogThumbnail: true,
         blogThumbnailAuthor: true,
         isPublic: true,
@@ -228,6 +227,7 @@ const updateBlogController = asyncHandler(
       blogDescription,
       blogThumbnail,
       blogThumbnailAuthor,
+      blogOverView,
       isPublic,
     } = req.body;
 
@@ -239,6 +239,7 @@ const updateBlogController = asyncHandler(
         blogDescription: true,
         blogThumbnail: true,
         blogThumbnailAuthor: true,
+        blogOverView: true,
         isPublic: true,
       },
     });
@@ -266,6 +267,9 @@ const updateBlogController = asyncHandler(
     if (currentBlog.isPublic !== isPublic) {
       updateData.isPublic = isPublic;
     }
+    if (currentBlog.blogOverView !== blogOverView) {
+      updateData.blogOverView = blogOverView;
+    }
 
     if (Object.keys(updateData).length > 0) {
       const updatedBlog = await prisma.blogPost.update({
@@ -278,6 +282,7 @@ const updateBlogController = asyncHandler(
           blogThumbnail: true,
           blogThumbnailAuthor: true,
           isPublic: true,
+          blogOverView: true,
           updatedAt: true,
           createdAt: true,
           author: {
@@ -471,6 +476,7 @@ const getAllPrivateBlogsController = asyncHandler(
         blogDescription: true,
         blogThumbnail: true,
         blogThumbnailAuthor: true,
+        blogOverView: true,
         blogTitle: true,
         isPublic: true,
         createdAt: true,
@@ -508,12 +514,12 @@ const getAllPrivateBlogsController = asyncHandler(
 export {
   //public blogs
   createBlogController,
-  getAllBlogsController,
-  getHomePageBlogs,
-  getSingleBlogController,
-  updateBlogController,
   deleteBlogController,
-  searchBlogController,
+  getAllBlogsController,
   //private Blogs
   getAllPrivateBlogsController,
+  getHomePageBlogs,
+  getSingleBlogController,
+  searchBlogController,
+  updateBlogController,
 };

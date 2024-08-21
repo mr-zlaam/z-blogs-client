@@ -43,6 +43,7 @@ export interface BlogDataTypes {
   blogDescription?: string;
   blogThumbnail?: string;
   blogThumbnailAuthor?: string;
+  blogOverView?: string;
   isPublic?: boolean;
 }
 //Payload type to save data along with token

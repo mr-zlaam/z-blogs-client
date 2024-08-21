@@ -42,6 +42,7 @@ export interface BlogDataTypes {
   blogSlug: string;
   blogDescription: string;
   blogThumbnail: string;
+  blogOverView: string;
   author: AuthorType;
   blogThumbnailAuthor: string;
   isPublic: boolean;
