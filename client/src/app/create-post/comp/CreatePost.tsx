@@ -11,7 +11,7 @@ import { marked } from "marked";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
-import highlightSyntax from "./editor/highlightSyntax";
+import highlightSyntax from "@/helper/higlightSyntax/HiglightSyntax";
 import {
   Dialog,
   DialogClose,

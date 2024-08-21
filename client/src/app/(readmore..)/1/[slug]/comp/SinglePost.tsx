@@ -4,7 +4,7 @@ declare global {
     copyToClipboard: (id: string) => void;
   }
 }
-import highlightSyntax from "@/app/create-post/comp/editor/highlightSyntax";
+import highlightSyntax from "@/helper/higlightSyntax/HiglightSyntax";
 import { AuthorType } from "@/types";
 import moment from "moment";
 import Image from "next/image";
