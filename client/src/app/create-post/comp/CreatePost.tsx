@@ -155,6 +155,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
                 width={800}
                 className="rounded-md shadow-md shadow-foreground/50"
                 alt={blogWriterName}
+                priority
               />
             </div>
             <p className="text-sm  text-center">
@@ -202,8 +203,6 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
             placeholder="Cover Image  Url..."
             ref={imageUrlRef}
             type="url"
-            value={coverImageUrl}
-            onChange={(e) => setCoverImageUrl(e.target.value)}
           />
           <Button
             variant={"link"}
@@ -254,9 +253,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
                   <Button type="button">Close</Button>
                 </DialogClose>
                 <DialogClose asChild onClick={handleCreateBlogs}>
-                  <Button type="button" onClick={handleCreateBlogs}>
-                    Yes, I am sure
-                  </Button>
+                  <Button type="button">Yes, I am sure</Button>
                 </DialogClose>
               </AlertDialogFooter>
             </DialogContent>
