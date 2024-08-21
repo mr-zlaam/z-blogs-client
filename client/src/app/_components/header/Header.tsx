@@ -18,12 +18,15 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import logo from "@/images/logo/z-logo.png";
+import { PayLoadType } from "@/types";
+import { DialogClose } from "@radix-ui/react-dialog";
 import Image from "next/image";
 import { GoSearch } from "react-icons/go";
 import { RandomAvatar } from "react-random-avatars";
-import { DialogClose } from "@radix-ui/react-dialog";
+import { FaUserCircle } from "react-icons/fa";
 
-function Header() {
+function Header({ user }: { user: PayLoadType }) {
+  console.log(user);
   return (
     <>
       <header className=" h-[70px]  ">
@@ -75,12 +78,23 @@ function Header() {
             <div className="h-[40px] w-[40px] bg-background rounded-full  overflow-hidden ">
               <Popover>
                 <PopoverTrigger className="bg-transparent cursor-pointer  border-none">
-                  <RandomAvatar size={42} name="hero" square />
+                  {user && user.uid ? (
+                    <RandomAvatar size={42} name="hero" square />
+                  ) : (
+                    <FaUserCircle size={35} />
+                  )}
                 </PopoverTrigger>
                 <PopoverContent className="h-fit w-[200px] shadow-md shadow-foreground/20">
-                  <div className="flex-[1] p-3 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded">
-                    username
-                  </div>
+                  {user && user.fullName && (
+                    <div className="flex-[1] p-3 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded">
+                      <p className="flex flex-col p-2">
+                        <span className="font-normal">{user.fullName}</span>
+                        <span className="text-sm hover:underline text-foreground/70">
+                          @{user.username}
+                        </span>
+                      </p>
+                    </div>
+                  )}
                   <Separator />
 
                   <div className="flex-[2] flex flex-col cursor-pointer ">
@@ -90,12 +104,15 @@ function Header() {
                     >
                       Create Post
                     </Link>
-                    <Link
-                      href={"#"}
-                      className="p-2 my-1 text-foreground hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
-                    >
-                      Dashboard
-                    </Link>
+
+                    {user && user.role === "ADMIN" && (
+                      <Link
+                        href={"#"}
+                        className="p-2 my-1 text-foreground hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
+                      >
+                        Dashboard
+                      </Link>
+                    )}
                     <Link
                       href={"/settings"}
                       className="p-2 my-1 text-foreground hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
@@ -106,7 +123,11 @@ function Header() {
                   <Separator />
 
                   <div className="flex-1 p-2 my-1 text-foreground hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded">
-                    Sign out
+                    {user ? (
+                      <Link href={"/user-auth/sign-in"}>Sign Out</Link>
+                    ) : (
+                      <Link href={"/user-auth/sign-in"}>Sign in</Link>
+                    )}
                   </div>
                 </PopoverContent>
               </Popover>

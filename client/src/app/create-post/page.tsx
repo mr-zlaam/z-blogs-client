@@ -15,8 +15,10 @@ function CreatePostPage() {
   try {
     const userInfoInsideToken = verify(token?.value, SECRET) as PayLoadType;
     // TODO: enable this after integrating rte but make sure to create opt form first
-    // if (!userInfoInsideToken.isVerfied)
-    //   return console.log("You are not verified");
+    if (!userInfoInsideToken.isVerfied) {
+      console.log("You are not verified");
+      return redirect("/home");
+    }
     if (
       userInfoInsideToken.role !== "ADMIN" &&
       userInfoInsideToken.role !== "MODERATOR"
