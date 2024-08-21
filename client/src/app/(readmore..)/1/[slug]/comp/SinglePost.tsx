@@ -41,7 +41,6 @@ async function SinglePost({
     </button>
     </div>
     `;
-
     const withCopyButtons = highlightedHtml.replace(
       /(<pre[^>]*>)(.*?)(<\/pre>)/gs,
       (_, openingTag, codeContent, closingTag) => {
@@ -51,10 +50,10 @@ async function SinglePost({
         )}${openingTag}<code id="${uniqueId}">${codeContent}</code>${closingTag}</div>`;
       }
     );
-
     return withCopyButtons;
   }, [article]);
   useEffect(() => {
+    // * This function will copy the code snippet
     window.copyToClipboard = (id: string) => {
       const codeElement = document.getElementById(id);
       if (codeElement) {
