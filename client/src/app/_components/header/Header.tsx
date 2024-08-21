@@ -26,7 +26,6 @@ import { RandomAvatar } from "react-random-avatars";
 import { FaUserCircle } from "react-icons/fa";
 
 function Header({ user }: { user: PayLoadType }) {
-  console.log(user);
   return (
     <>
       <header className=" h-[70px]  ">
