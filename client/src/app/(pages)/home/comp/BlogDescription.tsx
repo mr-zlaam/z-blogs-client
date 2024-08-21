@@ -23,6 +23,7 @@ function BlogDescription({
         dangerouslySetInnerHTML={{
           __html: rawHtml.length === 0 ? "Write something...." : rawHtml,
         }}
+        className="text-foreground/70 my-2  text-sm font-normal cursor-pointer "
       ></span>{" "}
     </>
   );
