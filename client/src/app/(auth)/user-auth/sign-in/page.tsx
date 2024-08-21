@@ -56,8 +56,12 @@ function LoginForm() {
     } catch (err) {
       const error = err as any;
       stopLoading();
-      const message = error.response?.data.error.message;
-      return errorMessage(message || "something went wrong while login");
+      const message = error.response?.data.message;
+      if (error instanceof Error || !error?.response?.data?.success) {
+        return errorMessage(message || "something went wrong while login");
+      }
+      console.log(err);
+      return err;
     }
   };
 
