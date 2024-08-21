@@ -46,8 +46,7 @@ async function BlogRenderer({ post }: blogPostProps) {
           />
           <Link
             href={`/${SITE_VERSION}/${post.blogSlug}`}
-            className="my-2 mx-4 after:bg-blue-400 text-sm"
-            varient="expand-from-left"
+            className="my-2 mx-4 after:bg-blue-400 text-sm hover:underline"
           >
             Read More...
           </Link>
