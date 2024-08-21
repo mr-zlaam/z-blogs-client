@@ -12,6 +12,8 @@ import { useEffect, useMemo } from "react";
 import logoImage from "../../../../../../public/logo/Zlaam.jpg";
 import parser from "html-react-parser";
 import { useMessage } from "@/hooks/useMessage";
+import BackToPreviousRoute from "@/_subComponents/backToPreviousRoute/BackToPreviousRoute";
+import ScrollToTop from "@/_subComponents/scrollToTop/ScrollToTop";
 interface SinglePostProps {
   article: string;
   author: AuthorType;
@@ -65,7 +67,9 @@ async function SinglePost({
   }, []);
   return (
     <>
-      <article className="my-5 overflow-y-auto">
+      <ScrollToTop />
+      <article className=" overflow-y-auto relative">
+        <BackToPreviousRoute />
         <h1 className="text-center font-bold text-2xl md:text-3xl my-4 text-balance">
           {blogTitle}
         </h1>

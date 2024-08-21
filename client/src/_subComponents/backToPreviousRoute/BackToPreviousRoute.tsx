@@ -8,7 +8,10 @@ function BackToPreviousRoute() {
     return router.back();
   };
   return (
-    <div className=" my-10 bg-transparent text-foreground cursor-pointer h-[40px] w-[40px] flex justify-center items-center duration-300 transition-all rounded-full hover:bg-foreground hover:text-background ">
+    <div
+      onClick={handleGoToPreviousRoute}
+      className=" my-10  text-foreground cursor-pointer h-[40px] w-[40px] flex justify-center items-center duration-300 transition-all rounded-full hover:bg-foreground hover:text-background "
+    >
       <ChevronLeft />
     </div>
   );
