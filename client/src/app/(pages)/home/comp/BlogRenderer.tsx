@@ -40,10 +40,12 @@ async function BlogRenderer({ post }: blogPostProps) {
           <span className="text-sm  mx-4 mb-4 text-green-600">
             Published : {moment(post.createdAt).format("MMMM Do, YYYY")}
           </span>
-          <BlogDescription
-            blogDescription={post.blogOverView as string}
-            blogSlug={post.blogSlug}
-          />
+          <div className="bg-red-500 w-full mx-4 line-clamp-3">
+            <BlogDescription
+              blogDescription={post.blogOverView}
+              blogSlug={post.blogSlug}
+            />
+          </div>
           <Link
             href={`/${SITE_VERSION}/${post.blogSlug}`}
             className="my-2 mx-4 after:bg-blue-400 text-sm hover:underline"
