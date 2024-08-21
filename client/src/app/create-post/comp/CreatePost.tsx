@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
 import useCustomStorage from "@/hooks/useCustomStorageNext";
 import { useMessage } from "@/hooks/useMessage";
-import { useValidateImageUrl } from "@/hooks/useValidateUrl";
+import { useValidateImageUrl as UseValidateImageUrl } from "@/hooks/useValidateUrl";
 import DOMPurify from "isomorphic-dompurify";
 import parser from "html-react-parser";
 import { marked } from "marked";
@@ -76,7 +76,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
   const imageUrlRef = useRef<any>(null);
   const setUrlToImageBlog = (e: React.FormEvent) => {
     const url = imageUrlRef.current.value;
-    if (useValidateImageUrl(url)) {
+    if (UseValidateImageUrl(url)) {
       setCoverImageUrl(imageUrlRef.current.value);
     } else {
       return errorMessage("Please provide a valid image url");

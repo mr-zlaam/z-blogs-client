@@ -1,5 +1,5 @@
 import { SECRET } from "@/config";
-import useCookieGrabber from "@/hooks/useCookieGrabber";
+import UseCookieGrabber from "@/hooks/useCookieGrabber";
 import { PayLoadType } from "@/types";
 import { Separator } from "@radix-ui/react-separator";
 import { verify } from "jsonwebtoken";
@@ -8,7 +8,7 @@ import Header from "../_components/header/Header";
 import PageHeader from "../_components/pageHeader/PageHeader";
 import PageWrapper from "../_components/pageWrapper/PageWrapper";
 const getUserInformationFromToken = () => {
-  const objToken = useCookieGrabber();
+  const objToken = UseCookieGrabber();
   if (!objToken?.value) {
     return;
   }

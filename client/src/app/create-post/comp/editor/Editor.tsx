@@ -27,7 +27,7 @@ const Editor = ({
       hideIcons: ["side-by-side", "preview"],
       theme: theme === "dark" ? "base16-dark" : "default", // Use a dark theme if available
     };
-  }, []);
+  }, [theme]);
 
   const onChange = (value: string) => {
     setValue(value);
@@ -43,7 +43,7 @@ const Editor = ({
         });
       }
     };
-  }, []);
+  }, [successMessage]);
 
   return (
     <main className="overflow-auto">

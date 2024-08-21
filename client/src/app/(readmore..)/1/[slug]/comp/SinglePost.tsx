@@ -22,7 +22,7 @@ interface SinglePostProps {
   createdAt: Date;
   blogTitle: string;
 }
-async function SinglePost({
+function SinglePost({
   article,
   author,
   blogTitle,
@@ -64,7 +64,7 @@ async function SinglePost({
         });
       }
     };
-  }, []);
+  }, [successMessage]);
   return (
     <>
       <ScrollToTop />
