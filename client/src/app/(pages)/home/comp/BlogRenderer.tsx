@@ -25,7 +25,7 @@ async function BlogRenderer({ post }: blogPostProps) {
             base64={base64}
             width={500}
             height={200}
-            className="rounded"
+            className="rounded w-auto"
           />
         </Link>
         <div>

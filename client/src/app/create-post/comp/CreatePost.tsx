@@ -176,7 +176,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
         </div>
       )}
       <Button
-        className="fixed right-4 top-10 z-[100]"
+        className="fixed right-4 top-3 z-[100]"
         onClick={() => {
           setIsPreviewOpen((prev) => !prev);
         }}
@@ -190,9 +190,9 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       >
         Go Back
       </Link>
-      <div className="max-w-[1600px] mx-auto">
+      <div className="max-w-[1550px] mx-auto">
         <input
-          className="outline-none m-3 w-full text-4xl bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3"
+          className="outline-none  w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-2 font-bold"
           placeholder=" Write Title here..."
           value={title}
           onChange={(e) => {
@@ -200,13 +200,13 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
           }}
         />
         <textarea
-          className="outline-none w-full  bg-transparent resize-none border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3"
+          className="outline-none p w-full  bg-transparent resize-none border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3"
           placeholder=" Write some information about your blog..."
           value={blogOverView}
           onChange={(e) => {
             setBlogOverView(e.target.value);
           }}
-          rows={4}
+          rows={3}
         />
         <div className="relative">
           <input
@@ -246,11 +246,11 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
           }}
         />
       </div>
-      <div className="max-w-[1600px] mx-auto">
+      <div className="max-w-[1550px] mx-auto">
         <Editor setValue={setValue} value={value} />
         <div className="my-2 flex justify-end px-5 select-none">
           <Dialog>
-            <div className=" w-full flex justify-end px-5 py-3">
+            <div className=" w-full flex justify-end px-5 ">
               <DialogTrigger asChild className="">
                 <Button className="">Upload Blog</Button>
               </DialogTrigger>
