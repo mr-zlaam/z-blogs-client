@@ -50,6 +50,9 @@ function LoginForm() {
         successMessage(response.data.message || "Login Successful");
 
         reset();
+        if (typeof window !== "undefined") {
+          window.location.reload();
+        }
         return router.push("/home");
       }
       stopLoading();
