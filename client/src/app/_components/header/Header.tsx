@@ -24,8 +24,27 @@ import Image from "next/image";
 import { GoSearch } from "react-icons/go";
 import { RandomAvatar } from "react-random-avatars";
 import { FaUserCircle } from "react-icons/fa";
+import { handleLogout } from "@/helper/fetch/fetchHompageBlogs";
+import { useMessage } from "@/hooks/useMessage";
+import { useRouter } from "next/navigation";
 
-function Header({ user }: { user: PayLoadType }) {
+function Header({ user, token }: { user: PayLoadType; token: string }) {
+  const { successMessage } = useMessage();
+  const router = useRouter();
+  const logoutTheUser = async () => {
+    try {
+      const res = await handleLogout(token as string);
+      if (res?.status === 200) {
+        successMessage("User logout successfully");
+        setTimeout(() => {
+          console.log("hello");
+          return router.push("/user-auth/sign-in");
+        }, 3000);
+      }
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <header className=" h-[70px]  ">
@@ -125,12 +144,12 @@ function Header({ user }: { user: PayLoadType }) {
 
                   <div>
                     {user ? (
-                      <Link
-                        href={"/user-auth/sign-in"}
+                      <span
+                        onClick={logoutTheUser}
                         className="flex-1 block p-2 my-1 text-foreground hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
                       >
                         Sign Out
-                      </Link>
+                      </span>
                     ) : (
                       <Link
                         href={"/user-auth/sign-in"}
