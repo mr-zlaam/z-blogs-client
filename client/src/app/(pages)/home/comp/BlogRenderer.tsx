@@ -29,7 +29,7 @@ async function BlogRenderer({ post }: blogPostProps) {
           />
         </Link>
         <div>
-          <h1 className="mx-4 my-2">
+          <h1 className="mx-4 my-2 text-xl">
             <Link
               href={`/${SITE_VERSION}/${post.blogSlug}`}
               className="text-foreground"
