@@ -1,30 +1,30 @@
 import { Router } from "express";
+import {
+  deleteUserController,
+  getAllUsersController,
+  getCurrentUserController,
+  getSingleUserController,
+  loginUserController,
+  logoutUserController,
+  registerUserController,
+  searchUserController,
+  sendOTPcontroller,
+  updateUserController,
+  updateUserPasswordController,
+  updateUserRoleController,
+  verifyUserController,
+} from "../../controllers/authController/authController";
+import {
+  CheckToken,
+  ifUserIsAdmin,
+  logoutMiddleware,
+} from "../../middlewares/authMiddleware";
 import { validateData } from "../../middlewares/validationMiddleware";
 import {
   passwrodValidator,
   userRegistrationSchema,
   userUpdateSchema,
 } from "../../schemas";
-import {
-  deleteUserController,
-  getAllUsersController,
-  getSingleUserController,
-  updateUserController,
-  updateUserPasswordController,
-  updateUserRoleController,
-  registerUserController,
-  loginUserController,
-  logoutUserController,
-  searchUserController,
-  getCurrentUserController,
-  verifyUserController,
-  sendOTPcontroller,
-} from "../../controllers/authController/authController";
-import {
-  CheckToken,
-  ifUser,
-  ifUserIsAdmin,
-} from "../../middlewares/authMiddleware";
 const authRouter = Router();
 // * Register user
 authRouter
@@ -67,7 +67,8 @@ authRouter
 authRouter
   .route("/deleteUser/:uid")
   .delete(CheckToken, ifUserIsAdmin, deleteUserController);
-authRouter.route("/logoutUser/:uid").get(CheckToken, logoutUserController);
+//* Logout user
+authRouter.route("/logoutUser").get(logoutMiddleware, logoutUserController);
 // *  full text search router
 authRouter
   .route("/getAllUsers/search")

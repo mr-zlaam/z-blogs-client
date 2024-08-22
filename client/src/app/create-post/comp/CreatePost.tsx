@@ -25,6 +25,7 @@ import logoImage from "../../../../public/logo/Zlaam.jpg";
 import { AlertDialogFooter } from "@/components/ui/alert-dialog";
 import { axios } from "@/axios";
 import { useRouter } from "next/navigation";
+import { handleLogout } from "@/helper/fetch/fetchHompageBlogs";
 const Editor = dynamic(() => import("../comp/editor/Editor"), {
   ssr: false,
 });
@@ -137,7 +138,17 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
   const handeTogglePreview = () => {
     setIsPreviewOpen(!isPreviewOpen);
   };
-  useEffect(() => {}, []);
+  const logoutTheUser = async () => {
+    try {
+      const res = await handleLogout(token as string);
+      if (res?.status === 200) {
+        successMessage("User logout successfully");
+        return router.push("/user-auth/sign-in");
+      }
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
   return (
     <>
       {isSessionExpiredError && (
@@ -145,6 +156,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
           <div className="  p-5 rounded break-words border-spacing-3 border-solid border-foreground/40">
             <h1>Your Session is Expired Please sign in again</h1>
             <Button
+              onClick={logoutTheUser}
               variant={"destructive"}
               className="block mx-auto w-fit my-5"
             >

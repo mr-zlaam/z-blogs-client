@@ -92,3 +92,28 @@ export const ifUser = asyncHandler(
     next();
   }
 );
+
+export const logoutMiddleware = asyncHandler(
+  async (req: RequestUser, res: Response, next: NextFunction) => {
+    const token = req.header("Authorization");
+    if (!token) {
+      throw {
+        status: UNAUTHORIZED,
+        message: "User is not login",
+      };
+    }
+    let decodedToken;
+    const parsedToken = token?.split(" ")[1] || "";
+
+    try {
+      decodedToken = verify(parsedToken, JWT_SECRET_KEY) as PayLoadType;
+    } catch (error: any) {
+      console.log("Token is not valid");
+    }
+    if (decodedToken?.uid) return next();
+    throw {
+      status: UNAUTHORIZED,
+      message: "User is not real",
+    };
+  }
+);

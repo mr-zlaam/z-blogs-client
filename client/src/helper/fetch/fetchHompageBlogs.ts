@@ -1,3 +1,4 @@
+import { axios } from "@/axios";
 import { BACKEND_URI } from "@/config";
 import { BlogTypes } from "@/types";
 
@@ -21,3 +22,21 @@ export const fetchHomePageBlogs = async () => {
   }
 };
 // make logout user from the session
+export const handleLogout = async (token: string) => {
+  try {
+    const res = await axios.get(`${BACKEND_URI}/auth/logoutUser`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+        Accept: "application/json",
+      },
+      withCredentials: true,
+    });
+    if (res.status === 200) {
+      return res;
+    }
+  } catch (error: any) {
+    console.log(error.message);
+    return error;
+  }
+};
