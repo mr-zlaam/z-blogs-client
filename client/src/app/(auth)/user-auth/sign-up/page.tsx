@@ -64,7 +64,7 @@ function RegisterForm() {
       console.log(error);
 
       return errorMessage(
-        error?.response.data.error.message ||
+        error?.response?.data?.message ||
           "some thing went wrong while register the user"
       );
     }
