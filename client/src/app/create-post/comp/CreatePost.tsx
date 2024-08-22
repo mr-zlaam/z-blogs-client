@@ -120,12 +120,17 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
         }
       );
       if (response.status === 201) {
-        setValue("");
-        setTitle("");
-        setCoverImageUrl("");
-        setCoverImageOwnerName("");
-        setBlogWriterName("");
-        successMessage("Blog submitted to the admin for review successfully");
+        // setValue("");
+        // setTitle("");
+        // setCoverImageUrl("");
+        // setCoverImageOwnerName("");
+        // setBlogWriterName("");
+        // setBlogOverView("");
+        successMessage(
+          "Blog submitted to the admin for review successfully",
+          "bottom-right",
+          6000
+        );
         return router.push("/home");
       }
     } catch (error: any) {
@@ -143,6 +148,9 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       const res = await handleLogout(token as string);
       if (res?.status === 200) {
         successMessage("User logout successfully");
+        if (typeof window !== "undefined") {
+          window.location.reload();
+        }
         return router.push("/user-auth/sign-in");
       }
     } catch (error: any) {
