@@ -34,8 +34,8 @@ function LoginForm() {
       const response = await axios.post(
         `${BACKEND_URI}/auth/login`,
         {
-          email: usernameORmail,
-          username: usernameORmail,
+          email: usernameORmail.toLowerCase(),
+          username: usernameORmail.toLowerCase(),
           password,
         },
         {
@@ -58,13 +58,13 @@ function LoginForm() {
       stopLoading();
     } catch (err) {
       const error = err as any;
+      console.log(error);
       stopLoading();
-      const message = error?.response?.data?.error.message;
-      if (error instanceof Error || !error?.response?.data?.success) {
+      const message = "Invalid credentials";
+      if (error instanceof Error || error.response.status === 403) {
         return errorMessage(message || "something went wrong while login");
       }
-      console.log(err);
-      return err;
+      return error;
     }
   };
 
@@ -85,7 +85,7 @@ function LoginForm() {
                     type="text"
                     id="email"
                     placeholder="username or email"
-                    className="border-solid"
+                    className="border-solid lowercase"
                   />
                   {errors.usernameORmail && (
                     <p className="text-xs select-none text-red-500  text-balance ml-2">

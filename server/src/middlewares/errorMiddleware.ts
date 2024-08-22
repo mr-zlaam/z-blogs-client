@@ -25,20 +25,18 @@ export const errorHandler = (
 ) => {
   res.status(error.status || 500);
   res.json({
-    error: {
-      success: false,
-      statusCode: error.status || 500,
-      message:
-        error instanceof Prisma.PrismaClientKnownRequestError
-          ? "something went wrong while working with prisma!!"
-          : error.message + "!!" || "internal server error!!",
-      data: null,
-      stack: ISDEVELOPMENT_ENVIRONMENT && error.stack ? error.stack : null,
-      stacks: ISDEVELOPMENT_ENVIRONMENT
+    success: false,
+    statusCode: error.status || 500,
+    message:
+      error instanceof Prisma.PrismaClientKnownRequestError
+        ? "something went wrong while working with prisma!!"
+        : error.message + "!!" || "internal server error!!",
+    data: null,
+    stack: ISDEVELOPMENT_ENVIRONMENT && error.stack ? error.stack : null,
+    stacks: ISDEVELOPMENT_ENVIRONMENT
+      ? error.stack
         ? error.stack
-          ? error.stack
-          : "No stack has been sent"
-        : "", // for debugging
-    },
+        : "No stack has been sent"
+      : "", // for debugging
   });
 };

@@ -37,9 +37,9 @@ function RegisterForm() {
       const response = await axios.post(
         `${BACKEND_URI}/auth/register`,
         {
-          username,
-          fullName,
-          email,
+          username: username.toLowerCase(),
+          fullName: fullName.toLowerCase(),
+          email: email.toLowerCase(),
           password,
         },
         {
