@@ -110,7 +110,18 @@ export const logoutMiddleware = asyncHandler(
     } catch (error: any) {
       console.log("Token is not valid");
     }
-    if (decodedToken?.uid) return next();
+    if (decodedToken?.uid) {
+      const user = await prisma.user.findUnique({
+        where: { uid: decodedToken.uid },
+      });
+      if (user) return next;
+      else {
+        throw {
+          status: UNAUTHORIZED,
+          message: "User is not real",
+        };
+      }
+    }
     throw {
       status: UNAUTHORIZED,
       message: "User is not real",
