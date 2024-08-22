@@ -20,3 +20,4 @@ export const fetchHomePageBlogs = async () => {
     return error;
   }
 };
+// make logout user from the session

@@ -10,7 +10,7 @@ import parser from "html-react-parser";
 import { marked } from "marked";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import highlightSyntax from "@/helper/higlightSyntax/HiglightSyntax";
 import {
   Dialog,
@@ -39,6 +39,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
     "coverImageOwner",
     ""
   );
+  const [isSessionExpiredError, setIsSessionExpiredError] = useState(false);
   const router = useRouter();
   const [blogWriterName, setBlogWriterName] = useCustomStorage(
     "blogWriterName",
@@ -127,14 +128,31 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
         return router.push("/home");
       }
     } catch (error: any) {
-      console.log(error.message);
+      console.log(error);
+      if (error?.response?.status === 400) {
+        return setIsSessionExpiredError(true);
+      }
     }
   };
   const handeTogglePreview = () => {
     setIsPreviewOpen(!isPreviewOpen);
   };
+  useEffect(() => {}, []);
   return (
     <>
+      {isSessionExpiredError && (
+        <div className="bg-background/80 backdrop-blur-md fixed top-0 left-0 h-screen z-[200] w-full flex justify-center items-center">
+          <div className="  p-5 rounded break-words border-spacing-3 border-solid border-foreground/40">
+            <h1>Your Session is Expired Please sign in again</h1>
+            <Button
+              variant={"destructive"}
+              className="block mx-auto w-fit my-5"
+            >
+              Log Out
+            </Button>
+          </div>
+        </div>
+      )}
       {isPreviewOpen && (
         <div className="h-screen fixed top-0 left-0 w-full bg-background text-foreground z-[99] overflow-y-auto">
           <PageWrapper>
@@ -179,7 +197,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
         </div>
       )}
       <Button
-        title="Press(ctrl+shift+n)"
+        title="Press(ctrl+shift+l)"
         className="fixed right-4 top-3 z-[100]"
         onKeyDown={(e) => {
           if (e.key === "L" && e.ctrlKey && e.shiftKey) {
@@ -202,7 +220,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
           Go Back
         </Link>
         <p className="text-center font-bold text-lg mx-4">
-          Preview(ctrl+shift+n)
+          Preview(ctrl+shift+l)
         </p>
       </div>
 
