@@ -34,7 +34,7 @@ export const registerSchema: ZodType<UserRegisterTypes> = object({
       new RegExp(
         /^(?!.*\s)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~`-])[A-Za-z0-9!@#$%^&*()_+{}\[\]:;<>,.?/~`-]{6,}$/
       ),
-      { message: "Password is invalid" }
+      { message: "Password is weak!!" }
     ),
   confirmPassword: string()
     .min(6, { message: "This field requires at least 6 characters" })
