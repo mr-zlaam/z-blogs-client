@@ -86,7 +86,6 @@ function LoginForm() {
                     id="email"
                     placeholder="username or email"
                     className="border-solid"
-                    autoComplete="on"
                   />
                   {errors.usernameORmail && (
                     <p className="text-xs select-none text-red-500  text-balance ml-2">
