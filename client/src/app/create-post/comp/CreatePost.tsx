@@ -120,12 +120,12 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
         }
       );
       if (response.status === 201) {
-        // setValue("");
-        // setTitle("");
-        // setCoverImageUrl("");
-        // setCoverImageOwnerName("");
-        // setBlogWriterName("");
-        // setBlogOverView("");
+        setValue("");
+        setTitle("");
+        setCoverImageUrl("");
+        setCoverImageOwnerName("");
+        setBlogWriterName("");
+        setBlogOverView("");
         successMessage(
           "Blog submitted to the admin for review successfully",
           "bottom-right",
