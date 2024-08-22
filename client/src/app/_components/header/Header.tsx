@@ -36,10 +36,7 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
       const res = await handleLogout(token as string);
       if (res?.status === 200) {
         successMessage("User logout successfully");
-        setTimeout(() => {
-          console.log("hello");
-          return router.push("/user-auth/sign-in");
-        }, 3000);
+        if (typeof window !== "undefined") return location.reload();
       }
     } catch (error: any) {
       console.log(error);
