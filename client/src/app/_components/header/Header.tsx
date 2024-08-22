@@ -118,13 +118,15 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                   <Separator />
 
                   <div className="flex-[2] flex flex-col  ">
-                    <Link
-                      href={"/create-post"}
-                      className="p-2 my-1 text-foreground hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
-                    >
-                      Create Post
-                    </Link>
-
+                    {(user && user.role === "ADMIN") ||
+                      (user && user.role === "MODERATOR" && (
+                        <Link
+                          href={"/create-post"}
+                          className="p-2 my-1 text-foreground hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
+                        >
+                          Create Post
+                        </Link>
+                      ))}
                     {user && user.role === "ADMIN" && (
                       <Link
                         href={"#"}

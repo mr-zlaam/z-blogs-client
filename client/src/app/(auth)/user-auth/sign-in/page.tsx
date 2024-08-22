@@ -59,7 +59,7 @@ function LoginForm() {
     } catch (err) {
       const error = err as any;
       stopLoading();
-      const message = error.response?.data?.error.message;
+      const message = error?.response?.data?.error.message;
       if (error instanceof Error || !error?.response?.data?.success) {
         return errorMessage(message || "something went wrong while login");
       }
