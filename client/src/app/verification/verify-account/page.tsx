@@ -9,12 +9,17 @@ import { redirect } from "next/navigation";
 function VerifyAccountPage() {
   const token = useCookieGrabber();
   if (!token) redirect("/home");
+  let user;
   try {
-    const user = verify(token?.value, SECRET) as PayLoadType;
-    if (!user) redirect("/home");
-    if (user.isVerfied) redirect("/home");
+    user = verify(token?.value, SECRET) as PayLoadType;
   } catch (error: any) {
-    console.log(error.message);
+    console.log(error, "from otp main page");
+    return redirect("/home");
+  }
+  if (!user) return redirect("/home");
+  if (user.isVerfied) {
+    console.log("redirecting..");
+    return redirect("/home");
   }
   return (
     <>

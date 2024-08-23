@@ -100,7 +100,11 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
               <Popover>
                 <PopoverTrigger className="bg-transparent cursor-pointer  border-none">
                   {user && user.uid ? (
-                    <RandomAvatar size={42} name="hero" square />
+                    <RandomAvatar
+                      size={42}
+                      name={(user && user.username) || "hero"}
+                      square
+                    />
                   ) : (
                     <FaUserCircle size={35} />
                   )}
