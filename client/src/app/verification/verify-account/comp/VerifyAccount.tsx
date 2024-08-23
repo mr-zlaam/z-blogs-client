@@ -53,6 +53,7 @@ export function OTPinput({ token }: { token: string }) {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
+          withCredentials: true,
         }
       );
       if (response.status === 200) {
