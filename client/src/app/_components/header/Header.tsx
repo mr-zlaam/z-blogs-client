@@ -151,7 +151,7 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                           </span>
                         ) : (
                           <Link
-                            href={"/verify-account"}
+                            href={"/verification/send-otp"}
                             className="flex items-center text-red-500 text-sm"
                           >
                             Verify Account
