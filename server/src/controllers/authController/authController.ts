@@ -456,6 +456,7 @@ const deleteUserController = asyncHandler(
 // * Logout user Controller
 const logoutUserController = asyncHandler(
   async (req: Request, res: Response) => {
+    console.log("logout successfully");
     return res
       .status(OK)
       .clearCookie("accessToken", COOKIES_OPTION)
