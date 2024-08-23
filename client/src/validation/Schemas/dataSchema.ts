@@ -95,3 +95,9 @@ export const blogSchema: ZodType = object({
     message: "description must contain atleast 100 characters.",
   }),
 });
+//verify otp
+export const FormSchema = object({
+  pin: string().min(6, {
+    message: "Your one-time password must be 6 characters.",
+  }),
+});

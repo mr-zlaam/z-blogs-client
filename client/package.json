@@ -23,6 +23,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "html-react-parser": "^5.1.12",
+    "input-otp": "^1.2.4",
     "isomorphic-dompurify": "^2.14.0",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.428.0",
