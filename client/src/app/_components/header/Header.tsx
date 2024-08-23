@@ -148,7 +148,7 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                             />
                           </span>
                         ) : (
-                          <SendOTP />
+                          <SendOTP email={user && (user.email as string)} />
                         )}
                       </span>
                     )}

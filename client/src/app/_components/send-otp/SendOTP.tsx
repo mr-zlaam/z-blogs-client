@@ -1,3 +1,4 @@
+"use client";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,8 +12,14 @@ import {
 } from "@/components/ui/alert-dialog";
 import {} from "react";
 
-function SendOTP() {
-  const handleSendOTP = async () => {};
+function SendOTP({ email }: { email: string }) {
+  const handleSendOTP = async () => {
+    try {
+      console.log(email);
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
   return (
     <>
       <AlertDialog>
@@ -34,7 +41,7 @@ function SendOTP() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Yes</AlertDialogAction>
+            <AlertDialogAction onClick={handleSendOTP}>Yes</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
