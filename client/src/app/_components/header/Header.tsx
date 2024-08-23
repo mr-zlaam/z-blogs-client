@@ -150,12 +150,8 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                             />
                           </span>
                         ) : (
-                          <span className="flex items-center text-red-500 ">
-                            Not Verified
-                            <MdOutlineBlock
-                              size={22}
-                              className="text-foreground mx-4"
-                            />
+                          <span className="flex items-center text-red-500 text-sm">
+                            Verify Account
                           </span>
                         )}
                       </Link>
