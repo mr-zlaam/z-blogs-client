@@ -1,6 +1,8 @@
 "use client";
 import { Separator } from "@/components/ui/separator";
 
+import { MdOutlineBlock } from "react-icons/md";
+
 import DivWrapper from "@/_subComponents/divWrapper/DivWrapper";
 import {
   Dialog,
@@ -10,6 +12,8 @@ import {
   DialogHeader,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { IoIosCheckmark } from "react-icons/io";
+
 import { Input } from "@/components/ui/input";
 import { Link } from "@/components/ui/link";
 import {
@@ -132,6 +136,28 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                         Dashboard
                       </Link>
                     )}
+                    <Link
+                      href={"#"}
+                      className="p-2 my-1 text-foreground hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
+                    >
+                      {user && user.isVerfied ? (
+                        <span className="flex items-center ">
+                          Verified
+                          <IoIosCheckmark
+                            size={25}
+                            className="text-foreground mx-4"
+                          />
+                        </span>
+                      ) : (
+                        <span className="flex items-center ">
+                          Not Verified
+                          <MdOutlineBlock
+                            size={25}
+                            className="text-foreground mx-4"
+                          />
+                        </span>
+                      )}
+                    </Link>
                     <Link
                       href={"/settings"}
                       className="p-2 my-1 text-foreground hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
