@@ -40,7 +40,7 @@ async function BlogRenderer({ post }: blogPostProps) {
           <span className="text-sm  mx-4 mb-4 text-green-600">
             Published : {moment(post.createdAt).format("MMMM Do, YYYY")}
           </span>
-          <div className="w-full mx-4 line-clamp-4">
+          <div className="w-full mx-4 line-clamp-4 select-none">
             <BlogDescription
               blogDescription={post.blogOverView}
               blogSlug={post.blogSlug}
