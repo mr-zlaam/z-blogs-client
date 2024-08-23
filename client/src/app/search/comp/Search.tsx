@@ -14,7 +14,6 @@ let page = 1;
 function Search() {
   const { ref, inView } = useInView({});
   const [blogs, setBlogs] = useState<BlogDataTypes[]>([]);
-  // const [page, setPage] = useState(2);
   const { isLoading, startLoading, stopLoading } = useLoading();
   const [hasMore, setHasMore] = useState(true);
   const searchParams = useSearchParams();
