@@ -12,7 +12,6 @@ let page = PAGE;
 function LoadMore() {
   const { ref, inView } = useInView({});
   const [blogs, setBlogs] = useState<BlogDataTypes[]>([]);
-  // const [page, setPage] = useState(2);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
