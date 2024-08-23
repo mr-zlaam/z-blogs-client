@@ -35,7 +35,7 @@ function SendOTP({ email, token }: { email: string; token: string }) {
       );
       if (res.status === 200) {
         successMessage("OTP sent successfully");
-        return router.push("");
+        return router.push("/verification/verify-account");
       }
     } catch (error: any) {
       console.log(error);
