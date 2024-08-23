@@ -27,7 +27,6 @@ function LoadMore() {
 
         if (fetchedBlogs && fetchedBlogs.length > 0) {
           setBlogs((prevBlogs) => [...prevBlogs, ...fetchedBlogs]);
-          // setPage((prevPage) => prevPage + 1);
           page = PAGE + 1;
           setHasMore(blogPost?.metaData?.pagination?.hasNextPage);
         } else {
