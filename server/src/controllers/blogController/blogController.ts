@@ -408,7 +408,6 @@ const deleteBlogController = asyncHandler(
 const searchBlogController = asyncHandler(
   async (req: Request, res: Response) => {
     const { q, page = 1, limit = 10 } = req.query;
-    console.log(q);
     if (!q)
       throw { status: BAD_REQUEST, message: "Search query is required!!" };
 
