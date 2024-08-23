@@ -3,6 +3,7 @@ import PageLoader from "@/_subComponents/pageLoader/PageLoader";
 import BlogDataOptimizer from "@/app/(pages)/all-posts/comp/DataOptimizer";
 import { DELAY, PAGE } from "@/constants";
 import { fetchSearchPublicBlogs } from "@/helper/fetch/fetchBLogs";
+import { useLoading } from "@/hooks/useLoading";
 import { BlogDataTypes, BlogTypes } from "@/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Fragment, useEffect, useState } from "react";
@@ -14,20 +15,18 @@ function Search() {
   const { ref, inView } = useInView({});
   const [blogs, setBlogs] = useState<BlogDataTypes[]>([]);
   // const [page, setPage] = useState(2);
-  const [loading, setLoading] = useState(false);
+  const { isLoading, startLoading, stopLoading } = useLoading();
   const [hasMore, setHasMore] = useState(true);
   const searchParams = useSearchParams();
   const query = searchParams.get("q");
   const router = useRouter();
   useEffect(() => {
     const loadBlogs = async () => {
-      if (!inView || loading || !hasMore) return;
-      setLoading(true);
-
+      if (!inView || isLoading || !hasMore) return;
+      startLoading();
       try {
         if (!query) return router.push("/home");
         const blogPost: BlogTypes = await fetchSearchPublicBlogs(query, page);
-        console.log(blogPost.metaData.pagination.hasNextPage);
         const fetchedBlogs = blogPost.data?.blogs;
 
         if (fetchedBlogs && fetchedBlogs.length > 0) {
@@ -41,7 +40,7 @@ function Search() {
       } catch (error) {
         console.error("Failed to load more blogs", error);
       } finally {
-        setLoading(false);
+        stopLoading();
       }
     };
 
@@ -52,17 +51,15 @@ function Search() {
   console.log(blogs);
   return (
     <>
-      {loading && (
-        <div className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] ">
-          <PageLoader />
-        </div>
-      )}
       <section>
-        <h1 className=" text-xl font-bold">Search Result for:- {query} </h1>
+        <h1 className=" text-2xl font-bold">
+          Search Result for:-
+          <span className="text-foreground/60 mx-4 text-2xl">"{query}"</span>
+        </h1>
         <div className="h-10">
-          {blogs.length === 0 && (
-            <p className="h-10 text-foreground/60 font-bold text-sm text-center my-4">
-              No result found for {query}
+          {blogs.length === 0 && !isLoading && (
+            <p className="h-10 text-red-500 font-bold text-xl text-center my-4 fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] ">
+              !~&nbsp;&nbsp;No result found for "{query}"
             </p>
           )}
         </div>
@@ -75,16 +72,16 @@ function Search() {
 
       {hasMore && (
         <div ref={ref} className="h-10">
-          {loading && (
+          {isLoading && (
             <div className="flex justify-center">
               <PageLoader />
             </div>
           )}
         </div>
       )}
-      {!hasMore && !loading && (
+      {!hasMore && !isLoading && (
         <p className="h-10 text-foreground/60 font-bold text-sm text-center my-4">
-          No more posts for now
+          {blogs.length !== 0 && "No more posts for now"}
         </p>
       )}
     </>
