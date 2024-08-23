@@ -25,7 +25,7 @@ import logoImage from "../../../../public/logo/Zlaam.jpg";
 import { AlertDialogFooter } from "@/components/ui/alert-dialog";
 import { axios } from "@/axios";
 import { useRouter } from "next/navigation";
-import { handleLogout } from "@/helper/fetch/fetchHompageBlogs";
+import { handleLogout } from "@/helper/fetch/fetchBLogs";
 const Editor = dynamic(() => import("../comp/editor/Editor"), {
   ssr: false,
 });

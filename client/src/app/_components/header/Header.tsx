@@ -28,7 +28,7 @@ import Image from "next/image";
 import { GoSearch } from "react-icons/go";
 import { RandomAvatar } from "react-random-avatars";
 import { FaUserCircle } from "react-icons/fa";
-import { handleLogout } from "@/helper/fetch/fetchHompageBlogs";
+import { handleLogout } from "@/helper/fetch/fetchBLogs";
 import { useMessage } from "@/hooks/useMessage";
 import { useRouter } from "next/navigation";
 import SendOTP from "../send-otp/SendOTP";

@@ -1,11 +1,11 @@
 import {} from "react";
 
-function AllPosts() {
+function AllPostPage() {
   return (
     <>
-      <section>AllPosts</section>
+      <section>AllPostPage</section>
     </>
   );
 }
 
-export default AllPosts;
+export default AllPostPage;

@@ -1,4 +1,4 @@
-import { fetchHomePageBlogs } from "@/helper/fetch/fetchHompageBlogs";
+import { fetchHomePageBlogs } from "@/helper/fetch/fetchBLogs";
 import { BlogTypes } from "@/types";
 import { Fragment } from "react";
 import BlogRenderer from "./comp/BlogRenderer";
