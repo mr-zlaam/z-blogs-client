@@ -1,5 +1,6 @@
 import { axios } from "@/axios";
 import { BACKEND_URI } from "@/config";
+import { LIMIT } from "@/constants";
 import { BlogTypes } from "@/types";
 
 // get home page blog
@@ -23,7 +24,10 @@ export const fetchHomePageBlogs = async () => {
   }
 };
 // get All Public  Blogs
-export const fetchAllPublicBlogs = async (page = 1 as number, limit = 2) => {
+export const fetchAllPublicBlogs = async (
+  page = 1 as number,
+  limit = LIMIT
+) => {
   try {
     const response = await fetch(
       `${BACKEND_URI}/blog/getAllPublicBlogs?page=${page}&limit=${limit}`,
