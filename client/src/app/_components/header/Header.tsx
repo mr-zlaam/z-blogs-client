@@ -150,9 +150,12 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                             />
                           </span>
                         ) : (
-                          <span className="flex items-center text-red-500 text-sm">
+                          <Link
+                            href={"/verify-account"}
+                            className="flex items-center text-red-500 text-sm"
+                          >
                             Verify Account
-                          </span>
+                          </Link>
                         )}
                       </Link>
                     )}
