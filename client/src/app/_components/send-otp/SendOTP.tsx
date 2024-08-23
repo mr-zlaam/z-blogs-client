@@ -16,8 +16,8 @@ import { useRouter } from "next/navigation";
 
 function SendOTP({ email, token }: { email: string; token: string }) {
   const { errorMessage, successMessage } = useMessage();
+  const router = useRouter();
   const handleSendOTP = async () => {
-    const router = useRouter();
     try {
       const res = await axios.post(
         "/auth/sendOTP",
@@ -34,7 +34,7 @@ function SendOTP({ email, token }: { email: string; token: string }) {
         }
       );
       if (res.status === 200) {
-        successMessage("OTP sent successfully");
+        successMessage("OTP sent successfully", "top-center", 4000);
         return router.push("/verification/verify-account");
       }
     } catch (error: any) {

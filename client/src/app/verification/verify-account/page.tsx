@@ -19,7 +19,7 @@ function VerifyAccountPage() {
   return (
     <>
       <section className="h-screen flex items-center justify-center">
-        <OTPinput />
+        <OTPinput token={token.value || ""} />
       </section>
     </>
   );

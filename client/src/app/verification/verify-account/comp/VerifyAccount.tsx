@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import Loader from "@/_subComponents/buttonLoader/buttonLoader";
+import { axios } from "@/axios";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -19,17 +21,14 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { axios } from "@/axios";
-import { FormSchema } from "@/validation/Schemas/dataSchema";
 import { useLoading } from "@/hooks/useLoading";
 import { useMessage } from "@/hooks/useMessage";
-import Loader from "@/_subComponents/buttonLoader/buttonLoader";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { FormSchema } from "@/validation/Schemas/dataSchema";
 import { useRouter } from "next/navigation";
 // validation schema
 
-export function OTPinput() {
+export function OTPinput({ token }: { token: string }) {
   const { errorMessage, successMessage } = useMessage();
   const { isLoading, startLoading, stopLoading } = useLoading();
   const router = useRouter();
@@ -52,6 +51,7 @@ export function OTPinput() {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
