@@ -54,12 +54,16 @@ function LoadMore() {
           </Fragment>
         ))}
       </section>
-      {loading && (
-        <div className="flex justify-center">
-          <PageLoader />
+
+      {hasMore && (
+        <div ref={ref} className="h-10">
+          {loading && (
+            <div className="flex justify-center">
+              <PageLoader />
+            </div>
+          )}
         </div>
       )}
-      {hasMore && <div ref={ref} className="h-10"></div>}
       {!hasMore && (
         <p className="h-10 text-foreground/60 font-bold text-sm text-center my-4">
           No more posts for now
