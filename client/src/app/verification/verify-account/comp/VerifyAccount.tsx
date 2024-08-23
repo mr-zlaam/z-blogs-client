@@ -91,12 +91,30 @@ export function OTPinput() {
               <FormControl>
                 <InputOTP maxLength={6} {...field}>
                   <InputOTPGroup>
-                    <InputOTPSlot className="caret-blink" index={0} />
-                    <InputOTPSlot className="caret-blink" index={1} />
-                    <InputOTPSlot className="caret-blink" index={2} />
-                    <InputOTPSlot className="caret-blink" index={3} />
-                    <InputOTPSlot className="caret-blink" index={4} />
-                    <InputOTPSlot className="caret-blink" index={5} />
+                    <InputOTPSlot
+                      className="caret-blink border-solid"
+                      index={0}
+                    />
+                    <InputOTPSlot
+                      className="caret-blink border-solid"
+                      index={1}
+                    />
+                    <InputOTPSlot
+                      className="caret-blink border-solid"
+                      index={2}
+                    />
+                    <InputOTPSlot
+                      className="caret-blink border-solid"
+                      index={3}
+                    />
+                    <InputOTPSlot
+                      className="caret-blink border-solid"
+                      index={4}
+                    />
+                    <InputOTPSlot
+                      className="caret-blink border-solid"
+                      index={5}
+                    />
                   </InputOTPGroup>
                 </InputOTP>
               </FormControl>
@@ -115,9 +133,6 @@ export function OTPinput() {
           >
             {isLoading ? <Loader /> : <span>Verify OTP</span>}
           </Button>{" "}
-          <Button variant={"outline"} onClick={hello} type="button">
-            &rarr; <span className="mx-4"> Resend OTP</span>
-          </Button>
         </div>
       </form>
     </Form>

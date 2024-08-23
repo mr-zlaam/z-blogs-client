@@ -1,4 +1,5 @@
 "use client";
+import { axios } from "@/axios";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,13 +11,35 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { useMessage } from "@/hooks/useMessage";
+import { useRouter } from "next/navigation";
 
-function SendOTP({ email }: { email: string }) {
+function SendOTP({ email, token }: { email: string; token: string }) {
+  const { errorMessage, successMessage } = useMessage();
   const handleSendOTP = async () => {
+    const router = useRouter();
     try {
-      console.log(email);
+      const res = await axios.post(
+        "/auth/sendOTP",
+        {
+          email,
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Accept: "application/json",
+
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (res.status === 200) {
+        successMessage("OTP sent successfully");
+        return router.push("");
+      }
     } catch (error: any) {
-      console.log(error.message);
+      console.log(error);
+      errorMessage("Something went wrong while sending otp");
     }
   };
   return (
