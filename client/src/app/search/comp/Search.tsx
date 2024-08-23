@@ -52,6 +52,11 @@ function Search() {
   console.log(blogs);
   return (
     <>
+      {loading && (
+        <div className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] ">
+          <PageLoader />
+        </div>
+      )}
       <section>
         <h1 className=" text-xl font-bold">Search Result for:- {query} </h1>
         <div className="h-10">
