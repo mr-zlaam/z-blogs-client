@@ -23,7 +23,6 @@ function LoadMore() {
 
       try {
         const blogPost: BlogTypes = await fetchAllPublicBlogs(page);
-        console.log(blogPost.metaData.pagination.hasNextPage);
         const fetchedBlogs = blogPost.data?.blogs;
 
         if (fetchedBlogs && fetchedBlogs.length > 0) {
