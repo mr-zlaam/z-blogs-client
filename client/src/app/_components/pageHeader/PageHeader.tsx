@@ -1,11 +1,11 @@
 "use client";
-import { useActivePath } from "@/helper/checkActivePath/CheckActivePath";
 import { Button } from "@/components/ui/button";
+import { useActivePath } from "@/helper/checkActivePath/CheckActivePath";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Fragment } from "react";
 import { navLinks } from "./components/NavLinks";
-import { usePathname } from "next/navigation";
 
 function PageHeader() {
   const isActivePath = useActivePath();
@@ -16,7 +16,10 @@ function PageHeader() {
       <div className="w-full flex items-center  my-4  overflow-x-auto overflow-y-hidden">
         {navLinks.map((data) => (
           <Fragment key={data.name}>
-            <Link href={data.path} className="mx-2 my-4">
+            <Link
+              href={data.path}
+              className="mx-2 my-4 border border-solid rounded-md"
+            >
               <Button
                 variant={data.variant}
                 className={cn(

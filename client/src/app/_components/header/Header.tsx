@@ -1,8 +1,6 @@
 "use client";
 import { Separator } from "@/components/ui/separator";
 
-import { MdOutlineBlock } from "react-icons/md";
-
 import DivWrapper from "@/_subComponents/divWrapper/DivWrapper";
 import {
   Dialog,
@@ -21,21 +19,23 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { handleLogout } from "@/helper/fetch/fetchBLogs";
+import { useMessage } from "@/hooks/useMessage";
 import logo from "@/images/logo/z-logo.png";
 import { PayLoadType } from "@/types";
 import { DialogClose } from "@radix-ui/react-dialog";
 import Image from "next/image";
+import { useRouter, usePathname } from "next/navigation";
+import { FaUserCircle } from "react-icons/fa";
 import { GoSearch } from "react-icons/go";
 import { RandomAvatar } from "react-random-avatars";
-import { FaUserCircle } from "react-icons/fa";
-import { handleLogout } from "@/helper/fetch/fetchBLogs";
-import { useMessage } from "@/hooks/useMessage";
-import { useRouter } from "next/navigation";
 import SendOTP from "../send-otp/SendOTP";
 
 function Header({ user, token }: { user: PayLoadType; token: string }) {
   const { successMessage } = useMessage();
   const router = useRouter();
+  const pathName = usePathname();
+  if (pathName === "/all-posts") return null;
   const logoutTheUser = async () => {
     try {
       console.log("hello world");
