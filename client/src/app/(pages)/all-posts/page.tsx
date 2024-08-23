@@ -2,6 +2,7 @@ import { fetchAllPublicBlogs } from "@/helper/fetch/fetchBLogs";
 import { BlogTypes } from "@/types";
 import { Fragment } from "react";
 import BlogDataOptimizer from "./comp/DataOptimizer";
+import LoadMore from "@/app/_components/loadMore/LoadMore";
 
 async function AllPostPage() {
   const blogs = (await fetchAllPublicBlogs()) as BlogTypes;
@@ -15,12 +16,15 @@ async function AllPostPage() {
   const blogPosts = blogs?.data?.blogs;
   return (
     <>
-      <section>
+      <section className="">
         {blogPosts.map((post) => (
           <Fragment key={post.blogId}>
             <BlogDataOptimizer post={post} />
           </Fragment>
         ))}
+      </section>
+      <section className=" my-5">
+        <LoadMore />
       </section>
     </>
   );
