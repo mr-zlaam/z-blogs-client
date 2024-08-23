@@ -45,8 +45,11 @@ function Search() {
     setTimeout(() => {
       loadBlogs();
     }, DELAY);
-  }, [inView]);
-  console.log(blogs);
+  }, [inView, query]);
+  useEffect(() => {
+    if (typeof window !== "undefined") router.refresh();
+  }, [query, router]);
+
   return (
     <>
       <section>
