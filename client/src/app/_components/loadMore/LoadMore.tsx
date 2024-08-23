@@ -12,6 +12,7 @@ let page = PAGE;
 function LoadMore() {
   const { ref, inView } = useInView({});
   const [blogs, setBlogs] = useState<BlogDataTypes[]>([]);
+  // const [page, setPage] = useState(2);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
@@ -54,16 +55,12 @@ function LoadMore() {
           </Fragment>
         ))}
       </section>
-
-      {hasMore && (
-        <div ref={ref} className="h-10">
-          {loading && (
-            <div className="flex justify-center">
-              <PageLoader />
-            </div>
-          )}
+      {loading && (
+        <div className="flex justify-center">
+          <PageLoader />
         </div>
       )}
+      {hasMore && <div ref={ref} className="h-10"></div>}
       {!hasMore && (
         <p className="h-10 text-foreground/60 font-bold text-sm text-center my-4">
           No more posts for now
