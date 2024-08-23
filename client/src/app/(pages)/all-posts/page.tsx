@@ -5,7 +5,7 @@ import BlogDataOptimizer from "./comp/DataOptimizer";
 import LoadMore from "@/app/_components/loadMore/LoadMore";
 
 async function AllPostPage() {
-  const blogs = (await fetchAllPublicBlogs()) as BlogTypes;
+  const blogs = (await fetchAllPublicBlogs(1)) as BlogTypes;
   if (!blogs?.data || blogs?.data?.blogs.length === 0) {
     return (
       <div className="h-[60dvh] flex justify-center items-center">

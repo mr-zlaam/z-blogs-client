@@ -1,19 +1,63 @@
 "use client";
 import { useInView } from "react-intersection-observer";
-
 import PageLoader from "@/_subComponents/pageLoader/PageLoader";
-import { useState } from "react";
-import { BlogDataTypes } from "@/types";
-const fetchBlogs = async () => {};
+import { Fragment, useEffect, useState } from "react";
+import { BlogDataTypes, BlogTypes } from "@/types";
+import { fetchAllPublicBlogs } from "@/helper/fetch/fetchBLogs";
+import BlogDataOptimizer from "@/app/(pages)/all-posts/comp/DataOptimizer";
+import { DELAY } from "@/constants";
+// import BlogDataOptimizer from "./BlogDataOptimizer";
+
 function LoadMore() {
-  const { ref, inView } = useInView({
-    threshold: 0,
-  });
+  const { ref, inView } = useInView({});
   const [blogs, setBlogs] = useState<BlogDataTypes[]>([]);
+  const [page, setPage] = useState(2);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+
+  useEffect(() => {
+    const loadBlogs = async () => {
+      if (!inView || loading || !hasMore) return;
+      setLoading(true);
+
+      try {
+        const blogPost: BlogTypes = await fetchAllPublicBlogs(page);
+        const fetchedBlogs = blogPost.data?.blogs;
+
+        if (fetchedBlogs && fetchedBlogs.length > 0) {
+          setBlogs((prevBlogs) => [...prevBlogs, ...fetchedBlogs]);
+          setPage((prevPage) => prevPage + 1);
+        } else {
+          setHasMore(false);
+        }
+      } catch (error) {
+        console.error("Failed to load more blogs", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    setTimeout(() => {
+      loadBlogs();
+    }, DELAY);
+  }, [inView]);
+  console.log(blogs);
   return (
-    <div ref={ref}>
-      <PageLoader />
-    </div>
+    <>
+      <section>
+        {blogs.map((post) => (
+          <Fragment key={post.blogId}>
+            <BlogDataOptimizer post={post} />
+          </Fragment>
+        ))}
+      </section>
+      {loading && (
+        <div className="flex justify-center">
+          <PageLoader />
+        </div>
+      )}
+      {hasMore && <div ref={ref} className="h-10"></div>}
+    </>
   );
 }
 
