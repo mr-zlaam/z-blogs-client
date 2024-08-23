@@ -49,6 +49,19 @@ export const fetchAllPublicBlogs = async (
     return error;
   }
 };
+// get public blogs through search query
+export const fetchSearchPublicBlogs = async (query: string) => {
+  try {
+    const response = await fetch(
+      `${BACKEND_URI}/getAllBlogs/search?q=${query}`
+    );
+    const result = await response.json();
+    return result;
+  } catch (error: any) {
+    console.log(error);
+    return error;
+  }
+};
 // make logout user from the session
 export const handleLogout = async (token: string) => {
   try {
