@@ -11,6 +11,7 @@ interface blogPostProps {
 }
 
 async function BlogRenderer({ post }: blogPostProps) {
+  if (!post) return null;
   const buffer = await fetch(post?.blogThumbnail).then(async (res) =>
     Buffer.from(await res.arrayBuffer())
   );
