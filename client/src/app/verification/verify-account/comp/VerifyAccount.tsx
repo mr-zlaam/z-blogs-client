@@ -26,12 +26,13 @@ import { useMessage } from "@/hooks/useMessage";
 import Loader from "@/_subComponents/buttonLoader/buttonLoader";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 // validation schema
 
 export function OTPinput() {
   const { errorMessage, successMessage } = useMessage();
   const { isLoading, startLoading, stopLoading } = useLoading();
-  const [isResendOTPModalOpened, setIsResendOTPModalOpened] = useState(false);
+  const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -57,7 +58,8 @@ export function OTPinput() {
       if (response.status === 200) {
         stopLoading();
         form.reset();
-        return successMessage("OTP verified successfully");
+        successMessage("OTP verified successfully", "bottom-right", 3000);
+        return router.push("/home");
       } else if (response.status === 400) {
         return errorMessage("Invalid OTP");
       }
@@ -87,32 +89,32 @@ export function OTPinput() {
           name="pin"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>One-Time Password</FormLabel>
+              <FormLabel>Verify Your Account with OTP</FormLabel>
               <FormControl>
                 <InputOTP maxLength={6} {...field}>
                   <InputOTPGroup>
                     <InputOTPSlot
-                      className="caret-blink border-solid"
+                      className="caret-blink border-solid "
                       index={0}
                     />
                     <InputOTPSlot
-                      className="caret-blink border-solid"
+                      className="caret-blink border-solid  border-l-0"
                       index={1}
                     />
                     <InputOTPSlot
-                      className="caret-blink border-solid"
+                      className="caret-blink border-solid  border-l-0"
                       index={2}
                     />
                     <InputOTPSlot
-                      className="caret-blink border-solid"
+                      className="caret-blink border-solid  border-l-0"
                       index={3}
                     />
                     <InputOTPSlot
-                      className="caret-blink border-solid"
+                      className="caret-blink border-solid  border-l-0"
                       index={4}
                     />
                     <InputOTPSlot
-                      className="caret-blink border-solid"
+                      className="caret-blink border-solid  border-l-0"
                       index={5}
                     />
                   </InputOTPGroup>
@@ -132,7 +134,7 @@ export function OTPinput() {
             className={cn(isLoading && "cursor-not-allowed")}
           >
             {isLoading ? <Loader /> : <span>Verify OTP</span>}
-          </Button>{" "}
+          </Button>
         </div>
       </form>
     </Form>
