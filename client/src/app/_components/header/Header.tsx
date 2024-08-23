@@ -95,7 +95,7 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                 </DialogContent>
               </Dialog>
             </div>
-            <div className="h-[40px] w-[40px] bg-background rounded-full  overflow-hidden ">
+            <div className="h-[40px] w-[40px] bg-background rounded-full  overflow-hidden border border-solid border-foreground/60">
               <Popover>
                 <PopoverTrigger className="bg-transparent cursor-pointer  border-none">
                   {user && user.uid ? (
