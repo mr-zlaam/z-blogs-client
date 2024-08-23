@@ -31,6 +31,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { handleLogout } from "@/helper/fetch/fetchHompageBlogs";
 import { useMessage } from "@/hooks/useMessage";
 import { useRouter } from "next/navigation";
+import SendOTP from "../send-otp/SendOTP";
 
 function Header({ user, token }: { user: PayLoadType; token: string }) {
   const { successMessage } = useMessage();
@@ -137,10 +138,7 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                       </Link>
                     )}
                     {user && (
-                      <Link
-                        href={"#"}
-                        className="p-2 my-1 text-foreground hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
-                      >
+                      <span className="p-2 my-1 text-foreground hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded">
                         {user && user.isVerfied ? (
                           <span className="flex items-center ">
                             Verified
@@ -150,14 +148,9 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                             />
                           </span>
                         ) : (
-                          <Link
-                            href={"/verification/send-otp"}
-                            className="flex items-center text-red-500 text-sm"
-                          >
-                            Verify Account
-                          </Link>
+                          <SendOTP />
                         )}
-                      </Link>
+                      </span>
                     )}
                     <Link
                       href={"/settings"}
