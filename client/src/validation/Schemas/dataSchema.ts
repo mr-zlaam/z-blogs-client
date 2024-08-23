@@ -12,19 +12,19 @@ export const registerSchema: ZodType<UserRegisterTypes> = object({
     .min(3, { message: "This field requires at least  3 characters" })
     .max(20, { message: "Username must not contain more than 10 characters" })
     .regex(new RegExp(/^[a-z0-9_.]{1,20}$/), {
-      message: "Username is invalid.",
+      message: "Only underscore_, numbers and lowercase letters are allowed.",
     })
     .toLowerCase(),
   fullName: string()
     .min(3, { message: "This field requires at least  3 characters" })
-    .max(20, { message: "Full Name is too long" })
+    .max(50, { message: "Full Name is too long" })
     .regex(new RegExp(/^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/), {
       message: "Full name is invalid",
     }),
   email: string()
-    .email()
-    .min(5, { message: "This field requires at least 5 characters" })
-    .max(100, { message: "Email is too long" })
+    .min(1, { message: "This field is required" })
+    .max(200, { message: "Email is too long" })
+    .email({ message: "Email is not valid" })
 
     .toLowerCase(),
   password: string()

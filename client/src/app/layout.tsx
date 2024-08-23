@@ -40,7 +40,7 @@ export default function RootLayout({
           <ThemeProvider
             disableTransitionOnChange
             attribute="class"
-            defaultTheme="light"
+            defaultTheme="dark"
             enableSystem
             storageKey="سمة"
           >
