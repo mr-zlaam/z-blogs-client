@@ -114,7 +114,7 @@ export const logoutMiddleware = asyncHandler(
       const user = await prisma.user.findUnique({
         where: { uid: decodedToken.uid },
       });
-      if (user) return next;
+      if (user) return next();
       else {
         throw {
           status: UNAUTHORIZED,
@@ -122,9 +122,6 @@ export const logoutMiddleware = asyncHandler(
         };
       }
     }
-    throw {
-      status: UNAUTHORIZED,
-      message: "User is not real",
-    };
+    next();
   }
 );
