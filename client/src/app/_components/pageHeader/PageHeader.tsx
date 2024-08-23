@@ -6,13 +6,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment } from "react";
 import { navLinks } from "./components/NavLinks";
+import SearchAcrossTheSite from "@/_subComponents/searchAcrossTheSite/SearchAcrossTheSite";
 
 function PageHeader() {
   const isActivePath = useActivePath();
   const pathName = usePathname();
   if (pathName === "/settings") return null;
   return (
-    <>
+    <header className="flex items-center justify-between">
       <div className="w-full flex items-center  my-4  overflow-x-auto overflow-y-hidden">
         {navLinks.map((data) => (
           <Fragment key={data.name}>
@@ -34,7 +35,8 @@ function PageHeader() {
           </Fragment>
         ))}
       </div>
-    </>
+      <SearchAcrossTheSite />
+    </header>
   );
 }
 
