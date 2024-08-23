@@ -23,11 +23,14 @@ export const fetchHomePageBlogs = async () => {
   }
 };
 // get All Public  Blogs
-export const fetchAllPublicBlogs = async () => {
+export const fetchAllPublicBlogs = async (page = 1 as number, limit = 2) => {
   try {
-    const response = await fetch(`${BACKEND_URI}/blog/getAllPublicBlogs`, {
-      cache: "no-store",
-    });
+    const response = await fetch(
+      `${BACKEND_URI}/blog/getAllPublicBlogs?page=${page}&limit=${limit}`,
+      {
+        cache: "no-store",
+      }
+    );
     if (response.ok) {
       const data = await response.json();
       return data as BlogTypes;
