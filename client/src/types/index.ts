@@ -73,11 +73,15 @@ export interface BlogTypes {
   data?: {
     blogs: BlogDataTypes[];
   };
+  metaData: MetaDataTypes;
 }
-export interface PaginationTypes {
-  currentPage: number;
+interface MetaDataTypes {
+  totalBlogs: number;
   totalPages: number;
   totalPublicBlogs: number;
+  pagination: PaginationTypes;
+}
+export interface PaginationTypes {
   hasNextPage: boolean;
   hasPreviousPage: boolean;
 }
