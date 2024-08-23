@@ -408,7 +408,7 @@ const deleteBlogController = asyncHandler(
 const searchBlogController = asyncHandler(
   async (req: Request, res: Response) => {
     const { q, page = 1, limit = 10 } = req.query;
-
+    console.log(q);
     if (!q)
       throw { status: BAD_REQUEST, message: "Search query is required!!" };
 
@@ -450,16 +450,19 @@ const searchBlogController = asyncHandler(
       hasPreviousPage,
     };
 
-    return res
-      .status(OK)
-      .json(
-        apiResponse(
-          OK,
-          "Data searched successfully",
-          { blogs },
-          { pagination, totalBlogs: blogCount, totalPages }
-        )
-      );
+    return res.status(OK).json(
+      apiResponse(
+        OK,
+        "Data searched successfully",
+        { blogs },
+        {
+          totalPages,
+          totalPublicBlogs: blogCount, //TODO: fix this later
+          totalBlogs: blogCount,
+          pagination,
+        }
+      )
+    );
   }
 );
 

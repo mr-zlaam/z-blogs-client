@@ -50,13 +50,25 @@ export const fetchAllPublicBlogs = async (
   }
 };
 // get public blogs through search query
-export const fetchSearchPublicBlogs = async (query: string) => {
+export const fetchSearchPublicBlogs = async (
+  query: string,
+  page: number,
+  limit = LIMIT
+) => {
   try {
     const response = await fetch(
-      `${BACKEND_URI}/getAllBlogs/search?q=${query}`
+      `${BACKEND_URI}/blog/getAllBlogs/search?q=${query}&limit=${limit}&page=${page}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
-    const result = await response.json();
-    return result;
+    if (response.ok) {
+      const result = await response.json();
+      console.log(result);
+      return result;
+    }
   } catch (error: any) {
     console.log(error);
     return error;
