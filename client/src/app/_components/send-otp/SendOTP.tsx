@@ -10,7 +10,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import {} from "react";
 
 function SendOTP({ email }: { email: string }) {
   const handleSendOTP = async () => {
