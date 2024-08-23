@@ -169,14 +169,14 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                     {user ? (
                       <span
                         onClick={logoutTheUser}
-                        className="select-none flex-1 block p-2 my-1 text-foreground hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
+                        className="text-red-500 select-none flex-1 block p-2 my-1 hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
                       >
                         Sign Out
                       </span>
                     ) : (
                       <Link
                         href={"/user-auth/sign-in"}
-                        className="select-none flex-1 block p-2 my-1 text-foreground hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
+                        className="text-green-600 select-none flex-1 block p-2 my-1  hover:bg-foreground/10 duration-200 transition-all cursor-pointer  rounded"
                       >
                         Sign in
                       </Link>
