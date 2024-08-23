@@ -5,12 +5,13 @@ import { Fragment, useEffect, useState } from "react";
 import { BlogDataTypes, BlogTypes } from "@/types";
 import { fetchAllPublicBlogs } from "@/helper/fetch/fetchBLogs";
 import BlogDataOptimizer from "@/app/(pages)/all-posts/comp/DataOptimizer";
-import { DELAY } from "@/constants";
+import { DELAY, PAGE } from "@/constants";
 
+// GLOABL FILE VARIALBE
+let page = PAGE;
 function LoadMore() {
   const { ref, inView } = useInView({});
   const [blogs, setBlogs] = useState<BlogDataTypes[]>([]);
-  const [page, setPage] = useState(2);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
@@ -26,7 +27,8 @@ function LoadMore() {
 
         if (fetchedBlogs && fetchedBlogs.length > 0) {
           setBlogs((prevBlogs) => [...prevBlogs, ...fetchedBlogs]);
-          setPage((prevPage) => prevPage + 1);
+          // setPage((prevPage) => prevPage + 1);
+          page = PAGE + 1;
           setHasMore(blogPost?.metaData?.pagination?.hasNextPage);
         } else {
           setHasMore(false);
