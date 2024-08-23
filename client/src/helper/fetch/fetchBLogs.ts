@@ -42,9 +42,6 @@ export const fetchAllPublicBlogs = async () => {
     return error;
   }
 };
-fetchAllPublicBlogs()
-  .then((res) => console.log(res))
-  .catch((err) => console.log(err));
 // make logout user from the session
 export const handleLogout = async (token: string) => {
   try {
