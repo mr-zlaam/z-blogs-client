@@ -113,7 +113,7 @@ export default async function AllPublicBlogs() {
                                         size="icon"
                                         variant="ghost"
                                       >
-                                        <MoreHorizontal className="h-4 w-4" />
+                                        <MoreHorizontal className="h-4 w-4 bg-t" />
                                         <span className="sr-only">
                                           Toggle menu
                                         </span>
