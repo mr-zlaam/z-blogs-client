@@ -97,7 +97,7 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                       ))}
                     {user && user.role === "ADMIN" && (
                       <Link
-                        href={"#"}
+                        href={"/admin/users"}
                         className="p-2 my-1 text-foreground hover:bg-foreground/10 duration-200 transition-all cursor-pointer font-normal rounded"
                       >
                         Dashboard

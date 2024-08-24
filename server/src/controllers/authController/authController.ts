@@ -259,7 +259,7 @@ const getAllUsersController = asyncHandler(
       skip,
       take,
       orderBy: {
-        createdAt: "desc",
+        createdAt: "asc",
       },
     });
     const totalUsers = await prisma.user.count();

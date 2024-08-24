@@ -24,6 +24,7 @@ export interface UserDataTypes {
   fullName: string;
   email: string;
   role: string;
+  isVerfied: boolean;
   createdAt: string;
   updatedAt: string;
 }
