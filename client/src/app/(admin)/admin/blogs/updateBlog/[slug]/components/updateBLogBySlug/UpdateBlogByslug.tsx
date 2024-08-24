@@ -144,7 +144,7 @@ function UpdateBlogBySlug({
       );
       if (responseFromUpdateBlog.status === 200) {
         successMessage("Blog Updated Successfully");
-        //  return router.push("/admin/blogs/privateBlogs");
+        return router.push("/admin/blogs/privateBlogs");
       }
       return;
     } catch (error: any) {

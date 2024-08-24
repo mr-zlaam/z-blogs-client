@@ -107,7 +107,9 @@ export const fetchPrivateBlogs = async (token: string) => {
     });
     if (response.ok) {
       const data = await response.json();
-      return data as BlogTypes;
+      const newData = data as BlogTypes;
+      if (newData?.data?.blogs?.length === 0) return "No private blog found";
+      return newData;
     }
   } catch (error: any) {
     console.log(error.message);
