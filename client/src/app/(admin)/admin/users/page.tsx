@@ -106,7 +106,6 @@ export default async function UserDashBoard() {
                     ? "No Data found"
                     : users?.data?.users.map(
                         (userData: UserDataTypes, index: number) => {
-                          console.log(userData.isVerfied);
                           return (
                             <Fragment key={userData.uid}>
                               <TableRow className="cursor-default ">

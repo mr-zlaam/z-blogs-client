@@ -60,7 +60,7 @@ function LoginForm() {
       const error = err as any;
       console.log(error);
       stopLoading();
-      const message = "Invalid credentials";
+      const message = error.response.data.message || "Invalid credentials";
       if (error instanceof Error || error.response.status === 403) {
         return errorMessage(message || "something went wrong while login");
       }
