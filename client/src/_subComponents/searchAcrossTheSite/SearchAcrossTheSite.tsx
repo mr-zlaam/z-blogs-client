@@ -19,7 +19,7 @@ function SearchAcrossTheSite() {
 
   const handleSearch = () => {
     if (searchTerm.trim()) {
-      router.push(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
+      return router.push(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
     }
   };
 

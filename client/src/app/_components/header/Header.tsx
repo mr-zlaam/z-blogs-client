@@ -57,12 +57,12 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
           </Link>
 
           <div className="flex items-center">
-            <div className="h-[40px] w-[40px] bg-background rounded-full  overflow-hidden border border-solid border-foreground/60">
+            <div className="h-fit w-fit bg-background rounded-full  overflow-hidden ">
               <Popover>
-                <PopoverTrigger className="bg-transparent cursor-pointer  border-none">
+                <PopoverTrigger className="bg-transparent cursor-pointer  border-none flex items-center justify-center">
                   {user && user.uid ? (
                     <RandomAvatar
-                      size={42}
+                      size={35}
                       name={(user && user.username) || "hero"}
                       square
                     />

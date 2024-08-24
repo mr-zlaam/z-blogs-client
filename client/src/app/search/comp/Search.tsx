@@ -30,6 +30,7 @@ function Search() {
 
         if (fetchedBlogs && fetchedBlogs.length > 0) {
           setBlogs((prevBlogs) => [...prevBlogs, ...fetchedBlogs]);
+
           page = PAGE + 1;
           setHasMore(blogPost?.metaData?.pagination?.hasNextPage);
         } else {
@@ -48,7 +49,7 @@ function Search() {
   }, [inView, query]);
   useEffect(() => {
     if (typeof window !== "undefined") router.refresh();
-  }, [query, router]);
+  }, []);
 
   return (
     <>
