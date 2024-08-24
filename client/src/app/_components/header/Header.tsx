@@ -1,15 +1,16 @@
 "use client";
-import { Separator } from "@/components/ui/separator";
 
 import { IoIosCheckmark } from "react-icons/io";
 
-import { Link } from "@/components/ui/link";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Link } from "@/components/ui/link";
 
 import { handleLogout } from "@/helper/fetch/fetchBLogs";
 import { useMessage } from "@/hooks/useMessage";
@@ -47,7 +48,113 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
 
           <div className="flex items-center">
             <div className="h-fit w-fit bg-background rounded-full  overflow-hidden ">
-              <Popover>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="bg-transparent cursor-pointer  border-none flex items-center justify-center">
+                  {user && user.uid ? (
+                    <RandomAvatar
+                      size={35}
+                      mode="random"
+                      name={(user && user.username) || "hero"}
+                      square
+                    />
+                  ) : (
+                    <FaUserCircle size={35} />
+                  )}
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="h-fit w-[200px] shadow-md shadow-foreground/20">
+                  <DropdownMenuItem>
+                    <div className="flex-[1]">
+                      <p className="flex flex-col p-1">
+                        <span className="font-normal cursor-pointer">
+                          {user.fullName}
+                        </span>
+                        <span className="text-sm hover:underline text-foreground/70 cursor-pointer">
+                          @{user.username}
+                        </span>
+                      </p>
+                    </div>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  {/*  */}
+                  {user && user.role === "ADMIN" && (
+                    <DropdownMenuItem>
+                      <Link
+                        href={"/create-post"}
+                        className="p-1 text-foreground w-full  cursor-pointer"
+                      >
+                        Create Post
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
+                  {user && user.role === "MODERATOR" && (
+                    <DropdownMenuItem>
+                      <Link
+                        href={"/create-post"}
+                        className="p-1 text-foreground cursor-pointer w-full"
+                      >
+                        Create Post
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
+                  {/*  */}
+                  {user && user.role === "ADMIN" && (
+                    <DropdownMenuItem>
+                      <Link
+                        href={"/admin/users"}
+                        className="p-1 cursor-auto text-foreground w-full"
+                      >
+                        Dashboard
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuItem>
+                    {user && (
+                      <span className="text-foreground/50 cursor-not-allowed bg-transparent w-full ">
+                        {user && user.isVerfied ? (
+                          <span className="flex items-center ">
+                            Verified
+                            <IoIosCheckmark
+                              size={25}
+                              className="text-foreground/60 mx-4"
+                            />
+                          </span>
+                        ) : (
+                          <SendOTP
+                            email={user && (user.email as string)}
+                            token={token as string}
+                          />
+                        )}
+                      </span>
+                    )}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link
+                      href={"/settings"}
+                      className="p-1 text-foreground cursor-pointer w-full"
+                    >
+                      Settings
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    {user ? (
+                      <span
+                        onClick={logoutTheUser}
+                        className="text-red-500 select-none flex-1 block p-1  cursor-pointer w-full"
+                      >
+                        Sign Out
+                      </span>
+                    ) : (
+                      <Link
+                        href={"/user-auth/sign-in"}
+                        className="text-green-600 select-none flex-1 block p-1 w-full"
+                      >
+                        Sign in
+                      </Link>
+                    )}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              {/* <Popover>
                 <PopoverTrigger className="bg-transparent cursor-pointer  border-none flex items-center justify-center">
                   {user && user.uid ? (
                     <RandomAvatar
@@ -146,7 +253,7 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                     )}
                   </div>
                 </PopoverContent>
-              </Popover>
+              </Popover> */}
             </div>
           </div>
         </nav>

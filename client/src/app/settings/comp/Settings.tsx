@@ -1,4 +1,5 @@
 "use client";
+import BackToPreviousRoute from "@/_subComponents/backToPreviousRoute/BackToPreviousRoute";
 import { ThemeToggler } from "@/theme/ThemeToggler";
 import { useTheme } from "next-themes";
 import {} from "react";
@@ -7,6 +8,7 @@ function Settings() {
   const { theme } = useTheme();
   return (
     <>
+      <BackToPreviousRoute />
       <section
         style={{
           border:
