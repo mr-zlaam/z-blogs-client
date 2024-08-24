@@ -120,9 +120,9 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   {user && (
-                    <DropdownMenuItem>
+                    <div className="p-3 transition-all duration-200 hover:bg-foreground/20">
                       {user && (
-                        <span className="text-foreground/50 cursor-not-allowed bg-transparent w-full ">
+                        <span className="text-foreground/50 cursor-not-allowed bg-transparent w-full transition-all duration-200 hover:bg-foreground/20">
                           {user && user.isVerfied ? (
                             <span className="flex items-center ">
                               Verified
@@ -139,7 +139,7 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                           )}
                         </span>
                       )}
-                    </DropdownMenuItem>
+                    </div>
                   )}
                   <DropdownMenuItem>
                     {user ? (
