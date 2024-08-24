@@ -54,7 +54,7 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                     <RandomAvatar
                       size={35}
                       mode="random"
-                      name={(user && user.username) || "hero"}
+                      name={(user && user?.username) || "hero"}
                       square
                     />
                   ) : (
@@ -62,18 +62,20 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                   )}
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="h-fit w-[200px] shadow-md shadow-foreground/20">
-                  <DropdownMenuItem>
-                    <div className="flex-[1]">
-                      <p className="flex flex-col p-1">
-                        <span className="font-normal cursor-pointer">
-                          {user.fullName}
-                        </span>
-                        <span className="text-sm hover:underline text-foreground/70 cursor-pointer">
-                          @{user.username}
-                        </span>
-                      </p>
-                    </div>
-                  </DropdownMenuItem>
+                  {user && (
+                    <DropdownMenuItem>
+                      <div className="flex-[1]">
+                        <p className="flex flex-col p-1">
+                          <span className="font-normal cursor-pointer">
+                            {user.fullName}
+                          </span>
+                          <span className="text-sm hover:underline text-foreground/70 cursor-pointer">
+                            @{user.username}
+                          </span>
+                        </p>
+                      </div>
+                    </DropdownMenuItem>
+                  )}
                   <DropdownMenuSeparator />
                   {/*  */}
                   {user && user.role === "ADMIN" && (
@@ -107,26 +109,7 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                       </Link>
                     </DropdownMenuItem>
                   )}
-                  <DropdownMenuItem>
-                    {user && (
-                      <span className="text-foreground/50 cursor-not-allowed bg-transparent w-full ">
-                        {user && user.isVerfied ? (
-                          <span className="flex items-center ">
-                            Verified
-                            <IoIosCheckmark
-                              size={25}
-                              className="text-foreground/60 mx-4"
-                            />
-                          </span>
-                        ) : (
-                          <SendOTP
-                            email={user && (user.email as string)}
-                            token={token as string}
-                          />
-                        )}
-                      </span>
-                    )}
-                  </DropdownMenuItem>
+
                   <DropdownMenuItem>
                     <Link
                       href={"/settings"}
@@ -135,6 +118,29 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                       Settings
                     </Link>
                   </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  {user && (
+                    <DropdownMenuItem>
+                      {user && (
+                        <span className="text-foreground/50 cursor-not-allowed bg-transparent w-full ">
+                          {user && user.isVerfied ? (
+                            <span className="flex items-center ">
+                              Verified
+                              <IoIosCheckmark
+                                size={25}
+                                className="text-foreground/60 mx-4"
+                              />
+                            </span>
+                          ) : (
+                            <SendOTP
+                              email={user && (user.email as string)}
+                              token={token as string}
+                            />
+                          )}
+                        </span>
+                      )}
+                    </DropdownMenuItem>
+                  )}
                   <DropdownMenuItem>
                     {user ? (
                       <span
