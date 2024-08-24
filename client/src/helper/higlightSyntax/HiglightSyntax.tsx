@@ -22,7 +22,7 @@ const languagePatterns: Record<Language, LanguagePatterns> = {
           "import",
           "export",
           "interface",
-          "type",
+          "type ",
           "debugger",
           "console",
           "apt ",
