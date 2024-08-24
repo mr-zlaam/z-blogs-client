@@ -189,7 +189,7 @@ function UpdateBlogBySlug({
         </div>
       )}
       {isPreviewOpen && (
-        <div className="h-screen fixed top-0 left-0 w-full bg-background text-foreground z-[99] ">
+        <div className="h-screen fixed top-0 left-0 w-full bg-background text-foreground z-[99] overflow-y-auto">
           <PageWrapper>
             <h1 className="text-sm font-bold my-5 text-center">Preview Mode</h1>
             <h1 className="text-center font-bold text-2xl md:text-3xl my-4 text-balance">
