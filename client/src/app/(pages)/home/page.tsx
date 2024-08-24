@@ -1,3 +1,7 @@
+/* TODOS:
+ ** Forgot password feature is pending
+ ** Search functionality in Admin dashboard is waiting for implementation
+ */
 import { fetchHomePageBlogs } from "@/helper/fetch/fetchBLogs";
 import { BlogTypes } from "@/types";
 import { Fragment } from "react";
