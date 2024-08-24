@@ -26,7 +26,6 @@ async function Slug({ params }: { params: SlugTypes }) {
   const token = useCookieGrabber();
   if (!token) return redirect("/home");
   const data: SinglePostBlogTypes = await fetchSingleBlog(slug);
-  console.log(data);
   if (!data) return redirect("/admin/blogs/privateBlogs");
   return (
     <section className="mx-5">

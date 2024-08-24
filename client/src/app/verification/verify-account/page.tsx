@@ -18,7 +18,6 @@ function VerifyAccountPage() {
   }
   if (!user) return redirect("/home");
   if (user.isVerfied) {
-    console.log("redirecting..");
     return redirect("/home");
   }
   return (

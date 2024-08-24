@@ -370,7 +370,6 @@ const updateUserRoleController = asyncHandler(
       where: { uid },
       data: { role, tokenVersion: { increment: 1 } },
     });
-    console.log(updateUserRole);
     const payload: PayLoadType = {
       uid: updateUserRole && updateUserRole.uid,
       email: updateUserRole && updateUserRole.email,

@@ -22,11 +22,9 @@ export const CheckToken = asyncHandler(
     let decodedToken;
     try {
       decodedToken = verify(parsedToken, JWT_SECRET_KEY) as PayLoadType;
-      // console.log("token is valid md check", decodedToken);
     } catch (error: any) {
       throw { status: 400, message: "invalid token" };
     }
-    // console.log("Value extracted from decoded Token", decodedToken);
     const user = (await prisma.user.findUnique({
       where: { uid: decodedToken?.uid },
     })) as UserData;
@@ -45,8 +43,6 @@ export const CheckToken = asyncHandler(
 );
 export const ifUserIsAdmin = asyncHandler(
   async (req: RequestUser, res: Response, next: NextFunction) => {
-    console.log(req?.userFromToken);
-
     if (req.userFromToken?.role !== "ADMIN") {
       throw {
         status: UNAUTHORIZED,

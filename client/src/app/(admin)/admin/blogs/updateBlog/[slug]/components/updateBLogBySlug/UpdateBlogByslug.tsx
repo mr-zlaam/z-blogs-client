@@ -61,7 +61,6 @@ function UpdateBlogBySlug({
     data.author.fullName || ""
   );
   const [blogOverView, setBlogOverView] = useState(data.blogOverView || "");
-  console.log(previousData);
   // applying higlighter
   const renderedHtml = useMemo(() => {
     const rawHtml = DOMPurify.sanitize(marked(value) as string);
