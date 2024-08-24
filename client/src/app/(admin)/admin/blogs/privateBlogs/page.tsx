@@ -49,7 +49,6 @@ export default async function PrivateBlogsPage() {
   const draftPrivateBlogs: BlogTypes = await fetchPrivateBlogs(
     token?.value || ""
   );
-  console.log(draftPrivateBlogs);
   return (
     <>
       {draftPrivateBlogs?.success ? (

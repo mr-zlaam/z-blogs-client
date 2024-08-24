@@ -31,7 +31,6 @@ import { Fragment } from "react";
 
 export default async function AllPublicBlogs() {
   const publicBlogs: BlogTypes = await fetchAllPublicBlogs();
-  console.log(publicBlogs);
   const publicBlogsList = publicBlogs?.data;
 
   return (
