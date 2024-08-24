@@ -158,6 +158,16 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                       </Link>
                     )}
                   </DropdownMenuItem>
+                  {!user && (
+                    <DropdownMenuItem>
+                      <Link
+                        href={"/user-auth/sign-up"}
+                        className="text-green-600 select-none flex-1 block p-1 w-full"
+                      >
+                        Create Account
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
                 </DropdownMenuContent>
               </DropdownMenu>
               {/* <Popover>
