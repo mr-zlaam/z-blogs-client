@@ -1,36 +1,25 @@
 "use client";
 import { Separator } from "@/components/ui/separator";
 
-import DivWrapper from "@/_subComponents/divWrapper/DivWrapper";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { IoIosCheckmark } from "react-icons/io";
 
-import { Input } from "@/components/ui/input";
 import { Link } from "@/components/ui/link";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 import { handleLogout } from "@/helper/fetch/fetchBLogs";
 import { useMessage } from "@/hooks/useMessage";
 import logo from "@/images/logo/z-logo.png";
 import { PayLoadType } from "@/types";
-import { DialogClose } from "@radix-ui/react-dialog";
 import Image from "next/image";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FaUserCircle } from "react-icons/fa";
-import { GoSearch } from "react-icons/go";
 import { RandomAvatar } from "react-random-avatars";
 import SendOTP from "../send-otp/SendOTP";
-import SearchAcrossTheSite from "@/_subComponents/searchAcrossTheSite/SearchAcrossTheSite";
 
 function Header({ user, token }: { user: PayLoadType; token: string }) {
   const { successMessage } = useMessage();
@@ -63,6 +52,7 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                   {user && user.uid ? (
                     <RandomAvatar
                       size={35}
+                      mode="random"
                       name={(user && user.username) || "hero"}
                       square
                     />
