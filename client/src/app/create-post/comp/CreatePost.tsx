@@ -121,6 +121,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
         }
       );
       if (response.status === 201) {
+        //TODO: uncomment this later
         // setValue("");
         // setTitle("");
         // setCoverImageUrl("");
