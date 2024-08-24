@@ -441,15 +441,11 @@ const getAllPrivateBlogsController = asyncHandler(
         .status(NOT_FOUND)
         .json(apiResponse(NOT_FOUND, "No private Blog found", privateBlogs));
     }
-    return res
-      .status(OK)
-      .json(
-        apiResponse(
-          OK,
-          "All private blogs data fetched successfully",
-          privateBlogs
-        )
-      );
+    return res.status(OK).json(
+      apiResponse(OK, "All private blogs data fetched successfully", {
+        blogs: privateBlogs,
+      })
+    );
   }
 );
 

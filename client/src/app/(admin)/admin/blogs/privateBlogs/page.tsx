@@ -25,48 +25,33 @@ import {
 } from "@/components/ui/table";
 import moment from "moment";
 
-import { axios } from "@/axios";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
+import { SECRET } from "@/config";
+import { fetchPrivateBlogs } from "@/helper/fetch/fetchBLogs";
 import useCookieGrabber from "@/hooks/useCookieGrabber";
-import { BlogTypes } from "@/types";
+import { BlogTypes, PayLoadType } from "@/types";
+import { verify } from "jsonwebtoken";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Fragment } from "react";
-const fetchPrivateBlogs = async (token: string) => {
+
+export default async function PrivateBlogsPage() {
+  const token = useCookieGrabber();
+  if (!token) return redirect("/home");
+  // verify token
+  let user;
   try {
-    const response = await axios.get("/blog/getAllPrivateBlogs", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
+    user = verify(token?.value, SECRET) as PayLoadType;
   } catch (error: any) {
     console.log(error.message);
-    return error.response.data || 403;
   }
-};
-
-export default async function PrivateBlogs() {
-  const token = useCookieGrabber();
-
+  if (user?.role !== "ADMIN") return redirect("/home");
   const draftPrivateBlogs: BlogTypes = await fetchPrivateBlogs(
     token?.value || ""
   );
-  if (draftPrivateBlogs.data?.blogs.length === 0)
-    return (
-      <div className="min-h-[70vh] flex justify-center items-center">
-        <h1 className="text-3xl font-bold text-center">
-          No Private Post Found !
-        </h1>
-      </div>
-    );
-  if (!draftPrivateBlogs.success) return redirect("/home");
-  const data = draftPrivateBlogs?.data;
-  if (!data) return redirect("/home");
-
   return (
     <>
-      {draftPrivateBlogs.success ? (
+      {draftPrivateBlogs?.success ? (
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
           <Tabs defaultValue="all">
             <TabsContent value="all">
@@ -99,74 +84,76 @@ export default async function PrivateBlogs() {
                       </TableRow>
                     </TableHeader>
                     <TableBody className="b">
-                      {data?.blogs.length === 0 ? (
+                      {draftPrivateBlogs?.data?.blogs.length === 0 ? (
                         <div>No Data Found</div>
                       ) : (
-                        data?.blogs.map((privateBlog, index: number) => {
-                          return (
-                            <Fragment key={privateBlog.blogId}>
-                              <TableRow className="">
-                                <TableCell className="hidden sm:table-cell">
-                                  <span className="font-medium">
-                                    {index + 1}
-                                  </span>
-                                </TableCell>
-                                <TableCell className="font-medium">
-                                  {privateBlog.blogTitle}
-                                </TableCell>
+                        draftPrivateBlogs?.data?.blogs.map(
+                          (privateBlog, index: number) => {
+                            return (
+                              <Fragment key={privateBlog.blogId}>
+                                <TableRow className="">
+                                  <TableCell className="hidden sm:table-cell">
+                                    <span className="font-medium">
+                                      {index + 1}
+                                    </span>
+                                  </TableCell>
+                                  <TableCell className="font-medium">
+                                    {privateBlog.blogTitle}
+                                  </TableCell>
 
-                                <TableCell>
-                                  {privateBlog.author.fullName}
-                                </TableCell>
-                                <TableCell className="hidden md:table-cell">
-                                  {moment(privateBlog.createdAt).format(
-                                    "MMMM Do YYYY, h:mm:ss a"
-                                  )}
-                                </TableCell>
-                                <TableCell className="hidden md:table-cell">
-                                  {moment(privateBlog.updatedAt).format(
-                                    "MMMM Do YYYY, h:mm:ss a"
-                                  )}
-                                </TableCell>
-                                <TableCell>
-                                  <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
-                                      <Button
-                                        aria-haspopup="true"
-                                        size="icon"
-                                        variant="ghost"
-                                      >
-                                        <MoreHorizontal className="h-4 w-4" />
-                                        <span className="sr-only">
-                                          Toggle menu
-                                        </span>
-                                      </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent align="end">
-                                      <DropdownMenuLabel>
-                                        Actions
-                                      </DropdownMenuLabel>
-                                      <Link
-                                        href={`updateBlog/${privateBlog.blogSlug}`}
-                                      >
-                                        <DropdownMenuItem>
-                                          edit
-                                        </DropdownMenuItem>
-                                      </Link>
-                                      <Link
-                                        href={`deleteBlog/${privateBlog.blogSlug}`}
-                                      >
-                                        <DropdownMenuItem>
-                                          Delete
-                                        </DropdownMenuItem>
-                                      </Link>
-                                    </DropdownMenuContent>
-                                  </DropdownMenu>
-                                </TableCell>
-                              </TableRow>
-                            </Fragment>
-                          );
-                        })
+                                  <TableCell>
+                                    {privateBlog.author.fullName}
+                                  </TableCell>
+                                  <TableCell className="hidden md:table-cell">
+                                    {moment(privateBlog.createdAt).format(
+                                      "MMMM Do YYYY, h:mm:ss a"
+                                    )}
+                                  </TableCell>
+                                  <TableCell className="hidden md:table-cell">
+                                    {moment(privateBlog.updatedAt).format(
+                                      "MMMM Do YYYY, h:mm:ss a"
+                                    )}
+                                  </TableCell>
+                                  <TableCell>
+                                    <DropdownMenu>
+                                      <DropdownMenuTrigger asChild>
+                                        <Button
+                                          aria-haspopup="true"
+                                          size="icon"
+                                          variant="ghost"
+                                        >
+                                          <MoreHorizontal className="h-4 w-4" />
+                                          <span className="sr-only">
+                                            Toggle menu
+                                          </span>
+                                        </Button>
+                                      </DropdownMenuTrigger>
+                                      <DropdownMenuContent align="end">
+                                        <DropdownMenuLabel>
+                                          Actions
+                                        </DropdownMenuLabel>
+                                        <Link
+                                          href={`updateBlog/${privateBlog.blogSlug}`}
+                                        >
+                                          <DropdownMenuItem>
+                                            edit
+                                          </DropdownMenuItem>
+                                        </Link>
+                                        <Link
+                                          href={`deleteBlog/${privateBlog.blogSlug}`}
+                                        >
+                                          <DropdownMenuItem>
+                                            Delete
+                                          </DropdownMenuItem>
+                                        </Link>
+                                      </DropdownMenuContent>
+                                    </DropdownMenu>
+                                  </TableCell>
+                                </TableRow>
+                              </Fragment>
+                            );
+                          }
+                        )
                       )}
                     </TableBody>
                   </Table>
@@ -178,7 +165,7 @@ export default async function PrivateBlogs() {
       ) : (
         <div className="min-h-[70vh] flex justify-center items-center">
           <h1 className="text-3xl font-bold text-center">
-            No Private Post Found !
+            No Private Post Found !~
           </h1>
         </div>
       )}

@@ -92,3 +92,25 @@ export const handleLogout = async (token: string) => {
     return error;
   }
 };
+// fetch private blogs
+export const fetchPrivateBlogs = async (token: string) => {
+  if (!token)
+    return console.log("token is not given for fecthing private stuff");
+  try {
+    const response = await fetch(`${BACKEND_URI}/blog/getAllPrivateBlogs`, {
+      cache: "no-store",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data as BlogTypes;
+    }
+  } catch (error: any) {
+    console.log(error.message);
+    return error.response.data || 403;
+  }
+};

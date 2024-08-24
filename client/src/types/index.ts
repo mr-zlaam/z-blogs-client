@@ -104,3 +104,4 @@ export interface CurrentUserTypes {
   fullName: string;
   role: "ADMIN" | "MODERATOR" | "USER";
 }
+// Private blog types
