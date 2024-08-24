@@ -332,7 +332,7 @@ function UpdateBlogBySlug({
           <Dialog>
             <div className=" w-full flex justify-end px-5 ">
               <DialogTrigger asChild className="">
-                <Button className="">Upload Blog</Button>
+                <Button className="">Update Blog</Button>
               </DialogTrigger>
             </div>
             <DialogContent className="sm:max-w-md">
