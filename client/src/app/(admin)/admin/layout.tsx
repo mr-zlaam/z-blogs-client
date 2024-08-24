@@ -146,7 +146,7 @@ export default function AdminLayout({
             <Input
               type="search"
               placeholder="Search..."
-              className="w-full rounded-lg bg-transparent pl-8 md:w-[200px] lg:w-[320px]"
+              className="w-full rounded-lg bg-transparent pl-8 md:w-[200px] lg:w-[320px] border border-solid"
             />
           </div>
         </header>
