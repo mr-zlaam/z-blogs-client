@@ -52,6 +52,7 @@ export const registerSchema: ZodType<UserRegisterTypes> = object({
 
 export const loginSchema: ZodType<UserLoginTypes> = object({
   usernameORmail: string({ message: "username or email is required" })
+    .trim()
     .max(100, {
       message: "This field must not contain more than 100 characters",
     })

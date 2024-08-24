@@ -34,8 +34,8 @@ function LoginForm() {
       const response = await axios.post(
         `${BACKEND_URI}/auth/login`,
         {
-          email: usernameORmail.toLowerCase(),
-          username: usernameORmail.toLowerCase(),
+          email: usernameORmail.toLowerCase().trim(),
+          username: usernameORmail.toLowerCase().trim(),
           password,
         },
         {

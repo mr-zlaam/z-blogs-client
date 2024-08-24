@@ -1,4 +1,3 @@
-import { axios } from "@/axios";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,28 +22,21 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
-import { PublicBLogTypes } from "@/types";
-import htmlParser from "html-react-parser";
+import { fetchAllPublicBlogs } from "@/helper/fetch/fetchBLogs";
+import { BlogTypes } from "@/types";
 import { MoreHorizontal } from "lucide-react";
 import moment from "moment";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { Fragment } from "react";
-const fetchPublicBlogs = async () => {
-  try {
-    const response = await axios.get("/blog/getAllPublicBlogs");
-    return response.data;
-  } catch (error: any) {
-    console.log(error.message);
-    return error;
-  }
-};
+
 export default async function AllPublicBlogs() {
-  const publicBlogs: PublicBLogTypes = await fetchPublicBlogs();
-  const publicBlogsList = publicBlogs.data.blogs;
+  const publicBlogs: BlogTypes = await fetchAllPublicBlogs();
+  console.log(publicBlogs);
+  const publicBlogsList = publicBlogs?.data;
+
   return (
     <>
-      {publicBlogsList.length === 0 && (
+      {publicBlogsList?.blogs.length === 0 && (
         <div className="min-h-[70vh] flex justify-center items-center">
           <h1 className="text-3xl font-bold text-center">
             No Public Post Found !
@@ -83,63 +75,69 @@ export default async function AllPublicBlogs() {
                       </TableRow>
                     </TableHeader>
                     <TableBody className="b">
-                      {publicBlogsList.map((publicBlog, index: number) => {
-                        return (
-                          <Fragment key={publicBlog.blogId}>
-                            <TableRow className="">
-                              <TableCell className="hidden sm:table-cell">
-                                <span className="font-medium">{index + 1}</span>
-                              </TableCell>
-                              <TableCell className="font-medium">
-                                {publicBlog.blogTitle}
-                              </TableCell>
+                      {publicBlogsList?.blogs.map(
+                        (publicBlog, index: number) => {
+                          return (
+                            <Fragment key={publicBlog.blogId}>
+                              <TableRow className="">
+                                <TableCell className="hidden sm:table-cell">
+                                  <span className="font-medium">
+                                    {index + 1}
+                                  </span>
+                                </TableCell>
+                                <TableCell className="font-medium">
+                                  {publicBlog.blogTitle}
+                                </TableCell>
 
-                              <TableCell>
-                                {publicBlog.author.fullName} <br />
-                                <span className="text-sm text-gray-500">
-                                  @{publicBlog.author.username}
-                                </span>
-                              </TableCell>
-                              <TableCell className="hidden md:table-cell">
-                                {moment(publicBlog.createdAt).format(
-                                  "MMMM Do YYYY, h:mm:ss a"
-                                )}
-                              </TableCell>
-                              <TableCell className="hidden md:table-cell">
-                                {moment(publicBlog.updatedAt).format(
-                                  "MMMM Do YYYY, h:mm:ss a"
-                                )}
-                              </TableCell>
-                              <TableCell>
-                                <DropdownMenu>
-                                  <DropdownMenuTrigger asChild>
-                                    <Button
-                                      aria-haspopup="true"
-                                      size="icon"
-                                      variant="ghost"
-                                    >
-                                      <MoreHorizontal className="h-4 w-4" />
-                                      <span className="sr-only">
-                                        Toggle menu
-                                      </span>
-                                    </Button>
-                                  </DropdownMenuTrigger>
-                                  <DropdownMenuContent align="end">
-                                    <DropdownMenuLabel>
-                                      Actions
-                                    </DropdownMenuLabel>
-                                    <Link
-                                      href={`updateBlog/${publicBlog.blogSlug}`}
-                                    >
-                                      <DropdownMenuItem>edit</DropdownMenuItem>
-                                    </Link>
-                                  </DropdownMenuContent>
-                                </DropdownMenu>
-                              </TableCell>
-                            </TableRow>
-                          </Fragment>
-                        );
-                      })}
+                                <TableCell>
+                                  {publicBlog.author.fullName} <br />
+                                  <span className="text-sm text-gray-500">
+                                    @{publicBlog.author.username}
+                                  </span>
+                                </TableCell>
+                                <TableCell className="hidden md:table-cell">
+                                  {moment(publicBlog.createdAt).format(
+                                    "MMMM Do YYYY, h:mm:ss a"
+                                  )}
+                                </TableCell>
+                                <TableCell className="hidden md:table-cell">
+                                  {moment(publicBlog.updatedAt).format(
+                                    "MMMM Do YYYY, h:mm:ss a"
+                                  )}
+                                </TableCell>
+                                <TableCell>
+                                  <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                      <Button
+                                        aria-haspopup="true"
+                                        size="icon"
+                                        variant="ghost"
+                                      >
+                                        <MoreHorizontal className="h-4 w-4" />
+                                        <span className="sr-only">
+                                          Toggle menu
+                                        </span>
+                                      </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end">
+                                      <DropdownMenuLabel>
+                                        Actions
+                                      </DropdownMenuLabel>
+                                      <Link
+                                        href={`updateBlog/${publicBlog.blogSlug}`}
+                                      >
+                                        <DropdownMenuItem>
+                                          edit
+                                        </DropdownMenuItem>
+                                      </Link>
+                                    </DropdownMenuContent>
+                                  </DropdownMenu>
+                                </TableCell>
+                              </TableRow>
+                            </Fragment>
+                          );
+                        }
+                      )}
                     </TableBody>
                   </Table>
                 </CardContent>

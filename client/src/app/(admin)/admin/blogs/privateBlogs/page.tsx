@@ -32,7 +32,6 @@ import { BlogTypes } from "@/types";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Fragment } from "react";
-import { ChekcIfUserIsAdmin } from "../publicBlogs/page";
 const fetchPrivateBlogs = async (token: string) => {
   try {
     const response = await axios.get("/blog/getAllPrivateBlogs", {
@@ -49,13 +48,11 @@ const fetchPrivateBlogs = async (token: string) => {
 
 export default async function PrivateBlogs() {
   const token = useCookieGrabber();
-  const isUserAdmin = await ChekcIfUserIsAdmin(token?.value as string);
-  if (isUserAdmin.statusCode !== 200) return redirect("/home");
 
   const draftPrivateBlogs: BlogTypes = await fetchPrivateBlogs(
     token?.value || ""
   );
-  if (draftPrivateBlogs.data?.length === 0)
+  if (draftPrivateBlogs.data?.blogs.length === 0)
     return (
       <div className="min-h-[70vh] flex justify-center items-center">
         <h1 className="text-3xl font-bold text-center">
@@ -64,7 +61,7 @@ export default async function PrivateBlogs() {
       </div>
     );
   if (!draftPrivateBlogs.success) return redirect("/home");
-  const data = draftPrivateBlogs.data;
+  const data = draftPrivateBlogs?.data;
   if (!data) return redirect("/home");
 
   return (
@@ -102,10 +99,10 @@ export default async function PrivateBlogs() {
                       </TableRow>
                     </TableHeader>
                     <TableBody className="b">
-                      {data?.length === 0 ? (
+                      {data?.blogs.length === 0 ? (
                         <div>No Data Found</div>
                       ) : (
-                        data?.map((privateBlog, index: number) => {
+                        data?.blogs.map((privateBlog, index: number) => {
                           return (
                             <Fragment key={privateBlog.blogId}>
                               <TableRow className="">

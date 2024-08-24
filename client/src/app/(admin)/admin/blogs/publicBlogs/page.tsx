@@ -3,23 +3,22 @@ import AllPublicBlogs from "./components/AllPublicBlogs";
 import { axios } from "@/axios";
 import useCookieGrabber from "@/hooks/useCookieGrabber";
 import { redirect } from "next/navigation";
-export const ChekcIfUserIsAdmin = async (token: string) => {
-  try {
-    const response = await axios.get("/blog/checkIfuserIsAdmin", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (error: any) {
-    console.log(error.message);
-    return error;
-  }
-};
+import { verify } from "jsonwebtoken";
+import { SECRET } from "@/config";
+import { PayLoadType } from "@/types";
+
 async function PublicBlogs() {
   const token = useCookieGrabber();
-  const isUserAdmin = await ChekcIfUserIsAdmin(token?.value || "");
-  if (isUserAdmin.statusCode !== 200) return redirect("/home");
+  if (!token) return redirect("/home");
+  let user;
+
+  try {
+    user = verify(token?.value, SECRET) as PayLoadType;
+  } catch (error: any) {
+    console.log(error.message);
+  }
+
+  if (!user || user.role !== "ADMIN") return redirect("/home");
   return (
     <>
       <main>
