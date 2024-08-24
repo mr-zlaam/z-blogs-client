@@ -1,80 +1,125 @@
 "use client";
-import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
-import { AlloweTags } from "@/app/createBlog/helper/toolbar";
+import PageWrapper from "@/app/_components/pageWrapper/PageWrapper";
 import { axios } from "@/axios";
+import { AlertDialogFooter } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Link } from "@/components/ui/link";
+import { handleLogout } from "@/helper/fetch/fetchBLogs";
+import highlightSyntax from "@/helper/higlightSyntax/HiglightSyntax";
 import { useMessage } from "@/hooks/useMessage";
 import { useValidateImageUrl as UseValidateImageUrl } from "@/hooks/useValidateUrl";
-import { cn } from "@/lib/utils";
-import { BlogDataTypes } from "@/types";
-import { AxiosError } from "axios";
-import Froalaeditor from "froala-editor";
-import "froala-editor/css/froala_editor.pkgd.min.css";
-import "froala-editor/css/froala_style.min.css";
-import "froala-editor/css/plugins/code_view.min.css";
-import "froala-editor/js/plugins/align.min.js";
-import "froala-editor/js/plugins/char_counter.min.js";
-import "froala-editor/js/plugins/code_beautifier.min.js";
-import "froala-editor/js/plugins/code_view.min.js";
-import "froala-editor/js/plugins/colors.min.js";
-import "froala-editor/js/plugins/font_family.min.js";
-import "froala-editor/js/plugins/font_size.min.js";
-import "froala-editor/js/plugins/image.min.js";
-import "froala-editor/js/plugins/inline_style.min.js";
-import "froala-editor/js/plugins/link.min.js";
-import "froala-editor/js/plugins/lists.min.js";
-import "froala-editor/js/plugins/markdown.min.js";
-import "froala-editor/js/plugins/quick_insert.min.js";
-import "froala-editor/js/plugins/save.min.js";
 import parser from "html-react-parser";
-import moment from "moment";
+import DOMPurify from "isomorphic-dompurify";
+import { marked } from "marked";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
-import FroalaEditor from "react-froala-wysiwyg";
-import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
+import { useMemo, useRef, useState } from "react";
+import logoImage from "../../../../../../../../../public/logo/Zlaam.jpg";
+import { BlogDataTypes, SinglePostBlogTypes } from "@/types";
+import { AxiosError } from "axios";
+const Editor = dynamic(
+  () => import("../../../../../../../create-post/comp/editor/Editor"),
+  {
+    ssr: false,
+  }
+);
 
 function UpdateBlogBySlug({
   slugForUpdate,
   previousData,
   token,
 }: {
-  slugForUpdate: string;
-  previousData: any;
   token: string;
+  slugForUpdate: string;
+  previousData: SinglePostBlogTypes;
 }) {
-  const getObjectOfFetchedData: BlogDataTypes = previousData.data;
+  // destructring of object
 
-  const oldData = getObjectOfFetchedData;
+  const { data } = previousData;
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [isPublic, setIsPublic] = useState(data.isPublic || false);
   const { errorMessage, successMessage } = useMessage();
-  const [showPreview, setShowPreview] = useState<boolean>(false);
+  const [value, setValue] = useState(data.blogDescription || "");
+  const [title, setTitle] = useState(data.blogTitle || "");
+  const [coverImageUrl, setCoverImageUrl] = useState(data.blogThumbnail || "");
+  const [coverImageOwnerName, setCoverImageOwnerName] = useState(
+    data.blogThumbnailAuthor || ""
+  );
+  const [isSessionExpiredError, setIsSessionExpiredError] = useState(false);
   const router = useRouter();
-  //states
-  const [updateTitle, setupdateTitle] = useState(oldData?.blogTitle || "");
-  const [isPublic, setIsPublic] = useState(oldData?.isPublic || false);
-  const [updateBlogAuthor, setupdateBlogAuthor] = useState(
-    oldData?.author?.fullName || ""
+  const [blogWriterName, setBlogWriterName] = useState(
+    data.author.fullName || ""
   );
-  const [updateBlogThumbnail, setUpdateBlogThumbnail] = useState(
-    oldData?.blogThumbnail ||
-      "https://code.visualstudio.com/assets/docs/languages/javascript/jsx.png"
-  );
-  const [updateBlogThumbnailAuthor, setUpdateBlogThumbnailAuthor] = useState(
-    oldData?.blogThumbnailAuthor
-  );
-  const [updateBlogDesc, setUpdateBlogDesc] = useState(() => {
-    return oldData?.blogDescription || localStorage.getItem("savedHtml") || "";
-  });
-  //handleOnchageFunction
+  const [blogOverView, setBlogOverView] = useState(data.blogOverView || "");
+  console.log(previousData);
+  // applying higlighter
+  const renderedHtml = useMemo(() => {
+    const rawHtml = DOMPurify.sanitize(marked(value) as string);
+    const highlightedHtml = highlightSyntax(rawHtml, "js");
 
+    // Add copy buttons to each <pre> block
+    const copyButtonHtml = (id: string) =>
+      `
+    <div class="relative ">
+    <button class="absolute right-5 top-4 px-3 py-1  rounded-md bg-transparent cursor-pointer  duration-200 transition-all " onclick="copyToClipboard('${id}')">
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="White" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>
+    </button>
+    </div>
+    `;
+
+    const withCopyButtons = highlightedHtml.replace(
+      /(<pre[^>]*>)(.*?)(<\/pre>)/gs,
+      (_, openingTag, codeContent, closingTag) => {
+        const uniqueId = `codeBlock-${Math.random().toString(36).substr(2, 9)}`;
+        return `<div class="code-container">${copyButtonHtml(
+          uniqueId
+        )}${openingTag}<code id="${uniqueId}">${codeContent}</code>${closingTag}</div>`;
+      }
+    );
+
+    return withCopyButtons;
+  }, [value]);
+  const imageUrlRef = useRef<any>(null);
+  const setUrlToImageBlog = (e: React.FormEvent) => {
+    const url = imageUrlRef.current.value;
+    if (UseValidateImageUrl(url)) {
+      setCoverImageUrl(imageUrlRef.current.value);
+    } else {
+      return errorMessage("Please provide a valid image url");
+    }
+  };
+  // Date
+  const date = new Date();
+  const today = date.toLocaleDateString();
+  // upload article to database
+  const handleValidate = () => {
+    if (!title) return errorMessage("Write the title of the blog ");
+    if (!coverImageOwnerName)
+      return errorMessage("Write the name of the owner of the cover image");
+    if (!coverImageUrl) return errorMessage("Write cover image url");
+    if (!blogWriterName)
+      return errorMessage("Write the name of author who write blog");
+    if (!value) return errorMessage("Write atleast some of it");
+    if (!blogOverView) return errorMessage("Write atleast some of it");
+  };
   const handleUpdateBlog = async (e: React.FormEvent) => {
     if (
-      !updateBlogAuthor ||
-      !updateTitle ||
-      !updateBlogDesc ||
-      !updateBlogThumbnail ||
-      !updateBlogThumbnailAuthor
+      !blogOverView ||
+      !title ||
+      !value ||
+      !coverImageOwnerName ||
+      !coverImageUrl ||
+      !blogWriterName
     ) {
       return errorMessage("Please Provide all fields");
     }
@@ -83,11 +128,12 @@ function UpdateBlogBySlug({
       const responseFromUpdateBlog = await axios.put(
         `/blog/updateBlog/${slugForUpdate}`,
         {
-          author: updateBlogAuthor,
-          blogTitle: updateTitle,
-          blogDescription: updateBlogDesc,
-          blogThumbnail: updateBlogThumbnail,
-          blogThumbnailAuthor: updateBlogThumbnailAuthor,
+          author: blogWriterName,
+          blogTitle: title,
+          blogDescription: value,
+          blogThumbnail: coverImageUrl,
+          blogThumbnailAuthor: coverImageOwnerName,
+          blogOverView: blogOverView,
           isPublic: isPublic,
         },
         {
@@ -98,7 +144,7 @@ function UpdateBlogBySlug({
       );
       if (responseFromUpdateBlog.status === 200) {
         successMessage("Blog Updated Successfully");
-        return router.push("/admin/blogs/privateBlogs");
+        //  return router.push("/admin/blogs/privateBlogs");
       }
       return;
     } catch (error: any) {
@@ -110,186 +156,206 @@ function UpdateBlogBySlug({
       }, 3000);
     }
   };
-
-  //Handle show preview
-  const handleShowPreview = () => {
-    setShowPreview((prev) => !prev);
+  const handeTogglePreview = () => {
+    setIsPreviewOpen(!isPreviewOpen);
   };
-
-  const imageUrlRef = useRef<any>(oldData?.blogThumbnail || null);
-  const setUrlToImageBlog = (e: React.FormEvent) => {
-    e.preventDefault();
-    const url: string = imageUrlRef.current.value;
-    if (UseValidateImageUrl(url)) {
-      if (url.includes("_next/image"))
-        return errorMessage("This url can't be set!");
-      setUpdateBlogThumbnail(imageUrlRef.current.value);
-    } else {
-      return errorMessage("Please provide a valid image url");
+  const logoutTheUser = async () => {
+    try {
+      const res = await handleLogout(token as string);
+      if (res?.status === 200) {
+        successMessage("User logout successfully");
+        if (typeof window !== "undefined") {
+          window.location.reload();
+        }
+        return router.push("/user-auth/sign-in");
+      }
+    } catch (error: any) {
+      console.log(error);
     }
   };
-  const today = new Date();
-  const monthName = today.toLocaleString("en-US", { month: "short" });
-  const date = new Date().getDate();
-  const month = monthName;
-  const year = new Date().getFullYear();
-  const full_date = `${date}- ${month}- ${year}`;
   return (
     <>
-      <Button
-        onClick={handleShowPreview}
-        className="fixed right-2 z-[101] top-14 border border-foreground shadow-md shadow-black"
-        size="default"
-      >
-        {showPreview ? "Hide Preview" : "Show Preview"}
-      </Button>
-      <section className="px-5 py-2">
-        <form onSubmit={handleUpdateBlog} className="w-full">
-          <div className="my-2">
-            <label htmlFor="updateTitle">UpdateTilte</label>
-            <Input
-              type="text"
-              id="updateTitle"
-              value={updateTitle}
-              onChange={(e) => setupdateTitle(e.target.value)}
-              placeholder="Update Title of this Blog..."
-            />
+      {isSessionExpiredError && (
+        <div className="bg-background/80 backdrop-blur-md fixed top-0 left-0 h-screen z-[200] w-full flex justify-center items-center">
+          <div className="  p-5 rounded break-words border-spacing-3 border-solid border-foreground/40">
+            <h1>Your Session is Expired Please sign in again</h1>
+            <Button
+              onClick={logoutTheUser}
+              variant={"destructive"}
+              className="block mx-auto w-fit my-5"
+            >
+              Log Out
+            </Button>
           </div>
-          <div className="my-2">
-            <label htmlFor="updateBlogAuthor">UpdateBlogAuthor</label>
-            <Input
-              type="text"
-              id="updateBlogAuthor"
-              value={updateBlogAuthor}
-              onChange={(e) => setupdateBlogAuthor(e.target.value)}
-              placeholder="Update Title of this Blog..."
-            />
-          </div>
-          <div className="my-2">
-            <label htmlFor="updateBlogAuthor">UpdateBlogThumbnail</label>
-            <div className="relative">
-              <Input
-                type="url"
-                id="UpdateBlogThumbnail"
-                ref={imageUrlRef}
-                placeholder="Update Title of this Blog..."
-                defaultValue={updateBlogThumbnail}
+        </div>
+      )}
+      {isPreviewOpen && (
+        <div className="h-screen fixed top-0 left-0 w-full bg-background text-foreground z-[99] overflow-y-auto">
+          <PageWrapper>
+            <h1 className="text-sm font-bold my-5 text-center">Preview Mode</h1>
+            <h1 className="text-center font-bold text-2xl md:text-3xl my-4 text-balance">
+              {title}
+            </h1>
+            <div className="flex  items-center my-4  px-4 ">
+              <Image
+                src={logoImage}
+                alt="Zlaam"
+                className="rounded-full w-[50px] h-[50px]"
               />
-              <Button
-                variant={"link"}
-                onClick={setUrlToImageBlog}
-                className="absolute top-[2px] right-3 text-xs"
-              >
-                Set Url
-              </Button>
+              <div className="flex flex-col justify-start px-4 mt-5">
+                <h1 className="text-lg font-semibold ">{blogWriterName}</h1>
+                <p className="text-sm text-left">published on: {today}</p>
+              </div>
             </div>
-          </div>
-          <div className="my-2">
-            <label htmlFor="UpdateBlogThumbnailAuthor">
-              UpdateBlogThumbnailAuthor
-            </label>
-            <Input
-              type="text"
-              id="UpdateBlogThumbnailAuthor"
-              value={updateBlogThumbnailAuthor}
-              onChange={(e) => setUpdateBlogThumbnailAuthor(e.target.value)}
-              placeholder="Update Title of this Blog..."
-            />
-          </div>
-          <div className="my-2">
-            <label htmlFor="isPublic">isPublic</label>
-            <input
-              id="isPublic"
-              type="checkbox"
-              checked={isPublic}
-              onChange={(e) => setIsPublic(e.target.checked)}
-              placeholder="Update Title of this Blog..."
-              className="mx-4"
-            />
-          </div>
-          {`<pre style="display: block;border: 2px solid #fff;color: #ffffff;background:#000000;padding: 20px 15px;border-radius: 10px;overflow-x: auto;height: fit-content;" id="code" class="code"></pre>
-      `}
-          <div className="relative h-fit overflow-hidden my-4">
-            <FroalaEditor
-              model={updateBlogDesc}
-              onModelChange={(e: string) => setUpdateBlogDesc(e)}
-              config={{
-                toolbarSticky: true,
-                placeholderText: "Start writing from here...",
-                saveInterval: 2000,
-                charCounterCount: true,
-                enter: Froalaeditor.ENTER_BR,
-                htmlAllowedTags: AlloweTags,
-                htmlUntouched: true,
-                height: 450,
-                width: "100%",
-                events: {
-                  "save.before": function (html: string) {
-                    localStorage.setItem("savedHtml", html);
-                  },
-                },
+            <div>
+              <Image
+                src={coverImageUrl ?? ""}
+                height={400}
+                width={800}
+                className="rounded-md shadow-md shadow-foreground/50"
+                alt={blogWriterName}
+                priority
+              />
+            </div>
+            <p className="text-sm  text-center">
+              Image by : {parser(coverImageOwnerName)}
+            </p>
+            <div
+              className="font-normal text-lg my-5 leading-[2]"
+              dangerouslySetInnerHTML={{
+                __html:
+                  renderedHtml.length === 0
+                    ? "Write something...."
+                    : renderedHtml,
               }}
-            />
-            <div className="bg-white absolute bottom-4 h-[20px] w-full max-w-4xl" />
-          </div>
-          <div className="flex justify-end w-full px-5">
-            <Button className="">Update Blog</Button>
-          </div>
-        </form>
-        {showPreview && (
-          <div
-            className={cn(
-              "py-5 p-4  fixed overflow-auto bg-background z-[100] w-full top-0 left-0 h-screen"
-            )}
+            ></div>
+          </PageWrapper>
+        </div>
+      )}
+      <Button
+        title="Press(ctrl+shift+l)"
+        className="fixed right-4 top-3 z-[100]"
+        onKeyDown={(e) => {
+          if (e.key === "L" && e.ctrlKey && e.shiftKey) {
+            handeTogglePreview();
+          }
+        }}
+        autoFocus
+        onClick={() => {
+          setIsPreviewOpen((prev) => !prev);
+        }}
+      >
+        {isPreviewOpen ? "Hide Preview" : "ShowPreview"}
+      </Button>
+      <div className="flex justify-center items-center">
+        <Link
+          varient="expand-from-left"
+          href={"/home"}
+          className="text-blue-500 after:bg-blue-500  mx-4"
+        >
+          Go Back
+        </Link>
+        <p className="text-center font-bold text-lg mx-4">
+          Preview(ctrl+shift+l)
+        </p>
+      </div>
+
+      <div className="max-w-[1550px] mx-auto">
+        <input
+          className="outline-none  w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-2 font-bold"
+          placeholder=" Write Title here..."
+          value={title}
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+        />
+        <textarea
+          className="outline-none p w-full  bg-transparent resize-none border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3"
+          placeholder=" Write some information about your blog..."
+          value={blogOverView}
+          onChange={(e) => {
+            setBlogOverView(e.target.value);
+          }}
+          rows={3}
+        />
+        <div className="relative">
+          <input
+            className="outline-none m-3 w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3 font-bold pr-20"
+            placeholder="Cover Image  Url..."
+            ref={imageUrlRef}
+            type="url"
+            onChange={(e) => {
+              setCoverImageUrl(e.target.value);
+            }}
+            value={coverImageUrl}
+          />
+          <Button
+            variant={"link"}
+            onClick={setUrlToImageBlog}
+            className="bg-transparent absolute top-4 right-2"
           >
-            <PageWrapper className="md:max-w-[920px]">
-              <h1 className="text-center font-bold text-2xl md:text-4xl my-4 text-balance">
-                {updateTitle}
-              </h1>
-              <div className="flex  items-center my-4  px-4">
-                <Image
-                  src={"/logo/Zlaam.jpg"}
-                  alt="Zlaam"
-                  width={50}
-                  height={50}
-                  className="rounded-full"
-                />
+            set url
+          </Button>
+        </div>
+        <input
+          className="outline-none m-3 w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3 font-bold pr-20"
+          placeholder="Cover Image's owners name.."
+          type="text"
+          value={coverImageOwnerName}
+          onChange={(e) => {
+            setCoverImageOwnerName(e.target.value);
+          }}
+        />
+        <input
+          className="outline-none m-2 w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-2 font-bold pr-20"
+          placeholder="Blog Writer's  name.."
+          type="text"
+          value={blogWriterName}
+          onChange={(e) => {
+            setBlogWriterName(e.target.value);
+          }}
+        />
+        <div className="my-2">
+          <label htmlFor="isPublic">isPublic</label>
+          <input
+            id="isPublic"
+            type="checkbox"
+            checked={isPublic}
+            onChange={(e) => setIsPublic(e.target.checked)}
+            placeholder="Update Title of this Blog..."
+            className="mx-4"
+          />
+        </div>
+      </div>
+      <div className="max-w-[1550px] mx-auto">
+        <Editor setValue={setValue} value={value} />
+        <div className="my-2 flex justify-end px-5 select-none">
+          <Dialog>
+            <div className=" w-full flex justify-end px-5 ">
+              <DialogTrigger asChild className="">
+                <Button className="">Upload Blog</Button>
+              </DialogTrigger>
+            </div>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>Are you sure?</DialogTitle>
+                <DialogDescription>
+                  This action will update the data of blog
+                </DialogDescription>
+              </DialogHeader>
 
-                <div className="flex flex-col px-4 justify-start">
-                  <h1 className="text-lg font-semibold ">{updateBlogAuthor}</h1>
-                  <p className="text-sm text-left">
-                    published on:{" "}
-                    {moment(oldData.createdAt || full_date).format(
-                      "MMMM Do, YYYY"
-                    )}
-                  </p>
-                </div>
-              </div>
-              <div className="w-fit mx-auto my-4">
-                {updateBlogThumbnail && (
-                  <Image
-                    src={updateBlogThumbnail}
-                    alt={updateBlogAuthor}
-                    width={920}
-                    height={920}
-                  />
-                )}
-                <p className="text-center my-2">
-                  Photo By &nbsp;&nbsp;
-                  <span className="text-blue-500 underline cursor-pointer">
-                    {parser(updateBlogThumbnailAuthor || "")}
-                  </span>
-                </p>
-              </div>
-
-              <div className="text-left w-full text-lg">
-                {/* {parser(updateBlogDesc)} */}
-                {<FroalaEditorView model={updateBlogDesc} />}
-              </div>
-            </PageWrapper>
-          </div>
-        )}
-      </section>
+              <AlertDialogFooter className="justify-around flex items-center w-full relative flex-col md:flex-row ">
+                <DialogClose asChild className="mx-4 my-3">
+                  <Button type="button">Close</Button>
+                </DialogClose>
+                <DialogClose asChild onClick={handleUpdateBlog}>
+                  <Button type="button">Yes, I am sure</Button>
+                </DialogClose>
+              </AlertDialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
+      </div>
     </>
   );
 }

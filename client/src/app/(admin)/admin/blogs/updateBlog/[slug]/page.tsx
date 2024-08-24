@@ -1,5 +1,5 @@
 import { axios } from "@/axios";
-import { BlogDataTypes } from "@/types";
+import { BlogDataTypes, SinglePostBlogTypes } from "@/types";
 import { AxiosError } from "axios";
 import {} from "react";
 import UpdateBlogBySlug from "./components/updateBLogBySlug/UpdateBlogByslug";
@@ -24,8 +24,8 @@ const fetchSingleBlog = async (slug: string) => {
 async function Slug({ params }: { params: SlugTypes }) {
   const { slug } = params;
   const token = useCookieGrabber();
-
-  const data: BlogDataTypes = await fetchSingleBlog(slug);
+  if (!token) return redirect("/home");
+  const data: SinglePostBlogTypes = await fetchSingleBlog(slug);
   console.log(data);
   if (!data) return redirect("/admin/blogs/privateBlogs");
   return (
