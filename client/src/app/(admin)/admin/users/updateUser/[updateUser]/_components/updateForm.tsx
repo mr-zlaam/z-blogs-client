@@ -121,6 +121,7 @@ function UpdateForm({
               id="update-username"
               type="text"
               placeholder="john_doe"
+              className="border-solid border"
             />
           </div>
           <div className="flex flex-col my-3 gap-1 ">
@@ -135,6 +136,7 @@ function UpdateForm({
               id="update-fullname"
               type="text"
               placeholder="John Doe"
+              className="border-solid border"
             />
           </div>
           <div className="flex flex-col my-3 gap-1 ">
@@ -149,6 +151,7 @@ function UpdateForm({
               id="update-email"
               type="email"
               placeholder="john@example.com"
+              className="border-solid border"
             />
           </div>
           <div className="flex flex-col my-3 gap-1 ">
@@ -163,7 +166,7 @@ function UpdateForm({
               onChange={(e: ChangeEvent<HTMLSelectElement>) => {
                 setUpdateRole(e.target.value);
               }}
-              className="px-4 py-2 outline-none rounded border-[1px] border-foreground/20 bg-background"
+              className="px-4 py-2 outline-none rounded border-[1px] border-foreground/20 bg-background border-solid"
             >
               <option value="USER" className="px-4 py-2 my-2">
                 USER
