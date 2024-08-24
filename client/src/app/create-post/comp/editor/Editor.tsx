@@ -11,12 +11,17 @@ import { useTheme } from "next-themes";
 import { useEffect, useMemo } from "react";
 import SimpleMDEditor from "react-simplemde-editor";
 import "../../../editor.global.css";
+import { cn } from "@/lib/utils";
 const Editor = ({
   setValue,
   value,
+  onKeyDown,
+  className,
 }: {
   setValue: React.Dispatch<React.SetStateAction<string>>;
   value: string;
+  className?: string;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
 }) => {
   const { successMessage } = useMessage();
   const { theme } = useTheme();
@@ -52,7 +57,7 @@ const Editor = ({
         value={value}
         onChange={onChange}
         options={newOptions as any}
-        className="h-[380px] w-full "
+        className={cn(className, "w-full ")}
       />
     </main>
   );

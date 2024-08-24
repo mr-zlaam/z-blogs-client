@@ -28,7 +28,7 @@ async function Slug({ params }: { params: SlugTypes }) {
   const data: SinglePostBlogTypes = await fetchSingleBlog(slug);
   if (!data) return redirect("/admin/blogs/privateBlogs");
   return (
-    <section className="mx-5">
+    <section className="mx-5 overflow-auto">
       <UpdateBlogBySlug
         slugForUpdate={slug.toString()}
         previousData={data}

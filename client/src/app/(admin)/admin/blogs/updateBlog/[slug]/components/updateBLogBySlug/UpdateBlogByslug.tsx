@@ -189,7 +189,7 @@ function UpdateBlogBySlug({
         </div>
       )}
       {isPreviewOpen && (
-        <div className="h-screen fixed top-0 left-0 w-full bg-background text-foreground z-[99] overflow-y-auto">
+        <div className="h-screen fixed top-0 left-0 w-full bg-background text-foreground z-[99] ">
           <PageWrapper>
             <h1 className="text-sm font-bold my-5 text-center">Preview Mode</h1>
             <h1 className="text-center font-bold text-2xl md:text-3xl my-4 text-balance">
@@ -246,10 +246,10 @@ function UpdateBlogBySlug({
       >
         {isPreviewOpen ? "Hide Preview" : "ShowPreview"}
       </Button>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center ">
         <Link
           varient="expand-from-left"
-          href={"/home"}
+          href={"/admin/blogs/privateBlogs"}
           className="text-blue-500 after:bg-blue-500  mx-4"
         >
           Go Back
@@ -259,7 +259,7 @@ function UpdateBlogBySlug({
         </p>
       </div>
 
-      <div className="max-w-[1550px] mx-auto">
+      <div className="max-w-[1350px] mx-auto  overflow-hidden">
         <input
           className="outline-none  w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-2 font-bold"
           placeholder=" Write Title here..."
@@ -326,8 +326,8 @@ function UpdateBlogBySlug({
           />
         </div>
       </div>
-      <div className="max-w-[1550px] mx-auto">
-        <Editor setValue={setValue} value={value} />
+      <div className="max-w-[1350px] mx-auto">
+        <Editor setValue={setValue} value={value} className="h-[250px]" />
         <div className="my-2 flex justify-end px-5 select-none">
           <Dialog>
             <div className=" w-full flex justify-end px-5 ">

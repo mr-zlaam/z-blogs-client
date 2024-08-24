@@ -26,6 +26,7 @@ import { AlertDialogFooter } from "@/components/ui/alert-dialog";
 import { axios } from "@/axios";
 import { useRouter } from "next/navigation";
 import { handleLogout } from "@/helper/fetch/fetchBLogs";
+import ScrollToEnd from "@/_subComponents/scrollToEnd/ScrollToEnd";
 const Editor = dynamic(() => import("../comp/editor/Editor"), {
   ssr: false,
 });
@@ -176,8 +177,9 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       )}
       {isPreviewOpen && (
         <div className="h-screen fixed top-0 left-0 w-full bg-background text-foreground z-[99] overflow-y-auto">
-          <PageWrapper>
+          <PageWrapper className="relative">
             <h1 className="text-sm font-bold my-5 text-center">Preview Mode</h1>
+            <ScrollToEnd />
             <h1 className="text-center font-bold text-2xl md:text-3xl my-4 text-balance">
               {title}
             </h1>
@@ -220,7 +222,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       <Button
         title="Press(ctrl+shift+l)"
         className="fixed right-4 top-3 z-[100]"
-        onKeyDown={(e) => {
+        onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => {
           if (e.key === "L" && e.ctrlKey && e.shiftKey) {
             handeTogglePreview();
           }
@@ -302,7 +304,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
         />
       </div>
       <div className="max-w-[1550px] mx-auto">
-        <Editor setValue={setValue} value={value} />
+        <Editor setValue={setValue} value={value} className="h-[370px]" />
         <div className="my-2 flex justify-end px-5 select-none">
           <Dialog>
             <div className=" w-full flex justify-end px-5 ">
