@@ -1,6 +1,7 @@
 /* TODOS:
  ** Forgot password feature is pending
  ** Search functionality in Admin dashboard is waiting for implementation
+ ** bug* Fix the search bug feature which is next js caching issue
  */
 import { fetchHomePageBlogs } from "@/helper/fetch/fetchBLogs";
 import { BlogTypes } from "@/types";
