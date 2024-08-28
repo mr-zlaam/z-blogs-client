@@ -93,6 +93,7 @@ function UpdateBlogBySlug({
     const url = imageUrlRef.current.value;
     if (UseValidateImageUrl(url)) {
       setCoverImageUrl(imageUrlRef.current.value);
+      handeTogglePreview();
     } else {
       return errorMessage("Please provide a valid image url");
     }
@@ -266,7 +267,7 @@ function UpdateBlogBySlug({
           value={title}
           onKeyDown={(e) => {
             if (e.key === "L" && e.ctrlKey && e.shiftKey) {
-              setIsPreviewOpen(!setIsPreviewOpen);
+              handeTogglePreview();
             }
           }}
           onChange={(e) => {
@@ -279,7 +280,7 @@ function UpdateBlogBySlug({
           value={blogOverView}
           onKeyDown={(e) => {
             if (e.key === "L" && e.ctrlKey && e.shiftKey) {
-              setIsPreviewOpen(!setIsPreviewOpen);
+              handeTogglePreview();
             }
           }}
           onChange={(e) => {
@@ -295,7 +296,7 @@ function UpdateBlogBySlug({
             type="url"
             onKeyDown={(e) => {
               if (e.key === "L" && e.ctrlKey && e.shiftKey) {
-                setIsPreviewOpen(!setIsPreviewOpen);
+                handeTogglePreview();
               }
             }}
             onChange={(e) => {
@@ -317,7 +318,7 @@ function UpdateBlogBySlug({
           type="text"
           onKeyDown={(e) => {
             if (e.key === "L" && e.ctrlKey && e.shiftKey) {
-              setIsPreviewOpen(!setIsPreviewOpen);
+              handeTogglePreview();
             }
           }}
           value={coverImageOwnerName}
@@ -331,7 +332,7 @@ function UpdateBlogBySlug({
           type="text"
           onKeyDown={(e) => {
             if (e.key === "L" && e.ctrlKey && e.shiftKey) {
-              setIsPreviewOpen(!setIsPreviewOpen);
+              handeTogglePreview();
             }
           }}
           value={blogWriterName}
@@ -344,7 +345,7 @@ function UpdateBlogBySlug({
           <input
             onKeyDown={(e) => {
               if (e.key === "L" && e.ctrlKey && e.shiftKey) {
-                setIsPreviewOpen(!setIsPreviewOpen);
+                handeTogglePreview();
               }
             }}
             id="isPublic"
