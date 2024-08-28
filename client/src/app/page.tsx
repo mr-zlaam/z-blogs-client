@@ -1,4 +1,3 @@
-import {} from "react";
 import HomePage from "./(pages)/home/page";
 function App() {
   return (

@@ -6,24 +6,25 @@ import { getPlaiceholder } from "plaiceholder";
 import BlogDescription from "./BlogDescription";
 import BlurImage from "../../../../_subComponents/blurImage/BlurImage";
 import { SITE_VERSION } from "@/constants";
+import Image from "next/image";
 interface blogPostProps {
   post: BlogDataTypes;
 }
 
 async function BlogRenderer({ post }: blogPostProps) {
   if (!post) return null;
-  const buffer = await fetch(post?.blogThumbnail).then(async (res) =>
-    Buffer.from(await res.arrayBuffer())
-  );
-  const { base64 } = await getPlaiceholder(buffer);
+  // const buffer = await fetch(post?.blogThumbnail).then(async (res) =>
+  //   Buffer.from(await res.arrayBuffer())
+  // );
+  // const { base64 } = await getPlaiceholder(buffer);
   return (
     <section className="px-2 ">
       <div className="relative  md:h-fit py-3 h-[300px] rounded-md flex justify-start  items-start w-full ">
         <Link href={`/${SITE_VERSION}/${post.blogSlug}`}>
-          <BlurImage
+          <Image
             src={post.blogThumbnail}
             alt={post.blogTitle}
-            base64={base64}
+            // base64={base64}
             width={500}
             height={200}
             className="rounded w-auto"
