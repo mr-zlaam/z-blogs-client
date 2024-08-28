@@ -15,13 +15,13 @@ import { cn } from "@/lib/utils";
 const Editor = ({
   setValue,
   value,
-  onKeyDown,
   className,
+  setIsPreviewOpen,
 }: {
   setValue: React.Dispatch<React.SetStateAction<string>>;
   value: string;
   className?: string;
-  onKeyDown?: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
+  setIsPreviewOpen?: (value: React.SetStateAction<boolean>) => void;
 }) => {
   const { successMessage } = useMessage();
   const { theme } = useTheme();
@@ -53,6 +53,11 @@ const Editor = ({
   return (
     <main className="overflow-auto">
       <SimpleMDEditor
+        onKeyDown={(e) => {
+          if (e.key === "L" && e.ctrlKey && e.shiftKey) {
+            setIsPreviewOpen && setIsPreviewOpen((prev) => !prev);
+          }
+        }}
         id="editor"
         value={value}
         onChange={onChange}

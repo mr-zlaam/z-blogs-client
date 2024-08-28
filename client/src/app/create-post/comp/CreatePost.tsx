@@ -304,7 +304,12 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
         />
       </div>
       <div className="max-w-[1550px] mx-auto">
-        <Editor setValue={setValue} value={value} className="h-[370px]" />
+        <Editor
+          setValue={setValue}
+          value={value}
+          className="h-[370px]"
+          setIsPreviewOpen={setIsPreviewOpen}
+        />
         <div className="my-2 flex justify-end px-5 select-none">
           <Dialog>
             <div className=" w-full flex justify-end px-5 ">

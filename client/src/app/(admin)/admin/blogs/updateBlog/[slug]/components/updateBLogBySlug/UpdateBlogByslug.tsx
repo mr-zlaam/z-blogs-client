@@ -327,7 +327,12 @@ function UpdateBlogBySlug({
         </div>
       </div>
       <div className="max-w-[1350px] mx-auto">
-        <Editor setValue={setValue} value={value} className="h-[250px]" />
+        <Editor
+          setValue={setValue}
+          value={value}
+          setIsPreviewOpen={setIsPreviewOpen}
+          className="h-[250px]"
+        />
         <div className="my-2 flex justify-end px-5 select-none">
           <Dialog>
             <div className=" w-full flex justify-end px-5 ">
