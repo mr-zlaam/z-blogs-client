@@ -27,6 +27,7 @@ import { axios } from "@/axios";
 import { useRouter } from "next/navigation";
 import { handleLogout } from "@/helper/fetch/fetchBLogs";
 import ScrollToEnd from "@/_subComponents/scrollToEnd/ScrollToEnd";
+import BackToPreviousRoute from "@/_subComponents/backToPreviousRoute/BackToPreviousRoute";
 const Editor = dynamic(() => import("../comp/editor/Editor"), {
   ssr: false,
 });
@@ -178,9 +179,9 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       )}
       {isPreviewOpen && (
         <div className="h-screen fixed top-0 left-0 w-full bg-background text-foreground z-[99] overflow-y-auto">
+          <div className="fixed top-10 left-10"></div>
           <PageWrapper className="relative">
             <h1 className="text-sm font-bold my-5 text-center">Preview Mode</h1>
-            <ScrollToEnd />
             <h1 className="text-center font-bold text-2xl md:text-3xl my-4 text-balance">
               {title}
             </h1>

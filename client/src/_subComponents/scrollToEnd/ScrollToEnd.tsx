@@ -1,21 +1,22 @@
 "use client";
-import { cn } from "@/lib/utils";
-import { ChevronDown } from "lucide-react";
+import { ChevronDownCircleIcon } from "lucide-react";
+import DivWrapper from "../divWrapper/DivWrapper";
 import { useEffect, useState } from "react";
 
 function ScrollToEnd() {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(true); // Change this to true
 
   const scrollToEnd = () => {
-    const maxHeight = document.documentElement.scrollHeight;
+    const maxHeight =
+      document.documentElement.scrollHeight + window.innerHeight; // Subtract the window height
     window.scrollTo({ top: maxHeight, behavior: "smooth" });
   };
 
   const handleScroll = () => {
     if (window.scrollY > 100) {
-      setIsVisible(true);
-    } else {
       setIsVisible(false);
+    } else {
+      setIsVisible(true);
     }
   };
 
@@ -28,15 +29,16 @@ function ScrollToEnd() {
   }, []);
 
   return (
-    <div
-      className={cn(
-        "fixed bottom-4 right-2 sm:right-10 my-10 bg-foreground md:bg-transparent text-background md:text-foreground border border-foreground cursor-pointer h-[40px] w-[40px] flex justify-center items-center duration-300 transition-all rounded-full hover:bg-foreground hover:text-background",
-        isVisible ? "block" : "hidden"
+    <>
+      {isVisible && ( // Change this to isVisible
+        <DivWrapper onClick={scrollToEnd}>
+          <ChevronDownCircleIcon
+            className="text-foreground  cursor-pointer"
+            size={30}
+          />
+        </DivWrapper>
       )}
-      onClick={scrollToEnd}
-    >
-      <ChevronDown className="text-foreground" />
-    </div>
+    </>
   );
 }
 
