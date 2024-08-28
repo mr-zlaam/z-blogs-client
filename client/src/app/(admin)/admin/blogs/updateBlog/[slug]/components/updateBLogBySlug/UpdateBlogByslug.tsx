@@ -264,6 +264,11 @@ function UpdateBlogBySlug({
           className="outline-none  w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-2 font-bold"
           placeholder=" Write Title here..."
           value={title}
+          onKeyDown={(e) => {
+            if (e.key === "L" && e.ctrlKey && e.shiftKey) {
+              setIsPreviewOpen(!setIsPreviewOpen);
+            }
+          }}
           onChange={(e) => {
             setTitle(e.target.value);
           }}
@@ -272,6 +277,11 @@ function UpdateBlogBySlug({
           className="outline-none p w-full  bg-transparent resize-none border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3"
           placeholder=" Write some information about your blog..."
           value={blogOverView}
+          onKeyDown={(e) => {
+            if (e.key === "L" && e.ctrlKey && e.shiftKey) {
+              setIsPreviewOpen(!setIsPreviewOpen);
+            }
+          }}
           onChange={(e) => {
             setBlogOverView(e.target.value);
           }}
@@ -283,6 +293,11 @@ function UpdateBlogBySlug({
             placeholder="Cover Image  Url..."
             ref={imageUrlRef}
             type="url"
+            onKeyDown={(e) => {
+              if (e.key === "L" && e.ctrlKey && e.shiftKey) {
+                setIsPreviewOpen(!setIsPreviewOpen);
+              }
+            }}
             onChange={(e) => {
               setCoverImageUrl(e.target.value);
             }}
@@ -300,6 +315,11 @@ function UpdateBlogBySlug({
           className="outline-none m-3 w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3 font-bold pr-20"
           placeholder="Cover Image's owners name.."
           type="text"
+          onKeyDown={(e) => {
+            if (e.key === "L" && e.ctrlKey && e.shiftKey) {
+              setIsPreviewOpen(!setIsPreviewOpen);
+            }
+          }}
           value={coverImageOwnerName}
           onChange={(e) => {
             setCoverImageOwnerName(e.target.value);
@@ -309,6 +329,11 @@ function UpdateBlogBySlug({
           className="outline-none m-2 w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-2 font-bold pr-20"
           placeholder="Blog Writer's  name.."
           type="text"
+          onKeyDown={(e) => {
+            if (e.key === "L" && e.ctrlKey && e.shiftKey) {
+              setIsPreviewOpen(!setIsPreviewOpen);
+            }
+          }}
           value={blogWriterName}
           onChange={(e) => {
             setBlogWriterName(e.target.value);
@@ -317,6 +342,11 @@ function UpdateBlogBySlug({
         <div className="my-2">
           <label htmlFor="isPublic">isPublic</label>
           <input
+            onKeyDown={(e) => {
+              if (e.key === "L" && e.ctrlKey && e.shiftKey) {
+                setIsPreviewOpen(!setIsPreviewOpen);
+              }
+            }}
             id="isPublic"
             type="checkbox"
             checked={isPublic}

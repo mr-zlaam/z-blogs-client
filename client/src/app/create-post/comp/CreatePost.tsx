@@ -81,6 +81,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
     const url = imageUrlRef.current.value;
     if (UseValidateImageUrl(url)) {
       setCoverImageUrl(imageUrlRef.current.value);
+      setIsPreviewOpen((prev) => !prev);
     } else {
       return errorMessage("Please provide a valid image url");
     }
@@ -255,6 +256,11 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
           onChange={(e) => {
             setTitle(e.target.value);
           }}
+          onKeyDown={(e) => {
+            if (e.key === "L" && e.ctrlKey && e.shiftKey) {
+              setIsPreviewOpen((prev) => !prev);
+            }
+          }}
         />
         <textarea
           className="outline-none p w-full  bg-transparent resize-none border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3"
@@ -264,6 +270,11 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
             setBlogOverView(e.target.value);
           }}
           rows={3}
+          onKeyDown={(e) => {
+            if (e.key === "L" && e.ctrlKey && e.shiftKey) {
+              setIsPreviewOpen((prev) => !prev);
+            }
+          }}
         />
         <div className="relative">
           <input
@@ -275,6 +286,11 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
               setCoverImageUrl(e.target.value);
             }}
             value={coverImageUrl}
+            onKeyDown={(e) => {
+              if (e.key === "L" && e.ctrlKey && e.shiftKey) {
+                setIsPreviewOpen((prev) => !prev);
+              }
+            }}
           />
           <Button
             variant={"link"}
@@ -292,6 +308,11 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
           onChange={(e) => {
             setCoverImageOwnerName(e.target.value);
           }}
+          onKeyDown={(e) => {
+            if (e.key === "L" && e.ctrlKey && e.shiftKey) {
+              setIsPreviewOpen((prev) => !prev);
+            }
+          }}
         />
         <input
           className="outline-none m-2 w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-2 font-bold pr-20"
@@ -300,6 +321,11 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
           value={blogWriterName}
           onChange={(e) => {
             setBlogWriterName(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "L" && e.ctrlKey && e.shiftKey) {
+              setIsPreviewOpen((prev) => !prev);
+            }
           }}
         />
       </div>
