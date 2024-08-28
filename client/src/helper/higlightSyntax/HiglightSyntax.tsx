@@ -10,6 +10,10 @@ interface LanguagePatterns {
   custom: CustomPattern[];
 }
 
+const escapeRegExp = (string: string): string => {
+  return string.replace(/[.*+?^${}()|[\]\\<>]/g, "\\$&"); // Escape special characters
+};
+
 const languagePatterns: Record<Language, LanguagePatterns> = {
   js: {
     strings: /"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'/g,
@@ -24,7 +28,6 @@ const languagePatterns: Record<Language, LanguagePatterns> = {
           "interface",
           "type ",
           "debugger",
-          "console",
           "apt ",
           "snap ",
           "class ",
@@ -94,6 +97,14 @@ const languagePatterns: Record<Language, LanguagePatterns> = {
         pattern: ["__str__"],
         className: "key-python-yellow",
       },
+      {
+        pattern: ["{", "}", "[", "]", "(", ")"], // Escaped brackets
+        className: "key-brackets",
+      },
+      {
+        pattern: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], // Numbers with word boundaries to avoid partial matches
+        className: "key-numbers",
+      },
     ],
   },
 };
@@ -107,24 +118,38 @@ const highlightSyntax = (html: string, language: Language): string => {
     const patterns = languagePatterns[language];
     let highlightedCode = codeContent;
 
-    // Highlight strings
+    // Step 1: Highlight strings
     highlightedCode = highlightedCode.replace(
       patterns.strings,
       `<span class="string-${language}">$&</span>`
     );
 
-    // Highlight custom patterns
+    // Step 2: Highlight custom patterns
     patterns.custom.forEach(({ pattern, className }) => {
-      pattern.forEach((p) => {
-        const regex = new RegExp(p, "g");
+      // For numbers, ensure they are not inside strings
+      if (className === "key-numbers") {
+        const numberPattern = new RegExp(
+          `(?<!<span[^>]*>)\\b(${pattern
+            .map((p) => escapeRegExp(p))
+            .join("|")})\\b(?![^<]*>)`,
+          "g"
+        );
+        highlightedCode = highlightedCode.replace(
+          numberPattern,
+          `<span class="${className}">$&</span>`
+        );
+      } else {
+        const combinedPattern = pattern.map((p) => escapeRegExp(p)).join("|"); // Escape special regex characters and combine patterns
+        const regex = new RegExp(
+          `(?<!<span[^>]*>)(${combinedPattern})(?![^<]*>)`,
+          "g"
+        );
         highlightedCode = highlightedCode.replace(
           regex,
           `<span class="${className}">$&</span>`
         );
-      });
+      }
     });
-
-    // Highlight keywords
 
     return `${openingTag}${highlightedCode}${closingTag}`;
   });

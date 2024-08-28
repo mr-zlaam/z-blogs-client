@@ -19,7 +19,7 @@ code {
   width: fit-content;
   padding: 4px;
   background: #28282b;
-  color: #68e768;
+  color: #7ed07e;
   border-radius: 5px;
   font-family: monospace;
   font-size: 14px;
@@ -29,7 +29,13 @@ code {
   color: #ffff00;
 }
 .keyword {
-  color: #9d9de2;
+  color: #f39c12;
+}
+.key-brackets {
+  color: #ffffff;
+}
+.key-numbers {
+  color: blue;
 }
 .key-method {
   color: #e15656;
