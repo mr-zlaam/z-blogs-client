@@ -23,7 +23,7 @@ async function BlogRenderer({ post }: blogPostProps) {
         <Link href={`/${SITE_VERSION}/${post.blogSlug}`}>
           <Image
             src={post.blogThumbnail}
-            alt={post.blogTitle}
+            alt={post.blogSlug}
             // base64={base64}
             width={500}
             height={200}
