@@ -98,7 +98,7 @@ const languagePatterns: Record<Language, LanguagePatterns> = {
         className: "key-python-yellow",
       },
       {
-        pattern: ["{", "}", "[", "]", "(", ")"], // Escaped brackets
+        pattern: ["{", "}", "[", "]", "(", ")"],
         className: "key-brackets",
       },
     ],
