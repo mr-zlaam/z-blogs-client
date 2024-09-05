@@ -42,7 +42,6 @@ const fetchUsers = async (token: string) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(res.data)
     if (res?.data?.success) {
       return res.data;
 

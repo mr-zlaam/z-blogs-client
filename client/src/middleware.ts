@@ -8,13 +8,14 @@ export default function middleware(request: NextRequest) {
   const tokenValue = token?.value as string;
   if (request.nextUrl.pathname === "/admin/users") {
     if (!token?.value) {
-      return NextResponse.redirect(new URL("/home", request.url));
+      //return NextResponse.redirect(new URL("/home", request.url));
     }
-    const secret = process.env.JWT_ACCESS_SECRET as string;
+    const secret = process.env.NEXT_PUBLIC_JWT_ACCESS_SECRET as string;
     try {
       verify(tokenValue, secret);
     } catch (error: any) {
       if (error instanceof JsonWebTokenError) {
+        console.log(error)
         return NextResponse.redirect(new URL("/home", request.url));
       }
     }
