@@ -53,7 +53,6 @@ const fetchUsers = async (token: string) => {
 };
 
 export default async function UserDashBoard() {
-  console.log("dashboard")
   const token = useCookieGrabber();
   if (!token) {
     return redirect("/home");
