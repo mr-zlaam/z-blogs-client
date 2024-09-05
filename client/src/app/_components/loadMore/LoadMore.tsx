@@ -41,7 +41,7 @@ function LoadMore() {
     setTimeout(() => {
       loadBlogs();
     }, DELAY);
-  }, [inView]);
+  }, [inView, hasMore, loading]);
   console.log(blogs);
   return (
     <>

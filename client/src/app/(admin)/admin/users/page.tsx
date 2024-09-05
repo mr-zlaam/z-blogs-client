@@ -42,8 +42,8 @@ const fetchUsers = async (token: string) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log(res.data)
     if (res?.data?.success) {
-      console.log(res.data)
       return res.data;
 
     }
@@ -54,19 +54,20 @@ const fetchUsers = async (token: string) => {
 };
 
 export default async function UserDashBoard() {
+  console.log("dashboard")
   const token = useCookieGrabber();
   if (!token) {
-    //    return redirect("/home");
+    return redirect("/home");
   }
   let users;
   try {
     users = await fetchUsers(token?.value || "");
   } catch (error: any) {
     console.log(error.message);
-    //   return redirect("/home");
+    return redirect("/home");
   }
   if (users === 403) {
-    //  return redirect("/home");
+    return redirect("/home");
   }
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">

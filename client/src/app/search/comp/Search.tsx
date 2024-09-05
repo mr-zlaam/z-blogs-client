@@ -46,22 +46,22 @@ function Search() {
     setTimeout(() => {
       loadBlogs();
     }, DELAY);
-  }, [inView, query]);
+  }, [inView, query, hasMore, isLoading, router, startLoading, stopLoading]);
   useEffect(() => {
     if (typeof window !== "undefined") router.refresh();
-  }, []);
+  }, [router]);
 
   return (
     <>
       <section>
         <h1 className=" text-2xl font-bold">
           Search Result for:-
-          <span className="text-foreground/60 mx-4 text-2xl">"{query}"</span>
+          <span className="text-foreground/60 mx-4 text-2xl">&quot;{query}&quot;</span>
         </h1>
         <div className="h-10">
           {blogs.length === 0 && !isLoading && (
             <p className="h-10 text-red-500 font-bold text-xl text-center my-4 fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] ">
-              !~&nbsp;&nbsp;No result found for "{query}"
+              !~&nbsp;&nbsp;No result found for &quot;{query}&quot;
             </p>
           )}
         </div>
