@@ -22,9 +22,6 @@ const getUserInformationFromToken = () => {
 function PageLayout({ children }: { children: React.ReactNode }) {
   const user = getUserInformationFromToken() as PayLoadType;
   const tokenStore = UseCookieGrabber();
-
-  console.log(SECRET)
-  console.log(tokenStore?.value)
   return (
     <>
       <PageWrapper className="sticky top-0 left-0 w-full  mb-4 bg-background/95 backdrop-blur-md z-[50]">
