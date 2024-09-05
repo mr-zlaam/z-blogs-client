@@ -3,7 +3,7 @@ import UseCookieGrabber from "@/hooks/useCookieGrabber";
 import { PayLoadType } from "@/types";
 import { Separator } from "@radix-ui/react-separator";
 import { verify } from "jsonwebtoken";
-import {} from "react";
+import { } from "react";
 import Header from "../_components/header/Header";
 import PageHeader from "../_components/pageHeader/PageHeader";
 import PageWrapper from "../_components/pageWrapper/PageWrapper";
@@ -23,6 +23,8 @@ function PageLayout({ children }: { children: React.ReactNode }) {
   const user = getUserInformationFromToken() as PayLoadType;
   const tokenStore = UseCookieGrabber();
 
+  console.log(SECRET)
+  console.log(tokenStore?.value)
   return (
     <>
       <PageWrapper className="sticky top-0 left-0 w-full  mb-4 bg-background/95 backdrop-blur-md z-[50]">

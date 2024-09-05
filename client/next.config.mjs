@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-import withPlaiceholder from "@plaiceholder/next";
 const nextConfig = {
   env: {
     BACKEND_URI: process.env.NEXT_PUBLIC_BACKEND_URI_DEV,
@@ -16,4 +15,4 @@ const nextConfig = {
   },
 };
 
-export default withPlaiceholder(nextConfig);
+export default nextConfig;
