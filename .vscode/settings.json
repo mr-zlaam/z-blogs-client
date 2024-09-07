@@ -12,7 +12,6 @@
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.cursorWidth": 4,
   "editor.cursorBlinking": "expand",
-  "editor.fontWeight": "600",
   "editor.letterSpacing": 1.4,
   "workbench.list.smoothScrolling": true,
   "editor.smoothScrolling": true,
@@ -24,5 +23,6 @@
   "terminal.integrated.accessibleViewPreserveCursorPosition": true,
   "editor.hideCursorInOverviewRuler": true,
   "terminal.integrated.mouseWheelZoom": true,
-  "terminal.integrated.fontSize": 14
+  "terminal.integrated.fontSize": 16,
+  "terminal.integrated.fontFamily": "Cascadia Code"
 }
