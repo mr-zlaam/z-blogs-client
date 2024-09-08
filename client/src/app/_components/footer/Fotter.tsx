@@ -1,5 +1,4 @@
 import {} from "react";
-
 function Footer() {
   return (
     <>
