@@ -41,6 +41,7 @@ function BlogDataOptimizer({ post }: blogPostProps) {
                 fill
                 className="h-full w-full rounded-md object-cover"
                 quality={100}
+                sizes="(max-width: 1200px) 100vw, (max-width: 800px) calc(80vw + 40px)"
               />
             </AspectRatio>
           </div>

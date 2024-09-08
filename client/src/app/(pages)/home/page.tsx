@@ -7,6 +7,7 @@ import { fetchHomePageBlogs } from "@/helper/fetch/fetchBLogs";
 import { BlogTypes } from "@/types";
 import { Fragment } from "react";
 import BlogRenderer from "./comp/BlogRenderer";
+import BlogDataOptimizer from "../all-posts/comp/DataOptimizer";
 
 async function HomePage() {
   try {
@@ -25,7 +26,8 @@ async function HomePage() {
         <section>
           {blogPosts.map((post) => (
             <Fragment key={post.blogId}>
-              <BlogRenderer post={post} />
+              {/* <BlogRenderer post={post} /> */}
+              <BlogDataOptimizer post={post} />
             </Fragment>
           ))}
         </section>
