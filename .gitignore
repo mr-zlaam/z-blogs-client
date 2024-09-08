@@ -1,9 +1,9 @@
 # Dependencies
 /node_modules/
 /server/node_modules
-/server/dist/
+# /server/dist/
 # Build output
-/dist
+# /dist
 docker-compose.yml
 docker-compose.yaml
 db_data
@@ -60,7 +60,7 @@ out
 
 # Nuxt.js build output
 .nuxt
-dist
+# dist
 
 # Gatsby cache
 .cache/
