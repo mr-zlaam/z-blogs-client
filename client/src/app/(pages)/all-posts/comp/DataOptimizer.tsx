@@ -15,7 +15,7 @@ function BlogDataOptimizer({ post }: blogPostProps) {
   return (
     <>
       <section className=" w-full h-full ">
-        <div className="flex my-2 items-center">
+        <div className="flex my-2 md:items-center flex-col-reverse md:flex-row">
           <Link
             href={`/${SITE_VERSION}/${post.blogSlug}`}
             className=" flex-[1] "
@@ -33,7 +33,7 @@ function BlogDataOptimizer({ post }: blogPostProps) {
               Read More...
             </Button>
           </Link>
-          <div className="image w-[250px] ">
+          <div className="image md:w-[250px] flex-[1] md:flex-[0.5] bg-red-500 w-full my-4 md:my-0">
             <AspectRatio ratio={16 / 9} className="bg-muted overflow-hidden">
               <Image
                 src={post.blogThumbnail}
