@@ -1,5 +1,5 @@
 # Use the official Node.js image.
-FROM node:20
+FROM node:18-alpine
 
 # Set the working directory.
 WORKDIR /app
@@ -15,6 +15,8 @@ RUN npm install
 COPY . .
 
 # Run build process to compile TypeScript and copy necessary files.
+RUN npx prisma generate
+
 RUN npm run build
 
 # Expose the port the app runs on.
