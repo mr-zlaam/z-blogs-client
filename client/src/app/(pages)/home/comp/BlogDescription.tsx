@@ -2,7 +2,6 @@
 
 import { Link } from "@/components/ui/link";
 import { SITE_VERSION } from "@/constants";
-import { useRouter } from "next/navigation";
 
 function BlogDescription({
   blogDescription,

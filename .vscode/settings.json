@@ -24,5 +24,6 @@
   "editor.hideCursorInOverviewRuler": true,
   "terminal.integrated.mouseWheelZoom": true,
   "terminal.integrated.fontSize": 16,
-  "terminal.integrated.fontFamily": "Cascadia Code"
+  "terminal.integrated.fontFamily": "Cascadia Code",
+  "editor.selectionClipboard": false
 }

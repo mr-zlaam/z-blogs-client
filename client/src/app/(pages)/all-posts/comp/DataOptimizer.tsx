@@ -22,15 +22,20 @@ function BlogDataOptimizer({ post }: blogPostProps) {
     <>
       <section className="px-2 ">
         <div className="relative  md:h-fit py-3 h-[300px] rounded-md flex justify-start  items-start w-full ">
-          <Link href={`/${SITE_VERSION}/${post.blogSlug}`}>
-            <Image
-              src={post.blogThumbnail}
-              alt={post.blogTitle}
-              width={500}
-              height={200}
-              className="rounded w-auto"
-            />
-          </Link>
+          <div className="relative w-[800px] h-[200px] overflow-hidden rounded-md">
+            <Link
+              href={`/${SITE_VERSION}/${post.blogSlug}`}
+              className=" w-full h-full block relative"
+            >
+              <Image
+                src={post.blogThumbnail}
+                alt={post.blogTitle}
+                className="rounded w-auto object-cover "
+                sizes="(max-width: 1200px) 100vw, (max-width: 800px) calc(80vw + 40px)"
+                fill
+              />
+            </Link>
+          </div>
           <div>
             <h1 className="mx-4 my-2 text-xl">
               <Link
