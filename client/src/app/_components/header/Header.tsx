@@ -38,7 +38,7 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
   };
   return (
     <>
-      <header className=" h-[70px]  ">
+      <header className=" h-[70px]  mb-3">
         <nav className=" flex justify-between items-center ">
           <Link href={"/"}>
             <Image src={logo} alt="zlaam" height={70} width={70} />
@@ -47,7 +47,7 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
           <div className="flex items-center">
             <div className="h-fit w-fit bg-background rounded-full  overflow-hidden ">
               <DropdownMenu>
-                <DropdownMenuTrigger className="">
+                <DropdownMenuTrigger className="bg-transparent cursor-pointer  border-none flex items-center justify-center">
                   {user && user.uid ? (
                     <RandomAvatar
                       size={35}
