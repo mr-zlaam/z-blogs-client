@@ -47,7 +47,7 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
           <div className="flex items-center">
             <div className="h-fit w-fit bg-background rounded-full  overflow-hidden ">
               <DropdownMenu>
-                <DropdownMenuTrigger className="bg-transparent cursor-pointer  border-none flex items-center justify-center">
+                <DropdownMenuTrigger className="">
                   {user && user.uid ? (
                     <RandomAvatar
                       size={35}
