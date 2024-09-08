@@ -1,5 +1,5 @@
 # Use the official Node.js image.
-FROM node:18-alpine
+FROM node:20
 
 # Set the working directory.
 WORKDIR /app
@@ -8,7 +8,8 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Install production dependencies.
-RUN npm install --production
+RUN npm install 
+# --production
 
 # Copy the rest of the project files.
 COPY . .

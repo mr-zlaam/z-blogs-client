@@ -61,14 +61,14 @@ exports.ifUserIsAdmin = (0, asynhandlerUtil_1.asyncHandler)((req, res, next) => 
 }));
 // For moderator who can only write the data
 exports.ifUserIsModerator_OR_Admin = (0, asynhandlerUtil_1.asyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    var _c, _d, _e;
-    if (((_c = req.userFromToken) === null || _c === void 0 ? void 0 : _c.role) !== "ADMIN" &&
-        ((_d = req.userFromToken) === null || _d === void 0 ? void 0 : _d.role) !== "MODERATOR")
+    var _a, _b, _c;
+    if (((_a = req.userFromToken) === null || _a === void 0 ? void 0 : _a.role) !== "ADMIN" &&
+        ((_b = req.userFromToken) === null || _b === void 0 ? void 0 : _b.role) !== "MODERATOR")
         throw {
             status: CONSTANTS_1.UNAUTHORIZED,
             message: "Only Admin or moderator can modify this data",
         };
-    if (!((_e = req.userFromDB) === null || _e === void 0 ? void 0 : _e.isVerfied)) {
+    if (!((_c = req.userFromDB) === null || _c === void 0 ? void 0 : _c.isVerfied)) {
         throw {
             status: CONSTANTS_1.UNAUTHORIZED,
             message: " Moderator  is not verified",
@@ -78,8 +78,8 @@ exports.ifUserIsModerator_OR_Admin = (0, asynhandlerUtil_1.asyncHandler)((req, r
 }));
 // If user is not login
 exports.ifUser = (0, asynhandlerUtil_1.asyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    var _f;
-    if (((_f = req.userFromToken) === null || _f === void 0 ? void 0 : _f.role) !== "USER")
+    var _a;
+    if (((_a = req.userFromToken) === null || _a === void 0 ? void 0 : _a.role) !== "USER")
         throw { status: CONSTANTS_1.UNAUTHORIZED, message: "you are not logged in" };
     next();
 }));

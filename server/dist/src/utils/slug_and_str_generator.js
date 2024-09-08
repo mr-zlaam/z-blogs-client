@@ -3,7 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateOtp = exports.generateSlug = exports.generateRandomStrings = void 0;
+exports.generateRandomStrings = generateRandomStrings;
+exports.generateSlug = generateSlug;
+exports.generateOtp = generateOtp;
 const node_crypto_1 = __importDefault(require("node:crypto"));
 function generateRandomStrings(length) {
     const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -14,14 +16,12 @@ function generateRandomStrings(length) {
     }
     return randomString;
 }
-exports.generateRandomStrings = generateRandomStrings;
 function generateSlug(slugString) {
     let slug = slugString.toLowerCase();
     slug = slug.replace(/[^a-z0-9\s-]/g, "");
     slug = slug.trim().replace(/\s+/g, "-");
     return slug;
 }
-exports.generateSlug = generateSlug;
 // OTP generator
 // 5 digit random otp generator
 function generateOtp() {
@@ -30,4 +30,3 @@ function generateOtp() {
     const otpExpiry = new Date(Date.now() + 30 * 60 * 1000); // change expiry time using the first letter after Date.now()+1
     return { otp, otpExpiry };
 }
-exports.generateOtp = generateOtp;

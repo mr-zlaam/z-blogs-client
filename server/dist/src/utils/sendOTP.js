@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sendOTP = void 0;
+exports.sendOTP = sendOTP;
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const config_1 = require("../config");
 const node_fs_1 = __importDefault(require("node:fs"));
@@ -54,4 +54,3 @@ function sendOTP(to, otp, name) {
         }
     });
 }
-exports.sendOTP = sendOTP;

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateData = void 0;
+exports.validateData = validateData;
 const zod_1 = require("zod");
 const CONSTANTS_1 = require("../CONSTANTS");
 function validateData(schema) {
@@ -31,4 +31,3 @@ function validateData(schema) {
         }
     };
 }
-exports.validateData = validateData;

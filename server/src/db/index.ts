@@ -24,7 +24,7 @@ export default async function connectDB() {
         );
       });
     })
-    .catch((err) => {
+    .catch((err: Error) => {
       console.error(`
                         **************************************************************
                                   X  ERRR while connecting to database X \n ${err.message}
