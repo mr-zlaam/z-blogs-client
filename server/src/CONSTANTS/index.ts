@@ -1,5 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import { ISDEVELOPMENT_ENVIRONMENT } from "../config";
+type SameSiteType = "lax" | "none" | "strict";
+
 const statusCode = {
   OK: StatusCodes.OK,
   CREATED: StatusCodes.CREATED,
@@ -15,6 +17,7 @@ const statusCode = {
     httpOnly: true,
     secure: !ISDEVELOPMENT_ENVIRONMENT && true,
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
+    sameSite: "none" as SameSiteType,
   },
 };
 //codes
