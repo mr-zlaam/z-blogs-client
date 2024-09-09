@@ -16,10 +16,10 @@ const statusCode = {
   COOKIES_OPTION: {
     httpOnly: true,
     secure: true,
-    // secure: !ISDEVELOPMENT_ENVIRONMENT && true,
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
     sameSite: "lax" as SameSiteType,
     domain: ".zlaam.vercel.app",
+    path: "/home",
   },
 };
 //codes
