@@ -17,7 +17,7 @@ const statusCode = {
     httpOnly: true,
     secure: true,
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
-    sameSite: "lax" as SameSiteType,
+    sameSite: "none" as SameSiteType,
     domain: ".zlaam.vercel.app",
     path: "/home",
   },
