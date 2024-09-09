@@ -8,7 +8,11 @@ import { blogRouter } from "../routers/blogRouter";
 const app: Express = express();
 const corsOptions = {
   //TODO: check this if error related to cors
-  origin: ["http://localhost:3000", "http://192.168.100.39:3000"],
+  origin: [
+    "http://localhost:3000",
+    "http://192.168.100.39:3000",
+    "https://zlaam-vercel.app/",
+  ],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
