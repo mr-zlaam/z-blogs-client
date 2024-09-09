@@ -11,7 +11,7 @@ const corsOptions = {
   origin: [
     "http://localhost:3000",
     "http://192.168.100.39:3000",
-    "https://zlaam.vercel.app/",
+    "https://zlaam.vercel.app",
   ],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
