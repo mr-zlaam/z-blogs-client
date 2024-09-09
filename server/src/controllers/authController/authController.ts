@@ -209,7 +209,12 @@ const loginUserController = asyncHandler(
     const accessToken = GenerateJWTAccessToken(payload, res);
     return res
       .status(OK)
-      .cookie("accessToken", accessToken, COOKIES_OPTION)
+      .cookie(
+        "accessToken",
+        accessToken,
+
+        COOKIES_OPTION
+      )
       .json(
         apiResponse(
           OK,
