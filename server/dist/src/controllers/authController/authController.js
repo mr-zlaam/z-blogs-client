@@ -195,7 +195,16 @@ const loginUserController = (0, asynhandlerUtil_1.asyncHandler)((req, res) => __
     const accessToken = (0, tokenGenerator_1.GenerateJWTAccessToken)(payload, res);
     return res
         .status(CONSTANTS_1.OK)
-        .cookie("accessToken", accessToken, CONSTANTS_1.COOKIES_OPTION)
+        .cookie("accessToken", accessToken, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
+        sameSite: "none",
+        domain: ".zlaam.vercel.app",
+        path: "/home",
+    }
+    // COOKIES_OPTION
+    )
         .json((0, apiResponseUtil_1.apiResponse)(CONSTANTS_1.OK, `${isUserRegistered.fullName || "Unknown User"} logged in successfully`, { user: payload, accessToken }));
 }));
 exports.loginUserController = loginUserController;

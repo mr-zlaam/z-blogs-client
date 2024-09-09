@@ -41,7 +41,7 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
       <header className=" h-[70px]  mb-3">
         <nav className=" flex justify-between items-center ">
           <Link href={"/"}>
-            <Image src={logo} alt="zlaam" height={70} width={70} />
+            <Image src={logo} alt="zlaam" height={60} width={60} />
           </Link>
 
           <div className="flex items-center">

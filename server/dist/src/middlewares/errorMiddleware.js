@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.errorHandler = exports.notFoundHandler = void 0;
 const config_1 = require("../config");
-const client_1 = require("@prisma/client");
+const library_1 = require("@prisma/client/runtime/library");
 const notFoundHandler = (req, res, next) => {
     const error = new Error("This Api doesn't exist right now!!");
     error.status = 404;
@@ -14,7 +14,7 @@ const errorHandler = (error, req, res, next) => {
     res.json({
         success: false,
         statusCode: error.status || 500,
-        message: error instanceof client_1.Prisma.PrismaClientKnownRequestError
+        message: error instanceof library_1.PrismaClientKnownRequestError
             ? "something went wrong while working with prisma!!"
             : error.message + "!!" || "internal server error!!",
         data: null,
