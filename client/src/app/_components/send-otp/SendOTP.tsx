@@ -56,9 +56,9 @@ function SendOTP({ email, token }: { email: string; token: string }) {
               Do you want to verify your account?
             </AlertDialogTitle>
             <AlertDialogDescription className="text-sm font-normal ">
-              You'll recieve 6 digit otp on your email you used for registration
-              which will expire in 30 minutes please verify your account using
-              that otp
+              You&apos;ll recieve 6 digit otp on your email you used for
+              registration which will expire in 30 minutes please verify your
+              account using that otp
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
