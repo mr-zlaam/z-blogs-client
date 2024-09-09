@@ -17,7 +17,7 @@ COPY . .
 # Run build process to compile TypeScript and copy necessary files.
 RUN npx prisma generate
 
-RUN npm run build
+RUN npm run compile
 
 # Expose the port the app runs on.
 EXPOSE 8000
