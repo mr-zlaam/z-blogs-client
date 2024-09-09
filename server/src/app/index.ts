@@ -25,7 +25,9 @@ app.use(
     parameterLimit: 50000,
   })
 );
-
+app.get("/", (req, res) => {
+  return res.send("<h1>Welcome Zlaam</h1>");
+});
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
