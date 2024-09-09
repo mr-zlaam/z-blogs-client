@@ -15,9 +15,11 @@ const statusCode = {
   GATEWAY_TIMEOUT: StatusCodes.GATEWAY_TIMEOUT,
   COOKIES_OPTION: {
     httpOnly: true,
-    secure: !ISDEVELOPMENT_ENVIRONMENT && true,
+    secure: true,
+    // secure: !ISDEVELOPMENT_ENVIRONMENT && true,
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
     sameSite: "none" as SameSiteType,
+    domain: "zlaam.vercel.app",
   },
 };
 //codes
