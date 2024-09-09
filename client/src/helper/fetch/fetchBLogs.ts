@@ -6,9 +6,7 @@ import { BlogTypes } from "@/types";
 // get home page blog
 export const fetchHomePageBlogs = async () => {
   try {
-    const response = await fetch(`${BACKEND_URI}/blog/getHomePagePublicBlog`, {
-      cache: "no-store",
-    });
+    const response = await fetch(`${BACKEND_URI}/blog/getHomePagePublicBlog`);
     if (response.ok) {
       const data = await response.json();
       return data as BlogTypes;
@@ -30,10 +28,7 @@ export const fetchAllPublicBlogs = async (
 ) => {
   try {
     const response = await fetch(
-      `${BACKEND_URI}/blog/getAllPublicBlogs?page=${page}&limit=${limit}`,
-      {
-        cache: "no-store",
-      }
+      `${BACKEND_URI}/blog/getAllPublicBlogs?page=${page}&limit=${limit}`
     );
     if (response.ok) {
       const data = await response.json();
@@ -98,7 +93,6 @@ export const fetchPrivateBlogs = async (token: string) => {
     return console.log("token is not given for fecthing private stuff");
   try {
     const response = await fetch(`${BACKEND_URI}/blog/getAllPrivateBlogs`, {
-      cache: "no-store",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",

@@ -1,4 +1,3 @@
-"use client";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";

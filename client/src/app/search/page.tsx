@@ -1,14 +1,17 @@
 import BackToPreviousRoute from "@/_subComponents/backToPreviousRoute/BackToPreviousRoute";
-import {} from "react";
+import { Suspense } from "react";
 import PageWrapper from "../_components/pageWrapper/PageWrapper";
 import Search from "./comp/Search";
+import ButtonLoader from "@/_subComponents/buttonLoader/buttonLoader";
 
 function SearchPage() {
   return (
     <>
       <PageWrapper>
         <BackToPreviousRoute />
-        <Search />
+        <Suspense fallback={<ButtonLoader />}>
+          <Search />
+        </Suspense>
       </PageWrapper>
     </>
   );

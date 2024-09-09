@@ -24,7 +24,6 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  console.log("dashboard")
   const token = useCookieGrabber();
   if (!token) {
     return (

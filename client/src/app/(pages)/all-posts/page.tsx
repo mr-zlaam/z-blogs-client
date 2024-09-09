@@ -23,9 +23,7 @@ async function AllPostPage() {
           </Fragment>
         ))}
       </section>
-      <section className=" my-5">
-        <LoadMore />
-      </section>
+      <section className=" my-5">{/* <LoadMore /> */}</section>
     </>
   );
 }
