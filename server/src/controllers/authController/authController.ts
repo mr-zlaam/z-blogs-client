@@ -209,19 +209,7 @@ const loginUserController = asyncHandler(
     const accessToken = GenerateJWTAccessToken(payload, res);
     return res
       .status(OK)
-      .cookie(
-        "accessToken",
-        accessToken,
-        {
-          httpOnly: true,
-          secure: true,
-          maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
-          sameSite: "none",
-          domain: ".zlaam.vercel.app",
-          path: "/home",
-        }
-        // COOKIES_OPTION
-      )
+      .cookie("accessToken", accessToken, COOKIES_OPTION)
       .json(
         apiResponse(
           OK,

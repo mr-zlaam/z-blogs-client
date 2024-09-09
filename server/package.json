@@ -9,7 +9,8 @@
     "predev": "npm run build",
     "dev": "concurrently \"tsc && copyfiles -u 1 './src/templ/**/*' './dist/src/'\" \"nodemon ./dist/server.js --env-file .env ./dist/server.js\"",
     "start": "node  ./dist/server.js",
-    "watch": "bun --watch server.ts"
+    "watch": "bun --watch server.ts",
+    "compile": "concurrently \"tsc && copyfiles -u 1 './src/templ/**/*' './dist/src/'\""
   },
   "dependencies": {
     "@prisma/client": "^5.18.0",
