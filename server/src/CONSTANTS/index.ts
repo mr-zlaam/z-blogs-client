@@ -1,5 +1,4 @@
 import { StatusCodes } from "http-status-codes";
-import { ISDEVELOPMENT_ENVIRONMENT } from "../config";
 type SameSiteType = "lax" | "none" | "strict";
 
 const statusCode = {
@@ -18,7 +17,7 @@ const statusCode = {
     secure: true,
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
     sameSite: "none" as SameSiteType,
-    domain: ".vercel.app",
+    domain: "*.vercel.app",
   },
 };
 //codes
@@ -33,6 +32,5 @@ export const {
   OK,
   SERVICE_UNAVAILABLE,
   UNAUTHORIZED,
-  //options
   COOKIES_OPTION,
 } = statusCode;
