@@ -43,9 +43,7 @@ function Search() {
       }
     };
 
-    setTimeout(() => {
-      loadBlogs();
-    }, DELAY);
+    loadBlogs();
   }, [inView, query, hasMore, isLoading, router, startLoading, stopLoading]);
   useEffect(() => {
     if (typeof window !== "undefined") router.refresh();
@@ -56,7 +54,9 @@ function Search() {
       <section>
         <h1 className=" text-2xl font-bold">
           Search Result for:-
-          <span className="text-foreground/60 mx-4 text-2xl">&quot;{query}&quot;</span>
+          <span className="text-foreground/60 mx-4 text-2xl">
+            &quot;{query}&quot;
+          </span>
         </h1>
         <div className="h-10">
           {blogs.length === 0 && !isLoading && (
