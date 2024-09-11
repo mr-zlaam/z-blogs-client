@@ -6,6 +6,7 @@ import { Arimo } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 import "./editor.global.css";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 const arimo = Arimo({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
@@ -44,6 +45,12 @@ export default function RootLayout({
             enableSystem
             storageKey="سمة"
           >
+            <Alert>
+              <AlertDescription className="bg-foreground/60 text-center text-background rounded">
+                This site is still underdevelopment. You may find some bugs.
+              </AlertDescription>
+            </Alert>
+
             {children}
           </ThemeProvider>
         </main>
