@@ -117,3 +117,21 @@ export const fetchPrivateBlogs = async (token: string) => {
     return error.response.data || 403;
   }
 };
+// fetch single post
+export const fetchSinglePost = async (slug: string) => {
+  try {
+    const response = await fetch(`${BACKEND_URI}/blog/getSingleBlog/${slug}`, {
+      next: { revalidate: 60 },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    }
+  } catch (error: any) {
+    console.log(error);
+    if (error instanceof Error) {
+      return error.message + " ErrorFrom fetching single post";
+    }
+    return error;
+  }
+};

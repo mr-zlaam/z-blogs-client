@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://zlaam-vercel.app/"),
   title: {
     default: "Zlaam - Read the quality articles",
-    template: "%s - Zlaam - Read the quality articles",
+    template: "%s - Zlaam | Read the quality articles",
   },
   description:
     "The collection of wonderful bussiness articles for developers and tech enthusiasts!",

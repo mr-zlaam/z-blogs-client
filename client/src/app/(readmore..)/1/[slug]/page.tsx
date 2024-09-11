@@ -1,33 +1,47 @@
 import PageWrapper from "@/app/_components/pageWrapper/PageWrapper";
-import { BACKEND_URI } from "@/config";
+import { fetchSinglePost } from "@/helper/fetch/fetchBLogs";
 import { SinglePostBlogTypes } from "@/types";
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
+import { Metadata } from "next";
 import {} from "react";
 import SinglePost from "./comp/SinglePost";
+export async function generateMetadata({
+  params,
+}: {
+  params: SlugTypes;
+}): Promise<Metadata | undefined> {
+  const { slug } = params;
+  const post = (await fetchSinglePost(slug as string)) as SinglePostBlogTypes;
+  if (!post) {
+    return;
+  }
+  const { data } = post;
+  return {
+    title: { absolute: data.blogTitle },
+    description: data.blogOverView,
+    openGraph: {
+      title: { absolute: data.blogTitle },
+      description: data.blogOverView,
+      type: "article",
+      locale: "en_US",
+      url: `https://zlaam.vercel.app/1/${slug}`,
+      siteName: "Zlaam",
+      images: [
+        {
+          url: data.blogThumbnail,
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
+  };
+}
 export interface SlugTypes {
   slug: string;
 }
 // Fetching full article
-
-const fetchSinglePost = async (slug: string) => {
-  try {
-    const response = await fetch(`${BACKEND_URI}/blog/getSingleBlog/${slug}`, {
-      cache: "no-store",
-    });
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    }
-  } catch (error: any) {
-    console.log(error);
-    if (error instanceof Error) {
-      return error.message + " ErrorFrom fetching single post";
-    }
-    return error;
-  }
-};
-
+// generate MetaData
 async function ReadMorePage({ params }: { params: SlugTypes }) {
   const { slug } = params;
   const singlePost = (await fetchSinglePost(slug)) as SinglePostBlogTypes;
