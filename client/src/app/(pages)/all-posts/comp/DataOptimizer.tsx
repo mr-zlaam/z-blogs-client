@@ -32,13 +32,16 @@ function BlogDataOptimizer({ post }: blogPostProps) {
               Read More...
             </Button>
           </Link>
-          <div className="image md:w-[250px] flex-[1] md:flex-[0.5] bg-red-500 w-full my-4 md:my-0">
-            <AspectRatio ratio={16 / 9} className="bg-muted overflow-hidden">
+          <div className="image md:w-[250px] flex-[1] md:flex-[0.5]  w-full my-4 md:my-0 overflow-hidden rounded-md">
+            <AspectRatio
+              ratio={16 / 9}
+              className="bg-muted overflow-hidden rounded-md"
+            >
               <Image
                 src={post.blogThumbnail}
                 alt={post.blogTitle}
                 fill
-                className="h-full w-full rounded-md object-cover"
+                className="h-full w-full rounded object-cover"
                 quality={100}
                 sizes="(max-width: 1200px) 100vw, (max-width: 800px) calc(80vw + 40px)"
               />
