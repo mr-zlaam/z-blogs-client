@@ -37,14 +37,16 @@ function BlogDataOptimizer({ post }: blogPostProps) {
               ratio={16 / 9}
               className="bg-muted overflow-hidden rounded-md"
             >
-              <Image
-                src={post.blogThumbnail}
-                alt={post.blogTitle}
-                fill
-                className="h-full w-full rounded object-cover"
-                quality={100}
-                sizes="(max-width: 1200px) 100vw, (max-width: 800px) calc(80vw + 40px)"
-              />
+              <Link href={`/${SITE_VERSION}/${post.blogSlug}`}>
+                <Image
+                  src={post.blogThumbnail}
+                  alt={post.blogTitle}
+                  fill
+                  className="h-full w-full rounded object-cover"
+                  quality={100}
+                  sizes="(max-width: 1200px) 100vw, (max-width: 800px) calc(80vw + 40px)"
+                />
+              </Link>
             </AspectRatio>
           </div>
         </div>
