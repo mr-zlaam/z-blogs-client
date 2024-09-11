@@ -61,7 +61,7 @@ async function ReadMorePage({ params }: { params: SlugTypes }) {
 
   return (
     <>
-      <PageWrapper>
+      <PageWrapper className="px-4">
         <SinglePost
           article={article}
           author={author}

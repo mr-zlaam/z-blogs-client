@@ -100,7 +100,7 @@ function SinglePost({
           Image by : {parser(coverImageOwner)}
         </p>
         <div
-          className="font-normal text-lg my-5 leading-[2]"
+          className="font-normal mx-2  my-5 leading-[2]"
           dangerouslySetInnerHTML={{
             __html:
               renderedHtml.length === 0 ? "Write something...." : renderedHtml,

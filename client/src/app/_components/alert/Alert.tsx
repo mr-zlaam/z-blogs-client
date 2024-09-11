@@ -12,7 +12,7 @@ function Alert() {
     <div className="sticky w-full top-0 z-[999]">
       <AlertDescription
         className={cn(
-          "bg-green-700 text-center text-background  relative  flex items-center justify-center top-3 sm:top-0",
+          "bg-green-700 text-center text-background  relative  flex items-center justify-center top-3 sm:top-0 ",
           isDisabled && "hidden"
         )}
       >
@@ -28,7 +28,7 @@ function Alert() {
           </Link>
         </span>
         <DivWrapper
-          className="h-[25px] w-[25px] absolute top-[-2px] right-1 sm:right-3 text-foreground "
+          className="h-[25px] w-[25px] absolute top-[-2px] right-[-5px] md:right-3 text-foreground "
           onClick={() => {
             setIsDisabled(!isDisabled);
           }}
