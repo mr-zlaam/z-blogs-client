@@ -27,6 +27,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://zlaam-vercel.app/",
     siteName: "Zlaam",
+    images: [
+      {
+        url: "https://live.staticflickr.com/65535/53987616162_1856ddcf4d_b.jpg",
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
 };
 
