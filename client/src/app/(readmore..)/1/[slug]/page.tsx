@@ -6,6 +6,7 @@ import { marked } from "marked";
 import { Metadata } from "next";
 import {} from "react";
 import SinglePost from "./comp/SinglePost";
+import { SITE_URL } from "@/constants";
 export async function generateMetadata({
   params,
 }: {
@@ -25,7 +26,7 @@ export async function generateMetadata({
       description: data.blogOverView,
       type: "article",
       locale: "en_US",
-      url: `https://zlaam.vercel.app/1/${slug}`,
+      url: `${SITE_URL}/1/${slug}`,
       siteName: "Zlaam",
       images: [
         {
