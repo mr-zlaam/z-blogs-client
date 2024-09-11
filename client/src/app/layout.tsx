@@ -6,7 +6,6 @@ import { Arimo } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./editor.global.css";
 import "./globals.css";
-import Alert from "./_components/alert/Alert";
 const arimo = Arimo({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
@@ -45,7 +44,6 @@ export default function RootLayout({
             enableSystem
             storageKey="سمة"
           >
-            <Alert />
             {children}
           </ThemeProvider>
         </main>

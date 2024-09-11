@@ -3,4 +3,4 @@ export const SITE_VERSION = 1;
 export const DELAY = 500;
 export const LIMIT = 20;
 export const PAGE = 2;
-export const REVALIDATE = 20; // experiment
+export const REVALIDATE = 28800; // experiment
