@@ -17,8 +17,8 @@ function Alert() {
         )}
       >
         <span>
-          This site is still underdevelopment.If you experience any bug please
-          report it on{" "}
+          This site is still under development. If you experience any bug,
+          please report it on {" "}
           <Link
             target="_blank"
             href={"https://github.com/mr-zlaam/z-blogs/issues"}
