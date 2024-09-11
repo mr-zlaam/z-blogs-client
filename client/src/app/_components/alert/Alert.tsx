@@ -12,7 +12,7 @@ function Alert() {
     <div className="sticky w-full top-0 z-[999]">
       <AlertDescription
         className={cn(
-          "bg-green-700 text-center text-background rounded relative h-10 flex items-center justify-center",
+          "bg-green-700 text-center text-background  relative h-10 flex items-center justify-center",
           isDisabled && "hidden"
         )}
       >
