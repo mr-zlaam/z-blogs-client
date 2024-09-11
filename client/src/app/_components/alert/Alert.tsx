@@ -9,7 +9,7 @@ import { RxCross2 } from "react-icons/rx";
 function Alert() {
   const [isDisabled, setIsDisabled] = useState(false);
   return (
-    <div>
+    <div className="sticky w-full top-0 z-[999]">
       <AlertDescription
         className={cn(
           "bg-green-700 text-center text-background rounded relative h-10 flex items-center justify-center",
@@ -33,7 +33,7 @@ function Alert() {
             setIsDisabled(!isDisabled);
           }}
         >
-          <RxCross2 size={20} className="font-bold" />
+          <RxCross2 size={20} className="font-bold text-white" />
         </DivWrapper>
       </AlertDescription>
     </div>
