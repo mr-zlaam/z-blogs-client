@@ -15,15 +15,11 @@ export default async function sitemap(): Promise<
   if (!postUrls) return;
   return [
     {
-      url: SITE_URL,
+      url: SITE_URL + "/home",
       lastModified: new Date(),
     },
     {
       url: `${SITE_URL}/all-posts`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${SITE_URL}/create-post`,
       lastModified: new Date(),
     },
     ...postUrls,
