@@ -1,12 +1,14 @@
 import { axios } from "@/axios";
 import { BACKEND_URI } from "@/config";
-import { LIMIT } from "@/constants";
+import { LIMIT, REVALIDATE } from "@/constants";
 import { BlogTypes } from "@/types";
 
 // get home page blog
 export const fetchHomePageBlogs = async () => {
   try {
-    const response = await fetch(`${BACKEND_URI}/blog/getHomePagePublicBlog`);
+    const response = await fetch(`${BACKEND_URI}/blog/getHomePagePublicBlog`, {
+      next: { revalidate: REVALIDATE },
+    });
     if (response.ok) {
       const data = await response.json();
       return data as BlogTypes;
@@ -28,7 +30,10 @@ export const fetchAllPublicBlogs = async (
 ) => {
   try {
     const response = await fetch(
-      `${BACKEND_URI}/blog/getAllPublicBlogs?page=${page}&limit=${limit}`
+      `${BACKEND_URI}/blog/getAllPublicBlogs?page=${page}&limit=${limit}`,
+      {
+        next: { revalidate: REVALIDATE },
+      }
     );
     if (response.ok) {
       const data = await response.json();
@@ -54,6 +59,7 @@ export const fetchSearchPublicBlogs = async (
     const response = await fetch(
       `${BACKEND_URI}/blog/getAllBlogs/search?q=${query}&limit=${limit}&page=${page}`,
       {
+        next: { revalidate: REVALIDATE },
         headers: {
           "Content-Type": "application/json",
         },
@@ -93,6 +99,7 @@ export const fetchPrivateBlogs = async (token: string) => {
     return console.log("token is not given for fecthing private stuff");
   try {
     const response = await fetch(`${BACKEND_URI}/blog/getAllPrivateBlogs`, {
+      next: { revalidate: REVALIDATE },
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
