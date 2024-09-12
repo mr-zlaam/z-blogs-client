@@ -46,7 +46,7 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
             <Image src={logo} alt="zlaam" height={60} width={60} />
           </Link>
 
-          <div className="flex items-center">
+          <div className="flex items-center mr-3 sm:mr-0">
             <div className="h-fit w-fit bg-background rounded-full  overflow-hidden ">
               <DropdownMenu>
                 <DropdownMenuTrigger className="bg-transparent cursor-pointer  border-none flex items-center justify-center">
@@ -54,7 +54,7 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                     <RandomAvatar
                       size={35}
                       mode="random"
-                      name={(user && user?.username) || "hero"}
+                      name={user && user?.username}
                       square
                     />
                   ) : (
