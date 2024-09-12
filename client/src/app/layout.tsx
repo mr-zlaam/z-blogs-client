@@ -6,7 +6,8 @@ import { Arimo } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./editor.global.css";
 import "./globals.css";
-import Head from "next/head";
+import { CookiesProvider } from "next-client-cookies/server";
+
 const arimo = Arimo({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
@@ -47,25 +48,28 @@ export default function RootLayout({
       <body
         className={cn(arimo.className, "font-medium bg-background font-sans")}
       >
-        <main>
-          <Toaster />
-          <NextTopLoader
-            showSpinner={false}
-            color="#8d8dff"
-            height={4}
-            crawl
-            zIndex={999}
-          />
-          <ThemeProvider
-            disableTransitionOnChange
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            storageKey="سمة"
-          >
-            {children}
-          </ThemeProvider>
-        </main>
+        <CookiesProvider>
+          {" "}
+          <main>
+            <Toaster />
+            <NextTopLoader
+              showSpinner={false}
+              color="#8d8dff"
+              height={4}
+              crawl
+              zIndex={999}
+            />
+            <ThemeProvider
+              disableTransitionOnChange
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              storageKey="سمة"
+            >
+              {children}
+            </ThemeProvider>
+          </main>
+        </CookiesProvider>
       </body>
     </html>
   );

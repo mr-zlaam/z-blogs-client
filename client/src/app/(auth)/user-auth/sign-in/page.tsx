@@ -3,23 +3,27 @@ import ButtonLoader from "@/_subComponents/buttonLoader/buttonLoader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { BACKEND_URI } from "@/config";
+import { IS_NOT_DEV_ENV } from "@/constants";
 import { useLoading } from "@/hooks/useLoading";
 import { useMessage } from "@/hooks/useMessage";
 import { cn } from "@/lib/utils";
 import type { UserLoginTypes } from "@/types";
 import { loginSchema } from "@/validation/Schemas/dataSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios, { AxiosError } from "axios";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
-import { useState } from "react";
-import { BACKEND_URI } from "@/config";
+import axios from "axios";
+import { useCookies } from "next-client-cookies";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+
 function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const { errorMessage, successMessage } = useMessage();
   const { isLoading, startLoading, stopLoading } = useLoading();
+  const cookie = useCookies();
   const {
     register,
     handleSubmit,
@@ -46,9 +50,23 @@ function LoginForm() {
           withCredentials: true,
         }
       );
+      cookie.set("actoken", "", {
+        sameSite: "Strict",
+        expires: 7 * 24 * 60 * 60 * 1000,
+      });
       if (response.status === 200) {
+        const accessToken = response?.data?.data?.accessToken as string;
+        const expirationDate = new Date();
+        expirationDate.setTime(
+          expirationDate.getTime() + 7 * 24 * 60 * 60 * 1000
+        );
+        if (!accessToken) return;
+        cookie.set("accessToken", accessToken, {
+          expires: expirationDate, // 7 days
+          sameSite: "Strict",
+          secure: IS_NOT_DEV_ENV,
+        });
         successMessage(response.data.message || "Login Successful");
-
         reset();
         if (typeof window !== "undefined") {
           window.location.reload();
