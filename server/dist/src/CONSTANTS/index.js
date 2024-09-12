@@ -18,10 +18,8 @@ const statusCode = {
         secure: true,
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
         sameSite: "none",
-        domain: ".vercel.app",
+        domain: "*.vercel.app",
     },
 };
 //codes
-exports.BAD_REQUEST = statusCode.BAD_REQUEST, exports.CREATED = statusCode.CREATED, exports.FORBIDDEN = statusCode.FORBIDDEN, exports.GATEWAY_TIMEOUT = statusCode.GATEWAY_TIMEOUT, exports.INTERNAL_SERVER_ERROR = statusCode.INTERNAL_SERVER_ERROR, exports.NOT_FOUND = statusCode.NOT_FOUND, exports.NOT_IMPLEMENTED = statusCode.NOT_IMPLEMENTED, exports.OK = statusCode.OK, exports.SERVICE_UNAVAILABLE = statusCode.SERVICE_UNAVAILABLE, exports.UNAUTHORIZED = statusCode.UNAUTHORIZED, 
-//options
-exports.COOKIES_OPTION = statusCode.COOKIES_OPTION;
+exports.BAD_REQUEST = statusCode.BAD_REQUEST, exports.CREATED = statusCode.CREATED, exports.FORBIDDEN = statusCode.FORBIDDEN, exports.GATEWAY_TIMEOUT = statusCode.GATEWAY_TIMEOUT, exports.INTERNAL_SERVER_ERROR = statusCode.INTERNAL_SERVER_ERROR, exports.NOT_FOUND = statusCode.NOT_FOUND, exports.NOT_IMPLEMENTED = statusCode.NOT_IMPLEMENTED, exports.OK = statusCode.OK, exports.SERVICE_UNAVAILABLE = statusCode.SERVICE_UNAVAILABLE, exports.UNAUTHORIZED = statusCode.UNAUTHORIZED, exports.COOKIES_OPTION = statusCode.COOKIES_OPTION;
