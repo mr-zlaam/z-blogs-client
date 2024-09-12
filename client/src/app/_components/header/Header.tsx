@@ -27,7 +27,9 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
   if (pathName === "/all-posts") return null;
   const logoutTheUser = async () => {
     try {
-      const res = await handleLogout(token as string);
+      const res = await fetch("/api/logout", {
+        method: "POST",
+      });
       if (res?.status === 200) {
         successMessage("User logout successfully");
         if (typeof window !== "undefined") return location.reload();

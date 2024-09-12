@@ -161,7 +161,12 @@ const verifyUserController = asyncHandler(
     return res
       .status(OK)
       .cookie("accessToken", verifiedAccessToken, COOKIES_OPTION)
-      .json(apiResponse(OK, "OTP verified successfully", verifiedUser));
+      .json(
+        apiResponse(OK, "OTP verified successfully", {
+          verifiedUser,
+          accessToken: verifiedAccessToken,
+        })
+      );
   }
 );
 // * Login User Controller

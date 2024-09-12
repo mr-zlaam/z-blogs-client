@@ -60,8 +60,9 @@ export function OTPinput({ token }: { token: string }) {
         stopLoading();
         form.reset();
         successMessage("OTP verified successfully", "bottom-right", 3000);
-        if (typeof window !== "undefined") window.location.reload();
-        return router.push("/home");
+        console.log(response);
+        // if (typeof window !== "undefined") window.location.reload();
+        // return router.push("/home");
       } else if (response.status === 400) {
         return errorMessage("Invalid OTP");
       }

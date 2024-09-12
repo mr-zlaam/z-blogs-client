@@ -37,7 +37,10 @@ function BlogDataOptimizer({ post }: blogPostProps) {
               ratio={16 / 9}
               className="bg-muted overflow-hidden rounded-md"
             >
-              <Link href={`/${SITE_VERSION}/${post.blogSlug}`}>
+              <Link
+                href={`/${SITE_VERSION}/${post.blogSlug}`}
+                className="relative block h-full w-full"
+              >
                 <Image
                   src={post.blogThumbnail}
                   alt={post.blogTitle}
