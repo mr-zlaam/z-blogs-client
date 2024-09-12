@@ -15,6 +15,7 @@ import { useMessage } from "@/hooks/useMessage";
 import BackToPreviousRoute from "@/_subComponents/backToPreviousRoute/BackToPreviousRoute";
 import ScrollToTop from "@/_subComponents/scrollToTop/ScrollToTop";
 import { RandomAvatar } from "react-random-avatars";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface SinglePostProps {
   article: string;
@@ -106,14 +107,20 @@ function SinglePost({
             </p>
           </div>
         </div>
-        <div>
-          <Image
-            src={coverImage}
-            alt={blogTitle}
-            height={400}
-            width={800}
-            className="rounded-md shadow object-contain md:object-cover "
-          />
+        <div className="image  flex-[1] md:flex-[0.5]  w-full my-4 md:my-0 overflow-hidden rounded-md">
+          <AspectRatio
+            ratio={16 / 9}
+            className="bg-muted overflow-hidden rounded-md relative"
+          >
+            <Image
+              src={coverImage}
+              alt={blogTitle}
+              fill
+              className="h-full w-full rounded object-cover"
+              quality={100}
+              sizes="(max-width: 1200px) 100vw, (max-width: 800px) calc(80vw + 40px)"
+            />
+          </AspectRatio>
         </div>
         <p className="text-sm  text-center">
           Image by : {parser(coverImageOwner)}
