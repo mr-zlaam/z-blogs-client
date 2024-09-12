@@ -13,7 +13,7 @@ interface blogPostProps {
 function BlogDataOptimizer({ post }: blogPostProps) {
   return (
     <>
-      <section className=" w-full h-full ">
+      <section className=" w-full h-full px-3">
         <div className="flex my-2 md:items-center flex-col-reverse md:flex-row md:py-2">
           <Link
             href={`/${SITE_VERSION}/${post.blogSlug}`}
