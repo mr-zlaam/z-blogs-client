@@ -160,6 +160,13 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       console.log(error);
     }
   };
+  useEffect(() => {
+    if (isSessionExpiredError) {
+      setTimeout(() => {
+        logoutTheUser();
+      }, 1500);
+    }
+  });
   return (
     <>
       {isSessionExpiredError && (
