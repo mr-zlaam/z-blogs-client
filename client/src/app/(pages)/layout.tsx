@@ -37,7 +37,6 @@ const fetchSingleUser = async (token: string) => {
 async function PageLayout({ children }: { children: React.ReactNode }) {
   const tokenStore = UseCookieGrabber();
   const userfromdb = await fetchSingleUser(tokenStore?.value || "");
-  if (!userfromdb) return null;
   return (
     <>
       {/* <Alert /> */}
