@@ -1,11 +1,9 @@
 import type {
-  BlogTypes,
   UserLoginTypes,
   UserRegisterTypes,
-  UserUpdateRoleType,
   UserUpdateTypes,
 } from "@/types";
-import { type ZodType, object, string, enum as enum_ } from "zod";
+import { type ZodType, enum as enum_, object, string } from "zod";
 
 export const registerSchema: ZodType<UserRegisterTypes> = object({
   username: string()
@@ -81,6 +79,9 @@ export const updateSchema: ZodType<UserUpdateTypes> = object({
     .max(100, { message: "Email is too long" })
     .toLowerCase(),
 });
+interface UserUpdateRoleType {
+  role: "ADMIN" | "MODERATOR" | "USER";
+}
 export const updateRoleSchema: ZodType<UserUpdateRoleType> = object({
   role: enum_(["ADMIN", "MODERATOR", "USER"], {
     errorMap: () => ({ message: "Role must be ADMIN | MODERATOR | USER" }),
