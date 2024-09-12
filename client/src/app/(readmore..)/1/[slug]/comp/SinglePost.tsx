@@ -14,6 +14,8 @@ import parser from "html-react-parser";
 import { useMessage } from "@/hooks/useMessage";
 import BackToPreviousRoute from "@/_subComponents/backToPreviousRoute/BackToPreviousRoute";
 import ScrollToTop from "@/_subComponents/scrollToTop/ScrollToTop";
+import { RandomAvatar } from "react-random-avatars";
+
 interface SinglePostProps {
   article: string;
   author: AuthorType;
@@ -73,15 +75,32 @@ function SinglePost({
         <h1 className="text-center font-bold text-2xl md:text-3xl my-4 text-balance">
           {blogTitle}
         </h1>
-        <div className="flex  items-center my-4  px-4 ">
-          <Image
+        <div className="flex  items-center my-4  px-4">
+          {/* <Image
             src={logoImage}
             alt="Zlaam"
             placeholder="blur"
             className="rounded-full w-[50px] h-[50px]"
-          />
+          /> */}
+          <div className="mt-3 rounded-full overflow-hidden cursor-pointer  border-none flex items-center justify-center bg-foreground/50">
+            <RandomAvatar
+              size={35}
+              mode="random"
+              name={author.username || "hero"}
+              square
+            />
+          </div>
           <div className="flex flex-col justify-start px-4 mt-5">
-            <h1 className="text-lg font-semibold ">{author.fullName}</h1>
+            <h1 className="text-lg font-semibold ">
+              {author.fullName}
+              <span className="text-xs font-[300]">
+                {author.role === "ADMIN"
+                  ? " (admin)"
+                  : author.role === "MODERATOR"
+                  ? " (moderator)"
+                  : ""}
+              </span>
+            </h1>
             <p className="text-sm text-left  font-normal ">
               Published: {moment(createdAt).format("MMMM Do, YYYY")}
             </p>

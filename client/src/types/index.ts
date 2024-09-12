@@ -14,9 +14,7 @@ export interface UserUpdateTypes {
   fullName: string;
   email: string;
 }
-export interface UserUpdateRoleType {
-  role: "ADMIN" | "MODERATOR" | "USER";
-}
+export type UserUpdateRoleType = "ADMIN" | "MODERATOR" | "USER";
 
 export interface UserDataTypes {
   uid: string;
