@@ -1,6 +1,6 @@
 import { SITE_URL } from "@/constants";
 import { MetadataRoute } from "next";
-import { fetchAllPublicBlogs } from "../helper/fetch/fetchBLogs";
+import { fetchAllPublicBlogs } from "../helper/fetch/fetchData";
 import { BlogTypes } from "@/types";
 
 export default async function sitemap(): Promise<

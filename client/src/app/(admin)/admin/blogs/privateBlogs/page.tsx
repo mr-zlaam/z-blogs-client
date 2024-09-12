@@ -27,7 +27,7 @@ import moment from "moment";
 
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { SECRET } from "@/config";
-import { fetchPrivateBlogs } from "@/helper/fetch/fetchBLogs";
+import { fetchPrivateBlogs } from "@/helper/fetch/fetchData";
 import useCookieGrabber from "@/hooks/useCookieGrabber";
 import { BlogTypes, PayLoadType } from "@/types";
 import { verify } from "jsonwebtoken";

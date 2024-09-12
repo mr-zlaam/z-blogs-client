@@ -22,7 +22,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
-import { fetchAllPublicBlogs } from "@/helper/fetch/fetchBLogs";
+import { fetchAllPublicBlogs } from "@/helper/fetch/fetchData";
 import { BlogTypes } from "@/types";
 import { MoreHorizontal } from "lucide-react";
 import moment from "moment";

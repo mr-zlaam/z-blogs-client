@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Link } from "@/components/ui/link";
 
-import { handleLogout } from "@/helper/fetch/fetchBLogs";
+import { handleLogout } from "@/helper/fetch/fetchData";
 import { useMessage } from "@/hooks/useMessage";
 import logo from "@/images/logo/z-logo.png";
 import { PayLoadType } from "@/types";

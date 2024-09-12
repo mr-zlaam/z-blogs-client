@@ -2,7 +2,7 @@
 import PageLoader from "@/_subComponents/pageLoader/PageLoader";
 import BlogDataOptimizer from "@/app/(pages)/all-posts/comp/DataOptimizer";
 import { DELAY, PAGE } from "@/constants";
-import { fetchSearchPublicBlogs } from "@/helper/fetch/fetchBLogs";
+import { fetchSearchPublicBlogs } from "@/helper/fetch/fetchData";
 import { useLoading } from "@/hooks/useLoading";
 import { BlogDataTypes, BlogTypes } from "@/types";
 import { useRouter, useSearchParams } from "next/navigation";

@@ -1,5 +1,5 @@
 import PageWrapper from "@/app/_components/pageWrapper/PageWrapper";
-import { fetchSinglePost } from "@/helper/fetch/fetchBLogs";
+import { fetchSinglePost } from "@/helper/fetch/fetchData";
 import { SinglePostBlogTypes } from "@/types";
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";

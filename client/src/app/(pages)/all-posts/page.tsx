@@ -1,4 +1,4 @@
-import { fetchAllPublicBlogs } from "@/helper/fetch/fetchBLogs";
+import { fetchAllPublicBlogs } from "@/helper/fetch/fetchData";
 import { BlogTypes } from "@/types";
 import { Fragment } from "react";
 import BlogDataOptimizer from "./comp/DataOptimizer";

@@ -3,7 +3,7 @@ import { useInView } from "react-intersection-observer";
 import PageLoader from "@/_subComponents/pageLoader/PageLoader";
 import { Fragment, useEffect, useState } from "react";
 import { BlogDataTypes, BlogTypes } from "@/types";
-import { fetchAllPublicBlogs } from "@/helper/fetch/fetchBLogs";
+import { fetchAllPublicBlogs } from "@/helper/fetch/fetchData";
 import BlogDataOptimizer from "@/app/(pages)/all-posts/comp/DataOptimizer";
 import { DELAY, PAGE } from "@/constants";
 

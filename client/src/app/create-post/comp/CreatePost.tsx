@@ -25,7 +25,7 @@ import logoImage from "../../../../public/logo/Zlaam.jpg";
 import { AlertDialogFooter } from "@/components/ui/alert-dialog";
 import { axios } from "@/axios";
 import { useRouter } from "next/navigation";
-import { handleLogout } from "@/helper/fetch/fetchBLogs";
+import { handleLogout } from "@/helper/fetch/fetchData";
 import ScrollToEnd from "@/_subComponents/scrollToEnd/ScrollToEnd";
 import BackToPreviousRoute from "@/_subComponents/backToPreviousRoute/BackToPreviousRoute";
 import { AspectRatio } from "@/components/ui/aspect-ratio";

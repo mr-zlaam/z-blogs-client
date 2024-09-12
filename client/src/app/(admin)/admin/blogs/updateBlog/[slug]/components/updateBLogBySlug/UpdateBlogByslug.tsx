@@ -13,7 +13,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Link } from "@/components/ui/link";
-import { handleLogout } from "@/helper/fetch/fetchBLogs";
+import { handleLogout } from "@/helper/fetch/fetchData";
 import highlightSyntax from "@/helper/higlightSyntax/HiglightSyntax";
 import { useMessage } from "@/hooks/useMessage";
 import { useValidateImageUrl as UseValidateImageUrl } from "@/hooks/useValidateUrl";

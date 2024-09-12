@@ -3,7 +3,7 @@
  ** Search functionality in Admin dashboard is waiting for implementation
  ** bug* Fix the search bug feature which is next js caching issue
  */
-import { fetchHomePageBlogs } from "@/helper/fetch/fetchBLogs";
+import { fetchHomePageBlogs } from "@/helper/fetch/fetchData";
 import { BlogTypes } from "@/types";
 import { Fragment } from "react";
 import BlogRenderer from "./comp/BlogRenderer";
