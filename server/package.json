@@ -5,7 +5,7 @@
   "main": "server.ts",
   "type": "commonjs",
   "scripts": {
-    "build": "rimraf dist && tsc",
+    "build": "rimraf dist && tsc && copyfiles -u 1 './src/templ/**/*' './dist/src/'",
     "predev": "npm run build",
     "dev": "concurrently \"tsc && copyfiles -u 1 './src/templ/**/*' './dist/src/'\" \"nodemon ./dist/server.js --env-file .env ./dist/server.js\"",
     "start": "node  ./dist/server.js",

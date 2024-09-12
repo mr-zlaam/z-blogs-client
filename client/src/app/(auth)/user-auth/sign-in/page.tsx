@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { BACKEND_URI } from "@/config";
-import { IS_NOT_DEV_ENV } from "@/constants";
+import { expirationDate, IS_NOT_DEV_ENV } from "@/constants";
 import { useLoading } from "@/hooks/useLoading";
 import { useMessage } from "@/hooks/useMessage";
 import { cn } from "@/lib/utils";
@@ -56,10 +56,7 @@ function LoginForm() {
       });
       if (response.status === 200) {
         const accessToken = response?.data?.data?.accessToken as string;
-        const expirationDate = new Date();
-        expirationDate.setTime(
-          expirationDate.getTime() + 7 * 24 * 60 * 60 * 1000
-        );
+
         if (!accessToken) return;
         cookie.set("accessToken", accessToken, {
           expires: expirationDate, // 7 days

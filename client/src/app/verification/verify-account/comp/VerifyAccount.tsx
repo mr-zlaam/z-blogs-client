@@ -58,11 +58,21 @@ export function OTPinput({ token }: { token: string }) {
       );
       if (response.status === 200) {
         stopLoading();
-        form.reset();
         successMessage("OTP verified successfully", "bottom-right", 3000);
-        console.log(response);
-        // if (typeof window !== "undefined") window.location.reload();
-        // return router.push("/home");
+        const token = response?.data?.data?.accessToken;
+        const setToken = await fetch("/api/verifyUser", {
+          method: "POST",
+          body: JSON.stringify({
+            token,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        console.log(setToken);
+        form.reset();
+        if (typeof window !== "undefined") window.location.reload();
+        return router.push("/home");
       } else if (response.status === 400) {
         return errorMessage("Invalid OTP");
       }
@@ -86,7 +96,11 @@ export function OTPinput({ token }: { token: string }) {
   const hello = () => {};
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6 ">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="w-2/3 space-y-6 "
+        autoFocus
+      >
         <FormField
           control={form.control}
           name="pin"
@@ -99,6 +113,7 @@ export function OTPinput({ token }: { token: string }) {
                     <InputOTPSlot
                       className="caret-blink border-solid "
                       index={0}
+                      autoFocus
                     />
                     <InputOTPSlot
                       className="caret-blink border-solid  border-l-0"
