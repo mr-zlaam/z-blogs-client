@@ -7,7 +7,6 @@ import {} from "react";
 import Header from "../_components/header/Header";
 import PageHeader from "../_components/pageHeader/PageHeader";
 import PageWrapper from "../_components/pageWrapper/PageWrapper";
-import Alert from "../_components/alert/Alert";
 const getUserInformationFromToken = () => {
   const objToken = UseCookieGrabber();
   if (!objToken?.value) {
@@ -26,7 +25,7 @@ function PageLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <Alert />
+      {/* <Alert /> */}
 
       <PageWrapper className="sticky top-0 left-0 w-full  mb-4 bg-background/95 backdrop-blur-md z-[50]">
         <Header user={user} token={tokenStore?.value as string} />
