@@ -99,7 +99,7 @@ export const fetchPrivateBlogs = async (token: string) => {
     return console.log("token is not given for fecthing private stuff");
   try {
     const response = await fetch(`${BACKEND_URI}/blog/getAllPrivateBlogs`, {
-      next: { revalidate: REVALIDATE },
+      cache: "no-store",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",

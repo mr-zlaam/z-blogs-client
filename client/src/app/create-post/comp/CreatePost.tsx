@@ -149,13 +149,12 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
   };
   const logoutTheUser = async () => {
     try {
-      const res = await handleLogout(token as string);
+      const res = await fetch("/api/logout", {
+        method: "POST",
+      });
       if (res?.status === 200) {
         successMessage("User logout successfully");
-        if (typeof window !== "undefined") {
-          window.location.reload();
-        }
-        return router.push("/user-auth/sign-in");
+        if (typeof window !== "undefined") return location.reload();
       }
     } catch (error: any) {
       console.log(error);
