@@ -10,7 +10,6 @@ export async function POST(req: NextRequest) {
   const { token } = body;
   if (!token)
     return NextResponse.json({ success: false, message: "Token not found" });
-  console.log(token);
   const cookie = cookies();
   cookie.delete("accessToken");
   cookie.set("accessToken", token, {
