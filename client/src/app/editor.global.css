@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap");
+
 .code {
   background-color: #28282b;
   color: white;
@@ -13,7 +15,14 @@ pre {
   border-radius: 10px;
   padding: 20px;
   overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #57575c transparent;
+  scrollbar-width: 4px;
   font-size: 14px;
+  font-family: "Fira Code", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 code {
   width: fit-content;
@@ -24,6 +33,10 @@ code {
   font-family: monospace;
   font-size: 14px;
   margin: 0 5px;
+  font-family: "Fira Code", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 .key-python-yellow {
   color: #ffff00;
@@ -82,6 +95,7 @@ a {
 img {
   width: 100%;
   height: auto;
+  border-radius: 8px;
 }
 /* Table of content */
 
