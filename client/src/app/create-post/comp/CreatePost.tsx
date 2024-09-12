@@ -28,6 +28,7 @@ import { useRouter } from "next/navigation";
 import { handleLogout } from "@/helper/fetch/fetchBLogs";
 import ScrollToEnd from "@/_subComponents/scrollToEnd/ScrollToEnd";
 import BackToPreviousRoute from "@/_subComponents/backToPreviousRoute/BackToPreviousRoute";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 const Editor = dynamic(() => import("../comp/editor/Editor"), {
   ssr: false,
 });
@@ -202,15 +203,20 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
                 <p className="text-sm text-left">published on: {today}</p>
               </div>
             </div>
-            <div>
-              <Image
-                src={coverImageUrl ?? ""}
-                height={400}
-                width={800}
-                className="rounded-md shadow-md shadow-foreground/50"
-                alt={blogWriterName}
-                priority
-              />
+            <div className="image flex-[1] md:flex-[0.5]  w-full my-4 md:my-0 overflow-hidden rounded-md">
+              <AspectRatio
+                ratio={16 / 9}
+                className="bg-muted overflow-hidden rounded-md relative"
+              >
+                <Image
+                  src={coverImageUrl ?? ""}
+                  alt={title}
+                  fill
+                  className="h-full w-full rounded object-cover"
+                  quality={100}
+                  sizes="(max-width: 1200px) 100vw, (max-width: 800px) calc(80vw + 40px)"
+                />
+              </AspectRatio>
             </div>
             <p className="text-sm  text-center">
               Image by : {parser(coverImageOwnerName)}
@@ -285,7 +291,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
         />
         <div className="relative">
           <input
-            className="outline-none m-3 w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3 font-bold pr-20"
+            className="outline-none m-3 w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3 font-bold pr-20 text-thin text-[12px] font-mono "
             placeholder="Cover Image  Url..."
             ref={imageUrlRef}
             type="url"
