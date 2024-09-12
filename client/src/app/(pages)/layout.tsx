@@ -29,9 +29,7 @@ function PageLayout({ children }: { children: React.ReactNode }) {
       <Alert />
 
       <PageWrapper className="sticky top-0 left-0 w-full  mb-4 bg-background/95 backdrop-blur-md z-[50]">
-        {user && user.role === "ADMIN" && (
-          <Header user={user} token={tokenStore?.value as string} />
-        )}{" "}
+        <Header user={user} token={tokenStore?.value as string} />
         <Separator className="bg-foreground/10 h-[0.5px]" />
         <PageHeader />
         <Separator className="bg-foreground/10 h-[0.5px]" />
