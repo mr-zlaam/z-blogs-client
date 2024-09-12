@@ -38,7 +38,7 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
   };
   return (
     <>
-      <header className=" h-[70px]  mb-3">
+      <header className=" h-[70px]  mb-3 py-3">
         <nav className=" flex justify-between items-center ">
           <Link href={"/"}>
             <Image src={logo} alt="zlaam" height={60} width={60} />
