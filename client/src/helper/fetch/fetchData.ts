@@ -55,6 +55,7 @@ export const fetchSearchPublicBlogs = async (
   page: number,
   limit = LIMIT
 ) => {
+  // helo testing
   try {
     const response = await axios.get(
       `${BACKEND_URI}/blog/getAllBlogs/search?q=${query}&limit=${limit}&page=${page}`,
