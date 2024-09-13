@@ -40,7 +40,7 @@ async function PageLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       {/* <Alert /> */}
-      <PageWrapper className="sticky top-0 left-0 w-full  mb-4 bg-background/95 backdrop-blur-md z-[50]">
+      <PageWrapper className="sticky top-0 left-0 w-full  mb-4 bg-background/80 backdrop-blur-md z-[50]">
         <Header user={userfromdb.data} token={tokenStore?.value as string} />
         <Separator className="bg-foreground/10 h-[0.5px]" />
         <PageHeader />
