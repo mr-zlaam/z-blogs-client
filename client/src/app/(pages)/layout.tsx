@@ -20,23 +20,23 @@ const getUserInformationFromToken = () => {
     console.log(error.message);
   }
 };
-const fetchSingleUser = async (token: string) => {
-  try {
-    if (!token) return;
-    const user = verify(token, SECRET) as PayLoadType;
-    const response = await axios.get(
-      `${BACKEND_URI}/auth/getSingleUser/${user.uid}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response.data;
-  } catch (error: any) {
-    console.log(error);
-  }
-};
+// const fetchSingleUser = async (token: string) => {
+//   try {
+//     if (!token) return;
+//     const user = verify(token, SECRET) as PayLoadType;
+//     const response = await axios.get(
+//       `${BACKEND_URI}/auth/getSingleUser/${user.uid}`,
+//       {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       }
+//     );
+//     return response.data;
+//   } catch (error: any) {
+//     console.log(error);
+//   }
+// };
 function PageLayout({ children }: { children: React.ReactNode }) {
   const tokenStore = UseCookieGrabber();
   const user = getUserInformationFromToken() as PayLoadType;
