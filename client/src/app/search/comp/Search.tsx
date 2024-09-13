@@ -1,7 +1,7 @@
 "use client";
 import PageLoader from "@/_subComponents/pageLoader/PageLoader";
 import BlogDataOptimizer from "@/app/(pages)/all-posts/comp/DataOptimizer";
-import { DELAY, PAGE } from "@/constants";
+import { PAGE } from "@/constants";
 import { fetchSearchPublicBlogs } from "@/helper/fetch/fetchData";
 import { useLoading } from "@/hooks/useLoading";
 import { BlogDataTypes, BlogTypes } from "@/types";
@@ -45,9 +45,6 @@ function Search() {
 
     loadBlogs();
   }, [inView, query, hasMore, isLoading, router, startLoading, stopLoading]);
-  useEffect(() => {
-    if (typeof window !== "undefined") router.refresh();
-  }, [router]);
 
   return (
     <>

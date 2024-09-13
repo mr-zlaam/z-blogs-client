@@ -1,4 +1,6 @@
-import BackToPreviousRoute from "@/_subComponents/backToPreviousRoute/BackToPreviousRoute";
+import BackToPreviousRoute, {
+  GotoTheRoute,
+} from "@/_subComponents/backToPreviousRoute/BackToPreviousRoute";
 import { Suspense } from "react";
 import PageWrapper from "../_components/pageWrapper/PageWrapper";
 import Search from "./comp/Search";
