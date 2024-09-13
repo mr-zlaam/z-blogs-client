@@ -21,10 +21,14 @@ function BackToPreviousRoute() {
 export default BackToPreviousRoute;
 
 export function GotoTheRoute({ path }: { path: string }) {
+  const router = useRouter();
   return (
     <Link
       href={path}
       className=" my-10  text-foreground cursor-pointer h-[40px] w-[40px] flex justify-center items-center duration-300 transition-all rounded-full hover:bg-foreground hover:text-background "
+      onClick={() => {
+        return router.refresh();
+      }}
     >
       <ChevronLeft />
     </Link>

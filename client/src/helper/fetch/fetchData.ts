@@ -64,10 +64,8 @@ export const fetchSearchPublicBlogs = async (
         },
       }
     );
-    console.log(response.data);
     if (response.status === 200) {
       const result = response.data;
-      console.log(result);
       return result;
     }
   } catch (error: any) {
