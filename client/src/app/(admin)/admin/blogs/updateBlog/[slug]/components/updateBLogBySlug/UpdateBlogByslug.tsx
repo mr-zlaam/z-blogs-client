@@ -17,6 +17,8 @@ import { handleLogout } from "@/helper/fetch/fetchData";
 import highlightSyntax from "@/helper/higlightSyntax/HiglightSyntax";
 import { useMessage } from "@/hooks/useMessage";
 import { useValidateImageUrl as UseValidateImageUrl } from "@/hooks/useValidateUrl";
+import { SinglePostBlogTypes } from "@/types";
+import { AxiosError } from "axios";
 import parser from "html-react-parser";
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
@@ -25,8 +27,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useMemo, useRef, useState } from "react";
 import logoImage from "../../../../../../../../../public/logo/Zlaam.jpg";
-import { BlogDataTypes, SinglePostBlogTypes } from "@/types";
-import { AxiosError } from "axios";
 const Editor = dynamic(
   () => import("../../../../../../../create-post/comp/editor/Editor"),
   {
@@ -260,7 +260,7 @@ function UpdateBlogBySlug({
         </p>
       </div>
 
-      <div className="max-w-[1350px] mx-auto  overflow-hidden">
+      <div className="max-w-[1250px] mx-auto  overflow-hidden">
         <input
           className="outline-none  w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-2 font-bold"
           placeholder=" Write Title here..."
@@ -290,7 +290,7 @@ function UpdateBlogBySlug({
         />
         <div className="relative">
           <input
-            className="outline-none m-3 w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3 font-bold pr-20"
+            className="outline-none m-3 w-full  bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3 font-mono pr-20 text-xs font-normal"
             placeholder="Cover Image  Url..."
             ref={imageUrlRef}
             type="url"
@@ -357,13 +357,7 @@ function UpdateBlogBySlug({
           />
         </div>
       </div>
-      <div className="max-w-[1350px] mx-auto">
-        <Editor
-          setValue={setValue}
-          value={value}
-          setIsPreviewOpen={setIsPreviewOpen}
-          className="h-[250px]"
-        />
+      <div className="max-w-[1250px] mx-auto">
         <div className="my-2 flex justify-end px-5 select-none">
           <Dialog>
             <div className=" w-full flex justify-end px-5 ">
@@ -390,6 +384,12 @@ function UpdateBlogBySlug({
             </DialogContent>
           </Dialog>
         </div>
+        <Editor
+          setValue={setValue}
+          value={value}
+          setIsPreviewOpen={setIsPreviewOpen}
+          className=""
+        />
       </div>
     </>
   );

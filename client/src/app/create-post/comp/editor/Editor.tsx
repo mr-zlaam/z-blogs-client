@@ -51,7 +51,7 @@ const Editor = ({
   }, [successMessage]);
 
   return (
-    <main className="overflow-auto">
+    <main className="overflow-y-auto">
       <SimpleMDEditor
         onKeyDown={(e) => {
           if (e.key === "L" && e.ctrlKey && e.shiftKey) {

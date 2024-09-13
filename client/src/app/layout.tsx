@@ -50,7 +50,7 @@ export default function RootLayout({
       >
         <CookiesProvider>
           {" "}
-          <main>
+          <main className="">
             <Toaster />
             <NextTopLoader
               showSpinner={false}

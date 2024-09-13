@@ -1,17 +1,9 @@
 "use client";
 import PageWrapper from "@/app/_components/pageWrapper/PageWrapper";
+import { axios } from "@/axios";
+import { AlertDialogFooter } from "@/components/ui/alert-dialog";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
-import { Link } from "@/components/ui/link";
-import useCustomStorage from "@/hooks/useCustomStorageNext";
-import { useMessage } from "@/hooks/useMessage";
-import { useValidateImageUrl as UseValidateImageUrl } from "@/hooks/useValidateUrl";
-import DOMPurify from "isomorphic-dompurify";
-import parser from "html-react-parser";
-import { marked } from "marked";
-import dynamic from "next/dynamic";
-import Image from "next/image";
-import { useEffect, useMemo, useRef, useState } from "react";
-import highlightSyntax from "@/helper/higlightSyntax/HiglightSyntax";
 import {
   Dialog,
   DialogClose,
@@ -21,14 +13,19 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import logoImage from "../../../../public/logo/Zlaam.jpg";
-import { AlertDialogFooter } from "@/components/ui/alert-dialog";
-import { axios } from "@/axios";
+import { Link } from "@/components/ui/link";
+import highlightSyntax from "@/helper/higlightSyntax/HiglightSyntax";
+import useCustomStorage from "@/hooks/useCustomStorageNext";
+import { useMessage } from "@/hooks/useMessage";
+import { useValidateImageUrl as UseValidateImageUrl } from "@/hooks/useValidateUrl";
+import parser from "html-react-parser";
+import DOMPurify from "isomorphic-dompurify";
+import { marked } from "marked";
+import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { handleLogout } from "@/helper/fetch/fetchData";
-import ScrollToEnd from "@/_subComponents/scrollToEnd/ScrollToEnd";
-import BackToPreviousRoute from "@/_subComponents/backToPreviousRoute/BackToPreviousRoute";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import logoImage from "../../../../public/logo/Zlaam.jpg";
 const Editor = dynamic(() => import("../comp/editor/Editor"), {
   ssr: false,
 });
@@ -44,6 +41,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
     ""
   );
   const [isSessionExpiredError, setIsSessionExpiredError] = useState(false);
+  const [isBlogReadyForUpload, setIsBlogReadyForUpload] = useState(false);
   const router = useRouter();
   const [blogWriterName, setBlogWriterName] = useCustomStorage(
     "blogWriterName",
@@ -92,7 +90,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
   const date = new Date();
   const today = date.toLocaleDateString();
   // upload article to database
-  const handleValidate = () => {
+  const handleCreateBlogs = async () => {
     if (!title) return errorMessage("Write the title of the blog ");
     if (!coverImageOwnerName)
       return errorMessage("Write the name of the owner of the cover image");
@@ -101,9 +99,6 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       return errorMessage("Write the name of author who write blog");
     if (!value) return errorMessage("Write atleast some of it");
     if (!blogOverView) return errorMessage("Write atleast some of it");
-  };
-  const handleCreateBlogs = async () => {
-    handleValidate();
     try {
       const response = await axios.post(
         "/blog/createBlog",
@@ -148,7 +143,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
   const handeTogglePreview = () => {
     setIsPreviewOpen(!isPreviewOpen);
   };
-  const logoutTheUser = async () => {
+  const logoutTheUser = useCallback(async () => {
     try {
       const res = await fetch("/api/logout", {
         method: "POST",
@@ -160,19 +155,52 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
     } catch (error: any) {
       console.log(error);
     }
-  };
+  }, [successMessage]);
   useEffect(() => {
     if (isSessionExpiredError) {
       setTimeout(() => {
         logoutTheUser();
       }, 1500);
     }
-  });
+  }, [isSessionExpiredError, logoutTheUser]);
+  const checkIfBlogIsReady = useCallback(() => {
+    if (
+      title &&
+      coverImageUrl &&
+      coverImageOwnerName &&
+      blogWriterName &&
+      value &&
+      blogOverView
+    ) {
+      setIsBlogReadyForUpload(true);
+    } else {
+      setIsBlogReadyForUpload(false);
+    }
+  }, [
+    blogOverView,
+    blogWriterName,
+    title,
+    coverImageOwnerName,
+    coverImageUrl,
+    value,
+  ]);
+
+  useEffect(() => {
+    checkIfBlogIsReady();
+  }, [
+    title,
+    coverImageUrl,
+    coverImageOwnerName,
+    blogWriterName,
+    value,
+    blogOverView,
+    checkIfBlogIsReady,
+  ]);
   return (
     <>
       {isSessionExpiredError && (
-        <div className="bg-background/80 backdrop-blur-md fixed top-0 left-0 h-screen z-[200] w-full flex justify-center items-center">
-          <div className="  p-5 rounded break-words border-spacing-3 border-solid border-foreground/40">
+        <div className="bg-background/80 backdrop-blur-md fixed top-0 left-0 h-screen z-[200] w-full flex justify-center items-center px-3">
+          <div className="  p-5 rounded break-words border-spacing-3 border-solid border-foreground/40 m">
             <h1>Your Session is Expired Please sign in again</h1>
             <Button
               onClick={logoutTheUser}
@@ -261,7 +289,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
         </p>
       </div>
 
-      <div className="max-w-[1550px] mx-auto">
+      <div className="max-w-[1450px] mx-auto">
         <input
           className="outline-none  w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-2 font-bold"
           placeholder=" Write Title here..."
@@ -342,18 +370,14 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
           }}
         />
       </div>
-      <div className="max-w-[1550px] mx-auto">
-        <Editor
-          setValue={setValue}
-          value={value}
-          className="h-[370px]"
-          setIsPreviewOpen={setIsPreviewOpen}
-        />
+      <div className="max-w-[1450px] mx-auto">
         <div className="my-2 flex justify-end px-5 select-none">
           <Dialog>
             <div className=" w-full flex justify-end px-5 ">
               <DialogTrigger asChild className="">
-                <Button className="">Upload Blog</Button>
+                <Button className="" disabled={!isBlogReadyForUpload}>
+                  Upload Blog
+                </Button>
               </DialogTrigger>
             </div>
             <DialogContent className="sm:max-w-md">
@@ -364,7 +388,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
                 </DialogDescription>
               </DialogHeader>
 
-              <AlertDialogFooter className="justify-around flex items-center w-full relative flex-col md:flex-row ">
+              <AlertDialogFooter className="justify-around flex items-center w-full relative flex-col md:flex-row">
                 <DialogClose asChild className="mx-4 my-3">
                   <Button type="button">Close</Button>
                 </DialogClose>
@@ -375,6 +399,12 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
             </DialogContent>
           </Dialog>
         </div>
+        <Editor
+          setValue={setValue}
+          value={value}
+          className=""
+          setIsPreviewOpen={setIsPreviewOpen}
+        />
       </div>
     </>
   );

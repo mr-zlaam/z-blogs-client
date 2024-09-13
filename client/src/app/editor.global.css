@@ -145,3 +145,8 @@ html.light .toc-container a {
 .toc-container a:hover {
   text-decoration: underline !important; /* Underline links on hover */
 }
+
+.hidden-scroll {
+  scrollbar-width: none;
+  scrollbar-color: white black;
+}
