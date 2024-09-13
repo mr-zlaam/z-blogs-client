@@ -1,6 +1,7 @@
 "use client";
 import PageLoader from "@/_subComponents/pageLoader/PageLoader";
 import BlogDataOptimizer from "@/app/(pages)/all-posts/comp/DataOptimizer";
+import { Button } from "@/components/ui/button";
 import { PAGE } from "@/constants";
 import { fetchSearchPublicBlogs } from "@/helper/fetch/fetchData";
 import { useLoading } from "@/hooks/useLoading";
@@ -59,6 +60,17 @@ function Search() {
           {blogs.length === 0 && !isLoading && (
             <p className="h-10 text-red-500 font-bold text-xl text-center my-4 fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] ">
               !~&nbsp;&nbsp;No result found for &quot;{query}&quot;
+              <span>
+                <Button
+                  onClick={() => {
+                    if (typeof window !== "undefined") return location.reload();
+                  }}
+                  className="bg-transparent text-green-500"
+                  variant={"link"}
+                >
+                  Try to reload
+                </Button>
+              </span>
             </p>
           )}
         </div>
@@ -72,7 +84,7 @@ function Search() {
       {hasMore && (
         <div ref={ref} className="h-10">
           {isLoading && (
-            <div className="flex justify-center">
+            <div className="flex justify-center  h-[55dvh] items-center">
               <PageLoader />
             </div>
           )}

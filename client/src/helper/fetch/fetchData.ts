@@ -56,17 +56,18 @@ export const fetchSearchPublicBlogs = async (
   limit = LIMIT
 ) => {
   try {
-    const response = await fetch(
+    const response = await axios.get(
       `${BACKEND_URI}/blog/getAllBlogs/search?q=${query}&limit=${limit}&page=${page}`,
       {
-        next: { revalidate: REVALIDATE },
         headers: {
           "Content-Type": "application/json",
         },
       }
     );
-    if (response.ok) {
-      const result = await response.json();
+    console.log(response.data);
+    if (response.status === 200) {
+      const result = response.data;
+      console.log(result);
       return result;
     }
   } catch (error: any) {
