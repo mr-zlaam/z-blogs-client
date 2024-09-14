@@ -68,7 +68,9 @@ export default function RootLayout({
               storageKey="سمة"
             >
               {children}
-              <Footer />
+              <footer className="">
+                <Footer />
+              </footer>
             </ThemeProvider>
           </main>
         </CookiesProvider>

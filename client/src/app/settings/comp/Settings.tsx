@@ -14,7 +14,7 @@ function Settings() {
           border:
             theme === "dark" ? "1px solid #ffffff1f" : "1px solid #00000013",
         }}
-        className="rounded-md"
+        className="rounded-md "
       >
         <div className="mode w-full  p-3 flex items-center justify-around ">
           <span className="cursor-default">Theme</span>

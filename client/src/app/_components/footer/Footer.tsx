@@ -6,7 +6,7 @@ import Image from "next/image";
 import image from "@/images/logo/z-logo.png";
 function Footer() {
   return (
-    <footer className="relative">
+    <div className="relative">
       <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2">
         <Image
           src={image}
@@ -20,7 +20,7 @@ function Footer() {
       <PageWrapper className="h-[300px] w-full bg-background/10 backdrop-blur-sm my-3  ">
         <div className="flex justify-between w-full h-full px-3 items-center">
           <div className="flex flex-col justify-center ">
-            <h3 className="mx-3">Quick links</h3>
+            <h3 className="mx-3 text-xl font-semibold">Quick links</h3>
 
             <Link className="my-1" href={"/home"}>
               <Button variant={"link"} className="bg-transparent ">
@@ -49,7 +49,7 @@ function Footer() {
             </Link>
           </div>
           <div className="flex flex-col  justify-center">
-            <h3 className="mx-3">Social</h3>
+            <h3 className="mx-3 text-xl font-semibold">Social</h3>
             <Link
               className="my-1"
               href={"https://www.facebook.com/learnprogrammingzlaam"}
@@ -98,7 +98,12 @@ function Footer() {
           </div>
         </div>
       </PageWrapper>
-    </footer>
+      <div className="bg-background shadow-sm shadow-foreground/40 py-6">
+        <div className="container mx-auto text-center">
+          <p>&copy; 2024 Zlaam. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
   );
 }
 
