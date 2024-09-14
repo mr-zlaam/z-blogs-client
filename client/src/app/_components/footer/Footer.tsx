@@ -1,10 +1,14 @@
+"use client";
 import {} from "react";
 import PageWrapper from "../pageWrapper/PageWrapper";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import image from "@/images/logo/z-logo.png";
+import { usePathname } from "next/navigation";
 function Footer() {
+  const path = usePathname();
+  if (path === "/search") return null;
   return (
     <div className="relative">
       <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2">
