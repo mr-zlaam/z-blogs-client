@@ -8,7 +8,15 @@ import image from "@/images/logo/z-logo.png";
 import { usePathname } from "next/navigation";
 function Footer() {
   const path = usePathname();
-  if (path === "/search") return null;
+  if (
+    path === "/search" ||
+    path === "/user-auth/sign-in" ||
+    path === "/user-auth/sign-up" ||
+    path === "/create-post"
+  ) {
+    return null;
+  }
+  if (path.includes("/admin")) return null;
   return (
     <div className="relative">
       <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2">
@@ -102,13 +110,16 @@ function Footer() {
           </div>
         </div>
       </PageWrapper>
-      <div className="bg-background shadow-sm shadow-foreground/40 py-6">
-        <div className="container mx-auto text-center">
-          <p className="text-xs">
-            &copy; 2024 <Link href={"/home"}>Zlaam</Link>. All rights reserved.
-          </p>
+      {path !== "/settings" && (
+        <div className="bg-background shadow-sm shadow-foreground/40 py-6">
+          <div className="container mx-auto text-center">
+            <p className="text-xs">
+              &copy; 2024 <Link href={"/home"}>Zlaam</Link>. All rights
+              reserved.
+            </p>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
