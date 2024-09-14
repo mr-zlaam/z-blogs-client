@@ -21,7 +21,7 @@ function Footer() {
           className="rounded-full dark:opacity-100 opacity-50"
         />
       </div>
-      <PageWrapper className="h-[300px] w-full bg-background/10 backdrop-blur-sm my-3  ">
+      <PageWrapper className="h-[300px] w-full bg-background/80 backdrop-blur-sm my-3  ">
         <div className="flex justify-between w-full h-full px-3 items-center">
           <div className="flex flex-col justify-center ">
             <h3 className="mx-3 text-xl font-semibold">Quick links</h3>
@@ -104,7 +104,9 @@ function Footer() {
       </PageWrapper>
       <div className="bg-background shadow-sm shadow-foreground/40 py-6">
         <div className="container mx-auto text-center">
-          <p>&copy; 2024 Zlaam. All rights reserved.</p>
+          <p className="text-xs">
+            &copy; 2024 <Link href={"/home"}>Zlaam</Link>. All rights reserved.
+          </p>
         </div>
       </div>
     </div>
