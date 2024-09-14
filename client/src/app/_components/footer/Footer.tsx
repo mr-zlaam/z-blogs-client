@@ -14,7 +14,7 @@ function Footer() {
           width={200}
           height={200}
           placeholder="blur"
-          className="rounded-full"
+          className="rounded-full dark:opacity-100 opacity-50"
         />
       </div>
       <PageWrapper className="h-[300px] w-full bg-background/10 backdrop-blur-sm my-3  ">
