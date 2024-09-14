@@ -7,6 +7,7 @@ import NextTopLoader from "nextjs-toploader";
 import "./editor.global.css";
 import "./globals.css";
 import { CookiesProvider } from "next-client-cookies/server";
+import Footer from "./_components/footer/Footer";
 
 const arimo = Arimo({
   weight: ["400", "500", "600", "700"],
@@ -67,6 +68,7 @@ export default function RootLayout({
               storageKey="سمة"
             >
               {children}
+              <Footer />
             </ThemeProvider>
           </main>
         </CookiesProvider>
