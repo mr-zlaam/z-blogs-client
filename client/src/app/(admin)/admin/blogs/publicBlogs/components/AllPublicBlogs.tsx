@@ -30,9 +30,9 @@ import Link from "next/link";
 import { Fragment } from "react";
 
 export default async function AllPublicBlogs() {
+  // author is unavailable because of performance issue
   const publicBlogs: BlogTypes = await fetchAllPublicBlogs();
   const publicBlogsList = publicBlogs?.data;
-
   return (
     <>
       {publicBlogsList?.blogs.length === 0 && (
