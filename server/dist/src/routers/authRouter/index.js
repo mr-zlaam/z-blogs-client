@@ -19,9 +19,9 @@ authRouter.route("/sendOTP").post(authMiddleware_1.CheckToken, authController_1.
 // * verify user
 authRouter.route("/verifyUser").post(authMiddleware_1.CheckToken, authController_1.verifyUserController);
 // * get all users
-authRouter
-    .route("/getAllUsers")
-    .get(authMiddleware_1.CheckToken, authMiddleware_1.ifUserIsAdmin, authController_1.getAllUsersController);
+authRouter.route("/getAllUsers").get(
+// CheckToken, ifUserIsAdmin,
+authController_1.getAllUsersController);
 // * get single user
 authRouter
     .route("/getSingleUser/:uid")
