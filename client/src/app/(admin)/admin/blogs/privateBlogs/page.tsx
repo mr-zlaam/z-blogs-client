@@ -71,7 +71,7 @@ export default async function PrivateBlogsPage() {
                         </TableHead>
                         <TableHead>Title</TableHead>
 
-                        <TableHead>Author</TableHead>
+                        {/* <TableHead>Author</TableHead> */}
                         <TableHead className="hidden md:table-cell">
                           Created At
                         </TableHead>
@@ -101,9 +101,9 @@ export default async function PrivateBlogsPage() {
                                     {privateBlog.blogTitle}
                                   </TableCell>
 
-                                  <TableCell>
+                                  {/* <TableCell>
                                     {privateBlog.author.fullName}
-                                  </TableCell>
+                                  </TableCell> */}
                                   <TableCell className="hidden md:table-cell">
                                     {moment(privateBlog.createdAt).format(
                                       "MMMM Do YYYY, h:mm:ss a"

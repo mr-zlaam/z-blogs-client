@@ -61,7 +61,6 @@ export default async function AllPublicBlogs() {
                           <span className="font-medium">Post No.</span>
                         </TableHead>
                         <TableHead>Title</TableHead>
-                        <TableHead>Author</TableHead>
                         <TableHead className="hidden md:table-cell">
                           Created At
                         </TableHead>
@@ -88,12 +87,12 @@ export default async function AllPublicBlogs() {
                                   {publicBlog.blogTitle}
                                 </TableCell>
 
-                                <TableCell>
+                                {/* <TableCell>
                                   {publicBlog.author.fullName} <br />
                                   <span className="text-sm text-gray-500">
                                     @{publicBlog.author.username}
                                   </span>
-                                </TableCell>
+                                </TableCell> */}
                                 <TableCell className="hidden md:table-cell">
                                   {moment(publicBlog.createdAt).format(
                                     "MMMM Do YYYY, h:mm:ss a"

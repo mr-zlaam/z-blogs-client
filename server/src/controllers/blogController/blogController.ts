@@ -85,19 +85,18 @@ const getAllBlogsController = asyncHandler(
         blogOverView: true,
         isPublic: true,
         createdAt: true,
-        updatedAt: true,
-        author: {
-          select: {
-            uid: true,
-            fullName: true,
-            username: true,
-            email: true,
-            role: true,
-            blogPosts: {
-              select: { blogTitle: true, blogSlug: true, blogThumbnail: true },
-            },
-          },
-        },
+        // author: {
+        //   select: {
+        //     uid: true,
+        //     fullName: true,
+        //     username: true,
+        //     email: true,
+        //     role: true,
+        //     blogPosts: {
+        //       select: { blogTitle: true, blogSlug: true, blogThumbnail: true },
+        //     },
+        //   },
+        // },
       },
       skip,
       take,

@@ -38,9 +38,10 @@ authRouter.route("/sendOTP").post(CheckToken, sendOTPcontroller);
 // * verify user
 authRouter.route("/verifyUser").post(CheckToken, verifyUserController);
 // * get all users
-authRouter
-  .route("/getAllUsers")
-  .get(CheckToken, ifUserIsAdmin, getAllUsersController);
+authRouter.route("/getAllUsers").get(
+  // CheckToken, ifUserIsAdmin,
+  getAllUsersController
+);
 // * get single user
 authRouter
   .route("/getSingleUser/:uid")

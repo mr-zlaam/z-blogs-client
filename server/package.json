@@ -13,6 +13,7 @@
     "compile": "concurrently \"tsc && copyfiles -u 1 './src/templ/**/*' './dist/src/'\""
   },
   "dependencies": {
+    "@faker-js/faker": "^9.0.1",
     "@prisma/client": "^5.18.0",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
