@@ -25,8 +25,11 @@ function BlogDataOptimizer({ post }: blogPostProps) {
             <span className="text-sm mx-2 text-green-600 block">
               Published : {moment(post.createdAt).format("MMMM Do, YYYY")}
             </span>
-            <span className="text-sm font-normal line-clamp-4 block mx-2 text-foreground/70">
-              {post.blogOverView}
+            {/* Updated text behavior */}
+            <span className="text-sm font-normal block mx-2 text-foreground/70 pr-4 text-start">
+              <span className="line-clamp-5 overflow-hidden text-ellipsis">
+                {post.blogOverView}
+              </span>
             </span>
             <Button variant={"link"} className="bg-transparent text-blue-500">
               Read More...
