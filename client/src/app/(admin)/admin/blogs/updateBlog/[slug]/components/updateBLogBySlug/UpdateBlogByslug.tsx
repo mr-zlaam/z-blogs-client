@@ -27,6 +27,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useMemo, useRef, useState } from "react";
 import logoImage from "../../../../../../../../../public/logo/Zlaam.jpg";
+import moment from "moment";
 const Editor = dynamic(
   () => import("../../../../../../../create-post/comp/editor/Editor"),
   {
@@ -204,7 +205,10 @@ function UpdateBlogBySlug({
               />
               <div className="flex flex-col justify-start px-4 mt-5">
                 <h1 className="text-lg font-semibold ">{blogWriterName}</h1>
-                <p className="text-sm text-left">published on: {today}</p>
+                <p className="text-sm text-left">
+                  Published: {moment(data.createdAt).format("MMMM Do, YYYY")}
+
+                </p>
               </div>
             </div>
             <div>

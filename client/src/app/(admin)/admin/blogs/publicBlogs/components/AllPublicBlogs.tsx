@@ -128,6 +128,13 @@ export default async function AllPublicBlogs() {
                                           edit
                                         </DropdownMenuItem>
                                       </Link>
+                                      <Link
+                                        href={`deleteBlog/${publicBlog.blogSlug}`}
+                                      >
+                                        <DropdownMenuItem>
+                                          Delete
+                                        </DropdownMenuItem>
+                                      </Link>
                                     </DropdownMenuContent>
                                   </DropdownMenu>
                                 </TableCell>
