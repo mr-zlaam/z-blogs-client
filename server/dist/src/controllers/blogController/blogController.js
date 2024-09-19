@@ -211,7 +211,7 @@ const updateBlogController = (0, asynhandlerUtil_1.asyncHandler)((req, res) => _
     const updateData = {};
     if (currentBlog.blogTitle !== blogTitle) {
         updateData.blogTitle = blogTitle;
-        const randomId = (0, slug_and_str_generator_1.generateRandomStrings)(10);
+        const randomId = currentBlog === null || currentBlog === void 0 ? void 0 : currentBlog.blogSlug.split("_")[1];
         const newBlogSlug = (0, slug_and_str_generator_1.generateSlug)(blogTitle);
         updateData.blogSlug = `${newBlogSlug}_${randomId}`;
     }
