@@ -12,7 +12,7 @@ import BlogDataOptimizer from "../all-posts/comp/DataOptimizer";
 async function HomePage() {
   try {
     const blogs = (await fetchHomePageBlogs()) as BlogTypes;
-    if (!blogs.data || blogs.data.blogs.length === 0) {
+    if (!blogs?.data || blogs?.data?.blogs.length === 0) {
       return (
         <div className="h-[60dvh] flex justify-center items-center">
           <h1 className="text-red-500">No Blog Post Found!</h1>
@@ -20,7 +20,7 @@ async function HomePage() {
       );
     }
 
-    const blogPosts = blogs.data?.blogs;
+    const blogPosts = blogs?.data?.blogs;
     return (
       <>
         <section>
