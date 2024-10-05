@@ -50,7 +50,7 @@ export default async function PrivateBlogsPage() {
     token?.value || ""
   );
   return (
-    <>
+    <Fragment>
       {draftPrivateBlogs?.success ? (
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
           <Tabs defaultValue="all">
@@ -169,6 +169,6 @@ export default async function PrivateBlogsPage() {
           </h1>
         </div>
       )}
-    </>
+    </Fragment>
   );
 }
