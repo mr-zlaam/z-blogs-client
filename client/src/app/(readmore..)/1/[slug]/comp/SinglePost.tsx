@@ -8,7 +8,7 @@ import highlightSyntax from "@/helper/higlightSyntax/HiglightSyntax";
 import { AuthorType } from "@/types";
 import moment from "moment";
 import Image from "next/image";
-import { useEffect, useMemo } from "react";
+import { Fragment, useEffect, useMemo } from "react";
 import logoImage from "../../../../../../public/logo/Zlaam.jpg";
 import parser from "html-react-parser";
 import { useMessage } from "@/hooks/useMessage";
@@ -69,7 +69,7 @@ function SinglePost({
     };
   }, [successMessage]);
   return (
-    <>
+    <Fragment>
       <ScrollToTop />
       <article className=" overflow-y-auto relative">
         <BackToPreviousRoute />
@@ -77,12 +77,6 @@ function SinglePost({
           {blogTitle}
         </h1>
         <div className="flex  items-center my-4  px-4">
-          {/* <Image
-            src={logoImage}
-            alt="Zlaam"
-            placeholder="blur"
-            className="rounded-full w-[50px] h-[50px]"
-          /> */}
           <div className="mt-3 rounded-full overflow-hidden cursor-pointer  border-none flex items-center justify-center bg-foreground/50">
             <RandomAvatar
               size={35}
@@ -133,7 +127,7 @@ function SinglePost({
           }}
         ></div>
       </article>
-    </>
+    </Fragment>
   );
 }
 

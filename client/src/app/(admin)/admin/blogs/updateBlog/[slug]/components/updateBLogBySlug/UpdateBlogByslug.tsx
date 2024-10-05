@@ -25,7 +25,7 @@ import { marked } from "marked";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useMemo, useRef, useState } from "react";
+import { Fragment, useMemo, useRef, useState } from "react";
 import logoImage from "../../../../../../../../../public/logo/Zlaam.jpg";
 import moment from "moment";
 const Editor = dynamic(
@@ -175,7 +175,7 @@ function UpdateBlogBySlug({
     }
   };
   return (
-    <>
+    <Fragment>
       {isSessionExpiredError && (
         <div className="bg-background/80 backdrop-blur-md fixed top-0 left-0 h-screen z-[200] w-full flex justify-center items-center">
           <div className="  p-5 rounded break-words border-spacing-3 border-solid border-foreground/40">
@@ -394,7 +394,7 @@ function UpdateBlogBySlug({
           className=""
         />
       </div>
-    </>
+    </Fragment>
   );
 }
 

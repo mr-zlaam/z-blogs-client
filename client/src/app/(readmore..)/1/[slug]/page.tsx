@@ -5,7 +5,7 @@ import { SinglePostBlogTypes } from "@/types";
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Fragment } from "react";
 import SinglePost from "./comp/SinglePost";
 export async function generateMetadata({
@@ -48,8 +48,8 @@ export interface SlugTypes {
 async function ReadMorePage({ params }: { params: SlugTypes }) {
   const { slug } = params;
   const singlePost = (await fetchSinglePost(slug)) as SinglePostBlogTypes;
-  if (!singlePost) {
-    return notFound();
+  if (!singlePost?.data) {
+    return redirect("/home");
   }
   const {
     author,
