@@ -8,14 +8,7 @@ import { UserDataTypes } from "@/types";
 import { updateSchema } from "@/validation/Schemas/dataSchema";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { ChangeEvent, FormEvent, Fragment, useState } from "react";
 
 function UpdateForm({
   user,
@@ -103,7 +96,7 @@ function UpdateForm({
     }
   };
   return (
-    <>
+    <Fragment>
       <section className="">
         <div className=" max-w-sm border rounded-md mx-auto relative top-20 py-10 px-5">
           <h1 className="font-sans text-2xl font-bold text-center mb-8">
@@ -189,7 +182,7 @@ function UpdateForm({
           </div>
         </div>
       </section>
-    </>
+    </Fragment>
   );
 }
 

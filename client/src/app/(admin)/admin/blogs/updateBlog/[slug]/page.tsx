@@ -1,10 +1,10 @@
 import { axios } from "@/axios";
-import { BlogDataTypes, SinglePostBlogTypes } from "@/types";
+import useCookieGrabber from "@/hooks/useCookieGrabber";
+import { SinglePostBlogTypes } from "@/types";
 import { AxiosError } from "axios";
+import { notFound, redirect } from "next/navigation";
 import {} from "react";
 import UpdateBlogBySlug from "./components/updateBLogBySlug/UpdateBlogByslug";
-import { redirect } from "next/navigation";
-import useCookieGrabber from "@/hooks/useCookieGrabber";
 
 export interface SlugTypes {
   slug: string;
@@ -26,7 +26,7 @@ async function Slug({ params }: { params: SlugTypes }) {
   const token = useCookieGrabber();
   if (!token) return redirect("/home");
   const data: SinglePostBlogTypes = await fetchSingleBlog(slug);
-  if (!data) return redirect("/admin/blogs/privateBlogs");
+  if (!data?.data) return notFound();
   return (
     <section className="mx-5 overflow-auto ">
       <UpdateBlogBySlug

@@ -1,12 +1,13 @@
 import PageWrapper from "@/app/_components/pageWrapper/PageWrapper";
+import { SITE_URL } from "@/constants";
 import { fetchSinglePost } from "@/helper/fetch/fetchData";
 import { SinglePostBlogTypes } from "@/types";
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 import { Metadata } from "next";
-import {} from "react";
+import { notFound, redirect } from "next/navigation";
+import { Fragment } from "react";
 import SinglePost from "./comp/SinglePost";
-import { SITE_URL } from "@/constants";
 export async function generateMetadata({
   params,
 }: {
@@ -18,19 +19,20 @@ export async function generateMetadata({
     return;
   }
   const { data } = post;
+  if (!data) return notFound();
   return {
-    title: { absolute: data.blogTitle },
-    description: data.blogOverView,
+    title: { absolute: data?.blogTitle },
+    description: data?.blogOverView,
     openGraph: {
-      title: { absolute: data.blogTitle },
-      description: data.blogOverView,
+      title: { absolute: data?.blogTitle },
+      description: data?.blogOverView,
       type: "article",
       locale: "en_US",
       url: `${SITE_URL}/1/${slug}`,
       siteName: "Zlaam",
       images: [
         {
-          url: data.blogThumbnail,
+          url: data?.blogThumbnail,
           width: 1200,
           height: 630,
         },
@@ -46,8 +48,8 @@ export interface SlugTypes {
 async function ReadMorePage({ params }: { params: SlugTypes }) {
   const { slug } = params;
   const singlePost = (await fetchSinglePost(slug)) as SinglePostBlogTypes;
-  if (!singlePost) {
-    return <div>Blog not found</div>;
+  if (!singlePost?.data) {
+    return redirect("/home");
   }
   const {
     author,
@@ -60,7 +62,7 @@ async function ReadMorePage({ params }: { params: SlugTypes }) {
   const article = DOMPurify.sanitize(marked(blogDescription) as string);
 
   return (
-    <>
+    <Fragment>
       <PageWrapper className="">
         <SinglePost
           article={article}
@@ -71,7 +73,7 @@ async function ReadMorePage({ params }: { params: SlugTypes }) {
           blogTitle={blogTitle}
         />
       </PageWrapper>
-    </>
+    </Fragment>
   );
 }
 
