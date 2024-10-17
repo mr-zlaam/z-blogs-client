@@ -9,7 +9,7 @@ import { AuthorType } from "@/types";
 import moment from "moment";
 import Image from "next/image";
 import { Fragment, useEffect, useMemo } from "react";
-import logoImage from "../../../../../../public/logo/Zlaam.jpg";
+import logoImage from "../../../../../../public/logo/Zlaam.jpg";// it will be used for logo after some time
 import parser from "html-react-parser";
 import { useMessage } from "@/hooks/useMessage";
 import BackToPreviousRoute from "@/_subComponents/backToPreviousRoute/BackToPreviousRoute";
