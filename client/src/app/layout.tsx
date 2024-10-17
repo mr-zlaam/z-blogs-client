@@ -95,7 +95,6 @@ export default function RootLayout({
         className={cn(arimo.className, "font-medium bg-background font-sans")}
       >
         <CookiesProvider>
-          {" "}
           <main className="">
             <Toaster />
             <NextTopLoader
@@ -108,7 +107,7 @@ export default function RootLayout({
             <ThemeProvider
               disableTransitionOnChange
               attribute="class"
-              defaultTheme="dark"
+              defaultTheme="light"
               enableSystem
               storageKey="سمة"
             >
