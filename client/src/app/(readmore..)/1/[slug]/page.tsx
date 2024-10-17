@@ -23,13 +23,66 @@ export async function generateMetadata({
   return {
     title: { absolute: data?.blogTitle },
     description: data?.blogOverView,
+    twitter: {
+      title: { absolute: data?.blogTitle },
+      description: data?.blogOverView,
+      creator: "@mrzlaam",
+      images: [data?.blogThumbnail],
+    },
+    keywords: [
+      "mr-zlaam",
+      "Mern-Stack Developer",
+      "A blog application",
+      "zlaam",
+      "siraj",
+      "Zlaam",
+      "web-developer",
+      "articles",
+      `${data?.blogTitle}`,
+      `${data?.blogOverView}`,
+      "github",
+      "mrzlaam",
+      "mr-zlaam",
+      "mr-zlaam",
+      "mr-zlaam",
+      "mr-zlaam",
+    ],
+    applicationName: "mr-zlaam",
+    authors: [{ name: "mr-zlaam", url: "https://github.com/mr-zlaam" }],
+    category: "A Blog Application for Developers and Tech Enthusiasts",
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+    appLinks: {
+      web: {
+        url: `${SITE_URL}/1/${slug}`,
+        should_fallback: true,
+      },
+    },
+    publisher: "mr-zlaam",
+    generator: "mr-zlaam",
     openGraph: {
       title: { absolute: data?.blogTitle },
       description: data?.blogOverView,
       type: "article",
       locale: "en_US",
+      tags: [
+        "mr-zlaam",
+        "a-full-stack-developer",
+        `${data?.blogTitle}`,
+        `${data?.blogOverView}`,
+      ],
       url: `${SITE_URL}/1/${slug}`,
-      siteName: "Zlaam",
+      siteName: "mr-zlaam",
+
       images: [
         {
           url: data?.blogThumbnail,
