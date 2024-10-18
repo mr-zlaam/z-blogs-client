@@ -48,11 +48,10 @@ function SinglePost({
       /(<pre[^>]*>)(.*?)(<\/pre>)/gs,
       (_, openingTag, codeContent, closingTag) => {
         const uniqueId = `codeBlock-${Math.random().toString(36).substr(2, 9)}`;
-        return `<div class="code-container">${
-          copyButtonHtml(
-            uniqueId,
-          )
-        }${openingTag}<code id="${uniqueId}">${codeContent}</code>${closingTag}</div>`;
+        return `<div class="code-container">${copyButtonHtml(
+          uniqueId,
+        )
+          }${openingTag}<code id="${uniqueId}">${codeContent}</code>${closingTag}</div>`;
       },
     );
     return withCopyButtons;
@@ -92,8 +91,8 @@ function SinglePost({
                 {author.role === "ADMIN"
                   ? " (admin)"
                   : author.role === "MODERATOR"
-                  ? " (moderator)"
-                  : ""}
+                    ? " (moderator)"
+                    : ""}
               </span>
             </h1>
             <p className="text-sm text-left  font-normal ">

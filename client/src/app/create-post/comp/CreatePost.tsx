@@ -26,6 +26,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import logoImage from "../../../../public/logo/Zlaam.jpg";
+import { ThemeToggler } from "@/theme/ThemeToggler";
 const Editor = dynamic(() => import("../comp/editor/Editor"), {
   ssr: false,
 });
@@ -287,6 +288,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
         <p className="text-center font-bold text-lg mx-4">
           Preview(ctrl+shift+l)
         </p>
+        <ThemeToggler />
       </div>
 
       <div className="max-w-[1450px] mx-auto">

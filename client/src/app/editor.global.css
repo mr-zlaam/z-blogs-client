@@ -9,6 +9,10 @@
   color: yellow;
 }
 
+.blue-keyword {
+  color: red;
+}
+
 pre {
   background: #28282b;
   color: #ffffff;
@@ -28,6 +32,7 @@ pre {
   font-weight: 400;
   font-style: normal;
 }
+
 code {
   width: fit-content;
   padding: 4px;
@@ -42,29 +47,38 @@ code {
   font-weight: 400;
   font-style: normal;
 }
+
 .key-python-yellow {
   color: #ffff00;
 }
+
 .keyword {
   color: #f39c12;
 }
+
 .key-brackets {
   color: #ffffff;
 }
+
 .key-numbers {
   color: blue;
 }
+
 .key-method {
   color: #e15656;
 }
+
 .key-html {
   color: #17c517;
 }
+
 .comment-js {
-  color: #605f5f; /* Adjust color as needed */
+  color: #605f5f;
+  /* Adjust color as needed */
 }
+
 .editor-toolbar {
-  background-color: #28282b !important ;
+  background-color: #28282b !important;
   position: sticky !important;
   z-index: 50 !important;
   top: 0 !important;
@@ -73,16 +87,19 @@ code {
 .editor-toolbar button {
   color: white !important;
 }
+
 .editor-toolbar button.active,
 .editor-toolbar button:hover {
   background: #fcfcfc !important;
   border-color: #28282b !important;
   color: #28282b !important;
 }
+
 .editor-toolbar.fullscreen {
   position: fixed !important;
   top: 0 !important;
 }
+
 li {
   margin: 10px 25px;
 }
@@ -90,17 +107,21 @@ li {
 ol&&ol {
   margin: 10px 20px;
 }
+
 br {
   user-select: none;
 }
+
 a {
   text-decoration: none;
 }
+
 img {
   width: 100%;
   height: auto;
   border-radius: 8px;
 }
+
 /* Table of content */
 
 .toc-container h2 {
@@ -109,7 +130,7 @@ img {
 }
 
 .toc-container ul {
-  list-style-type: none;
+  list-style: none;
   padding-left: 0;
 }
 
@@ -138,16 +159,24 @@ html.dark .toc-container {
   max-width: 100%;
   font-family: Arial, sans-serif;
 }
+
 html.dark .toc-container a {
-  color: #ffffff; /* Link color */
-  text-decoration: none; /* Remove underline from links */
+  color: #ffffff;
+  /* Link color */
+  text-decoration: none;
+  /* Remove underline from links */
 }
+
 html.light .toc-container a {
-  color: #000000; /* Link color */
-  text-decoration: none; /* Remove underline from links */
+  color: #000000;
+  /* Link color */
+  text-decoration: none;
+  /* Remove underline from links */
 }
+
 .toc-container a:hover {
-  text-decoration: underline !important; /* Underline links on hover */
+  text-decoration: underline !important;
+  /* Underline links on hover */
 }
 
 .hidden-scroll {
