@@ -73,6 +73,7 @@ export interface BlogTypes {
     blogs: BlogDataTypes[];
   };
   metaData: MetaDataTypes;
+  pagination?: PaginationTypes;
 }
 interface MetaDataTypes {
   totalBlogs: number;

@@ -27,13 +27,16 @@ export const fetchHomePageBlogs = async () => {
 export const fetchAllPublicBlogs = async (
   page = 1 as number,
   limit = LIMIT,
+  revalidate = true
 ) => {
   try {
     const response = await fetch(
       `${BACKEND_URI}/blog/getAllPublicBlogs?page=${page}&limit=${limit}`,
+
       {
         next: { revalidate: REVALIDATE },
       },
+
     );
     if (response.ok) {
       const data = await response.json();
@@ -49,6 +52,29 @@ export const fetchAllPublicBlogs = async (
     return error;
   }
 };
+// get public blogs for dashboard using axios
+export const fetchDashboardPublicBlogs = async (
+  page = 1 as number,
+  limit = LIMIT
+) => {
+  try {
+    const response = await axios.get(
+      `${BACKEND_URI}/blog/getAllPublicBlogs?page=${page}&limit=${limit}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+    if (response.status === 200) {
+      const result = response.data;
+      return result;
+    } else throw new Error("Something went wrong while fetching hompage data");
+  } catch (error: any) {
+    console.log(error);
+    return error;
+  }
+}
 // get public blogs through search query
 export const fetchSearchPublicBlogs = async (
   query: string,

@@ -22,16 +22,18 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
-import { fetchAllPublicBlogs } from "@/helper/fetch/fetchData";
+import { fetchAllPublicBlogs, fetchDashboardPublicBlogs } from "@/helper/fetch/fetchData";
 import { BlogTypes } from "@/types";
 import { MoreHorizontal } from "lucide-react";
 import moment from "moment";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Fragment } from "react";
 
 export default async function AllPublicBlogs() {
   // author is unavailable because of performance issue
-  const publicBlogs: BlogTypes = await fetchAllPublicBlogs();
+  const publicBlogs: BlogTypes = await fetchDashboardPublicBlogs();
+  if (!publicBlogs.success) return redirect("/home");
   const publicBlogsList = publicBlogs?.data;
   return (
     <>
@@ -49,7 +51,7 @@ export default async function AllPublicBlogs() {
               <TabsContent value="all">
                 <Card x-chunk="dashboard-06-chunk-0">
                   <CardHeader>
-                    <CardTitle>Public Blogs</CardTitle>
+                    <CardTitle>Last 10 Public Blogs</CardTitle>
                     <CardDescription>
                       Manage All the Publicly available Blogs.
                     </CardDescription>
@@ -88,14 +90,6 @@ export default async function AllPublicBlogs() {
                                     {publicBlog.blogTitle}
                                   </TableCell>
 
-                                  {
-                                    /* <TableCell>
-                                  {publicBlog.author.fullName} <br />
-                                  <span className="text-sm text-gray-500">
-                                    @{publicBlog.author.username}
-                                  </span>
-                                </TableCell> */
-                                  }
                                   <TableCell className="hidden md:table-cell">
                                     {moment(publicBlog.createdAt).format(
                                       "MMMM Do YYYY, h:mm:ss a",

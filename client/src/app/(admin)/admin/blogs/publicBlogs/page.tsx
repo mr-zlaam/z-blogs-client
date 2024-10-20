@@ -1,6 +1,5 @@
-import {} from "react";
+import { } from "react";
 import AllPublicBlogs from "./components/AllPublicBlogs";
-import { axios } from "@/axios";
 import useCookieGrabber from "@/hooks/useCookieGrabber";
 import { redirect } from "next/navigation";
 import { verify } from "jsonwebtoken";
