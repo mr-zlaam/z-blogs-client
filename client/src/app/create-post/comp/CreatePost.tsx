@@ -82,6 +82,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
   }, [value]);
   const imageUrlRef = useRef<any>(null);
   const setUrlToImageBlog = (e: React.FormEvent) => {
+    e.preventDefault()
     const url = imageUrlRef.current.value;
     if (UseValidateImageUrl(url)) {
       setCoverImageUrl(imageUrlRef.current.value);
@@ -195,6 +196,8 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
     coverImageOwnerName,
     coverImageUrl,
     value,
+    startLoading,
+    stopLoading
   ]);
 
   useEffect(() => {
