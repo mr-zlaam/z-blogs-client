@@ -25,7 +25,7 @@ function SearchAcrossTheSite() {
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      handleSearch();
+      return handleSearch();
     }
   };
 
@@ -40,9 +40,9 @@ function SearchAcrossTheSite() {
         <DialogHeader>
           <DialogDescription>
             <div className="relative h-fit border-[2px] border-black w-full">
-              <Input
+              <input
                 type="text"
-                className="w-[90%] border-solid h-full font-semibold sm:text-lg p-4 outline-none shadow-md shadow-foreground/20 pr-14 bg-transparent"
+                className="w-[90%]  ring-0 focus-within:shadow-lg focus-within:shadow-foreground/50 rounded duration-300 transition-shadow focus-within:border-solid focus-within:border-foreground  h-full font-semibold sm:text-lg p-4 outline-none shadow-md shadow-foreground/20 pr-14 bg-transparent border-solid border-[0.2px] border-foreground"
                 placeholder="Search"
                 autoFocus
                 autoComplete="off"
