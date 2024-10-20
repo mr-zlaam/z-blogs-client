@@ -8,7 +8,6 @@ import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { Fragment } from "react";
 import SinglePost from "./comp/SinglePost";
-import { ThemeToggler } from "@/theme/ThemeToggler";
 export async function generateMetadata({
   params,
 }: {
@@ -117,9 +116,6 @@ async function ReadMorePage({ params }: { params: SlugTypes }) {
 
   return (
     <Fragment>
-      <div className="lg:fixed lg:left-8 lg:top-12 z-[999] flex  justify-center relative top-5 lg:inline ">
-        <ThemeToggler />
-      </div>
       <PageWrapper className="">
         <SinglePost
           article={article}

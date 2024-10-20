@@ -1,20 +1,20 @@
 import { cn } from "@/lib/utils";
-import { AllHTMLAttributes } from "react";
-interface SmallWrapperTypes extends AllHTMLAttributes<HTMLDivElement> {
+import { AllHTMLAttributes, ButtonHTMLAttributes } from "react";
+interface SmallWrapperTypes extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   children?: React.ReactElement;
 }
 const DivWrapper = ({ className, children, ...rest }: SmallWrapperTypes) => {
   return (
-    <span
+    <button
       className={cn(
-        "mx-4 h-[45px] w-[45px] rounded-full cursor-pointer flex items-center justify-center duration-300 transition-all hover:bg-foreground/15 ",
-        className
+        "mx-2 bg-transparent border-none h-[45px] w-[45px] rounded-full cursor-pointer flex items-center justify-center duration-300 transition-all hover:bg-foreground/15 ",
+        className,
       )}
       {...rest}
     >
       {children}
-    </span>
+    </button>
   );
 };
 

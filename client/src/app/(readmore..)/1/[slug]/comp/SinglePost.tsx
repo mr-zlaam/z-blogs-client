@@ -15,6 +15,7 @@ import BackToPreviousRoute from "@/_subComponents/backToPreviousRoute/BackToPrev
 import ScrollToTop from "@/_subComponents/scrollToTop/ScrollToTop";
 import { RandomAvatar } from "react-random-avatars";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { ThemeToggler } from "@/theme/ThemeToggler";
 
 interface SinglePostProps {
   article: string;
@@ -48,10 +49,11 @@ function SinglePost({
       /(<pre[^>]*>)(.*?)(<\/pre>)/gs,
       (_, openingTag, codeContent, closingTag) => {
         const uniqueId = `codeBlock-${Math.random().toString(36).substr(2, 9)}`;
-        return `<div class="code-container">${copyButtonHtml(
-          uniqueId,
-        )
-          }${openingTag}<code id="${uniqueId}">${codeContent}</code>${closingTag}</div>`;
+        return `<div class="code-container">${
+          copyButtonHtml(
+            uniqueId,
+          )
+        }${openingTag}<code id="${uniqueId}">${codeContent}</code>${closingTag}</div>`;
       },
     );
     return withCopyButtons;
@@ -71,7 +73,10 @@ function SinglePost({
     <Fragment>
       <ScrollToTop />
       <article className=" overflow-y-auto relative">
-        <BackToPreviousRoute />
+        <div className="mt-10 h-[40px] flex justify-between  items-center">
+          <BackToPreviousRoute />
+          <ThemeToggler />
+        </div>
         <h1 className="text-center font-bold text-2xl md:text-3xl my-4 text-balance">
           {blogTitle}
         </h1>
@@ -91,8 +96,8 @@ function SinglePost({
                 {author.role === "ADMIN"
                   ? " (admin)"
                   : author.role === "MODERATOR"
-                    ? " (moderator)"
-                    : ""}
+                  ? " (moderator)"
+                  : ""}
               </span>
             </h1>
             <p className="text-sm text-left  font-normal ">
