@@ -27,6 +27,8 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import logoImage from "../../../../public/logo/Zlaam.jpg";
 import { ThemeToggler } from "@/theme/ThemeToggler";
+import ButtonLoader from "@/_subComponents/buttonLoader/buttonLoader";
+import { useLoading } from "@/hooks/useLoading";
 const Editor = dynamic(() => import("../comp/editor/Editor"), {
   ssr: false,
 });
@@ -49,6 +51,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
     "",
   );
   const [blogOverView, setBlogOverView] = useCustomStorage("blogOverView", "");
+  const { isLoading, stopLoading, startLoading } = useLoading();
 
   // applying higlighter
   const renderedHtml = useMemo(() => {
@@ -68,11 +71,10 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       /(<pre[^>]*>)(.*?)(<\/pre>)/gs,
       (_, openingTag, codeContent, closingTag) => {
         const uniqueId = `codeBlock-${Math.random().toString(36).substr(2, 9)}`;
-        return `<div class="code-container">${
-          copyButtonHtml(
-            uniqueId,
-          )
-        }${openingTag}<code id="${uniqueId}">${codeContent}</code>${closingTag}</div>`;
+        return `<div class="code-container">${copyButtonHtml(
+          uniqueId,
+        )
+          }${openingTag}<code id="${uniqueId}">${codeContent}</code>${closingTag}</div>`;
       },
     );
 
@@ -104,6 +106,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
     if (!value) return errorMessage("Write atleast some of it");
     if (!blogOverView) return errorMessage("Write atleast some of it");
     try {
+      startLoading();
       const response = await axios.post(
         "/blog/createBlog",
         {
@@ -142,6 +145,8 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       if (error?.response?.status === 400) {
         return setIsSessionExpiredError(true);
       }
+    } finally {
+      stopLoading();
     }
   };
   const handeTogglePreview = () => {
@@ -149,6 +154,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
   };
   const logoutTheUser = useCallback(async () => {
     try {
+      startLoading();
       const res = await fetch("/api/logout", {
         method: "POST",
       });
@@ -158,6 +164,8 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       }
     } catch (error: any) {
       console.log(error);
+    } finally {
+      stopLoading();
     }
   }, [successMessage]);
   useEffect(() => {
@@ -202,6 +210,14 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
   ]);
   return (
     <>
+      {isLoading && (
+        <div>
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  z-[100]">
+            <ButtonLoader />
+          </div>
+          <div className="fixed top-0 left-0 w-full h-screen  z-[99] backdrop-blur-sm bg-background/20" />
+        </div>
+      )}
       {isSessionExpiredError && (
         <div className="bg-background/80 backdrop-blur-md fixed top-0 left-0 h-screen z-[200] w-full flex justify-center items-center px-3">
           <div className="  p-5 rounded break-words border-spacing-3 border-solid border-foreground/40 m">

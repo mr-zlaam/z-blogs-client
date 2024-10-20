@@ -58,7 +58,7 @@ function UpdateForm({
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       if (response.status === 201) {
         successMessage(response.data.message || "user update successfully");
@@ -83,12 +83,12 @@ function UpdateForm({
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (response.status === 200) {
         successMessage(
-          response.data.message || "user's Role updated successfully"
+          response.data.message || "user's Role updated successfully",
         );
       }
     } catch (error: any) {

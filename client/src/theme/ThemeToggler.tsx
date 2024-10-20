@@ -11,19 +11,21 @@ export function ThemeToggler() {
   return (
     <>
       <div className="">
-        {theme === "dark" ? (
-          <WiMoonAltWaxingCrescent5
-            onClick={darkModeToggle}
-            size={25}
-            className="cursor-pointer"
-          />
-        ) : (
-          <WiMoonAltWaxingCrescent5
-            onClick={darkModeToggle}
-            size={25}
-            className="cursor-pointer"
-          />
-        )}
+        {theme === "dark"
+          ? (
+            <WiMoonAltWaxingCrescent5
+              onClick={darkModeToggle}
+              size={25}
+              className="cursor-pointer"
+            />
+          )
+          : (
+            <WiMoonAltWaxingCrescent5
+              onClick={darkModeToggle}
+              size={25}
+              className="cursor-pointer"
+            />
+          )}
       </div>
     </>
   );

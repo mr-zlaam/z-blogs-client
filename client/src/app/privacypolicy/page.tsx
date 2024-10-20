@@ -32,25 +32,25 @@ const PrivacyPolicyPage = () => {
           </p>
           <ul className="list-disc pl-6 mb-6 text-foreground dark:text-gray-400">
             <li>
-              <strong>Personal Data:</strong> Personally identifiable
-              information, such as your name, email address, and demographic
-              information, that you voluntarily give to us when you register
-              with the site or when you choose to participate in various
-              activities related to the site.
+              <strong>Personal Data:</strong>{" "}
+              Personally identifiable information, such as your name, email
+              address, and demographic information, that you voluntarily give to
+              us when you register with the site or when you choose to
+              participate in various activities related to the site.
             </li>
             <li>
-              <strong>Derivative Data:</strong> Information our servers
-              automatically collect when you access the site, such as your IP
-              address, your browser type, your operating system, your access
-              times, and the pages you have viewed directly before and after
-              accessing the site.
+              <strong>Derivative Data:</strong>{" "}
+              Information our servers automatically collect when you access the
+              site, such as your IP address, your browser type, your operating
+              system, your access times, and the pages you have viewed directly
+              before and after accessing the site.
             </li>
             <li>
-              <strong>Financial Data:</strong> Financial information, such as
-              data related to your payment method (e.g., valid credit card
-              number, card brand, expiration date) that we may collect when you
-              purchase, order, return, exchange, or request information about
-              our services from the site.
+              <strong>Financial Data:</strong>{" "}
+              Financial information, such as data related to your payment method
+              (e.g., valid credit card number, card brand, expiration date) that
+              we may collect when you purchase, order, return, exchange, or
+              request information about our services from the site.
             </li>
           </ul>
         </section>
@@ -64,19 +64,21 @@ const PrivacyPolicyPage = () => {
           </p>
           <ul className="list-disc pl-6 mb-6 text-foreground dark:text-gray-400">
             <li>
-              <strong>To Provide Services:</strong> We may use your information
-              to provide, maintain, and improve our services, including
-              processing transactions and managing your account.
+              <strong>To Provide Services:</strong>{" "}
+              We may use your information to provide, maintain, and improve our
+              services, including processing transactions and managing your
+              account.
             </li>
             <li>
-              <strong>To Communicate:</strong> We may use your information to
-              communicate with you, including responding to your inquiries and
-              sending you updates and marketing information.
+              <strong>To Communicate:</strong>{" "}
+              We may use your information to communicate with you, including
+              responding to your inquiries and sending you updates and marketing
+              information.
             </li>
             <li>
-              <strong>To Improve Our Site:</strong> We may use your information
-              to understand how our site is used and to improve its
-              functionality and content.
+              <strong>To Improve Our Site:</strong>{" "}
+              We may use your information to understand how our site is used and
+              to improve its functionality and content.
             </li>
           </ul>
         </section>
@@ -91,19 +93,21 @@ const PrivacyPolicyPage = () => {
           </p>
           <ul className="list-disc pl-6 mb-6 text-foreground dark:text-gray-400">
             <li>
-              <strong>By Law or to Protect Rights:</strong> We may disclose your
-              information as required by law, or to protect our rights, privacy,
-              safety, or property, or that of others.
+              <strong>By Law or to Protect Rights:</strong>{" "}
+              We may disclose your information as required by law, or to protect
+              our rights, privacy, safety, or property, or that of others.
             </li>
             <li>
-              <strong>Business Transfers:</strong> We may share or transfer your
-              information in connection with, or during negotiations of, any
-              merger, sale of company assets, financing, or acquisition of all
-              or a portion of our business to another company.
+              <strong>Business Transfers:</strong>{" "}
+              We may share or transfer your information in connection with, or
+              during negotiations of, any merger, sale of company assets,
+              financing, or acquisition of all or a portion of our business to
+              another company.
             </li>
             <li>
-              <strong>With Your Consent:</strong> We may disclose your
-              information with your consent or at your direction.
+              <strong>With Your Consent:</strong>{" "}
+              We may disclose your information with your consent or at your
+              direction.
             </li>
           </ul>
         </section>
@@ -132,31 +136,35 @@ const PrivacyPolicyPage = () => {
           </p>
           <ul className="list-disc pl-6 mb-6 text-foreground dark:text-gray-400">
             <li>
-              <strong>Access:</strong> You have the right to request copies of
-              your personal data.
+              <strong>Access:</strong>{" "}
+              You have the right to request copies of your personal data.
             </li>
             <li>
-              <strong>Rectification:</strong> You have the right to request that
-              we correct any information you believe is inaccurate or complete
-              information you believe is incomplete.
+              <strong>Rectification:</strong>{" "}
+              You have the right to request that we correct any information you
+              believe is inaccurate or complete information you believe is
+              incomplete.
             </li>
             <li>
-              <strong>Erasure:</strong> You have the right to request that we
-              erase your personal data, under certain conditions.
+              <strong>Erasure:</strong>{" "}
+              You have the right to request that we erase your personal data,
+              under certain conditions.
             </li>
             <li>
-              <strong>Restriction:</strong> You have the right to request that
-              we restrict the processing of your personal data, under certain
-              conditions.
+              <strong>Restriction:</strong>{" "}
+              You have the right to request that we restrict the processing of
+              your personal data, under certain conditions.
             </li>
             <li>
-              <strong>Objection:</strong> You have the right to object to our
-              processing of your personal data, under certain conditions.
+              <strong>Objection:</strong>{" "}
+              You have the right to object to our processing of your personal
+              data, under certain conditions.
             </li>
             <li>
-              <strong>Data Portability:</strong> You have the right to request
-              that we transfer the data that we have collected to another
-              organization, or directly to you, under certain conditions.
+              <strong>Data Portability:</strong>{" "}
+              You have the right to request that we transfer the data that we
+              have collected to another organization, or directly to you, under
+              certain conditions.
             </li>
           </ul>
         </section>

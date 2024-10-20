@@ -31,7 +31,7 @@ function SendOTP({ email, token }: { email: string; token: string }) {
 
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       if (res.status === 200) {
         successMessage("OTP sent successfully", "top-center", 4000);

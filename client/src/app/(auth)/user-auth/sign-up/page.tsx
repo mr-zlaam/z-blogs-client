@@ -46,13 +46,13 @@ function RegisterForm() {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       stopLoading();
       if (response.data.success) {
         reset();
         successMessage(
-          response.data.message || "User Registered successfully."
+          response.data.message || "User Registered successfully.",
         );
 
         setTimeout(() => {
@@ -65,7 +65,7 @@ function RegisterForm() {
 
       return errorMessage(
         error?.response?.data?.message ||
-          "some thing went wrong while register the user"
+          "some thing went wrong while register the user",
       );
     }
   };
@@ -193,7 +193,7 @@ function RegisterForm() {
                   className={cn(
                     "text-white w-full bg-blue-500 duration-200 transition-all hover:bg-blue-700",
                     isLoading &&
-                      "cursor-not-allowed bg-blue-800/50 hover:bg-blue-800/50"
+                      "cursor-not-allowed bg-blue-800/50 hover:bg-blue-800/50",
                   )}
                 >
                   {isLoading ? <ButtonLoader /> : <span>Register</span>}

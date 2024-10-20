@@ -11,7 +11,7 @@ export const useMessage = () => {
   const successMessage = (
     message: string,
     position?: PositionType,
-    duration?: number
+    duration?: number,
   ) => {
     toast.success(message, {
       duration: duration ?? 3000,
@@ -22,7 +22,7 @@ export const useMessage = () => {
   const errorMessage = (
     message: string,
     position?: PositionType,
-    duration?: number
+    duration?: number,
   ) => {
     toast.error(message, {
       duration: duration ?? 3000,

@@ -23,34 +23,35 @@ const DMCAPage = () => {
           </p>
           <ul className="list-disc pl-6 mb-6 text-foreground dark:text-gray-400">
             <li>
-              <strong>Identification of the copyrighted work:</strong> A
-              description of the copyrighted work that you claim has been
+              <strong>Identification of the copyrighted work:</strong>{" "}
+              A description of the copyrighted work that you claim has been
               infringed.
             </li>
             <li>
-              <strong>Identification of the infringing material:</strong> A
-              description of where the material you claim is infringing is
+              <strong>Identification of the infringing material:</strong>{" "}
+              A description of where the material you claim is infringing is
               located on our website (e.g., URL).
             </li>
             <li>
-              <strong>Your contact information:</strong> Your name, address,
-              telephone number, and email address.
+              <strong>Your contact information:</strong>{" "}
+              Your name, address, telephone number, and email address.
             </li>
             <li>
-              <strong>Statement of authority:</strong> A statement that you have
-              a good faith belief that the use of the material is not authorized
-              by the copyright owner, its agent, or the law.
+              <strong>Statement of authority:</strong>{" "}
+              A statement that you have a good faith belief that the use of the
+              material is not authorized by the copyright owner, its agent, or
+              the law.
             </li>
             <li>
-              <strong>Statement of accuracy:</strong> A statement that the
-              information in your notice is accurate, and under penalty of
-              perjury, that you are authorized to act on behalf of the owner of
-              the copyright interest.
+              <strong>Statement of accuracy:</strong>{" "}
+              A statement that the information in your notice is accurate, and
+              under penalty of perjury, that you are authorized to act on behalf
+              of the owner of the copyright interest.
             </li>
             <li>
-              <strong>Signature:</strong> An electronic or physical signature of
-              the person authorized to act on behalf of the owner of the
-              copyright interest.
+              <strong>Signature:</strong>{" "}
+              An electronic or physical signature of the person authorized to
+              act on behalf of the owner of the copyright interest.
             </li>
           </ul>
           <p className="text-lg mb-6 text-foreground dark:text-gray-400 leading-relaxed">
@@ -86,24 +87,26 @@ const DMCAPage = () => {
           </p>
           <ul className="list-disc pl-6 mb-6 text-foreground dark:text-gray-400">
             <li>
-              <strong>Your contact information:</strong> Your name, address,
-              telephone number, and email address.
+              <strong>Your contact information:</strong>{" "}
+              Your name, address, telephone number, and email address.
             </li>
             <li>
-              <strong>Identification of the material:</strong> A description of
-              the material that was removed or to which access was disabled and
-              the location at which the material appeared before it was removed
-              or access was disabled.
+              <strong>Identification of the material:</strong>{" "}
+              A description of the material that was removed or to which access
+              was disabled and the location at which the material appeared
+              before it was removed or access was disabled.
             </li>
             <li>
-              <strong>Statement of consent:</strong> A statement under penalty
-              of perjury that you have a good faith belief that the material was
-              removed or disabled as a result of mistake or misidentification.
+              <strong>Statement of consent:</strong>{" "}
+              A statement under penalty of perjury that you have a good faith
+              belief that the material was removed or disabled as a result of
+              mistake or misidentification.
             </li>
             <li>
-              <strong>Signature:</strong> An electronic or physical signature of
-              the person authorized to act on behalf of the person who is the
-              subject of the removed material.
+              <strong>Signature:</strong>{" "}
+              An electronic or physical signature of the person authorized to
+              act on behalf of the person who is the subject of the removed
+              material.
             </li>
           </ul>
           <p className="text-lg mb-6 text-foreground dark:text-gray-400 leading-relaxed">

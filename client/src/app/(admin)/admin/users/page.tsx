@@ -106,44 +106,44 @@ export default async function UserDashBoard() {
                   {!users?.data.users || users.data?.users === undefined
                     ? "No Data found"
                     : users?.data?.users.map(
-                        (userData: UserDataTypes, index: number) => {
-                          return (
-                            <Fragment key={userData.uid}>
-                              <TableRow className="cursor-default ">
-                                <TableCell className="hidden sm:table-cell">
-                                  {index + 1}
-                                </TableCell>
-                                <TableCell className="font-medium">
-                                  {userData.username}
-                                </TableCell>
-                                <TableCell>{userData.fullName}</TableCell>
-                                <TableCell>
-                                  <Badge variant="outline">
-                                    {userData.role}
-                                  </Badge>
-                                </TableCell>
-                                <TableCell className="hidden md:table-cell">
-                                  {userData.email}
-                                </TableCell>
-                                <TableCell className="hidden md:table-cell">
-                                  {moment(userData.createdAt).format(
-                                    "MMMM Do YYYY, h:mm:ss a"
-                                  )}
-                                </TableCell>
-                                <TableCell className="hidden md:table-cell">
-                                  {userData.isVerfied ? (
-                                    <span>Verified &#10004;</span>
-                                  ) : (
-                                    <span>Not Verified &#10005;</span>
-                                  )}
-                                </TableCell>
-                                <TableCell>
-                                  {userData.username === "zlaam" ? (
+                      (userData: UserDataTypes, index: number) => {
+                        return (
+                          <Fragment key={userData.uid}>
+                            <TableRow className="cursor-default ">
+                              <TableCell className="hidden sm:table-cell">
+                                {index + 1}
+                              </TableCell>
+                              <TableCell className="font-medium">
+                                {userData.username}
+                              </TableCell>
+                              <TableCell>{userData.fullName}</TableCell>
+                              <TableCell>
+                                <Badge variant="outline">
+                                  {userData.role}
+                                </Badge>
+                              </TableCell>
+                              <TableCell className="hidden md:table-cell">
+                                {userData.email}
+                              </TableCell>
+                              <TableCell className="hidden md:table-cell">
+                                {moment(userData.createdAt).format(
+                                  "MMMM Do YYYY, h:mm:ss a",
+                                )}
+                              </TableCell>
+                              <TableCell className="hidden md:table-cell">
+                                {userData.isVerfied
+                                  ? <span>Verified &#10004;</span>
+                                  : <span>Not Verified &#10005;</span>}
+                              </TableCell>
+                              <TableCell>
+                                {userData.username === "zlaam"
+                                  ? (
                                     <span className="flex items-center gap-2 cursor-not-allowed text-red-500 select-none">
                                       <Lock size={15} />
                                       Not Allowed
                                     </span>
-                                  ) : (
+                                  )
+                                  : (
                                     <DropdownMenu>
                                       <DropdownMenuTrigger asChild>
                                         <Button
@@ -178,12 +178,12 @@ export default async function UserDashBoard() {
                                       </DropdownMenuContent>
                                     </DropdownMenu>
                                   )}
-                                </TableCell>
-                              </TableRow>
-                            </Fragment>
-                          );
-                        }
-                      )}
+                              </TableCell>
+                            </TableRow>
+                          </Fragment>
+                        );
+                      },
+                    )}
                 </TableBody>
               </Table>
             </CardContent>

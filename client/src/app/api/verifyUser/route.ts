@@ -8,8 +8,9 @@ interface BodyProps {
 export async function POST(req: NextRequest) {
   const body: BodyProps = await req.json();
   const { token } = body;
-  if (!token)
+  if (!token) {
     return NextResponse.json({ success: false, message: "Token not found" });
+  }
   const cookie = cookies();
   cookie.delete("accessToken");
   cookie.set("accessToken", token, {

@@ -26,7 +26,7 @@ function Delete({ id, token }: { id: string; token: string }) {
       console.log(error);
       return errorMessage(
         error.response.data.message ||
-          "something went wrong while deleting BlogPost."
+          "something went wrong while deleting BlogPost.",
       );
     }
   };

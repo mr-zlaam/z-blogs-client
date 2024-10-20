@@ -7,8 +7,8 @@ function ScrollToEnd() {
   const [isVisible, setIsVisible] = useState<boolean>(true); // Change this to true
 
   const scrollToEnd = () => {
-    const maxHeight =
-      document.documentElement.scrollHeight + window.innerHeight; // Subtract the window height
+    const maxHeight = document.documentElement.scrollHeight +
+      window.innerHeight; // Subtract the window height
     window.scrollTo({ top: maxHeight, behavior: "smooth" });
   };
 

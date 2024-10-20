@@ -54,8 +54,6 @@ const languagePatterns: Record<Language, LanguagePatterns> = {
           "curl ",
           "ffmpeg ",
           "go ",
-
-
         ],
         className: "key-method",
       },
@@ -104,9 +102,7 @@ const languagePatterns: Record<Language, LanguagePatterns> = {
           "for ",
           "while ",
           "void",
-          "log"
-
-
+          "log",
         ],
         className: "keyword",
       },
@@ -120,8 +116,8 @@ const languagePatterns: Record<Language, LanguagePatterns> = {
       },
       {
         pattern: ["install ", "eval ", "source "],
-        className: "blue-keyword"
-      }
+        className: "blue-keyword",
+      },
     ],
   },
 };
@@ -138,7 +134,7 @@ const highlightSyntax = (html: string, language: Language): string => {
     // Step 1: Highlight strings
     highlightedCode = highlightedCode.replace(
       patterns.strings,
-      `<span class="string-${language}">$&</span>`
+      `<span class="string-${language}">$&</span>`,
     );
 
     // Step 2: Highlight custom patterns
@@ -146,24 +142,26 @@ const highlightSyntax = (html: string, language: Language): string => {
       // For numbers, ensure they are not inside strings
       if (className === "key-numbers") {
         const numberPattern = new RegExp(
-          `(?<!<span[^>]*>)\\b(${pattern
-            .map((p) => escapeRegExp(p))
-            .join("|")})\\b(?![^<]*>)`,
-          "g"
+          `(?<!<span[^>]*>)\\b(${
+            pattern
+              .map((p) => escapeRegExp(p))
+              .join("|")
+          })\\b(?![^<]*>)`,
+          "g",
         );
         highlightedCode = highlightedCode.replace(
           numberPattern,
-          `<span class="${className}">$&</span>`
+          `<span class="${className}">$&</span>`,
         );
       } else {
         const combinedPattern = pattern.map((p) => escapeRegExp(p)).join("|"); // Escape special regex characters and combine patterns
         const regex = new RegExp(
           `(?<!<span[^>]*>)(${combinedPattern})(?![^<]*>)`,
-          "g"
+          "g",
         );
         highlightedCode = highlightedCode.replace(
           regex,
-          `<span class="${className}">$&</span>`
+          `<span class="${className}">$&</span>`,
         );
       }
     });

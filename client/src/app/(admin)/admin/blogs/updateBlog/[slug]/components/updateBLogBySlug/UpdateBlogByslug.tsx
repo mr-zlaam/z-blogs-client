@@ -28,11 +28,13 @@ import { useRouter } from "next/navigation";
 import { Fragment, useMemo, useRef, useState } from "react";
 import logoImage from "../../../../../../../../../public/logo/Zlaam.jpg";
 import moment from "moment";
+import { useLoading } from "@/hooks/useLoading";
+import ButtonLoader from "@/_subComponents/buttonLoader/buttonLoader";
 const Editor = dynamic(
   () => import("../../../../../../../create-post/comp/editor/Editor"),
   {
     ssr: false,
-  }
+  },
 );
 
 function UpdateBlogBySlug({
@@ -54,22 +56,22 @@ function UpdateBlogBySlug({
   const [title, setTitle] = useState(data.blogTitle || "");
   const [coverImageUrl, setCoverImageUrl] = useState(data.blogThumbnail || "");
   const [coverImageOwnerName, setCoverImageOwnerName] = useState(
-    data.blogThumbnailAuthor || ""
+    data.blogThumbnailAuthor || "",
   );
   const [isSessionExpiredError, setIsSessionExpiredError] = useState(false);
   const router = useRouter();
   const [blogWriterName, setBlogWriterName] = useState(
-    data.author.fullName || ""
+    data.author.fullName || "",
   );
   const [blogOverView, setBlogOverView] = useState(data.blogOverView || "");
+  const { isLoading, stopLoading, startLoading } = useLoading();
   // applying higlighter
   const renderedHtml = useMemo(() => {
     const rawHtml = DOMPurify.sanitize(marked(value) as string);
     const highlightedHtml = highlightSyntax(rawHtml, "js");
 
     // Add copy buttons to each <pre> block
-    const copyButtonHtml = (id: string) =>
-      `
+    const copyButtonHtml = (id: string) => `
     <div class="relative ">
     <button class="absolute right-5 top-4 px-3 py-1  bg-black  rounded-md  cursor-pointer  duration-200 transition-all " onclick="copyToClipboard('${id}')">
       <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="White" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>
@@ -80,17 +82,19 @@ function UpdateBlogBySlug({
     const withCopyButtons = highlightedHtml.replace(
       /(<pre[^>]*>)(.*?)(<\/pre>)/gs,
       (_, openingTag, codeContent, closingTag) => {
-        const uniqueId = `codeBlock-${Math.random().toString(36).substr(2, 9)}`;
+        const uniqueId = `codeBlock-${Math.random().toString(36).slice(2, 11)}`;
         return `<div class="code-container">${copyButtonHtml(
-          uniqueId
-        )}${openingTag}<code id="${uniqueId}">${codeContent}</code>${closingTag}</div>`;
-      }
+          uniqueId,
+        )
+          }${openingTag}<code id="${uniqueId}">${codeContent}</code>${closingTag}</div>`;
+      },
     );
 
     return withCopyButtons;
   }, [value]);
   const imageUrlRef = useRef<any>(null);
   const setUrlToImageBlog = (e: React.FormEvent) => {
+    e.preventDefault();
     const url = imageUrlRef.current.value;
     if (UseValidateImageUrl(url)) {
       setCoverImageUrl(imageUrlRef.current.value);
@@ -99,20 +103,7 @@ function UpdateBlogBySlug({
       return errorMessage("Please provide a valid image url");
     }
   };
-  // Date
-  const date = new Date();
-  const today = date.toLocaleDateString();
   // upload article to database
-  const handleValidate = () => {
-    if (!title) return errorMessage("Write the title of the blog ");
-    if (!coverImageOwnerName)
-      return errorMessage("Write the name of the owner of the cover image");
-    if (!coverImageUrl) return errorMessage("Write cover image url");
-    if (!blogWriterName)
-      return errorMessage("Write the name of author who write blog");
-    if (!value) return errorMessage("Write atleast some of it");
-    if (!blogOverView) return errorMessage("Write atleast some of it");
-  };
   const handleUpdateBlog = async (e: React.FormEvent) => {
     if (
       !blogOverView ||
@@ -126,6 +117,7 @@ function UpdateBlogBySlug({
     }
     e.preventDefault();
     try {
+      startLoading();
       const responseFromUpdateBlog = await axios.put(
         `/blog/updateBlog/${slugForUpdate}`,
         {
@@ -141,7 +133,7 @@ function UpdateBlogBySlug({
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       if (responseFromUpdateBlog.status === 200) {
         successMessage("Blog Updated Successfully");
@@ -155,6 +147,8 @@ function UpdateBlogBySlug({
       setTimeout(() => {
         return router.push("/home");
       }, 3000);
+    } finally {
+      stopLoading();
     }
   };
   const handeTogglePreview = () => {
@@ -162,6 +156,7 @@ function UpdateBlogBySlug({
   };
   const logoutTheUser = async () => {
     try {
+      startLoading();
       const res = await handleLogout(token as string);
       if (res?.status === 200) {
         successMessage("User logout successfully");
@@ -172,10 +167,27 @@ function UpdateBlogBySlug({
       }
     } catch (error: any) {
       console.log(error);
+      setIsSessionExpiredError(true);
+    } finally {
+      stopLoading();
     }
   };
   return (
     <Fragment>
+
+      {
+        isLoading &&
+        <div>
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  z-[1000]">
+            <ButtonLoader />
+            <p className="text-sm font-normal text-center my-2">
+              wait..
+            </p>
+          </div>
+          <div className="fixed top-0 left-0 w-full h-screen  z-[998] backdrop-blur-sm bg-background/20" />
+        </div>
+      }
+
       {isSessionExpiredError && (
         <div className="bg-background/80 backdrop-blur-md fixed top-0 left-0 h-screen z-[200] w-full flex justify-center items-center">
           <div className="  p-5 rounded break-words border-spacing-3 border-solid border-foreground/40">
@@ -190,6 +202,7 @@ function UpdateBlogBySlug({
           </div>
         </div>
       )}
+
       {isPreviewOpen && (
         <div className="h-screen fixed top-0 left-0 w-full bg-background text-foreground z-[99] overflow-y-auto">
           <PageWrapper>
@@ -226,12 +239,12 @@ function UpdateBlogBySlug({
             <div
               className="font-normal text-lg my-5 leading-[2]"
               dangerouslySetInnerHTML={{
-                __html:
-                  renderedHtml.length === 0
-                    ? "Write something...."
-                    : renderedHtml,
+                __html: renderedHtml.length === 0
+                  ? "Write something...."
+                  : renderedHtml,
               }}
-            ></div>
+            >
+            </div>
           </PageWrapper>
         </div>
       )}

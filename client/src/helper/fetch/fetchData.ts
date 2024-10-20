@@ -18,7 +18,7 @@ export const fetchHomePageBlogs = async () => {
   } catch (error: any) {
     console.log(
       error,
-      "error from home page blog fetching in src/helper/fetch/fetchHompage.ts"
+      "error from home page blog fetching in src/helper/fetch/fetchHompage.ts",
     );
     return error;
   }
@@ -26,14 +26,14 @@ export const fetchHomePageBlogs = async () => {
 // get All Public  Blogs
 export const fetchAllPublicBlogs = async (
   page = 1 as number,
-  limit = LIMIT
+  limit = LIMIT,
 ) => {
   try {
     const response = await fetch(
       `${BACKEND_URI}/blog/getAllPublicBlogs?page=${page}&limit=${limit}`,
       {
         next: { revalidate: REVALIDATE },
-      }
+      },
     );
     if (response.ok) {
       const data = await response.json();
@@ -44,7 +44,7 @@ export const fetchAllPublicBlogs = async (
   } catch (error: any) {
     console.log(
       error.message,
-      "error from home page blog fetching in src/helper/fetch/fetchAllPosts.ts"
+      "error from home page blog fetching in src/helper/fetch/fetchAllPosts.ts",
     );
     return error;
   }
@@ -53,7 +53,7 @@ export const fetchAllPublicBlogs = async (
 export const fetchSearchPublicBlogs = async (
   query: string,
   page: number,
-  limit = LIMIT
+  limit = LIMIT,
 ) => {
   try {
     const response = await axios.get(
@@ -62,7 +62,7 @@ export const fetchSearchPublicBlogs = async (
         headers: {
           "Content-Type": "application/json",
         },
-      }
+      },
     );
     if (response.status === 200) {
       const result = response.data;
@@ -94,8 +94,9 @@ export const handleLogout = async (token: string) => {
 };
 // fetch private blogs
 export const fetchPrivateBlogs = async (token: string) => {
-  if (!token)
+  if (!token) {
     return console.log("token is not given for fecthing private stuff");
+  }
   try {
     const response = await fetch(`${BACKEND_URI}/blog/getAllPrivateBlogs`, {
       cache: "no-store",

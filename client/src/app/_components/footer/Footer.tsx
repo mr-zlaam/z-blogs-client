@@ -114,8 +114,8 @@ function Footer() {
         <div className="bg-background shadow-sm shadow-foreground/40 py-6">
           <div className="container mx-auto text-center">
             <p className="text-xs">
-              &copy; 2024 <Link href={"/home"}>Zlaam</Link>. All rights
-              reserved.
+              &copy; 2024{" "}
+              <Link href={"/home"}>Zlaam</Link>. All rights reserved.
             </p>
           </div>
         </div>

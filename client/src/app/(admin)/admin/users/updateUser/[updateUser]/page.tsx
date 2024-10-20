@@ -19,7 +19,7 @@ const fetchSingleUser = async (updateUser: string, token: string) => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
+      },
     );
     return response.data;
   } catch (error: any) {

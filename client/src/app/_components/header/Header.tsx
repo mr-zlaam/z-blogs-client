@@ -50,15 +50,15 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
             <div className="h-fit w-fit bg-background rounded-full  overflow-hidden ">
               <DropdownMenu>
                 <DropdownMenuTrigger className="bg-transparent cursor-pointer  border-none flex items-center justify-center overflow-hidden">
-                  {user && user.uid ? (
-                    <RandomAvatar
-                      size={35}
-                      mode="random"
-                      name={user && user?.username}
-                    />
-                  ) : (
-                    <FaUserCircle size={35} />
-                  )}
+                  {user && user.uid
+                    ? (
+                      <RandomAvatar
+                        size={35}
+                        mode="random"
+                        name={user && user?.username}
+                      />
+                    )
+                    : <FaUserCircle size={35} />}
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="h-fit w-[200px] shadow-md shadow-foreground/20">
                   {user && (
@@ -122,40 +122,44 @@ function Header({ user, token }: { user: PayLoadType; token: string }) {
                     <div className="p-3 transition-all duration-200 hover:bg-foreground/20">
                       {user && (
                         <span className="text-foreground/50 cursor-not-allowed bg-transparent w-full transition-all duration-200 hover:bg-foreground/20">
-                          {user && user.isVerfied ? (
-                            <span className="flex items-center ">
-                              Verified
-                              <IoIosCheckmark
-                                size={25}
-                                className="text-foreground/60 mx-4"
+                          {user && user.isVerfied
+                            ? (
+                              <span className="flex items-center ">
+                                Verified
+                                <IoIosCheckmark
+                                  size={25}
+                                  className="text-foreground/60 mx-4"
+                                />
+                              </span>
+                            )
+                            : (
+                              <SendOTP
+                                email={user && (user.email as string)}
+                                token={token as string}
                               />
-                            </span>
-                          ) : (
-                            <SendOTP
-                              email={user && (user.email as string)}
-                              token={token as string}
-                            />
-                          )}
+                            )}
                         </span>
                       )}
                     </div>
                   )}
                   <DropdownMenuItem>
-                    {user ? (
-                      <span
-                        onClick={logoutTheUser}
-                        className="text-red-500 select-none flex-1 block p-1  cursor-pointer w-full"
-                      >
-                        Sign Out
-                      </span>
-                    ) : (
-                      <Link
-                        href={"/user-auth/sign-in"}
-                        className="text-green-600 select-none flex-1 block p-1 w-full"
-                      >
-                        Sign in
-                      </Link>
-                    )}
+                    {user
+                      ? (
+                        <span
+                          onClick={logoutTheUser}
+                          className="text-red-500 select-none flex-1 block p-1  cursor-pointer w-full"
+                        >
+                          Sign Out
+                        </span>
+                      )
+                      : (
+                        <Link
+                          href={"/user-auth/sign-in"}
+                          className="text-green-600 select-none flex-1 block p-1 w-full"
+                        >
+                          Sign in
+                        </Link>
+                      )}
                   </DropdownMenuItem>
                   {!user && (
                     <DropdownMenuItem>

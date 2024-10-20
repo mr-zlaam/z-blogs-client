@@ -11,8 +11,9 @@ function Settings() {
       <BackToPreviousRoute />
       <section
         style={{
-          border:
-            theme === "dark" ? "1px solid #ffffff1f" : "1px solid #00000013",
+          border: theme === "dark"
+            ? "1px solid #ffffff1f"
+            : "1px solid #00000013",
         }}
         className="rounded-md "
       >

@@ -26,7 +26,7 @@ function PageHeader() {
                 className={cn(
                   isActivePath(data.path) &&
                     "bg-foreground text-background duration-300 ",
-                  data.className
+                  data.className,
                 )}
               >
                 {data.name}

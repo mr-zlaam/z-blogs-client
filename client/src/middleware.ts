@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { verify, JsonWebTokenError } from "jsonwebtoken";
+import { JsonWebTokenError, verify } from "jsonwebtoken";
 
 export default function middleware(request: NextRequest) {
   const cookieStore = cookies();
@@ -49,7 +49,8 @@ export default function middleware(request: NextRequest) {
   }
 
   // Continue to the next middleware or request handler
-  if (request.nextUrl.pathname === "/")
+  if (request.nextUrl.pathname === "/") {
     return NextResponse.redirect(new URL("/home", request.url));
+  }
   return NextResponse.next();
 }

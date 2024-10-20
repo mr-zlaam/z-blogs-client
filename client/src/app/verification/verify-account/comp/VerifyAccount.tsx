@@ -54,7 +54,7 @@ export function OTPinput({ token }: { token: string }) {
             Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
-        }
+        },
       );
       if (response.status === 200) {
         stopLoading();
@@ -81,7 +81,7 @@ export function OTPinput({ token }: { token: string }) {
       stopLoading();
       errorMessage(
         error?.response?.data.message ||
-          "Something went wrong while sending otp"
+          "Something went wrong while sending otp",
       );
       if (error instanceof Error) {
         stopLoading();

@@ -3,7 +3,7 @@ import type {
   UserRegisterTypes,
   UserUpdateTypes,
 } from "@/types";
-import { type ZodType, enum as enum_, object, string } from "zod";
+import { enum as enum_, object, string, type ZodType } from "zod";
 
 export const registerSchema: ZodType<UserRegisterTypes> = object({
   username: string()
@@ -23,25 +23,24 @@ export const registerSchema: ZodType<UserRegisterTypes> = object({
     .min(1, { message: "This field is required" })
     .max(200, { message: "Email is too long" })
     .email({ message: "Email is not valid" })
-
     .toLowerCase(),
   password: string()
     .min(6, { message: "This field requires at least 6 characters" })
     .max(50, { message: "Password is too long" })
     .regex(
       new RegExp(
-        /^(?!.*\s)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~`-])[A-Za-z0-9!@#$%^&*()_+{}\[\]:;<>,.?/~`-]{6,}$/
+        /^(?!.*\s)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~`-])[A-Za-z0-9!@#$%^&*()_+{}\[\]:;<>,.?/~`-]{6,}$/,
       ),
-      { message: "Password is weak!!" }
+      { message: "Password is weak!!" },
     ),
   confirmPassword: string()
     .min(6, { message: "This field requires at least 6 characters" })
     .max(50, { message: "Password is too long" })
     .regex(
       new RegExp(
-        /^(?!.*\s)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~`-])[A-Za-z0-9!@#$%^&*()_+{}\[\]:;<>,.?/~`-]{6,}$/
+        /^(?!.*\s)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~`-])[A-Za-z0-9!@#$%^&*()_+{}\[\]:;<>,.?/~`-]{6,}$/,
       ),
-      { message: "Confirmpassword is invalid" }
+      { message: "Confirmpassword is invalid" },
     ),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Confirmpassword is not same as passwords",
