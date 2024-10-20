@@ -30,7 +30,7 @@ function ScrollToTop() {
     <>
       <DivWrapper
         className={cn(
-          "fixed bottom-4 right-2 sm:right-10 z-[200] my-10 bg-foreground  text-background  border border-foreground cursor-pointer h-[40px] w-[40px] flex justify-center items-center duration-300 transition-all rounded-full active:scale-90 hover:bg-foreground hover:text-background",
+          "fixed bottom-4 right-2 sm:right-10 z-[200] my-10 bg-foreground  text-background  border border-foreground cursor-pointer h-[40px] w-[40px] flex justify-center items-center duration-300 transition-all rounded-full active:scale-75 hover:bg-foreground hover:text-background",
           isVisible ? "fixed" : "hidden",
         )}
         onClick={scrollToTop}

@@ -39,14 +39,14 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
   const [coverImageUrl, setCoverImageUrl] = useCustomStorage("coverImage", "");
   const [coverImageOwnerName, setCoverImageOwnerName] = useCustomStorage(
     "coverImageOwner",
-    ""
+    "",
   );
   const [isSessionExpiredError, setIsSessionExpiredError] = useState(false);
   const [isBlogReadyForUpload, setIsBlogReadyForUpload] = useState(false);
   const router = useRouter();
   const [blogWriterName, setBlogWriterName] = useCustomStorage(
     "blogWriterName",
-    ""
+    "",
   );
   const [blogOverView, setBlogOverView] = useCustomStorage("blogOverView", "");
 
@@ -56,8 +56,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
     const highlightedHtml = highlightSyntax(rawHtml, "js");
 
     // Add copy buttons to each <pre> block
-    const copyButtonHtml = (id: string) =>
-      `
+    const copyButtonHtml = (id: string) => `
     <div class="relative ">
     <button class="absolute right-5 top-4 px-3 py-1  bg-black  rounded-md  cursor-pointer  duration-200 transition-all " onclick="copyToClipboard('${id}')">
       <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="White" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>
@@ -69,10 +68,12 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       /(<pre[^>]*>)(.*?)(<\/pre>)/gs,
       (_, openingTag, codeContent, closingTag) => {
         const uniqueId = `codeBlock-${Math.random().toString(36).substr(2, 9)}`;
-        return `<div class="code-container">${copyButtonHtml(
-          uniqueId
-        )}${openingTag}<code id="${uniqueId}">${codeContent}</code>${closingTag}</div>`;
-      }
+        return `<div class="code-container">${
+          copyButtonHtml(
+            uniqueId,
+          )
+        }${openingTag}<code id="${uniqueId}">${codeContent}</code>${closingTag}</div>`;
+      },
     );
 
     return withCopyButtons;
@@ -93,11 +94,13 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
   // upload article to database
   const handleCreateBlogs = async () => {
     if (!title) return errorMessage("Write the title of the blog ");
-    if (!coverImageOwnerName)
+    if (!coverImageOwnerName) {
       return errorMessage("Write the name of the owner of the cover image");
+    }
     if (!coverImageUrl) return errorMessage("Write cover image url");
-    if (!blogWriterName)
+    if (!blogWriterName) {
       return errorMessage("Write the name of author who write blog");
+    }
     if (!value) return errorMessage("Write atleast some of it");
     if (!blogOverView) return errorMessage("Write atleast some of it");
     try {
@@ -118,7 +121,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       if (response.status === 201) {
         setValue("");
@@ -130,7 +133,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
         successMessage(
           "Blog submitted to the admin for review successfully",
           "bottom-right",
-          6000
+          6000,
         );
         return router.push("/home");
       }
@@ -238,8 +241,11 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
                 className="bg-muted overflow-hidden rounded-md relative"
               >
                 <Image
-                  src={coverImageUrl ?? ""}
-                  alt={title}
+                  decoding="async"
+                  src={!coverImageUrl
+                    ? "https://live.staticflickr.com/65535/53281434521_eeef635514_z.jpg"
+                    : coverImageUrl}
+                  alt={title ?? "zlaam"}
                   fill
                   className="h-full w-full rounded object-cover"
                   quality={100}
@@ -253,12 +259,12 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
             <div
               className="font-normal text-lg my-5 leading-[2]"
               dangerouslySetInnerHTML={{
-                __html:
-                  renderedHtml.length === 0
-                    ? "Write something...."
-                    : renderedHtml,
+                __html: renderedHtml.length === 0
+                  ? "Write something...."
+                  : renderedHtml,
               }}
-            ></div>
+            >
+            </div>
           </PageWrapper>
         </div>
       )}
@@ -323,7 +329,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
           <input
             className="outline-none m-3 w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3 font-bold pr-20 text-thin text-[12px] font-mono "
             placeholder="Cover Image  Url..."
-            ref={imageUrlRef}
+            ref={imageUrlRef ?? ""}
             type="url"
             onChange={(e) => {
               setCoverImageUrl(e.target.value);
