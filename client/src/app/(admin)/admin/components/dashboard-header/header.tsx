@@ -1,15 +1,12 @@
-import React, { Fragment } from 'react'
+import React, { Fragment } from "react";
 
-import {
-  PanelLeft,
-  Search,
-} from "lucide-react";
+import { PanelLeft, Search } from "lucide-react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ThemeToggler } from "@/theme/ThemeToggler";
-import DivWrapper from '@/_subComponents/divWrapper/DivWrapper';
-import { dashboardNavlinks } from './NavLinkDashBoardHeader';
+import DivWrapper from "@/_subComponents/divWrapper/DivWrapper";
+import { dashboardNavlinks } from "./NavLinkDashBoardHeader";
 function DashBoardHeader() {
   return (
     <>
@@ -22,8 +19,7 @@ function DashBoardHeader() {
           </SheetTrigger>
           <SheetContent side="right" className="sm:max-w-xs">
             <nav className="grid gap-6 text-lg font-medium">
-
-              {dashboardNavlinks.map(link => (
+              {dashboardNavlinks.map((link) => (
                 <Fragment key={link.name}>
                   <Link href={link.path} className={link.className}>
                     <link.icon className={link.iconClassName} />
@@ -48,7 +44,7 @@ function DashBoardHeader() {
         </div>
       </header>
     </>
-  )
+  );
 }
 
-export default DashBoardHeader
+export default DashBoardHeader;

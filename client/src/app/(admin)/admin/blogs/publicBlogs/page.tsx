@@ -1,4 +1,4 @@
-import { } from "react";
+import {} from "react";
 import AllPublicBlogs from "./components/AllPublicBlogs";
 import useCookieGrabber from "@/hooks/useCookieGrabber";
 import { redirect } from "next/navigation";

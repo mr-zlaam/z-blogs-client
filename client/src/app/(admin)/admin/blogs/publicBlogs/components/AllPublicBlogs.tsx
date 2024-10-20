@@ -1,3 +1,5 @@
+"use client";
+import PageLoader from "@/_subComponents/pageLoader/PageLoader";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,29 +24,60 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
-import { fetchAllPublicBlogs, fetchDashboardPublicBlogs } from "@/helper/fetch/fetchData";
+import { fetchDashboardPublicBlogs } from "@/helper/fetch/fetchData";
+import { useLoading } from "@/hooks/useLoading";
 import { BlogTypes } from "@/types";
 import { MoreHorizontal } from "lucide-react";
 import moment from "moment";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { Fragment } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Fragment, useEffect, useState } from "react";
 
-export default async function AllPublicBlogs() {
-  // author is unavailable because of performance issue
-  const publicBlogs: BlogTypes = await fetchDashboardPublicBlogs();
-  if (!publicBlogs.success) return redirect("/home");
+export default function AllPublicBlogs() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [publicBlogs, setPublicBlogs] = useState<BlogTypes | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(
+    Number(searchParams.get("page")) || 1,
+  );
+  const { isLoading, startLoading, stopLoading } = useLoading();
+  useEffect(() => {
+    if (currentPage) {
+      router.push(`/admin/blogs/publicBlogs?page=${currentPage}`, {
+        scroll: false,
+      }); // Update the URL and prevent scroll
+    }
+    let isMounted = true;
+    const fetchData = async () => {
+      try {
+        startLoading();
+        const blogs: BlogTypes = await fetchDashboardPublicBlogs(currentPage);
+        stopLoading();
+        if (blogs.success) return setPublicBlogs(blogs);
+        else return router.push("/home");
+      } catch (error) {
+        console.log(error);
+      } finally {
+        stopLoading();
+      }
+    };
+    fetchData();
+    return () => {
+      isMounted = false; // Clean-up to prevent setting state after unmount
+    };
+  }, [router, stopLoading, startLoading, currentPage]);
   const publicBlogsList = publicBlogs?.data;
   return (
     <>
-      {publicBlogsList?.blogs.length === 0 && (
+      {!isLoading && publicBlogsList?.blogs.length === 0 && (
         <div className="min-h-[70vh] flex justify-center items-center">
           <h1 className="text-3xl font-bold text-center">
             No Public Post Found !
           </h1>
         </div>
       )}
-      {publicBlogs.success
+      {!isLoading && publicBlogs && publicBlogs.success && publicBlogsList &&
+          publicBlogsList.blogs.length > 0
         ? (
           <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
             <Tabs defaultValue="all">
@@ -76,7 +109,7 @@ export default async function AllPublicBlogs() {
                         </TableRow>
                       </TableHeader>
                       <TableBody className="b">
-                        {publicBlogsList?.blogs.map(
+                        {!isLoading && publicBlogsList?.blogs.map(
                           (publicBlog, index: number) => {
                             return (
                               <Fragment key={publicBlog.blogId}>
@@ -146,13 +179,32 @@ export default async function AllPublicBlogs() {
                 </Card>
               </TabsContent>
             </Tabs>
+            <div className="flex justify-start items-center">
+              {publicBlogs?.metaData?.pagination?.hasPreviousPage && (
+                <button
+                  className="px-4 py-2 bg-foreground rounded duration-200 active:scale-90 transition-transform text-background font-bold border-none cursor-pointer "
+                  onClick={() => setCurrentPage((prev) => prev - 1)}
+                >
+                  Prev
+                </button>
+              )}
+            </div>
+
+            <div className="flex justify-end items-center">
+              {publicBlogs?.metaData?.pagination?.hasNextPage && (
+                <button
+                  className="px-4 py-2 bg-foreground rounded duration-200 active:scale-90 transition-transform text-background font-bold border-none cursor-pointer "
+                  onClick={() => setCurrentPage((prev) => prev + 1)}
+                >
+                  Next
+                </button>
+              )}
+            </div>
           </main>
         )
-        : (
-          <div className="min-h-[70vh] flex justify-center items-center">
-            <h1 className="text-3xl font-bold text-center">
-              No Public Post Found !
-            </h1>
+        : isLoading && (
+          <div className="flex justify-center items-center h-[60vh]">
+            <PageLoader />
           </div>
         )}
     </>

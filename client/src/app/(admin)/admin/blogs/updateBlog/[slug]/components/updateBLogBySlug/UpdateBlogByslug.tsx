@@ -83,10 +83,11 @@ function UpdateBlogBySlug({
       /(<pre[^>]*>)(.*?)(<\/pre>)/gs,
       (_, openingTag, codeContent, closingTag) => {
         const uniqueId = `codeBlock-${Math.random().toString(36).slice(2, 11)}`;
-        return `<div class="code-container">${copyButtonHtml(
-          uniqueId,
-        )
-          }${openingTag}<code id="${uniqueId}">${codeContent}</code>${closingTag}</div>`;
+        return `<div class="code-container">${
+          copyButtonHtml(
+            uniqueId,
+          )
+        }${openingTag}<code id="${uniqueId}">${codeContent}</code>${closingTag}</div>`;
       },
     );
 
@@ -174,19 +175,18 @@ function UpdateBlogBySlug({
   };
   return (
     <Fragment>
-
-      {
-        isLoading &&
-        <div>
-          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  z-[1000]">
-            <ButtonLoader />
-            <p className="text-sm font-normal text-center my-2">
-              wait..
-            </p>
+      {isLoading &&
+        (
+          <div>
+            <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  z-[1000]">
+              <ButtonLoader />
+              <p className="text-sm font-normal text-center my-2">
+                wait..
+              </p>
+            </div>
+            <div className="fixed top-0 left-0 w-full h-screen  z-[998] backdrop-blur-sm bg-background/20" />
           </div>
-          <div className="fixed top-0 left-0 w-full h-screen  z-[998] backdrop-blur-sm bg-background/20" />
-        </div>
-      }
+        )}
 
       {isSessionExpiredError && (
         <div className="bg-background/80 backdrop-blur-md fixed top-0 left-0 h-screen z-[200] w-full flex justify-center items-center">

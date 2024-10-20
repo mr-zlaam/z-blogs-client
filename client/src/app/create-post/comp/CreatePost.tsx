@@ -71,10 +71,11 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       /(<pre[^>]*>)(.*?)(<\/pre>)/gs,
       (_, openingTag, codeContent, closingTag) => {
         const uniqueId = `codeBlock-${Math.random().toString(36).substr(2, 9)}`;
-        return `<div class="code-container">${copyButtonHtml(
-          uniqueId,
-        )
-          }${openingTag}<code id="${uniqueId}">${codeContent}</code>${closingTag}</div>`;
+        return `<div class="code-container">${
+          copyButtonHtml(
+            uniqueId,
+          )
+        }${openingTag}<code id="${uniqueId}">${codeContent}</code>${closingTag}</div>`;
       },
     );
 
@@ -82,7 +83,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
   }, [value]);
   const imageUrlRef = useRef<any>(null);
   const setUrlToImageBlog = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     const url = imageUrlRef.current.value;
     if (UseValidateImageUrl(url)) {
       setCoverImageUrl(imageUrlRef.current.value);
@@ -168,14 +169,14 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
     } finally {
       stopLoading();
     }
-  }, [successMessage]);
+  }, [successMessage, startLoading, stopLoading]);
   useEffect(() => {
     if (isSessionExpiredError) {
       setTimeout(() => {
         logoutTheUser();
       }, 1500);
     }
-  }, [isSessionExpiredError, logoutTheUser]);
+  }, [isSessionExpiredError, startLoading, stopLoading, logoutTheUser]);
   const checkIfBlogIsReady = useCallback(() => {
     if (
       title &&
@@ -196,8 +197,6 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
     coverImageOwnerName,
     coverImageUrl,
     value,
-    startLoading,
-    stopLoading
   ]);
 
   useEffect(() => {
