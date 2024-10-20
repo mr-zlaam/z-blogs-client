@@ -85,7 +85,7 @@ export default async function UserDashBoard() {
                       <span className="font-medium">No.</span>
                     </TableHead>
                     <TableHead>Username</TableHead>
-                    <TableHead>Full Name</TableHead>
+                    <TableHead className="hidden md:table-cell">Full Name</TableHead>
                     <TableHead>Role</TableHead>
                     <TableHead className="hidden md:table-cell">
                       Email
@@ -116,7 +116,7 @@ export default async function UserDashBoard() {
                               <TableCell className="font-medium">
                                 {userData.username}
                               </TableCell>
-                              <TableCell>{userData.fullName}</TableCell>
+                              <TableCell className="hidden md:inline-block">{userData.fullName}</TableCell>
                               <TableCell>
                                 <Badge variant="outline">
                                   {userData.role}

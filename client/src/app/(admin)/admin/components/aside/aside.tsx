@@ -4,7 +4,6 @@ import Link from "next/link";
 import { ThemeToggler } from "@/theme/ThemeToggler";
 import { dashboardNavlinks } from '../dashboard-header/NavLinkDashBoardHeader';
 import { cn } from '@/lib/utils';
-import { usePathname } from 'next/navigation';
 import { useActivePath } from '@/helper/checkActivePath/CheckActivePath';
 function Aside() {
   const isActivePath = useActivePath();

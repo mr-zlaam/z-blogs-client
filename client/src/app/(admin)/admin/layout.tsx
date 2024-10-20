@@ -22,12 +22,12 @@ export default function AdminLayout({
     );
   }
   return (
-    <main className="flex min-h-screen w-full flex-col bg-background ">
+    <section className="flex min-h-screen w-full flex-col bg-background ">
       <Aside />
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <DashBoardHeader />
         {children}
       </div>
-    </main>
+    </section>
   );
 }
