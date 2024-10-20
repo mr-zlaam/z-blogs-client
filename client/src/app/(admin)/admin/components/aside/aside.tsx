@@ -3,7 +3,11 @@ import React, { Fragment } from 'react'
 import Link from "next/link";
 import { ThemeToggler } from "@/theme/ThemeToggler";
 import { dashboardNavlinks } from '../dashboard-header/NavLinkDashBoardHeader';
+import { cn } from '@/lib/utils';
+import { usePathname } from 'next/navigation';
+import { useActivePath } from '@/helper/checkActivePath/CheckActivePath';
 function Aside() {
+  const isActivePath = useActivePath();
   return (
     <>
 
@@ -12,7 +16,7 @@ function Aside() {
 
           {dashboardNavlinks.map(link => (
             <Fragment key={link.name}>
-              <Link title={link.name} href={link.path} className={link.className}>
+              <Link title={link.name} href={link.path} className={cn(link.className, isActivePath(link.path) && "text-foreground scale-110")}>
                 <link.icon className={link.iconClassName} />
               </Link>
             </Fragment>
