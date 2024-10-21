@@ -71,11 +71,10 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
       /(<pre[^>]*>)(.*?)(<\/pre>)/gs,
       (_, openingTag, codeContent, closingTag) => {
         const uniqueId = `codeBlock-${Math.random().toString(36).substr(2, 9)}`;
-        return `<div class="code-container">${
-          copyButtonHtml(
-            uniqueId,
-          )
-        }${openingTag}<code id="${uniqueId}">${codeContent}</code>${closingTag}</div>`;
+        return `<div class="code-container">${copyButtonHtml(
+          uniqueId,
+        )
+          }${openingTag}<code id="${uniqueId}">${codeContent}</code>${closingTag}</div>`;
       },
     );
 
@@ -107,6 +106,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
     }
     if (!value) return errorMessage("Write atleast some of it");
     if (!blogOverView) return errorMessage("Write atleast some of it");
+    if (!UseValidateImageUrl(coverImageUrl)) return errorMessage("Please provide a valid image url");
     try {
       startLoading();
       const response = await axios.post(
