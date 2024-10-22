@@ -3,7 +3,7 @@ import UseCookieGrabber from "@/hooks/useCookieGrabber";
 import { PayLoadType } from "@/types";
 import { Separator } from "@radix-ui/react-separator";
 import { verify } from "jsonwebtoken";
-import {} from "react";
+import { } from "react";
 import Header from "../_components/header/Header";
 import PageHeader from "../_components/pageHeader/PageHeader";
 import PageWrapper from "../_components/pageWrapper/PageWrapper";

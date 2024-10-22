@@ -27,7 +27,6 @@ export const fetchHomePageBlogs = async () => {
 export const fetchAllPublicBlogs = async (
   page = 1 as number,
   limit = LIMIT,
-  revalidate = true,
 ) => {
   try {
     const response = await fetch(

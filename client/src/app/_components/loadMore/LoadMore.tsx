@@ -42,7 +42,6 @@ function LoadMore() {
       loadBlogs();
     }, DELAY);
   }, [inView, hasMore, loading]);
-  console.log(blogs);
   return (
     <>
       <section>

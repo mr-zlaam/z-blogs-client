@@ -105,7 +105,7 @@ export default async function UserDashBoard() {
                 </TableHeader>
 
                 <TableBody className="">
-                  {!users?.data.users || users.data?.users === undefined
+                  {!users?.data?.users || users.data?.users === undefined
                     ? "No Data found"
                     : users?.data?.users.map(
                       (userData: UserDataTypes, index: number) => {
