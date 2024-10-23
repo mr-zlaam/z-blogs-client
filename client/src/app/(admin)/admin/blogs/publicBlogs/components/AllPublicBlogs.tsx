@@ -101,7 +101,7 @@ export default function AllPublicBlogs() {
                             Created At
                           </TableHead>
                           <TableHead className="hidden md:table-cell">
-                            Updated At
+                            Overview
                           </TableHead>
                           <TableHead>
                             <span className="font-medium">Actions</span>
@@ -112,7 +112,7 @@ export default function AllPublicBlogs() {
                         {!isLoading && publicBlogsList?.blogs.map(
                           (publicBlog, index: number) => {
                             return (
-                              <Fragment key={publicBlog.blogId}>
+                              <Fragment key={publicBlog?.blogId ?? Date.now()}>
                                 <TableRow className="">
                                   <TableCell className="hidden sm:table-cell">
                                     <span className="font-medium">
@@ -120,7 +120,7 @@ export default function AllPublicBlogs() {
                                     </span>
                                   </TableCell>
                                   <TableCell className="font-medium">
-                                    {publicBlog.blogTitle}
+                                    {publicBlog?.blogTitle}
                                   </TableCell>
 
                                   <TableCell className="hidden md:table-cell">
@@ -129,9 +129,11 @@ export default function AllPublicBlogs() {
                                     )}
                                   </TableCell>
                                   <TableCell className="hidden md:table-cell">
-                                    {moment(publicBlog.updatedAt).format(
-                                      "MMMM Do YYYY, h:mm:ss a",
-                                    )}
+                                    <span className="text-sm max-w-[200px] font-normal block mx-2 text-foreground/70 pr-4 text-start">
+                                      <span className="line-clamp-2 overflow-hidden text-ellipsis">
+                                        {publicBlog?.blogOverView}
+                                      </span>
+                                    </span>
                                   </TableCell>
                                   <TableCell>
                                     <DropdownMenu>

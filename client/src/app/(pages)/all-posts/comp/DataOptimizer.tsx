@@ -7,7 +7,6 @@ import { SITE_VERSION } from "@/constants";
 import { BlogDataTypes } from "@/types";
 import moment from "moment";
 import Image from "next/image";
-import { useEffect } from "react";
 
 interface blogPostProps {
   post: BlogDataTypes;
