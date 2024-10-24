@@ -194,9 +194,9 @@ function RegisterForm() {
                 <Button
                   disabled={isLoading}
                   className={cn(
-                    "text-white w-full bg-blue-500 duration-200 transition-all hover:bg-blue-700",
+                    "text-forground w-full",
                     isLoading &&
-                    "cursor-not-allowed bg-blue-800/50 hover:bg-blue-800/50",
+                    "cursor-not-allowed bg-foreground/80   hover:bg-background/80 ",
                   )}
                 >
                   {isLoading ? <ButtonLoader /> : <span>Register</span>}

@@ -134,11 +134,12 @@ function LoginForm() {
                 </div>
 
                 <Button
+                  type="submit"
                   disabled={isLoading}
                   className={cn(
-                    "text-white w-full bg-blue-500 duration-200 transition-all hover:bg-blue-700",
+                    "text-white w-full",
                     isLoading &&
-                    "cursor-not-allowed bg-blue-800/50 hover:bg-blue-800/50",
+                    "cursor-not-allowed !bg-foreground/90   hover:!bg-background/90  ",
                   )}
                 >
                   {isLoading ? <ButtonLoader /> : <span>Sign in</span>}

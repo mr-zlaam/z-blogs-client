@@ -210,6 +210,14 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
     blogOverView,
     checkIfBlogIsReady,
   ]);
+  const showPreview = () => {
+    if (coverImageUrl.length > 0 && !UseValidateImageUrl(coverImageUrl)) {
+      setIsPreviewOpen(false)
+      return errorMessage("Image url is not valid")
+    }
+
+    setIsPreviewOpen(prev => !prev)
+  }
   return (
     <>
       {isLoading && (
@@ -295,9 +303,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
           }
         }}
         autoFocus
-        onClick={() => {
-          setIsPreviewOpen((prev) => !prev);
-        }}
+        onClick={showPreview}
       >
         {isPreviewOpen ? "Hide Preview" : "ShowPreview"}
       </Button>
@@ -325,24 +331,31 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
           }}
           onKeyDown={(e) => {
             if (e.key === "L" && e.ctrlKey && e.shiftKey) {
-              setIsPreviewOpen((prev) => !prev);
+              showPreview()
             }
           }}
         />
-        <textarea
-          className="outline-none p w-full  bg-transparent resize-none border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3"
-          placeholder=" Write some information about your blog..."
-          value={blogOverView}
-          onChange={(e) => {
-            setBlogOverView(e.target.value);
-          }}
-          rows={3}
-          onKeyDown={(e) => {
-            if (e.key === "L" && e.ctrlKey && e.shiftKey) {
-              setIsPreviewOpen((prev) => !prev);
-            }
-          }}
-        />
+        <div className="relative">
+          <textarea
+            className="outline-none p w-full  bg-transparent resize-none border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3"
+            placeholder=" Give overview on your blog in 2 to 3 lines"
+            value={blogOverView}
+            onChange={(e) => {
+              if (e.target.value.length > 540) return
+              setBlogOverView(e.target.value as string);
+            }}
+            rows={3}
+            spellCheck="false"
+            data-gramm="false"
+            autoComplete="off"
+            onKeyDown={(e) => {
+              if (e.key === "L" && e.ctrlKey && e.shiftKey) {
+                showPreview()
+              }
+            }}
+          />
+          <span className="absolute bottom-2 right-2">{540 - blogOverView.length}</span>
+        </div>
         <div className="relative">
           <input
             className="outline-none m-3 w-full text-lg bg-transparent border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3 font-bold pr-20 text-thin text-[12px] font-mono "
@@ -355,7 +368,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
             value={coverImageUrl}
             onKeyDown={(e) => {
               if (e.key === "L" && e.ctrlKey && e.shiftKey) {
-                setIsPreviewOpen((prev) => !prev);
+                showPreview();
               }
             }}
           />
@@ -377,7 +390,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
           }}
           onKeyDown={(e) => {
             if (e.key === "L" && e.ctrlKey && e.shiftKey) {
-              setIsPreviewOpen((prev) => !prev);
+              showPreview()
             }
           }}
         />
@@ -391,7 +404,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
           }}
           onKeyDown={(e) => {
             if (e.key === "L" && e.ctrlKey && e.shiftKey) {
-              setIsPreviewOpen((prev) => !prev);
+              showPreview()
             }
           }}
         />
@@ -429,7 +442,15 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
           setValue={setValue}
           value={value}
           className=""
-          setIsPreviewOpen={setIsPreviewOpen}
+          setIsPreviewOpen={() => {
+            if (coverImageUrl.length > 0 && !UseValidateImageUrl(coverImageUrl)) {
+              setIsPreviewOpen(false)
+              return errorMessage("Image url is not valid")
+            }
+
+            setIsPreviewOpen(prev => !prev)
+
+          }}
         />
       </div>
     </>

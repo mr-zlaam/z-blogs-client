@@ -1,7 +1,7 @@
 "use client";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
-import { Link } from "@/components/ui/link";
+import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { SITE_VERSION } from "@/constants";
 import { BlogDataTypes } from "@/types";
@@ -30,7 +30,7 @@ function BlogDataOptimizer({ post }: blogPostProps) {
                 {post.blogOverView}
               </span>
             </span>
-            <Button variant={"link"} className="bg-transparent text-blue-500">
+            <Button variant={"link"} className="bg-transparent">
               Read More...
             </Button>
           </Link>
