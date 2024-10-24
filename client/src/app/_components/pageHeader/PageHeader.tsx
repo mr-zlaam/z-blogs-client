@@ -21,19 +21,13 @@ function PageHeader() {
               href={data.path}
               className="mx-2 my-4 border border-solid rounded-md"
             >
-              {/* <Button */}
-              {/*   variant={data.variant} */}
-              {/*   className={cn( */}
-              {/*     isActivePath(data.path) && */}
-              {/*       "bg-foreground text-background duration-300 ", */}
-              {/*     data.className, */}
-              {/*   )} */}
-              {/* > */}
-              {/*   {data.name} */}
-              {/* </Button> */}
               <Button
-                variant={isActivePath(data.path) ? "default" : "outline"}
-                className={cn("")}
+                variant={data.variant}
+                className={cn(
+                  isActivePath(data.path) &&
+                  "bg-foreground text-background duration-300 ",
+                  data.className,
+                )}
               >
                 {data.name}
               </Button>

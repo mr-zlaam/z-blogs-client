@@ -21,7 +21,7 @@ function BlogDataOptimizer({ post }: blogPostProps) {
             <span className="text-foreground/90 text-xl font-semibold block mx-2">
               {post.blogTitle}
             </span>
-            <span className="text-sm mx-2 text-green-600 block">
+            <span className="text-sm mx-2 text-green-700 dark:text-green-500 block">
               Published : {moment(post.createdAt).format("MMMM Do, YYYY")}
             </span>
             {/* Updated text behavior */}

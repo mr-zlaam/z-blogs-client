@@ -46,7 +46,7 @@ function SearchAcrossTheSite() {
               <input
                 required
                 type="text"
-                className="sm:w-[90%] w-full  ring-0 focus-within:shadow-lg focus-within:shadow-foreground/50 rounded duration-300 transition-shadow  h-full font-semibold sm:text-lg p-4 outline-none shadow-md shadow-foreground/20 pr-14 bg-transparent border-solid "
+                className="sm:w-[90%] w-full  ring-0 focus-within:shadow-lg focus-within:shadow-foreground/50 rounded duration-300 transition-shadow  h-full font-semibold sm:text-lg p-4 outline-none shadow-sm shadow-foreground/5 pr-14 bg-transparent border-solid "
                 placeholder="Search"
                 autoFocus
                 autoComplete="off"
