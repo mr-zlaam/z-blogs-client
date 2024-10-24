@@ -1,5 +1,6 @@
 "use client";
 import ButtonLoader from "@/_subComponents/buttonLoader/buttonLoader";
+import DivWrapper from "@/_subComponents/divWrapper/DivWrapper";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -65,16 +66,16 @@ function RegisterForm() {
 
       return errorMessage(
         error?.response?.data?.message ||
-          "some thing went wrong while register the user",
+        "some thing went wrong while register the user",
       );
     }
   };
   return (
     <>
       <section className="relative top-20">
-        <form onSubmit={handleSubmit(handleRegisterSubmit)}>
-          <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
-            <div className="border rounded-lg shadow sm:w-full bg-background md:mt-0 sm:max-w-md xl:p-0">
+        <form onSubmit={handleSubmit(handleRegisterSubmit)} className="">
+          <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 ">
+            <div className="border rounded-lg shadow sm:w-full bg-background md:mt-0 sm:max-w-md xl:p-0  border-solid">
               <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-center text-foreground md:text-2xl">
                   Create an Account
@@ -148,12 +149,13 @@ function RegisterForm() {
                     placeholder="••••••••"
                     id="password"
                   />
-                  <span
+                  <DivWrapper
+                    type="button"
                     onClick={() => setShowPassword((prev) => !prev)}
-                    className="absolute right-4 top-6  cursor-pointer h-7 w-7 rounded-full bg-transparent duration-300 transition-all hover:bg-foreground/10 flex justify-center items-center"
+                    className="absolute right-3 top-6  cursor-pointer h-7 w-7"
                   >
                     {showPassword ? <EyeOpenIcon /> : <EyeClosedIcon />}
-                  </span>
+                  </DivWrapper>
                   <p className="h-[15px]">
                     {errors.password && (
                       <span className="text-xs select-none text-red-500 h-[15px] text-balance ml-2">
@@ -173,12 +175,13 @@ function RegisterForm() {
                     placeholder="••••••••"
                     id="confirm"
                   />
-                  <span
+                  <DivWrapper
+                    type="button"
                     onClick={() => setConfirmShowPassword((prev) => !prev)}
-                    className="absolute right-4 top-6  cursor-pointer h-7 w-7 rounded-full bg-transparent duration-300 transition-all hover:bg-foreground/10 flex justify-center items-center"
+                    className="absolute right-3 top-6  cursor-pointer h-7 w-7"
                   >
                     {showConfirmPassword ? <EyeOpenIcon /> : <EyeClosedIcon />}
-                  </span>
+                  </DivWrapper>
                   <p className="h-[15px]">
                     {errors.confirmPassword && (
                       <span className="text-xs select-none text-red-500 h-[15px] text-balance ml-2">
@@ -193,7 +196,7 @@ function RegisterForm() {
                   className={cn(
                     "text-white w-full bg-blue-500 duration-200 transition-all hover:bg-blue-700",
                     isLoading &&
-                      "cursor-not-allowed bg-blue-800/50 hover:bg-blue-800/50",
+                    "cursor-not-allowed bg-blue-800/50 hover:bg-blue-800/50",
                   )}
                 >
                   {isLoading ? <ButtonLoader /> : <span>Register</span>}

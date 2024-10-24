@@ -1,5 +1,6 @@
 "use client";
 import ButtonLoader from "@/_subComponents/buttonLoader/buttonLoader";
+import DivWrapper from "@/_subComponents/divWrapper/DivWrapper";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -88,7 +89,7 @@ function LoginForm() {
       <section className="relative top-24">
         <form onSubmit={handleSubmit(handleLoginSubmit)}>
           <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
-            <div className="sm:w-full bg-background rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0">
+            <div className="sm:w-full bg-background rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 border-solid">
               <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-foreground md:text-2xl">
                   Sign in
@@ -118,12 +119,13 @@ function LoginForm() {
                     placeholder="••••••••"
                     autoComplete="on"
                   />
-                  <span
+                  <DivWrapper
+                    type="button"
                     onClick={() => setShowPassword((prev) => !prev)}
-                    className="absolute right-4 top-6  cursor-pointer h-7 w-7 rounded-full bg-transparent duration-300 transition-all hover:bg-foreground/10 flex justify-center items-center"
+                    className="absolute right-4 top-6  cursor-pointer h-7 w-7"
                   >
                     {showPassword ? <EyeOpenIcon /> : <EyeClosedIcon />}
-                  </span>
+                  </DivWrapper>
                   {errors.password && (
                     <p className="text-xs select-none text-red-500  text-balance ml-2">
                       {errors.password.message}
@@ -136,7 +138,7 @@ function LoginForm() {
                   className={cn(
                     "text-white w-full bg-blue-500 duration-200 transition-all hover:bg-blue-700",
                     isLoading &&
-                      "cursor-not-allowed bg-blue-800/50 hover:bg-blue-800/50",
+                    "cursor-not-allowed bg-blue-800/50 hover:bg-blue-800/50",
                   )}
                 >
                   {isLoading ? <ButtonLoader /> : <span>Sign in</span>}
