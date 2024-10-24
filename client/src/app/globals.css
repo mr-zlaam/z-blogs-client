@@ -72,6 +72,14 @@
     @apply bg-background text-foreground;
   }
 
+  code {
+    @apply dark:bg-[#28282b] dark:text-white/70 bg-[#28282b] text-white/80 !important;
+  }
+
+  pre {
+    @apply dark:bg-[#2828b] dark:text-white/70 bg-[#28282b] text-white/80 !important;
+  }
+
   .dark .CodeMirror {
     @apply bg-background text-white leading-[2] text-lg selection:bg-foreground selection:text-background !important;
 
