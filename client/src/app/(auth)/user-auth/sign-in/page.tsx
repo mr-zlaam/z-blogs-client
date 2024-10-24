@@ -137,7 +137,7 @@ function LoginForm() {
                   type="submit"
                   disabled={isLoading}
                   className={cn(
-                    "text-white w-full",
+                    "w-full",
                     isLoading &&
                     "cursor-not-allowed !bg-foreground/90   hover:!bg-background/90  ",
                   )}
@@ -148,7 +148,7 @@ function LoginForm() {
                   Don&apos;t have an Account ?
                   <Link
                     href="/user-auth/sign-up"
-                    className="text-blue-500 hover:underline"
+                    className="hover:underline"
                   >
                     &nbsp; Register
                   </Link>

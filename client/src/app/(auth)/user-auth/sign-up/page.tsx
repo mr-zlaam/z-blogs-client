@@ -194,7 +194,7 @@ function RegisterForm() {
                 <Button
                   disabled={isLoading}
                   className={cn(
-                    "text-forground w-full",
+                    "w-full",
                     isLoading &&
                     "cursor-not-allowed bg-foreground/80   hover:bg-background/80 ",
                   )}
@@ -205,7 +205,7 @@ function RegisterForm() {
                   Already have an Account ?
                   <Link
                     href="/user-auth/sign-in"
-                    className="text-blue-500 hover:underline"
+                    className="hover:underline"
                   >
                     <span>&nbsp; Login</span>
                   </Link>
