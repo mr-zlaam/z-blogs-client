@@ -337,8 +337,8 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
         />
         <div className="relative">
           <textarea
-            className="outline-none p w-full  bg-transparent resize-none border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3"
-            placeholder=" Give overview on your blog in 2 to 3 lines"
+            className="outline-none p w-full font-bold  bg-transparent resize-none border-solid border-b-foreground border-t-0 border-r-0 border-l-0 p-3"
+            placeholder=" Write overview on your blog in 2 to 3 lines"
             value={blogOverView}
             onChange={(e) => {
               if (e.target.value.length > 540) return
@@ -449,6 +449,7 @@ function CreatePost({ token, uid }: { token: string; uid: string }) {
             }
 
             setIsPreviewOpen(prev => !prev)
+
 
           }}
         />
